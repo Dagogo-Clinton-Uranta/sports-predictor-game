@@ -150,8 +150,8 @@ function MembersRowCard ({ name, email, joined, status, isSelf}) {
                   </div>
                 </Grid>
               </Grid>
-              {
-                !isSelf && (
+              {/* {
+                !isSelf && ( */}
                   <Grid item xs direction="column" spacing={2}>
               <Box display="flex" alignItems="center" className={classes.box}>
               <Grid item xs={6} sm container spacing={1} justifyContent="flex-end" alignItems="center">
@@ -183,8 +183,8 @@ function MembersRowCard ({ name, email, joined, status, isSelf}) {
                   </Grid>
 
               </Grid>
-                )
-              }
+              {/* )
+              } */}
 
           
             </Grid>

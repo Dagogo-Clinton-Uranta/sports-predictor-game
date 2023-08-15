@@ -6,14 +6,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Iconify from '../components/iconify';
 import MembersRowCard from 'src/components/members/members-row-card';
-import { fetchEmployeer, fetchGroupMembers } from 'src/redux/actions/group.action';
+import { fetchEmployeer, fetchGroupMembers, makeCoolerPayment } from 'src/redux/actions/group.action';
 import EmptyRowCard from 'src/components/home/empty-row-card';
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 
 
 export default function MembersPage() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { groupMembers, employeer, isLoading } = useSelector((state) => state.group);
   const groupData = location.state?.groupData;
@@ -58,6 +60,17 @@ export default function MembersPage() {
   ) : 
   <EmptyRowCard msg={"Members that have joined will appear here."}/>
 
+
+  const makePayment = () => {
+    console.log("GROUP_DATA::::", groupData);
+    if(user?.walletBalance >= groupData?.feeInNum){
+      let today = new Date().toLocaleDateString()
+      dispatch(makeCoolerPayment(groupData?.groupId, user, today, navigate, user?.walletBalance, groupData?.feeInNum, groupData?.accountBal, groupData?.name, user?.accruedBalance ));
+   }else{
+    notifyErrorFxn("You do not have enough balance")
+   }
+   }
+
   return (
     <>
       <Helmet>
@@ -68,8 +81,8 @@ export default function MembersPage() {
           {/* <SearchBox style={{ width: '100%' }} /> */}
           <br/>
           <Grid  container direction="row" justifyContent="flex-end" alignItems="flex-end">
-          <Button variant="contained" style={{backgroundColor: "#348AED", paddingTop: '10px', paddingBottom: '10px',  paddingRight: '30px', paddingLeft: '30px'}} startIcon={<Iconify icon="eva:plus-fill" />}>
-          Make Payment
+          <Button onClick={() => makePayment()} variant="contained" disabled={isLoading} style={{backgroundColor: "#348AED", paddingTop: '10px', paddingBottom: '10px',  paddingRight: '30px', paddingLeft: '30px'}} startIcon={<Iconify icon="eva:plus-fill" />}>
+          {isLoading ? "Loading..." : "Make Payment"}
         </Button>
         </Grid>
           <br/>

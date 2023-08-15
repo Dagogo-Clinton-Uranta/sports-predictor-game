@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   
 
 
-function MyCoolersRowCard ({ groupId, name, fee, count, status, img, startDate, members, isMember}) {
+function MyCoolersRowCard ({ groupId, name, fee, feeInNum, count, status, img, startDate, members, isMember}) {
     const [isOpen, setIsOpen] = useState(false);
     const classes = useStyles();
     const classes2 = useStyles2();
@@ -147,7 +147,7 @@ function MyCoolersRowCard ({ groupId, name, fee, count, status, img, startDate, 
               <Grid item justifyContent="flex-end" alignItems="center" sx={{mt: 5}}>
               <Button variant="contained" style={{minHeight: '45px', minWidth: '125px', backgroundColor: '#348AED', }}
               onClick={() => {
-                const groupData = {groupId, name, fee, count, img, startDate, members}
+                const groupData = {groupId, name, fee, feeInNum, count, img, startDate, members}
                 navigate('/dashboard/members', { state: { groupData } })
               }}>
                 VIEW

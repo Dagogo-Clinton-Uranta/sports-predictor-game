@@ -161,6 +161,14 @@ export default function RegisterPage() {
                   {loading ? 'Loading...' : 'Sumbit'}
                 </LoadingButton>
               </Grid>
+              &nbsp; &nbsp; &nbsp;
+              <Grid item xs={2}>
+                <LoadingButton onClick={() => {
+                  navigate('/login');
+                }} fullWidth size="large" variant="contained" disabled={loading} style={{background: '#348AED'}}>
+                  {loading ? 'Loading...' : 'Cancel'}
+                </LoadingButton>
+              </Grid>
             </Grid>
               </Grid>
             </Grid>

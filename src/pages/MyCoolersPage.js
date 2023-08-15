@@ -40,6 +40,7 @@ export default function MyCoolersPage() {
         groupId={group.groupId}
         name={group.groupName} 
         fee={fCurrency(group.amount)}
+        feeInNum={group.amount}
         count={`${group.members.length} OF ${group.noOfSavers} SAVERS`}
         img={group.imageUrl}
         members={group.members}

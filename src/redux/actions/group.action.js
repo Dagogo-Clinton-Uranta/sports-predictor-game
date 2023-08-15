@@ -292,6 +292,65 @@ export const fetchPrivateGroup = () => async (dispatch) => {
    })
 })
  };
+
+   export const makeCoolerPayment = (groupID, user, today, navigate, userWalletBal, groupFee, groupBal, groupName, accruedBalance) => async (dispatch) => {
+    let todaysDate = new Date().toISOString().slice(0, 10) //2018-08-03
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    var today  = new Date();
+    const date = today.toISOString();  
+
+   
+    let newUserBal = userWalletBal - groupFee;
+    let newGroupBal = groupBal + groupFee;
+    let newAccruedBal = accruedBalance + groupFee;
+      // console.log("New Group Bal: ", newGroupBal);
+    dispatch(isItLoading(true));
+  db.collection('groups')
+  var userRef = db.collection("groups").doc(groupID);
+  userRef.update({
+    accountBalance: newGroupBal,
+  }).then((res) => {
+    db.collection('employees')
+    .doc(user.id)
+    .update({
+      walletBalance: newUserBal,
+      accruedBalance: newAccruedBal,
+    })
+   .then(() => {
+    db.collection('groups').doc(groupID).collection('membersCollection').add({
+      memberName: user.firstName + " " + user.lastName,
+      memberEmail: user.email,
+      memberImageUrl: "",
+      invitedBy: user.id,
+      invite: 0,
+      paid: 1,
+      users: user.id,
+      sentAt: today,
+    }).then((resp) => {
+      }).then(() => {
+        return db.collection('transactions')
+          .add({
+              userID: user.id,
+              coolerID: groupID,
+              type: 'Payment',
+              amount: groupFee,
+              date: todaysDate,
+              createdAt: today.toLocaleDateString("en-US", options),
+          })
+      })
+  }).then(() => {
+    dispatch(isItLoading(false));
+    notifySuccessFxn("Payment successful")
+    // window.location = '/dashboard/home';
+    navigate('/dashboard/home', { replace: true });
+    }).catch((error) => {
+    console.log("Error joining group:", error);
+    var errorMessage = error.message;
+    notifyErrorFxn(errorMessage)
+    dispatch(isItLoading(false));
+  });
+   }) 
+ };
 //    export const joinGroup = (groupID, user, today, navigate, userBal, groupFee) => async (dispatch) => {
 //     dispatch(isItLoading(true));
 //     let newMembers;

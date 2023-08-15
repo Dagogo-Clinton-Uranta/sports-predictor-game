@@ -10,6 +10,8 @@ import Iconify from '../components/iconify';
 import Piggy from '../assets/images/piggy2.jpg';
 import CoolerEntryIMG from '../assets/images/cooler-entry.jpg';
 import LoginForm from 'src/components/login/LoginForm';
+import { useState } from 'react';
+import ForgotPasswordForm from 'src/components/forgot-password/ForgotPassowrdForm';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +45,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 export default function LoginPage() {
   const mdUp = useResponsive('up', 'md');
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   return (
     <>
@@ -67,7 +70,19 @@ export default function LoginPage() {
         )}
 
         <Container maxWidth="sm">
-          <StyledContent>
+          {forgotPassword ? <StyledContent>
+            <Typography variant="h4" gutterBottom>
+              Forgot your Password
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 2 }}>
+              Enter email address to reset password {''}
+            </Typography>
+
+            <ForgotPasswordForm setForgotPassword={setForgotPassword}/>
+            <Typography variant="body2" sx={{ mt: 2 }} onClick={() => setForgotPassword(false)}>
+              <Link href='#' variant="subtitle2">Sign In</Link>
+            </Typography>
+          </StyledContent> : <StyledContent>
             <Typography variant="h4" gutterBottom>
               Sign in to Cooler(Employee)
             </Typography>
@@ -83,7 +98,10 @@ export default function LoginPage() {
             </Divider>
 
             <LoginForm />
-          </StyledContent>
+            <Typography variant="body2" sx={{ mt: 2 }} onClick={() => setForgotPassword(true)}>
+              <Link href='#' variant="subtitle2">Forgot Password?</Link>
+            </Typography>
+          </StyledContent>}
         </Container>
       </StyledRoot>
     </>

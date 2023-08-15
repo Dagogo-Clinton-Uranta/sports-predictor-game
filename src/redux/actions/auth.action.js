@@ -87,6 +87,24 @@ export const signup = (user, navigate, setLoading) => async (dispatch) => {
 }
 
 
+export const forgotPassword = (email, setLoading, setForgotPassword) => async (dispatch) => {
+       setLoading(true);
+       fb
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        setLoading(false);
+        notifySuccessFxn('Password reset email sent. Check your inbox for instructions.');
+        setForgotPassword(false);
+      })
+      .catch(error => {
+        setLoading(false);
+        notifyErrorFxn(`Error sending password reset email: ${error.message}`);
+        // setMessage(`Error sending password reset email: ${error.message}`);
+      });
+};
+
+
 export const uploadImage = (user, file, navigate, setLoading) => async (dispatch) => {
   const imageName = uuidv4() + '.' + file?.name?.split('.')?.pop();
   console.log('File Name: ', imageName);
