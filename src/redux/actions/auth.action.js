@@ -8,7 +8,7 @@ import { clearGroup } from '../reducers/group.slice';
   export const signin = (user, navigate, setLoading) => async (dispatch) => {
     fb.auth().signInWithEmailAndPassword(user.email, user.password)
     .then((userCredential) => {
-      // Signed in
+      // Signed in//
       var user = userCredential.user;
       console.log('Signed In user is: ', user.email);
        dispatch(fetchUserData(user.uid, "sigin", navigate, setLoading));
