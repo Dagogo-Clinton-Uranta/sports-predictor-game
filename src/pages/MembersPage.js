@@ -52,6 +52,7 @@ export default function MembersPage() {
         email={member.email} 
         joined={dateString}
         status={"Paid"}
+        image = {member.imageUrl}
         isSelf={member.id === user.id ? true : false}
         />
         </>

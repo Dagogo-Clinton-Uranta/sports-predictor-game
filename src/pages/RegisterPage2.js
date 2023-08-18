@@ -158,7 +158,7 @@ export default function RegisterPage() {
                 <Grid container direction="row" style={{marginTop: '2%'}}>
               <Grid item xs={2}>
                 <LoadingButton fullWidth size="large" type="submit" variant="contained" disabled={loading} style={{background: '#348AED'}}>
-                  {loading ? 'Loading...' : 'Sumbit'}
+                  {loading ? 'Loading...' : 'Submit'}
                 </LoadingButton>
               </Grid>
               &nbsp; &nbsp; &nbsp;

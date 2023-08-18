@@ -47,7 +47,7 @@ export default function HomePage() {
       theme.palette.primary.main,
       theme.palette.primary.dark,
     ],
-    labels: [],
+    labels: ["ACCRUED","ACCRUED"],
     interactions: [],
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center', show:false },
@@ -59,8 +59,15 @@ export default function HomePage() {
         donut: {
           size: '70%',
           labels: {
+            // value: {
+            //   formatter: (val) => fNumber(0),
+            // },
             value: {
-              formatter: (val) => fNumber(0),
+              formatter: (val) =>  {if(user &&user.accruedBalance)
+                           {return fCurrency(user.accruedBalance)}
+                           else {return '$0'}
+   
+                          }
             },
             total: {
               formatter: (w) => {
@@ -73,6 +80,10 @@ export default function HomePage() {
             hover: {
               enabled: false
           },
+          toggle: {
+            enabled: false,
+           
+        },
           },
         },
       },
