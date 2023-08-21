@@ -9,7 +9,7 @@ import MembersRowCard from 'src/components/members/members-row-card';
 import { fetchEmployeer, fetchGroupMembers, makeCoolerPayment } from 'src/redux/actions/group.action';
 import EmptyRowCard from 'src/components/home/empty-row-card';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
-
+import { formatDate } from 'src/utils/formatTime';
 
 
 export default function MembersPage() {
@@ -32,9 +32,12 @@ export default function MembersPage() {
     groupMembers.map(member => {
       console.log("MEMBER: ", member);
       const timestampInSeconds = member?.accountCreated?.seconds;
-      const timestampInMilliseconds = timestampInSeconds * 1000 + Math.floor(member?.accountCreated?.nanoseconds / 1000000);
-      const date = new Date(timestampInMilliseconds);
-      const dateString = date.toLocaleString();
+            const timestampInMilliseconds =
+              timestampInSeconds * 1000 + Math.floor(member?.accountCreated?.nanoseconds / 1000000);
+            const date = new Date(timestampInMilliseconds);
+            // const dateString = date.toLocaleString();
+            const dateString = formatDate(member?.accountCreated);
+      
       return (
        <>
        {/* {employeer &&
