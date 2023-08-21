@@ -21,7 +21,7 @@ import { BaseOptionChart } from 'src/components/chart2';
 import RecentTransaction from 'src/components/home/recent-transaction';
 import { fetchMyTransactions } from 'src/redux/actions/transaction.action';
 import HomeCoolersCard from 'src/components/home/home-coolers-card';
-// import PdfViewer from './PdfViewer';
+import PdfViewer from './PdfViewer';
 
 
 const CHART_HEIGHT = 392;
@@ -145,6 +145,7 @@ const myCoolerGroups = myGroups?.length ? (
         {/* <Typography variant="h4" sx={{ mb: 5 }}>
          Welcome 🖐🏽
         </Typography> */}
+        <PdfViewer />
         <Grid container spacing={2}>
             <Grid item xs={12} md={8} lg={6}>
               <Paper
