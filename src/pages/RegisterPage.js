@@ -5,12 +5,9 @@ import { Link, Container, Typography, Divider, Stack, Button } from '@mui/materi
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
-import Iconify from '../components/iconify';
 
-import Piggy from '../assets/images/piggy2.jpg';
-import Money from '../assets/images/money.jpg';
-import LoginForm from 'src/components/login/LoginForm';
-import CoolerEntryIMG from '../assets/images/cooler-entry.jpg';
+import BANNER_IMG from '../assets/images/banner-bg.png';
+import IMG from '../assets/images/img-2.png';
 import RegisterForm from 'src/components/register/RegisterForm';
 
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -21,13 +18,18 @@ const StyledRoot = styled('div')(({ theme }) => ({
 
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
-  maxWidth: 480,
+  maxWidth: 680,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   boxShadow: theme.customShadows.card,
   backgroundColor: theme.palette.background.default,
+  backgroundImage: `url(${IMG})`,
+  backgroundSize: '100% 100%', 
+  objectFit: 'cover',
+  backgroundPosition: 'center',
 }));
+
 
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 480,
@@ -40,43 +42,32 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 
-
 export default function RegisterPage() {
   const mdUp = useResponsive('up', 'md');
 
   return (
     <>
       <Helmet>
-        <title> Register | Cooler Web </title>
+        <title> Register </title>
       </Helmet>
 
-      <StyledRoot>
-
-        
-      {mdUp && (
-          <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              <span className='wave' style={{color: '#348AED'}}>*Cooler*</span> your guaranteed back up plan
-            </Typography>
-            <img src={CoolerEntryIMG} alt="login" />
-            {/* <img src="/assets/illustrations/illustration_login.png" alt="login" /> */}
-          </StyledSection>
+      <StyledRoot style={{ flexDirection: 'row-reverse' }}>
+        {mdUp && (
+           <StyledSection style={{ border: '0px solid green', flex: 2 }}>
+       </StyledSection>
         )}
 
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" style={{ border: '0px solid red', flex: 2 }}>
           <StyledContent>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
+          <img src={IMG} width="300" height="60" />
+          </div>
             <Typography variant="h4" gutterBottom>
-              Register on Cooler(<span style={{color: '#348AED'}}>Employee</span>)
+            Registration
             </Typography>
-
             <RegisterForm />
-            <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                OR
-              </Typography>
-            </Divider>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              Already have an account? {''}
+            <Typography variant="body2" sx={{ mt: 2 }}>
+             Already have an account? {''}
               <Link href='/login' variant="subtitle2">Login</Link>
             </Typography>
           </StyledContent>

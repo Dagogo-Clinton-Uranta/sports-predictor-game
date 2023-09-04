@@ -4,6 +4,7 @@ import { useDispatch as useAppDispatch, useSelector as useAppSelector } from 're
 import thunk from 'redux-thunk';
 import storage from './storage';
 import authReducer from './reducers/auth.slice';
+import studentReducer from './reducers/student.slice';
 import groupReducer from './reducers/group.slice';
 import inboxReducer from './reducers/chat.slice';
 import transactionReducer from './reducers/transactions.slice';
@@ -13,6 +14,7 @@ import transactionReducer from './reducers/transactions.slice';
 
 const reducers = combineReducers({
   auth: authReducer,
+  student: studentReducer,
   group: groupReducer,
   // chat: chatReducer,
   inbox: inboxReducer,

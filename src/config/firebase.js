@@ -6,13 +6,13 @@ import "firebase/auth";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDXYDyDFyCGZm1ukPFjGcgltftOBDeqqPM",
-  authDomain: "coworkpay.firebaseapp.com",
-  projectId: "coworkpay",
-  storageBucket: "coworkpay.appspot.com",
-  messagingSenderId: "1087411400971",
-  appId: "1:1087411400971:web:b34d3ebc1da344c6e1b20e",
-  measurementId: "G-2TF1H866QZ"
+  apiKey: "AIzaSyCHhVUwhnVBc5QKuGvSfOox-bl79L9XqOo",
+  authDomain: "boncole-44e56.firebaseapp.com",
+  projectId: "boncole-44e56",
+  storageBucket: "boncole-44e56.appspot.com",
+  messagingSenderId: "765277216419",
+  appId: "1:765277216419:web:74e5a4524307797ac56916",
+  measurementId: "G-G0MPE3S0M3"
 };
 
 // Initialize Firebase

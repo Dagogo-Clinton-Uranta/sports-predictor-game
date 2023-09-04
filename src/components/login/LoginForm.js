@@ -21,16 +21,24 @@ export default function LoginForm() {
 
   const userSignin = (e) => {
     e.preventDefault();
-    setLoading(true);
-    const user = { email, password };
-    dispatch(signin(user, navigate, setLoading));
+    navigate('/dashboard/home');
+    // setLoading(true);
+    // const user = { email, password };
+    // dispatch(signin(user, navigate, setLoading));
   }
 
   return (
     <>
      <form onSubmit={userSignin}>
       <Stack spacing={3}>
-        <TextField required name="email" type="email" label="Email address" onChange={(e) => setEmail(e.target.value)}/>
+      <TextField
+      required
+      name="email"
+      type="email"
+      label="Email address"
+      onChange={(e) => setEmail(e.target.value)}
+      sx={{ borderRadius: '12px' }}
+    />
 
         <TextField
           name="password"
@@ -57,7 +65,7 @@ export default function LoginForm() {
         </Link> */}
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" disabled={loading}>
+      <LoadingButton fullWidth size="large" type="submit" disabled={loading} style={{backgroundColor: '#0A8FAC', color: 'white'}}>
         {loading ? "Loading..." : "Login"}
       </LoadingButton>
       </form>

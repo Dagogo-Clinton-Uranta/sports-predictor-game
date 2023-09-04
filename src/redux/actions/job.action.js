@@ -11,7 +11,6 @@ export const getJobs = (uid) => async (dispatch) => {
         var errorMessage = error.message;
         console.log('Error fetching jobs', errorMessage);
 });
-
 };
 
 export const getSingleJob = (id) => async (dispatch) => {

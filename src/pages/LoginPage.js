@@ -4,18 +4,17 @@ import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
-// components
-import Iconify from '../components/iconify';
 
-import Piggy from '../assets/images/piggy2.jpg';
-import CoolerEntryIMG from '../assets/images/cooler-entry.jpg';
+import BANNER_IMG from '../assets/images/banner-bg.png';
+import IMG from '../assets/images/img-2.png';
+import PATIENT_IMG from '../assets/images/patient.png';
+import DOCTOR_IMG from '../assets/images/doctor.png';
 import LoginForm from 'src/components/login/LoginForm';
-import { useState } from 'react';
-import ForgotPasswordForm from 'src/components/forgot-password/ForgotPassowrdForm';
 
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
+  backgroundColor: 'white',
   [theme.breakpoints.up('md')]: {
     display: 'flex',
   },
@@ -23,12 +22,18 @@ const StyledRoot = styled('div')(({ theme }) => ({
 
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
-  maxWidth: 480,
+  maxWidth: 680,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   boxShadow: theme.customShadows.card,
   backgroundColor: theme.palette.background.default,
+  backgroundImage: `url(${BANNER_IMG})`,
+  backgroundSize: '100% 100%',
+  objectFit: 'cover',
+  backgroundPosition: 'center',
+  alignItems: 'center',
+  justifyItems: 'center',
 }));
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -45,63 +50,43 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 export default function LoginPage() {
   const mdUp = useResponsive('up', 'md');
-  const [forgotPassword, setForgotPassword] = useState(false);
 
   return (
     <>
       <Helmet>
-        <title> Login | Cooler Web </title>
+        <title> IBARA </title>
       </Helmet>
 
-      <StyledRoot>
-      {/* <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-      <img src={Piggy} width="100" height="100"/>
-    </Typography> */}
-      
-
+      <StyledRoot style={{ flexDirection: 'row-reverse' }}>
         {mdUp && (
-          <StyledSection>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
-            </Typography>
-            <img src={CoolerEntryIMG} alt="login" />
-            {/* <img src="/assets/illustrations/illustration_login.png" alt="login" /> */}
-          </StyledSection>
+        <StyledSection style={{ border: '0px solid green', flex: 2 }}>
+              <img src={IMG} width="300" height="300" />
+       </StyledSection>
         )}
 
-        <Container maxWidth="sm">
-          {forgotPassword ? <StyledContent>
+        <Container maxWidth="sm" style={{ border: '0px solid red', flex: 2 }}>
+          <StyledContent>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
+              <img src={PATIENT_IMG} width="130" height="130" />
+              <Divider sx={{ my: 3, ml: 4 }}>
+              </Divider>
+            <img src={DOCTOR_IMG} width="130" height="130" />
+            </div>
             <Typography variant="h4" gutterBottom>
-              Forgot your Password
+              Login
             </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              Enter email address to reset password {''}
-            </Typography>
+            <LoginForm />
+            {/* <Typography variant="body2" sx={{ mt: 2 }}>
+              Don’t have an account yet? {''}
+              <Link href='/register' variant="subtitle2">Register here</Link>
+            </Typography> */}
 
-            <ForgotPasswordForm setForgotPassword={setForgotPassword}/>
-            <Typography variant="body2" sx={{ mt: 2 }} onClick={() => setForgotPassword(false)}>
-              <Link href='#' variant="subtitle2">Sign In</Link>
-            </Typography>
-          </StyledContent> : <StyledContent>
-            <Typography variant="h4" gutterBottom>
-              Sign in to Cooler(Employee)
-            </Typography>
-            <Typography variant="body2" sx={{ mb: 2 }}>
-              Don’t have an account? {''}
-              <Link href='/register' variant="subtitle2">Get started</Link>
-            </Typography>
-
-            <Divider sx={{ my: 3 }}>
+            {/* <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 OR
               </Typography>
-            </Divider>
-
-            <LoginForm />
-            <Typography variant="body2" sx={{ mt: 2 }} onClick={() => setForgotPassword(true)}>
-              <Link href='#' variant="subtitle2">Forgot Password?</Link>
-            </Typography>
-          </StyledContent>}
+            </Divider> */}
+          </StyledContent>
         </Container>
       </StyledRoot>
     </>

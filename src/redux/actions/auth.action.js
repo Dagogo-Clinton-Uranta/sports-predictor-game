@@ -5,104 +5,56 @@ import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/group.slice';
 
 
-  export const signin = (user, navigate, setLoading) => async (dispatch) => {
-    fb.auth().signInWithEmailAndPassword(user.email, user.password)
-    .then((userCredential) => {
-      // Signed in//
-      var user = userCredential.user;
-      console.log('Signed In user is: ', user.email);
-       dispatch(fetchUserData(user.uid, "sigin", navigate, setLoading));
-    })
-    .catch((error) => {
-      setLoading(false);
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      notifyErrorFxn(errorMessage);
-      console.log('Error Code is: ', errorCode, + ' Msg is: ', errorMessage);
-      dispatch(loginFailed(errorMessage));
-    });
+export const signin = (user, navigate, setLoading) => async (dispatch) => {
+  fb.auth().signInWithEmailAndPassword(user.email, user.password)
+  .then((userCredential) => {
+    // Signed in
+    var user = userCredential.user;
+    console.log('Signed In user is: ', user.email);
+     dispatch(fetchUserData(user.uid, "sigin", navigate, setLoading));
+  })
+  .catch((error) => {
+    setLoading(false);
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    notifyErrorFxn(errorMessage);
+    console.log('Error Code is: ', errorCode, + ' Msg is: ', errorMessage);
+    dispatch(loginFailed(errorMessage));
+  });
 
 };
 
 
 export const signup = (user, navigate, setLoading) => async (dispatch) => {
-  var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  var today  = new Date();
-  const date = today.toISOString();
- 
-  db.collection('employers')
-    .where('employerNumber', '==', parseInt(user.employeer))
-    .get()
-    .then((snapshot) => {
-      const employeer = snapshot.docs.map((doc) => ({ ...doc.data() }));
-      if (employeer.length) {  
-        console.log('Employeer Exist:', employeer[0].cooler);
-        fb.auth().createUserWithEmailAndPassword(
-          user.email,
-          user.password
-      ).then((res)=>{
-        return db.collection('employees').doc(res.user.uid).set({
-          id: res.user.uid,
-          email: user.email,
-          firstName: user.fname,
-          lastName: user.lname,
-          imageUrl: "",
-          password: user.password,
-          coolers: [],
-          employeerNumber: user.employeer,
-          employeerID: employeer[0].id,
-          accruedBalance: 0,
-          walletBalance: 1000,
-          accountCreated: today.toLocaleDateString("en-US", options),
-        }).then(() => {
-          return db.collection('inbox')
-          .add({
-              id: res.user.uid,
-              msg: 'Welcome to Cooler. Thank you for joining us!',
-              isViewed: false,
-              unread: 0,
-              time: date,
-          })
-        })
-      }).then(() => {
-        notifySuccessFxn("Registered Successfully✔😊")
-        navigate('/login', { replace: true });
-      }).catch((err) => {
-        console.error("Error signing up: ", err);
-        var errorMessage = err.message;
-        notifyErrorFxn(errorMessage);
-        dispatch(signupFailed({ errorMessage }));
-        setLoading(false);
-      })
+var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var today  = new Date();
 
-      } else {
-        setLoading(false);
-        console.log('Invalid employeer code');
-        notifyErrorFxn("Invalid Employeer Code");
-      }
-    }).catch((error) => {
-      setLoading(false);
-      console.log('Error querying collection:', error);
-    });
+  fb.auth().createUserWithEmailAndPassword(
+    user.email,
+    user.password
+).then((res)=>{
+  console.log("Good to go...");
+  return db.collection('admin').doc(res.user.uid).set({
+    adminId: res.user.uid,
+    email: user.email,
+    schoolName: user.sname,
+    firstName: user.fname,
+    lastName: user.lname,
+    phone: user.phone,
+    password: user.password,
+    accountCreated: today.toLocaleDateString("en-US", options),
+  })
+}).then(() => {
+  notifySuccessFxn('Registered Successfully✔');
+  navigate('/login', { replace: true });
+}).catch((err) => {
+  console.error("Error signing up: ", err);
+  var errorMessage = err.message;
+  notifyErrorFxn(errorMessage);
+  dispatch(signupFailed({ errorMessage }));
+  setLoading(false);
+})
 }
-
-
-export const forgotPassword = (email, setLoading, setForgotPassword) => async (dispatch) => {
-       setLoading(true);
-       fb
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        setLoading(false);
-        notifySuccessFxn('Password reset email sent. Check your inbox for instructions.');
-        setForgotPassword(false);
-      })
-      .catch(error => {
-        setLoading(false);
-        notifyErrorFxn(`Error sending password reset email: ${error.message}`);
-        // setMessage(`Error sending password reset email: ${error.message}`);
-      });
-};
 
 
 export const uploadImage = (user, file, navigate, setLoading) => async (dispatch) => {
@@ -135,7 +87,7 @@ export const uploadImage = (user, file, navigate, setLoading) => async (dispatch
 
 
 export const fetchUserData = (id, type, navigate, setLoading) => async (dispatch) => {
-  var user = db.collection("employees").doc(id);
+  var user = db.collection("admin").doc(id);
   user.get().then((doc) => {
   if (doc.exists) {
     // console.log("User Data:", doc.data());

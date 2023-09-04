@@ -25,8 +25,3 @@ export function fToNow(date) {
       })
     : '';
 }
-
-export function formatDate(dateString) {
-  const options = { year: '2-digit', month: 'short', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString(undefined, options);
-};

@@ -51,17 +51,18 @@ function NavItem({ item }) {
         color: '#FFFFFF',
         fontSize: '18px',
         '&.active': {
-          color: '#130C66',
+          color: 'grey',
           // bgcolor: '#66000000',
-          backgroundColor: path != '#' && 'white',
+          backgroundColor: path != '#' && '#392751',
           fontWeight: 'fontWeightBold',
-          borderBottomLeftRadius: '26px',
+          // borderBottomLeftRadius: '26px',
         },
       }}
     >
+      {/* {iconLabel === 'dashboard' && iconLabel != 'settings' && <StyledNav/>ItemIcon sx={{ fontSize: '20px'}}>{icon && icon}</StyledNavItemIcon>} */}
       {iconLabel != 'msg' && iconLabel != 'settings' && <StyledNavItemIcon sx={{ fontSize: '20px'}}>{icon && icon}</StyledNavItemIcon>}
       {iconLabel === 'msg' && <StyledNavItemIcon sx={{fontSize: '20px'}}><MessageIcon /></StyledNavItemIcon>}
-      {iconLabel === 'settings' && <StyledNavItemIcon sx={{fontSize: '20px'}}><SettingsIcon /></StyledNavItemIcon>}
+      {/* {iconLabel === 'settings' && <StyledNavItemIcon sx={{fontSize: '20px'}}><SettingsIcon /></StyledNavItemIcon>} */}
 
       <ListItemText disableTypography primary={title} sx={{color: title.toLowerCase() === 'cooler' && 'white'}}/>
       {/* sx={{ color: '#130C66', fontSize: '18px'}}/> */}
@@ -81,10 +82,10 @@ function SubNavItem({ item }) {
       sx={{
         color: '#FFFFFF',
         '&.active': {
-          color: '#130C66',
-          backgroundColor: path != '#' && 'white',
+          color: 'grey',
+          backgroundColor: path != '#' && '#392751',
           fontWeight: 'fontWeightBold',
-          borderBottomLeftRadius: '26px',
+          // borderBottomLeftRadius: '26px',
         },
       }}
     >

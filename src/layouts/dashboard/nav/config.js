@@ -2,49 +2,36 @@
 import SvgColor from '../../../components/svg-color';
 
 
-const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
+// const icon = (name) => <SvgColor src={`/assets/icons/${name}.png`} sx={{ width: 1, height: 1 }} />;
+const icon = (name) => <img src={`/assets/icons2/${name}.png`} sx={{ width: 1, height: 1 }} />;
 
 const navConfig = [
   {
     title: 'dashboard',
     path: '/dashboard/home',
-    icon: icon('ic_analytics'),
+    icon: icon('dashboard'),
   },
   {
-    title: 'cooler',
-    path: '#',
-    icon: icon('ic_disabled'),
-    children: [
-      {
-        title: 'my coolers',
-        type: 'item',
-        icon: 'Savings',
-        path: '/dashboard/my-cooler',
-      },
-      // {
-      //   title: 'public',
-      //   type: 'item',
-      //   icon: 'LockOpen',
-      //   path: '/dashboard/public-cooler',
-      // },
-      {
-        title: 'join cooler',
-        type: 'item',
-        icon: 'LockIcon',
-        path: '/dashboard/cooler',
-      },
-    ],
+    title: 'student',
+    path: '/dashboard/students',
+    icon: icon('student'),
   },
   {
-    title: 'messages',
-    path: '/dashboard/chat',
-    // icon: icon('ic_msg'),
-    iconLabel: 'msg',
+    title: 'teacher',
+    path: '/dashboard/teachers',
+    icon: icon('teacher'),
+  },
+
+  {
+    title: 'reports',
+    path: '/dashboard/reports',
+    icon: icon('report'),
   },
   {
     title: 'settings',
-    path: '/dashboard/settings',
-    iconLabel: 'settings',
+    // path: '/dashboard/settings',
+    path: '#',
+    icon: icon('settings'),
   },
 ];
 

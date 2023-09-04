@@ -1,144 +1,86 @@
 import { Helmet } from 'react-helmet-async';
+// @mui
 import { styled } from '@mui/material/styles';
-import { Container, Chip, Typography, Divider } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { signin } from 'src/redux/actions/auth.action';
+import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
+// hooks
+import useResponsive from '../hooks/useResponsive';
 
-import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, CssBaseline, TextField, Grid, Button} from '@mui/material';
+import IMG from '../assets/images/child.png';
+import BONLOGO from '../assets/images/logo.png';
+import LoginForm from 'src/components/login/LoginForm';
+
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
+  backgroundColor: 'white',
   [theme.breakpoints.up('md')]: {
     display: 'flex',
   },
 }));
 
-const header = {
-  fontFamily: 'Arial',
-  fontStyle: 'normal',
-  fontWeight: 700,
-  fontSize: '29px',
-  lineHeight: '30.4px',
-  color: 'black',
-  marginLeft: '5%'
-};
+const StyledSection = styled('div')(({ theme }) => ({
+  width: '100%',
+  maxWidth: 680,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  boxShadow: theme.customShadows.card,
+  backgroundColor: theme.palette.background.default,
+  backgroundImage: `url(${IMG})`,
+  backgroundSize: '100% 130%', 
+  objectFit: 'cover',
+  backgroundPosition: 'center',
+}));
 
-const mystyle = {
-    fontFamily: 'Arial',
-    fontStyle: 'normal',
-    fontWeight: 600,
-    fontSize: '21px',
-    lineHeight: '24.8px',
-    color: 'black'
-  };
+
+const StyledContent = styled('div')(({ theme }) => ({
+  maxWidth: 480,
+  margin: 'auto',
+  minHeight: '100vh',
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  padding: theme.spacing(12, 0),
+}));
+
+// ----------------------------------------------------------------------
 
 export default function LoginPage() {
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch(); 
-
-  const userSignin = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const user = { email, password };
-    dispatch(signin(user, navigate, setLoading));
-  }
-
+  const mdUp = useResponsive('up', 'md');
 
   return (
     <>
       <Helmet>
-        <title> Login | Cooler Web </title>
+        <title> Login | BON Web </title>
       </Helmet>
 
-      <StyledRoot>
-      <Container component="main" maxWidth="lg" style={{border: '0px solid red' }}>
-        <div style={{marginLeft: '20%'}}>
-        <CssBaseline /><br/><br/>
-        <div style={{marginLeft: '20%'}}>
-        <p style={header}>EMPLOYEE LOGIN</p>
-        </div>
-        <Box
-          sx={{
-            marginTop: 8,
-            marginLeft: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: "center",
-            border: "0px solid green",
-          }}
-        >
-          <Box>
-          <form component="form" onSubmit={userSignin} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={10} sm={3.5} sx={{mt: -1}} style={{border: '0px solid red'}}>
-                <p style={mystyle}>EMAIL:</p>
-              </Grid>
-              <Grid item xs={12} sm={8} style={{border: '0px solid red'}}>
-                <TextField
-                  variant="standard"
-                  type="email"
-                  style={{border: '1px solid black', width: 380, height: 45,  padding: 2}}
-                  required
-                  fullWidth
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  value={email}    
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={10} sm={3.5} sx={{mt: -1}} style={{border: '0px solid red'}}>
-                <p style={mystyle}>PASSWORD:</p>
-              </Grid>
-              <Grid item xs={12} sm={8} style={{border: '0px solid red'}}>
-                <TextField
-                  variant="standard"
-                  type="password"
-                  style={{border: '1px solid black', width: 380, height: 45,  padding: 2}}
-                  required
-                  fullWidth
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  value={password}    
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Grid>
+      <StyledRoot style={{ flexDirection: 'row-reverse' }}>
+        {mdUp && (
+           <StyledSection style={{ border: '0px solid green', flex: 2 }}>
+       </StyledSection>
+        )}
 
-            </Grid>
-            <Divider style={{color: 'black'}}>
-              <Chip label="......" />
-            </Divider>
-            <center>
-            <Grid item xs={10} sm={2.5} sx={{mr: 5}} style={{border: '0px solid red'}}>
-             <Button
-              type="submit"
-              disabled={loading}
-              // fullWidth
-              variant="contained"
-              style={{backgroundColor: '#348AED', color: 'white', height:"50px",   fontSize:"15px"}}
-              sx={{ mt: 3, mb: 2 }}
-              // onClick={() => {
-                
-              // }}
-            >
-              {loading ? "Loading..." : "SUBMIT"}
-            </Button>
-            </Grid>
-            </center>
-            </form>
-          </Box>
-        </Box>
-        </div>
-      </Container>
+        <Container maxWidth="sm" style={{ border: '0px solid red', flex: 2 }}>
+          <StyledContent>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
+          <img src={BONLOGO} width="300" height="60" />
+          </div>
+            <Typography variant="h4" gutterBottom>
+              Login
+            </Typography>
+            <LoginForm />
+            <Typography variant="body2" sx={{ mt: 2 }}>
+              Don’t have an account yet? {''}
+              <Link href='/register' variant="subtitle2">Register here</Link>
+            </Typography>
+
+            {/* <Divider sx={{ my: 3 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                OR
+              </Typography>
+            </Divider> */}
+          </StyledContent>
+        </Container>
       </StyledRoot>
     </>
   );
