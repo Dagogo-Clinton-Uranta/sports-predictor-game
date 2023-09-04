@@ -31,6 +31,27 @@ export default function PatientPage() {
     dispatch(fetchUserData(user?.id));
   }, []);
 
+  const patientData = [
+    {
+      name: 'Iman Ihsan',
+      age: '26',
+      issue: 'Head Ache',
+      aboutIssue: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia',
+    },
+    {
+      name: 'Jack Dawson',
+      age: '27',
+      issue: 'Cough',
+      aboutIssue: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia',
+    },
+    {
+      name: 'Bilal Haidar',
+      age: '24',
+      issue: 'Anxiety Dis...',
+      aboutIssue: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia',
+    },
+  ];
+
   return (
     <>
       <Container maxWidth="xl">
@@ -42,12 +63,13 @@ export default function PatientPage() {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: 280,
+                maxHeight: 280,
+                overflowY: 'auto',
                 border: '1px solid black',
               }}
             >
               <div style={{ paddingRight: '10px', paddingLeft: '20px' }}>
-                <WaitingRoom />
+                <WaitingRoom patientData={patientData} />
               </div>
             </Paper>
 
@@ -123,19 +145,17 @@ export default function PatientPage() {
             </Grid>
             <br />
             <Grid item xs={12} sm={12} sx={{ border: '0px solid red', width: '100%', padding: '20px' }}>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-             <HospitalBed bedNum={1} />
-             <HospitalBed bedNum={2} />
-             <HospitalBed bedNum={3} />
-             <HospitalBed bedNum={4} />
-             <HospitalBed bedNum={5} />
-             <HospitalBed bedNum={6} />
-             <HospitalBed bedNum={7} />
-             <HospitalBed bedNum={8} />
-             <HospitalBed bedNum={9} />
-             <HospitalBed bedNum={10} />
-
-             
+              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <HospitalBed bedNum={1} />
+                <HospitalBed bedNum={2} />
+                <HospitalBed bedNum={3} />
+                <HospitalBed bedNum={4} />
+                <HospitalBed bedNum={5} />
+                <HospitalBed bedNum={6} />
+                <HospitalBed bedNum={7} />
+                <HospitalBed bedNum={8} />
+                <HospitalBed bedNum={9} />
+                <HospitalBed bedNum={10} />
               </Grid>
             </Grid>
           </Grid>

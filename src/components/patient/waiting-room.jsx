@@ -12,7 +12,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function WaitingRoom() {
+export default function WaitingRoom({patientData}) {
   const { user } = useSelector((state) => state.auth);
   const { transactions } = useSelector((state) => state.transaction);
 
@@ -35,52 +35,52 @@ export default function WaitingRoom() {
           >
         <b>Waiting Room</b>
       </Typography>
-      {/* <Divider />
+      {/* <Divider /> */}
       <Grid container spacing={2} style={{background: 'white',  marginTop: '10px'}}>
-      {transactions?.length > 0 ? (
+      {patientData?.length > 0 ? (
   <>
     <Grid item xs={4}>
-      <h4>DATE</h4>
-      {transactions.map((row, index) => (
+      <h4>Name</h4>
+      {patientData.map((row, index) => (
         <p
           style={{ backgroundColor: index % 2 === 1 ? '#F6F6F6' : 'transparent' }}
           key={index}
         >
-          {row.date}
+          {row.name}
         </p>
       ))}
     </Grid>
     <Grid item xs={4}>
-      <h4>ACTION</h4>
-      {transactions.map((row, index) => (
+      <h4>Age</h4>
+      {patientData.map((row, index) => (
         <p
           style={{ backgroundColor: index % 2 === 1 ? '#F6F6F6' : 'transparent' }}
           key={index}
         >
-          {row.type}
+          {row.age}
         </p>
       ))}
     </Grid>
     <Grid item xs={4}>
-      <h4>AMT</h4>
-      {transactions.map((row, index) => (
+      <h4>Issue</h4>
+      {patientData.map((row, index) => (
         <p
           style={{ backgroundColor: index % 2 === 1 ? '#F6F6F6' : 'transparent' }}
           key={index}
         >
-          ${row.amount}
+          {row.issue}
         </p>
       ))}
     </Grid>
   </>
 ) : (
   <p style={{ paddingTop: '10%', paddingLeft: '30%', textAlign: 'center' }}>
-    <b>No transactions yet</b>
+    <b>No user in the waiting room</b>
   </p>
 )}
 
-      </Grid> */}
-      <Grid container spacing={2}>
+      </Grid>
+      {/* <Grid container spacing={2}>
         <Grid item xs={4}>
           <h4>DATE</h4>
           {rowData.map((row) => (
@@ -99,7 +99,7 @@ export default function WaitingRoom() {
             <p>${row.amount}</p>
           ))}
         </Grid>
-      </Grid>
+      </Grid> */}
         </>
     );
     }
