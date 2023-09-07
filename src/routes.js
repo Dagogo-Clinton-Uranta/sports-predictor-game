@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
 import RegisterPage from './pages/RegisterPage';
 import PatientPage from './pages/PatientPage';
+import EntryPage from './pages/EntryPage';
 
 
 export default function Router() {
@@ -16,6 +17,7 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/login" />, index: true },
+        { path: 'entry', element:  <EntryPage /> },
         { path: 'home', element:  <PatientPage /> },
         { path: 'patient', element: <PatientPage /> },
       ],

@@ -7,8 +7,8 @@ import useResponsive from '../hooks/useResponsive';
 
 import BANNER_IMG from '../assets/images/banner-bg.png';
 import IMG from '../assets/images/img-2.png';
-import PATIENT_IMG from '../assets/images/patient.png';
-import DOCTOR_IMG from '../assets/images/doctor.png';
+import MALE from '../assets/images/male.png';
+import FEMALE from '../assets/images/female.png';
 import LoginForm from 'src/components/login/LoginForm';
 
 // ----------------------------------------------------------------------
@@ -39,11 +39,11 @@ const StyledSection = styled('div')(({ theme }) => ({
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 480,
   margin: 'auto',
-  minHeight: '100vh',
+  minHeight: '50vh',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(5, 5, 12, 5),
 }));
 
 // ----------------------------------------------------------------------
@@ -58,28 +58,27 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot style={{ flexDirection: 'row-reverse' }}>
-        {mdUp && (
-        <StyledSection style={{ border: '0px solid green', flex: 2 }}>
-              <img src={IMG} width="300" height="300" />
-       </StyledSection>
-        )}
-
-        <Container maxWidth="sm" style={{ border: '0px solid red', flex: 2 }}>
+      <Container maxWidth="sm" style={{ border: '1px solid #0000001A', flex: 2,   marginTop: '2%', marginBottom: '2%', borderRadius: '15px' }}>
           <StyledContent>
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
-              <img src={PATIENT_IMG} width="130" height="130" />
-              <Divider sx={{ my: 3, ml: 4 }}>
-              </Divider>
-            <img src={DOCTOR_IMG} width="130" height="130" />
-            </div>
-            <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom style={{textAlign: 'center', fontSize: '46px'}} >
               Login
             </Typography>
+
+          <Typography variant="h6" gutterBottom style={{textAlign: 'center', marginTop: '60px' }} >
+          Select your gender
+          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
+              <img src={MALE} width="130" height="130" />
+              <Divider sx={{ my: 3,}}>
+                OR
+              </Divider>
+            <img src={FEMALE} width="130" height="130" />
+            </div>
+            <Typography variant="h6" sx={{ textAlign: 'center', mb: 2}}>
+                Enter login details
+              </Typography>
             <LoginForm />
-            {/* <Typography variant="body2" sx={{ mt: 2 }}>
-              Don’t have an account yet? {''}
-              <Link href='/register' variant="subtitle2">Register here</Link>
-            </Typography> */}
+          
 
             {/* <Divider sx={{ my: 3 }}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -88,6 +87,7 @@ export default function LoginPage() {
             </Divider> */}
           </StyledContent>
         </Container>
+     
       </StyledRoot>
     </>
   );
