@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Paper, Button, Typography, ButtonBase, Avatar } from '@mui/material';
+import { admitPatients } from 'src/redux/actions/patient.action';
+import { notifySuccessFxn } from 'src/utils/toast-fxn';
+import { useNavigate } from 'react-router-dom';
 
 
 const PatientDetails = () => {
   const { selectedPatient } = useSelector((state) => state.patient);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const mystyle = {
     fontFamily: 'Arial',
@@ -16,8 +22,8 @@ const PatientDetails = () => {
     color: 'black',
   };
 
-  const admitPatient = () => {
-    
+  const admitPatientFxn = () => {
+    dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
   }
 
   return (
@@ -32,14 +38,14 @@ const PatientDetails = () => {
        <Grid item xs container direction="column" spacing={2}>
          <Grid item xs style={{ border: '0px solid red' }}>
            <Typography gutterBottom variant="subtitle1" component="div" style={mystyle}>
-            {selectedPatient?.name}
+            {selectedPatient?.firstName + ' ' + ' ' + selectedPatient?.lastName}
            </Typography>
            <Typography variant="body2" gutterBottom style={mystyle}>
            {selectedPatient?.age}YRS | KID
            </Typography>
 
            <Typography variant="body2" color="text.secondary" style={mystyle}>
-           {selectedPatient?.issue}
+           {selectedPatient?.complaint}
            </Typography>
          </Grid>
 
@@ -48,7 +54,7 @@ const PatientDetails = () => {
      <div style={{padding: '10px'}}>
      <center>
            <div style={{ marginTop: '10px', minHeight: '180px', border: '0px solid red' }}>
-            {selectedPatient?.aboutIssue}
+            {selectedPatient?.aboutIssue ?? 'pturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis '}
            </div>
          </center>
          {/* <hr /> */}
@@ -66,6 +72,7 @@ const PatientDetails = () => {
                padding: '6px',
                height: '50px'
              }}
+             disabled={loading}
            >
              Discharge
            </Button>
@@ -84,9 +91,10 @@ const PatientDetails = () => {
                padding: "6px",
                height: '50px'
              }}
-             onClick={admitPatient}
+             disabled={loading}
+             onClick={admitPatientFxn}
            >
-             Admit
+            {loading ? "Loading" : "Admit"}
            </Button>
          </Grid>
        </Grid>

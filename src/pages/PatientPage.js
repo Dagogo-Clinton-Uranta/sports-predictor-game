@@ -1,4 +1,4 @@
-import { Grid, Container, Typography, Paper } from '@mui/material';
+import { Grid, Container, Typography, Paper, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,10 @@ import IMG4 from '../assets/images/intervention.png';
 import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
+import { getAdmittedPatients, getPatients, getWaitingRoomPatients } from 'src/redux/actions/patient.action';
+import { ToastContainer } from 'react-toastify';
+import BloodInvestigation from 'src/components/treatment/blood-investigation';
+import Prescription from 'src/components/treatment/prescription';
 
 export default function PatientPage() {
   const theme = useTheme();
@@ -23,134 +27,180 @@ export default function PatientPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { selectedPatient } = useSelector((state) => state.patient);
+  const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
+  const [selectedBed, setSelectedBed] = useState(null);
+  const [selectedTreatment, setSelectedTreatment] = useState(null);
+  const [state, setState] = useState({
+    prescription: '',
+    bloodInv1: '',
+    bloodInv2: '',
+  });
 
   useEffect(() => {
-    dispatch(fetchMyTransactions(user?.id));
-    console.log('Transac Changed.');
-  }, [user]);
-
-  useEffect(() => {
-    dispatch(getStudents());
+    dispatch(getWaitingRoomPatients());
+    dispatch(getAdmittedPatients());
     dispatch(fetchUserData(user?.id));
   }, []);
 
-  const patientData = [
-    {
-      name: 'Iman Ihsan',
-      age: '26',
-      issue: 'Head Ache',
-      aboutIssue: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime rops are two independent booleans; they can be combined to allow a Grid component to be both a flex container and child mollitia',
-    },
-    {
-      name: 'Jack Dawson',
-      age: '27',
-      issue: 'Cough',
-      aboutIssue: 'Lorem ipsum dolor sit rops are two independent booleans; they can be combined to allow a Grid component to be both a flex container and child amet consectetur adipisicing elit. Maxime mollitia',
-    },
-    {
-      name: 'Bilal Haidar',
-      age: '24',
-      issue: 'Anxiety Dis...',
-      aboutIssue: 'Lorem ipsum dolor sit amet consectetur rops are two independent booleans; they can be combined to allow a Grid component to be both a flex container and child adipisicing elit. Maxime mollitia',
-    },
-  ];
+  const handleSelectBed = (bedNum) => {
+    console.log(`Selected Bed: ${bedNum}`);
+    setSelectedBed(bedNum);
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name]: value,
+    });
+  };
+
 
   return (
     <>
       <Container maxWidth="xl">
-        <Grid container spacing={2}>
-          <Grid item xs={10} sm={4.5} sx={{ border: '0px solid red' }}>
-            {/* <Grid item xs={12} md={8} lg={4} style={{width: '100%', border: '2px solid red'}}> */}
-            <Paper
-              sx={{
-                // p: 2,
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                maxHeight: 300,
-                overflowY: 'auto',
-                // border: '1px solid black',
-                background: '#474747',
-                borderRadius: '9px',
-              }}
-            >
-              <div style={{  }}>
-                <WaitingRoom patientData={patientData} />
-              </div>
-            </Paper>
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {isLoading ? (
+          <center>
+            <CircularProgress />
+          </center>
+        ) : (
+          <Grid container spacing={2}>
+            <Grid item xs={10} sm={4.5} sx={{ border: '0px solid red' }}>
+              {/* <Grid item xs={12} md={8} lg={4} style={{width: '100%', border: '2px solid red'}}> */}
+              <Paper
+                sx={{
+                  // p: 2,
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  maxHeight: 300,
+                  overflowY: 'auto',
+                  // border: '1px solid black',
+                  background: '#474747',
+                  borderRadius: '9px',
+                }}
+              >
+                <div style={{}}>
+                  <WaitingRoom patientData={patients} />
+                </div>
+              </Paper>
 
-            <br />
-            <br />
+              <br />
+              <br />
 
-            <Paper
-              sx={{
-                // border: '1px solid black',
-                p: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 410,
-                backgroundColor: '#F5F5F5',
-                borderRadius: '9px',
-              }}
-            >
-              {selectedPatient ?  <PatientDetails /> :  <EmptyPane title={'Action Pane'}/>}
-            </Paper>
-          </Grid>
-
-          {/* </Grid> */}
-
-          <Grid item xs={0.2} sm={0} sx={{ border: '0px solid black' }} />
-
-          <Grid item xs={12} sm={7.0} sx={{ border: '0px solid green' }}>
-          <Grid container spacing={2} justifyContent="center">
-              {/* Image 1 */}
-              <Grid item xs={2.2} style={{backgroundColor: '#D7DBA5', height: '150px', borderRadius: '9px'}}>
-               <center> <img src={IMG1} alt="Image 1" style={{marginTop: '12%', marginRight: '10%'}} /></center>
-               <Typography variant="subtitle1" style={{ textAlign: 'left', marginTop: '35%' }}>
-                  INVESTIGATIONS
-                </Typography>
-              </Grid>
-              &nbsp;&nbsp;&nbsp;
-              {/* Image 2 */}
-              <Grid item xs={2.2} style={{backgroundColor: '#21D0C3', height: '150px', borderRadius: '9px'}}>
-                <center><img src={IMG2} alt="Image 2" style={{marginTop: '12%', marginRight: '10%'}} /></center>
-                <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
-                  RADIOLOGY
-                </Typography>
-              </Grid>
-              &nbsp;&nbsp;&nbsp;
-              {/* Image 3 */}
-              <Grid item xs={2.2} style={{backgroundColor: '#A160E4', height: '150px', borderRadius: '9px'}}>
-               <center> <img src={IMG3} alt="Image 3" style={{marginTop: '12%', marginRight: '10%'}} /></center>
-               <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
-                  PRESCRIPTIONS
-                </Typography>
-              </Grid>
-              &nbsp;&nbsp;&nbsp;
-              {/* Image 4 */}
-              <Grid item xs={2.2} style={{backgroundColor: '#00B8D4', height: '150px', borderRadius: '9px'}}>
-                <center><img src={IMG4} alt="Image 4" style={{marginTop: '12%', marginRight: '10%'}} /></center>
-                <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
-                  INTERVENTIONS
-                </Typography>
-              </Grid>
-              &nbsp;&nbsp;&nbsp;
-              {/* Image 5 */}
-              <Grid item xs={2.5} style={{backgroundColor: '#E5EEF9', height: '150px', borderRadius: '9px'}}>
-                <center><img src={IMG5} alt="Image 5" style={{marginTop: '12%', marginRight: '10%'}} /></center>
-                <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '28%' }}>
-                  REFERRALS
-                </Typography>
-              </Grid>
+              <Paper
+                sx={{
+                  // border: '1px solid black',
+                  p: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 410,
+                  backgroundColor: '#F5F5F5',
+                  borderRadius: '9px',
+                }}
+              >
+                {selectedTreatment === 1 ?  <BloodInvestigation state={state} setState={setState} handleChange={handleChange} /> : 
+                selectedTreatment === 2 ? <Prescription state={state} handleChange={handleChange} /> : selectedPatient ? <PatientDetails /> : <EmptyPane title={'Action Pane'} />} 
+                {/*  */}
+                {/* {selectedPatient ? <PatientDetails /> : <EmptyPane title={'Action Pane'} />} */}
+              </Paper>
             </Grid>
-            <br /><br/><br/>
-            <Typography variant="subtitle1">
-            Available hospital Beds
-            </Typography>
-            <br/>
-            <Grid item xs={12} sm={12} sx={{ border: '0px solid red', width: '100%', }}>
-              <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+
+            {/* </Grid> */}
+
+            <Grid item xs={0.2} sm={0} sx={{ border: '0px solid black' }} />
+
+            <Grid item xs={12} sm={7.0} sx={{ border: '0px solid green' }}>
+              <Grid container spacing={2}>
+                {/* Image 1 */}
+                <Grid item xs={2.2} style={{ backgroundColor: '#D7DBA5', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 1 ? '2px solid black' : ''}} 
+                onClick={() => {
+                 if(selectedBed){
+                  setSelectedTreatment(1);
+                 }
+                }}>
+                  <center>
+                    {' '}
+                    <img src={IMG1} alt="Image 1" style={{ marginTop: '12%', marginRight: '10%' }} />
+                  </center>
+                  <Typography variant="subtitle1" style={{ textAlign: 'left', marginTop: '35%' }}>
+                    INVESTIGATIONS
+                  </Typography>
+                </Grid>
+                &nbsp;&nbsp;&nbsp;
+                {/* Image 2 */}
+                <Grid item xs={2.2} style={{ backgroundColor: '#21D0C3', height: '150px', cursor: 'pointer', borderRadius: '9px', border: selectedTreatment === 2 ? '2px solid black' : '' }} onClick={() => {
+                 if(selectedBed){
+                  setSelectedTreatment(2);
+                 }
+                }}>
+                  <center>
+                    <img src={IMG2} alt="Image 2" style={{ marginTop: '12%', marginRight: '10%' }} />
+                  </center>
+                  <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
+                    RADIOLOGY
+                  </Typography>
+                </Grid>
+                &nbsp;&nbsp;&nbsp;
+                {/* Image 3 */}
+                <Grid item xs={2.2} style={{ backgroundColor: '#A160E4', height: '150px', borderRadius: '9px' }}>
+                  <center>
+                    {' '}
+                    <img src={IMG3} alt="Image 3" style={{ marginTop: '12%', marginRight: '10%' }} />
+                  </center>
+                  <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
+                    PRESCRIPTIONS
+                  </Typography>
+                </Grid>
+                &nbsp;&nbsp;&nbsp;
+                {/* Image 4 */}
+                <Grid item xs={2.2} style={{ backgroundColor: '#00B8D4', height: '150px', borderRadius: '9px' }}>
+                  <center>
+                    <img src={IMG4} alt="Image 4" style={{ marginTop: '12%', marginRight: '10%' }} />
+                  </center>
+                  <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
+                    ECG   &nbsp;&nbsp;&nbsp;
+                  </Typography>
+                </Grid>
+                &nbsp;&nbsp;&nbsp;
+                {/* Image 5 */}
+                <Grid item xs={2.2} style={{ backgroundColor: '#E5EEF9', height: '150px', borderRadius: '9px' }}>
+                  <center>
+                    <img src={IMG5} alt="Image 5" style={{ marginTop: '12%', marginRight: '10%' }} />
+                  </center>
+                  <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
+                    REFERRALS
+                  </Typography>
+                </Grid>
+              </Grid>
+              <br />
+              <br />
+              <br />
+              <Typography variant="subtitle1">Available hospital Beds</Typography>
+              <br />
+              <Grid item xs={12} sm={12} sx={{ border: '0px solid red', width: '100%' }}>
+                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                  {Array?.from({ length: 10 })?.map((_, index) => {
+                    const bedNum = index + 1;
+                    // Find the patient with the matching bedNumber
+                    const patientWithBed = admittedPatients?.find((patient) => patient.bedNumber === bedNum);
+
+                    return <HospitalBed key={bedNum} bedNum={bedNum} patient={patientWithBed} onSelectBed={handleSelectBed} selectedBed={selectedBed} />;
+                  })}
+                </Grid>
+
+                {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <HospitalBed bedNum={1} />
                 <HospitalBed bedNum={2} />
                 <HospitalBed bedNum={3} />
@@ -161,10 +211,11 @@ export default function PatientPage() {
                 <HospitalBed bedNum={8} />
                 <HospitalBed bedNum={9} />
                 <HospitalBed bedNum={10} />
+              </Grid> */}
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        )}
       </Container>
     </>
   );

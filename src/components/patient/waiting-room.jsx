@@ -61,10 +61,10 @@ export default function WaitingRoom({ patientData }) {
                     cursor: 'pointer',
                   }}
                 >
-                  <TableCell style={{ color: 'white' }}>{row.name}</TableCell>
-                  <TableCell style={{ color: 'white' }}>{row.age}</TableCell>
-                  <TableCell style={{ color: 'white' }}>{'Male'}</TableCell>
-                  <TableCell style={{ color: 'white' }}>{row.issue}</TableCell>
+                  <TableCell style={{ color: 'white' }}>{row.firstName + ' ' + ' ' + row.lastName}</TableCell>
+                  <TableCell style={{ color: 'white' }}>{row?.age}</TableCell>
+                  <TableCell style={{ color: 'white' }}>{row?.gender ?? 'Male'}</TableCell>
+                  <TableCell style={{ color: 'white' }}>{row?.complaint}</TableCell>
                 </TableRow>
               ))
             ) : (

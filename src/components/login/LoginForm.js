@@ -21,10 +21,9 @@ export default function LoginForm() {
 
   const userSignin = (e) => {
     e.preventDefault();
-    navigate('/dashboard/entry');
-    // setLoading(true);
-    // const user = { email, password };
-    // dispatch(signin(user, navigate, setLoading));
+    setLoading(true);
+    const user = { email, password };
+    dispatch(signin(user, navigate, setLoading));
   }
 
   return (
@@ -32,7 +31,7 @@ export default function LoginForm() {
      <form onSubmit={userSignin}>
       <Stack spacing={3}>
       <TextField
-      // required
+      required
       name="email"
       type="email"
       label="Email address"
@@ -43,7 +42,7 @@ export default function LoginForm() {
         <TextField
           name="password"
           label="Password"
-          // required
+          required
           onChange={(e) => setPassword(e.target.value)}
           type={showPassword ? 'text' : 'password'}
           sx={{ borderRadius: '12px', background: '#D9D9D921' }}

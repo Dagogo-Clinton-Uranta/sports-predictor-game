@@ -17,7 +17,8 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     setLoading(false);
     var errorCode = error.code;
     var errorMessage = error.message;
-    notifyErrorFxn(errorMessage);
+    alert(errorMessage);
+    // notifyErrorFxn(errorMessage);
     console.log('Error Code is: ', errorCode, + ' Msg is: ', errorMessage);
     dispatch(loginFailed(errorMessage));
   });
@@ -33,14 +34,15 @@ var today  = new Date();
     user.email,
     user.password
 ).then((res)=>{
-  console.log("Good to go...");
-  return db.collection('admin').doc(res.user.uid).set({
-    adminId: res.user.uid,
+  return db.collection('Patients').doc(res.user.uid).set({
+    uid: res.user.uid,
     email: user.email,
-    schoolName: user.sname,
     firstName: user.fname,
     lastName: user.lname,
-    phone: user.phone,
+    age: '25',
+    gender: 'Male',
+    complaint: 'Malu',
+    isAdmitted: false,
     password: user.password,
     accountCreated: today.toLocaleDateString("en-US", options),
   })
@@ -87,14 +89,14 @@ export const uploadImage = (user, file, navigate, setLoading) => async (dispatch
 
 
 export const fetchUserData = (id, type, navigate, setLoading) => async (dispatch) => {
-  var user = db.collection("admin").doc(id);
+  var user = db.collection("Admins").doc(id);
   user.get().then((doc) => {
   if (doc.exists) {
     // console.log("User Data:", doc.data());
     dispatch(storeUserData(doc.data()));
     if(type === "sigin"){
-      notifySuccessFxn("Logged In😊");
-      navigate('/dashboard/home', { replace: true });
+      // notifySuccessFxn("Logged In😊");
+      navigate('/dashboard/entry', { replace: true });
     }
   } else {
       setLoading(false);

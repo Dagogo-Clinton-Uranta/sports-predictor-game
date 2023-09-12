@@ -23,7 +23,6 @@ export default function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [sname, setSName] = useState('');
   const [fname, setFName] = useState('');
   const [lname, setLName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,7 +44,7 @@ export default function RegisterForm() {
   const userSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    const user = {sname, fname, lname, email, phone, password};
+    const user = {fname, lname, email, phone, password};
     dispatch(signup(user, navigate, setLoading)); 
   }
 
@@ -61,11 +60,9 @@ export default function RegisterForm() {
     <>
       <form onSubmit={userSignup}>
       <Stack spacing={3}>
-        <TextField name="sname" required label="Institution Name" value={sname} onChange={(e) => setSName(e.target.value)}/>
         <TextField name="fname" required label="First Name" value={fname} onChange={(e) => setFName(e.target.value)}/>
         <TextField name="lname" required label="Last Name" value={lname} onChange={(e) => setLName(e.target.value)}/>
         <TextField name="email" required label="Email address" type="email" onChange={(e) => setEmail(e.target.value)}/>
-        <TextField name="phone" required label="Phone" type="number" onChange={(e) => setPhone(e.target.value)}/>
         <TextField
           name="password"
           label="Password"

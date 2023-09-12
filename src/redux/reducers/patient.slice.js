@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   patients: [],
+  admittedPatients: [],
   selectedPatient: null,
+  isLoading: false,
   error: '',
   message: '',
 };
@@ -16,10 +18,18 @@ const patientSlice = createSlice({
         state.error = '';
         state.message = '';
       },
+    fetchAdmittedPatients: (state, action) => {
+        state.admittedPatients = action.payload;
+        state.error = '';
+        state.message = '';
+      },
     setSelectedPatient: (state, action) => {
         state.selectedPatient = action.payload;
         state.error = '';
         state.message = '';
+      },
+    setIsLoading: (state, action) => {
+        state.isLoading = action.payload;
       },
     clearPatient: (state) => {
       return {
@@ -33,7 +43,9 @@ const { actions, reducer } = patientSlice;
 
 export const {
  fetchPatients,
+ fetchAdmittedPatients,
  setSelectedPatient,
+ setIsLoading,
 } = actions;
 
 export default reducer;
