@@ -26,10 +26,10 @@ export default function Router() {
       path: 'login',
       element: <LoginPage />,
     },
-    {
-      path: 'register',
-      element: <RegisterPage />,
-    },
+    // {
+    //   path: 'register',
+    //   element: <RegisterPage />,
+    // },
     {
       element: <SimpleLayout />,
       children: [
