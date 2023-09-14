@@ -76,7 +76,7 @@ const PatientDetails = () => {
          </center>
          {/* <hr /> */}
            <br/>
-           <Grid container spacing={2} style={{alignContent: 'bottom', alignItems: 'bottom'}}>
+           <Grid container spacing={2} style={{alignContent: 'bottom', alignItems: 'bottom',marginTop:"-80px"}}>
          <Grid item xs={6} md={6}>
            <Button
              type="submit"

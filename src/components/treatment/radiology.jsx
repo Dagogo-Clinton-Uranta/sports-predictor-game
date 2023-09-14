@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '4rem',
   },
   searchInput: {
-    // background: '#00000033',
+     background: '#FFFFFF',
     border: '1px solid #00000026',
     padding: '10px',
     borderRadius: '8px',

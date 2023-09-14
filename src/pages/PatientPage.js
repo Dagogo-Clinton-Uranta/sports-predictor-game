@@ -128,7 +128,7 @@ export default function PatientPage() {
                   p: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  height: 500,
+                  height: 439,
                   backgroundColor: '#F5F5F5',
                   borderRadius: '9px',
                 }}
@@ -178,7 +178,7 @@ export default function PatientPage() {
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
                 {/* Image 3 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#A160E4', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 3 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
+                <Grid item xs={2.2} style={{ backgroundColor: '#00B8D4', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 3 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
                    onClick={() => {
                     if(selectedBed){
                      setSelectedTreatment(3);
@@ -189,12 +189,12 @@ export default function PatientPage() {
                     <img src={IMG4} alt="Image 3" style={{ marginTop: '12%', marginRight: '10%' }} />
                   </center>
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
-                    PRESCRIPTIONS
+                  ECG
                   </Typography>
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
                 {/* Image 4 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#00B8D4', height: '150px', borderRadius: '9px',  cursor: 'pointer', border: selectedTreatment === 4 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
+                <Grid item xs={2.2} style={{ backgroundColor:'#A160E4', height: '150px', borderRadius: '9px',  cursor: 'pointer', border: selectedTreatment === 4 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
                    onClick={() => {
                     if(selectedBed){
                      setSelectedTreatment(4);
@@ -204,7 +204,7 @@ export default function PatientPage() {
                     <img src={IMG3} alt="Image 4" style={{ marginTop: '12%', marginRight: '10%' }} />
                   </center>
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
-                    ECG   &nbsp;&nbsp;&nbsp;
+                     PRESCRIPTIONS  &nbsp;&nbsp;&nbsp;
                   </Typography>
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
@@ -252,17 +252,18 @@ export default function PatientPage() {
                 <HospitalBed bedNum={10} />
               </Grid> */}
               </Grid>
+             
               <Button
                     // fullWidth
                     variant="contained"
                     style={{
                       marginTop: '5%',
-                      marginLeft: '30%',
-                      backgroundColor: 'black',
+                      marginLeft: '0%',
+                      backgroundColor: '#21D0C3',
                       color: 'white',
                       fontSize: '15px',
                       padding: '4px',
-                      width: '40%',
+                      width: '18%',
                       height: '50px',
                     }}
                     onClick={() => {
@@ -273,6 +274,9 @@ export default function PatientPage() {
                   >
                     Reset
                   </Button>
+                  
+
+
             </Grid>
           </Grid>
         )}

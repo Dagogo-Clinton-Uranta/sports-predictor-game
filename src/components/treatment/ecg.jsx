@@ -135,7 +135,9 @@ const ECG = ({ state, setState, handleChange }) => {
               <Typography variant="subtitle1" style={{ marginBottom: '0px', fontSize: '23px' }}>
                 <b>ECG</b>
               </Typography>
-             <center> <img src={ECGIMG}/></center>
+             <center style={{position:"relative",marginTop:"-7%"}}>
+               <img src={ECGIMG} style={{height:"220px",width:"110px" ,position:"relative",top:"20%"}}/>
+               </center>
               {/* <select
                 name="ECG"
                 value={state.ECG}
@@ -150,13 +152,13 @@ const ECG = ({ state, setState, handleChange }) => {
                 <option value="Sinsa">Sinsa</option>
               </select> */}
             </Grid>
-            <div style={{padding: '10px', border: state.ecg ? '1px solid #00000033' : ''}}>
+            <div style={{padding: '10px',marginTop:"-3px", border: state.ecg ? '1px solid #00000033' : ''}}>
              {state.ecg &&  <Chip label={state.ecg} onClick={handleClick} onDelete={handleDelete1} />}
              
             </div>
             <div style={{ padding: '10px' }}>
               <br />
-              <Grid container spacing={2} style={{ alignContent: 'bottom', alignItems: 'bottom' }}>
+              <Grid container spacing={2} style={{ alignContent: 'bottom', alignItems: 'top' }}>
                 <Grid item xs={4} md={4}>
                   <Button
                     type="submit"
@@ -168,6 +170,7 @@ const ECG = ({ state, setState, handleChange }) => {
                       fontSize: '15px',
                       padding: '4px',
                       height: '50px',
+                      marginTop:"-35px"
                     }}
                     disabled={loading}
                   >
