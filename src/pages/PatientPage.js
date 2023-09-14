@@ -68,9 +68,9 @@ export default function PatientPage() {
       case 2:
         return <Radiology state={state} setState={setState} handleChange={handleChange} />;
       case 3:
-        return  <Prescription state={state} handleChange={handleChange} />;
+        return <ECG state={state} setState={setState} handleChange={handleChange} /> ;
       case 4:
-        return  <ECG state={state} setState={setState} handleChange={handleChange} />;
+        return  <Prescription state={state} handleChange={handleChange} />;
       case 5:
         return  <Referrals state={state} setState={setState} handleChange={handleChange} />;
       default:
