@@ -84,6 +84,58 @@ export const admitPatients = (uid, setLoading, navigate) => async (dispatch) => 
   setLoading(false);
 };
 
+
+export const dischargePatients = (uid, setLoading, navigate) => async (dispatch) => {
+  console.log('FUNCTIONALITY CHECKER.');
+  setLoading(true);
+  // Check if the user already has a bed number
+  const userRef = db.collection('Patients').doc(uid);
+  const userSnapshot = await userRef.get();
+  let userData;
+
+  if (userSnapshot.exists) {
+     userData = userSnapshot.data();
+    
+    if (!userData.bedNumber) {
+      console.log('User is not admitted,please admit first.');
+      notifyErrorFxn("User is not admitted,please admit first.");
+      setLoading(false);
+      return;
+    }
+  }
+  
+  // Remove the bed number for the discharged new patient
+  const dischargeBedNumbers = [];
+  
+  // Query the database to find occupied bed numbers
+  const patientsSnapshot = await db.collection('Patients').get();
+  patientsSnapshot.forEach((patientDoc) => {
+    const patientData = patientDoc.data();
+    if (patientData.bedNumber === userData.bedNumber) {
+      dischargeBedNumbers.push(patientData.bedNumber);
+      console.log('I HAVE FOUND THE BED TO DISCHARGE.');
+    }
+  });
+  
+  const maxBedNumber = 10; // Change this to your maximum bed number
+  
+  for (let i = 1; i <= maxBedNumber; i++) {
+    if (dischargeBedNumbers.includes(i)) {
+      // Found the bed number to discharge
+      await userRef.update({ bedNumber: null, isAdmitted: false });
+      console.log(`Discharged user with bed number ${i}`);
+      notifySuccessFxn(`Discharged patient!`);
+      dispatch(setSelectedPatient(null));
+      dispatch(getAdmittedPatients());
+      dispatch(getWaitingRoomPatients());
+      setLoading(false);
+      break;
+    }
+  }
+  
+  setLoading(false);
+};
+
 export const reset = () => async (dispatch) => {
   dispatch(setIsLoading(true));
 
