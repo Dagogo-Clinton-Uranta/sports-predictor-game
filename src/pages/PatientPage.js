@@ -128,7 +128,7 @@ export default function PatientPage() {
                   p: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  height: 439,
+                  height: 497,
                   backgroundColor: '#F5F5F5',
                   borderRadius: '9px',
                 }}
