@@ -9,6 +9,7 @@ const HospitalBed = ({ bedNum, patient, onSelectBed, selectedBed  }) => {
 
   const handleBedClick = () => {
     console.log("PATIENT__", patient);
+    console.log("SELECTED_BED", selectedBed);
     if(patient != undefined){
       onSelectBed(bedNum);
       dispatch(setSelectedPatient(patient));

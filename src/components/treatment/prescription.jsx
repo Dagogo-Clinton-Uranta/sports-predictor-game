@@ -7,6 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import { admitPatients } from 'src/redux/actions/patient.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
+import MAN from '../../assets/images/man.png';
+import WOMAN from '../../assets/images/woman.png';
+import KID from '../../assets/images/kid.png';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,6 +61,20 @@ const Prescription = ({ state, handleChange }) => {
     color: 'black',
   };
 
+  const getAvatarSrc = (gender) => {
+    switch (gender) {
+      case 'Male':
+        return MAN;
+      case 'Female':
+        return WOMAN;
+      case 'Kid':
+        return KID;
+      default:
+        return MAN; 
+    }
+  };
+
+
   const admitPatientFxn = () => {
     dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
   };
@@ -66,7 +84,7 @@ const Prescription = ({ state, handleChange }) => {
       {selectedPatient && (
         <Grid container spacing={1} sx={{minWidth: 100}}>
           <Grid item>
-            <Avatar alt="avatar" src={IMG} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
+          <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
             {/* </ButtonBase> */}
           </Grid>
           <Grid item xs={12} sm container>
@@ -93,7 +111,7 @@ const Prescription = ({ state, handleChange }) => {
                 </div>
               </Grid>
               <Typography variant="body2" gutterBottom style={mystyle} sx={{ ml: 1.8 }}>
-                {selectedPatient?.age}YRS | KID
+                {selectedPatient?.age}YRS | {selectedPatient?.gender.toUpperCase()}
               </Typography>
             </Grid>
           </Grid>
@@ -101,6 +119,7 @@ const Prescription = ({ state, handleChange }) => {
           <div style={{width: '100%', margin: '20px'}}>
           <Grid item xs={12} md={12} lg={12}>
           <Typography variant="subtitle1" style={{marginBottom: '10px'}}><b>Prescription</b></Typography>
+          <br/>
           <TextField
             name="prescription"
             placeholder=""

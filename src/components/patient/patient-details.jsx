@@ -5,6 +5,9 @@ import { Grid, Container, Paper, Button, Typography, ButtonBase, Avatar } from '
 import { admitPatients } from 'src/redux/actions/patient.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
+import MAN from '../../assets/images/man.png';
+import WOMAN from '../../assets/images/woman.png';
+import KID from '../../assets/images/kid.png';
 
 
 const PatientDetails = () => {
@@ -22,16 +25,30 @@ const PatientDetails = () => {
     color: 'black',
   };
 
+  const getAvatarSrc = (gender) => {
+    switch (gender) {
+      case 'Male':
+        return MAN;
+      case 'Female':
+        return WOMAN;
+      case 'Kid':
+        return KID;
+      default:
+        return MAN; 
+    }
+  };
+
   const admitPatientFxn = () => {
     dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
   }
+
 
   return (
    <>
    {selectedPatient && (
      <Grid container spacing={1}>
      <Grid item>
-       <Avatar alt="avatar" src={IMG} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
+     <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
        {/* </ButtonBase> */}
      </Grid>
      <Grid item xs={12} sm container>
@@ -53,7 +70,7 @@ const PatientDetails = () => {
      </Grid>
      <div style={{padding: '10px'}}>
      <center>
-           <div style={{ marginTop: '10px', minHeight: '180px', border: '0px solid red' }}>
+           <div style={{ marginTop: '10px', minHeight: '250px', border: '0px solid red' }}>
             {selectedPatient?.aboutIssue ?? 'pturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis '}
            </div>
          </center>

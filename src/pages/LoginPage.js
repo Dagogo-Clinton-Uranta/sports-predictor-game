@@ -7,8 +7,8 @@ import useResponsive from '../hooks/useResponsive';
 
 import BANNER_IMG from '../assets/images/banner-bg.png';
 import IMG from '../assets/images/img-2.png';
-import MALE from '../assets/images/male.png';
-import FEMALE from '../assets/images/female.png';
+import MALE from '../assets/images/man.png';
+import FEMALE from '../assets/images/woman.png';
 import LoginForm from 'src/components/login/LoginForm';
 
 // ----------------------------------------------------------------------

@@ -9,13 +9,15 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function WaitingRoom({ patientData }) {
+export default function WaitingRoom({ patientData, setSelectedTreatment, setSelectedBed }) {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [selectedRow, setSelectedRow] = useState(null);
 
   const handleRowClick = (index, row) => {
     setSelectedRow(index === selectedRow ? null : index);
+    setSelectedBed(null);
+    setSelectedTreatment(null);
     console.log('SelectedRow:::', row);
     dispatch(setSelectedPatient(row));
   };

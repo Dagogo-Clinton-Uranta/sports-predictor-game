@@ -45,6 +45,7 @@ export const {
  fetchPatients,
  fetchAdmittedPatients,
  setSelectedPatient,
+ clearPatient,
  setIsLoading,
 } = actions;
 

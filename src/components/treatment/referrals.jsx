@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BloodInvestigation = ({ state, setState, handleChange }) => {
+const Referrals = ({ state, setState, handleChange }) => {
   const { selectedPatient } = useSelector((state) => state.patient);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -84,11 +84,10 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
     console.info('You clicked the Chip.');
   };
 
-  const handleDelete = () => {
+  const handleDelete1 = () => {
     setState({
         ...state,
-        bloodInv1: '',
-        bloodInv2: '',
+        referral: '',
       });
   };
 
@@ -132,43 +131,29 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
 
           <div style={{ width: '100%', margin: '20px' }}>
             <Grid item xs={12} md={12} lg={12}>
-              <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>
-                <b>Blood Investigation</b>
-              </Typography><br/>
+              <Typography variant="subtitle1" style={{ marginBottom: '10px', fontSize: '23px' }}>
+                <b>Referral</b>
+              </Typography>
+              <br/>
               <select
-                name="bloodInv1"
-                value={state.bloodInv1}
+                name="referral"
+                value={state.referral}
                 onChange={handleChange}
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
               >
                 <option value=""></option>
-                <option value="Toxicology">Toxicology</option>
-                <option value="Pantalogy">Pantalogy</option>
-                <option value="Heriye">+Heriye</option>
+                <option value="Cardiology Department">Cardiology Department</option>
+                <option value="Polar Department">Polar Department</option>
+                <option value="Laser Department">Laser Department</option>
+                <option value="Banku Department">Banku Department</option>
               </select>
             </Grid>
-            <div style={{ marginTop: '10px' }}></div>
-            <Grid item xs={12} md={12} lg={12}>
-              <select
-                name="bloodInv2"
-                value={state.bloodInv2}
-                onChange={handleChange}
-                className={classes.searchInput}
-                style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
-                required
-                disabled={!state.bloodInv1 ? true : false}
-              >
-                <option value=""></option>
-                <option value="Full Blood Count">Full Blood Count</option>
-                <option value="Half Blood Count">Half Blood Count</option>
-              </select>
-            </Grid>
-            <br/>
-            <div style={{padding: '10px', border: state.bloodInv2 ? '1px solid #00000033' : ''}}>
-             {state.bloodInv2 && <> &nbsp; 
-              <Chip label={state.bloodInv2} onClick={handleClick} onDelete={handleDelete} /></>}
+            <br/><br/>
+            <div style={{padding: '10px', border: state.referral ? '1px solid #00000033' : ''}}>
+             {state.referral &&  <Chip label={state.referral} onClick={handleClick} onDelete={handleDelete1} />}
+             
             </div>
             <div style={{ padding: '10px' }}>
               <br />
@@ -199,4 +184,4 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   );
 };
 
-export default BloodInvestigation;
+export default Referrals;

@@ -1,4 +1,4 @@
-import { Grid, Container, Typography, Paper, CircularProgress } from '@mui/material';
+import { Grid, Container, Typography, Button, Paper, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,10 +16,13 @@ import IMG4 from '../assets/images/intervention.png';
 import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
-import { getAdmittedPatients, getPatients, getWaitingRoomPatients } from 'src/redux/actions/patient.action';
+import { getAdmittedPatients, getPatients, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
 import { ToastContainer } from 'react-toastify';
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
+import Radiology from 'src/components/treatment/radiology';
+import ECG from 'src/components/treatment/ecg';
+import Referrals from 'src/components/treatment/referrals';
 
 export default function PatientPage() {
   const theme = useTheme();
@@ -34,6 +37,9 @@ export default function PatientPage() {
     prescription: '',
     bloodInv1: '',
     bloodInv2: '',
+    radiology: '',
+    ecg: 'Mid Axillary',
+    referral: '',
   });
 
   useEffect(() => {
@@ -54,6 +60,24 @@ export default function PatientPage() {
       [e.target.name]: value,
     });
   };
+
+  const renderContent = (selectedTreatment, state, setState, handleChange, selectedPatient) => {
+    switch (selectedTreatment) {
+      case 1:
+        return <BloodInvestigation state={state} setState={setState} handleChange={handleChange} />;
+      case 2:
+        return <Radiology state={state} setState={setState} handleChange={handleChange} />;
+      case 3:
+        return  <Prescription state={state} handleChange={handleChange} />;
+      case 4:
+        return  <ECG state={state} setState={setState} handleChange={handleChange} />;
+      case 5:
+        return  <Referrals state={state} setState={setState} handleChange={handleChange} />;
+      default:
+        return selectedPatient ? <PatientDetails /> : <EmptyPane title={'Action Pane'} />;
+    }
+  };
+  
 
 
   return (
@@ -77,10 +101,9 @@ export default function PatientPage() {
         ) : (
           <Grid container spacing={2}>
             <Grid item xs={10} sm={4.5} sx={{ border: '0px solid red' }}>
-              {/* <Grid item xs={12} md={8} lg={4} style={{width: '100%', border: '2px solid red'}}> */}
               <Paper
                 sx={{
-                  // p: 2,
+                  mt: -2,
                   p: 2,
                   display: 'flex',
                   flexDirection: 'column',
@@ -92,7 +115,7 @@ export default function PatientPage() {
                 }}
               >
                 <div style={{}}>
-                  <WaitingRoom patientData={patients} />
+                  <WaitingRoom patientData={patients} setSelectedTreatment={setSelectedTreatment} setSelectedBed={setSelectedBed} />
                 </div>
               </Paper>
 
@@ -101,19 +124,19 @@ export default function PatientPage() {
 
               <Paper
                 sx={{
-                  // border: '1px solid black',
+                  mt: -2,
                   p: 1,
                   display: 'flex',
                   flexDirection: 'column',
-                  height: 410,
+                  height: 500,
                   backgroundColor: '#F5F5F5',
                   borderRadius: '9px',
                 }}
               >
-                {selectedTreatment === 1 ?  <BloodInvestigation state={state} setState={setState} handleChange={handleChange} /> : 
-                selectedTreatment === 2 ? <Prescription state={state} handleChange={handleChange} /> : selectedPatient ? <PatientDetails /> : <EmptyPane title={'Action Pane'} />} 
-                {/*  */}
-                {/* {selectedPatient ? <PatientDetails /> : <EmptyPane title={'Action Pane'} />} */}
+                  {renderContent(selectedTreatment, state, setState, handleChange, selectedPatient)}
+                 {/* <Referrals state={state} setState={setState} handleChange={handleChange} /> */}
+                {/* {selectedTreatment === 1 ?  <BloodInvestigation state={state} setState={setState} handleChange={handleChange} /> : 
+                selectedTreatment === 2 ? <Prescription state={state} handleChange={handleChange} /> : selectedPatient ? <PatientDetails /> : <EmptyPane title={'Action Pane'} />}  */}
               </Paper>
             </Grid>
 
@@ -124,7 +147,7 @@ export default function PatientPage() {
             <Grid item xs={12} sm={7.0} sx={{ border: '0px solid green' }}>
               <Grid container spacing={2}>
                 {/* Image 1 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#D7DBA5', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 1 ? '2px solid black' : ''}} 
+                <Grid item xs={2.2} style={{ backgroundColor: '#D7DBA5', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 1 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
                 onClick={() => {
                  if(selectedBed){
                   setSelectedTreatment(1);
@@ -140,7 +163,8 @@ export default function PatientPage() {
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
                 {/* Image 2 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#21D0C3', height: '150px', cursor: 'pointer', borderRadius: '9px', border: selectedTreatment === 2 ? '2px solid black' : '' }} onClick={() => {
+                <Grid item xs={2.2} style={{ backgroundColor: '#21D0C3', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 2 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
+                onClick={() => {
                  if(selectedBed){
                   setSelectedTreatment(2);
                  }
@@ -154,10 +178,15 @@ export default function PatientPage() {
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
                 {/* Image 3 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#A160E4', height: '150px', borderRadius: '9px' }}>
-                  <center>
+                <Grid item xs={2.2} style={{ backgroundColor: '#A160E4', height: '150px', borderRadius: '9px', cursor: 'pointer', border: selectedTreatment === 3 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
+                   onClick={() => {
+                    if(selectedBed){
+                     setSelectedTreatment(3);
+                    }
+                   }}>
+                 <center>
                     {' '}
-                    <img src={IMG3} alt="Image 3" style={{ marginTop: '12%', marginRight: '10%' }} />
+                    <img src={IMG4} alt="Image 3" style={{ marginTop: '12%', marginRight: '10%' }} />
                   </center>
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
                     PRESCRIPTIONS
@@ -165,9 +194,14 @@ export default function PatientPage() {
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
                 {/* Image 4 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#00B8D4', height: '150px', borderRadius: '9px' }}>
+                <Grid item xs={2.2} style={{ backgroundColor: '#00B8D4', height: '150px', borderRadius: '9px',  cursor: 'pointer', border: selectedTreatment === 4 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
+                   onClick={() => {
+                    if(selectedBed){
+                     setSelectedTreatment(4);
+                    }
+                   }}>
                   <center>
-                    <img src={IMG4} alt="Image 4" style={{ marginTop: '12%', marginRight: '10%' }} />
+                    <img src={IMG3} alt="Image 4" style={{ marginTop: '12%', marginRight: '10%' }} />
                   </center>
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
                     ECG   &nbsp;&nbsp;&nbsp;
@@ -175,8 +209,13 @@ export default function PatientPage() {
                 </Grid>
                 &nbsp;&nbsp;&nbsp;
                 {/* Image 5 */}
-                <Grid item xs={2.2} style={{ backgroundColor: '#E5EEF9', height: '150px', borderRadius: '9px' }}>
-                  <center>
+                <Grid item xs={2.2} style={{ backgroundColor: '#E5EEF9', height: '150px', borderRadius: '9px',  cursor: 'pointer', border: selectedTreatment === 5 ? '4.5px solid #4C4E37' : selectedBed != null ? '2.5px solid #4C4E37' : ''}} 
+                  onClick={() => {
+                    if(selectedBed){
+                     setSelectedTreatment(5);
+                    }
+                   }}>
+                 <center>
                     <img src={IMG5} alt="Image 5" style={{ marginTop: '12%', marginRight: '10%' }} />
                   </center>
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
@@ -187,7 +226,7 @@ export default function PatientPage() {
               <br />
               <br />
               <br />
-              <Typography variant="subtitle1">Available hospital Beds</Typography>
+              <Typography variant="subtitle1"><b>Available hospital Beds</b></Typography>
               <br />
               <Grid item xs={12} sm={12} sx={{ border: '0px solid red', width: '100%' }}>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -213,6 +252,27 @@ export default function PatientPage() {
                 <HospitalBed bedNum={10} />
               </Grid> */}
               </Grid>
+              <Button
+                    // fullWidth
+                    variant="contained"
+                    style={{
+                      marginTop: '5%',
+                      marginLeft: '30%',
+                      backgroundColor: 'black',
+                      color: 'white',
+                      fontSize: '15px',
+                      padding: '4px',
+                      width: '40%',
+                      height: '50px',
+                    }}
+                    onClick={() => {
+                      setSelectedBed(null);
+                      setSelectedTreatment(null);
+                      dispatch(reset())
+                    }}
+                  >
+                    Reset
+                  </Button>
             </Grid>
           </Grid>
         )}

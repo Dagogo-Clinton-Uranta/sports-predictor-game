@@ -1,6 +1,6 @@
 import { notifyErrorFxn, notifySuccessFxn } from "src/utils/toast-fxn";
 import { db } from "../../config/firebase";
-import { fetchAdmittedPatients, fetchPatients, setIsLoading, setSelectedPatient } from '../reducers/patient.slice';
+import { clearPatient, fetchAdmittedPatients, fetchPatients, setIsLoading, setSelectedPatient } from '../reducers/patient.slice';
 
 export const getWaitingRoomPatients = () => async (dispatch) => {
  dispatch(setIsLoading(true));
@@ -82,4 +82,33 @@ export const admitPatients = (uid, setLoading, navigate) => async (dispatch) => 
   }
   
   setLoading(false);
+};
+
+export const reset = () => async (dispatch) => {
+  dispatch(setIsLoading(true));
+
+  try {
+    const patientsCollection = db.collection('Patients');
+
+    const querySnapshot = await patientsCollection.get();
+
+    const batch = db.batch();
+    querySnapshot.forEach((doc) => {
+      const patientRef = patientsCollection.doc(doc.id);
+      batch.update(patientRef, {
+        bedNumber: null,
+        isAdmitted: false,
+      });
+    });
+
+    await batch.commit();
+
+    dispatch(setIsLoading(false));
+    dispatch(clearPatient());
+    dispatch(getWaitingRoomPatients());
+
+  } catch (error) {
+    console.error('Error resetting patients:', error);
+    dispatch(setIsLoading(false));
+  }
 };
