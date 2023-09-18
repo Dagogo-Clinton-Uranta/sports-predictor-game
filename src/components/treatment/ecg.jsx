@@ -11,7 +11,7 @@ import ECGIMG from '../../assets/images/ecg.png';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
-
+import Modal from '@mui/material/Modal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,10 +92,27 @@ const ECG = ({ state, setState, handleChange }) => {
       });
   };
 
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {setOpen(false)};
+
 
   return (
     <>
-      {selectedPatient && (
+   
+   <Modal
+        style={{display:"flex",justifyContent:"center",alignItems:"center"}}
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+       <center style={{backgroundColor:"white",borderRadius:"10px",width:"90%"}}>
+       <img src={ECGIMG} style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>
+       </center>
+    </Modal>
+     
+   {
+      selectedPatient && (
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
           <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
@@ -132,10 +149,10 @@ const ECG = ({ state, setState, handleChange }) => {
 
           <div style={{ width: '100%', margin: '20px' }}>
             <Grid item xs={12} md={12} lg={12}>
-              <Typography variant="subtitle1" style={{ marginBottom: '0px', fontSize: '23px' }}>
+              <Typography variant="subtitle1" style={{ marginBottom: '0px', fontSize: '18px' }}>
                 <b>ECG</b>
               </Typography>
-             <center style={{position:"relative",marginTop:"-2%"}}>
+             <center style={{position:"relative",marginTop:"-2%"}} onClick={()=>{setOpen(true)}} >
                <img src={ECGIMG} style={{height:"220px",width:"110px" ,position:"relative",top:"20%"}}/>
                </center>
               {/* <select

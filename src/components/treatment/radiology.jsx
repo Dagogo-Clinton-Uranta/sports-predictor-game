@@ -87,7 +87,8 @@ const Radiology = ({ state, setState, handleChange }) => {
   const handleDelete1 = () => {
     setState({
         ...state,
-        radiology: '',
+        radiology1:'',
+        radiology2:'',
       });
   };
 
@@ -131,13 +132,13 @@ const Radiology = ({ state, setState, handleChange }) => {
 
           <div style={{ width: '100%', margin: '20px' }}>
             <Grid item xs={12} md={12} lg={12}>
-              <Typography variant="subtitle1" style={{ marginBottom: '10px', fontSize: '23px' }}>
+              <Typography variant="subtitle1" style={{ marginBottom: '10px', fontSize: '18px' }}>
                 <b>Radiology</b>
               </Typography>
               <br/>
               <select
-                name="radiology"
-                value={state.radiology}
+                name="radiology1"
+                value={state.radiology1}
                 onChange={handleChange}
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
@@ -149,10 +150,35 @@ const Radiology = ({ state, setState, handleChange }) => {
                 <option value="Sinsa">Sinsa</option>
               </select>
             </Grid>
+
+            <div style={{ marginTop: '10px' }}></div>
+            
+            <Grid item xs={12} md={12} lg={12}>
+              <select
+                name="radiology2"
+                value={state.radiology2}
+                onChange={handleChange}
+                className={classes.searchInput}
+                style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
+                required
+                disabled={state.radiology1===null ? true : false}
+              >
+                <option value=""></option>
+                <option value="Chest">Chest</option>
+                <option value="Thorax">Thorax</option>
+                <option value="Abdomen">Abdomen</option>
+                <option value="Pelvis">Pelvis</option>
+              </select>
+            </Grid>
+
+
             <br/><br/>
             <div style={{padding: '10px', border: state.radiology ? '1px solid #00000033' : ''}}>
-             {state.radiology &&  <Chip label={state.radiology} onClick={handleClick} onDelete={handleDelete1} />}
-             
+             {state.radiology1 !== null && 
+              <> &nbsp; 
+             <Chip label={state.radiology2} onClick={handleClick} onDelete={handleDelete1} />
+             </>}
+
             </div>
             <div style={{ padding: '10px' }}>
               <br />

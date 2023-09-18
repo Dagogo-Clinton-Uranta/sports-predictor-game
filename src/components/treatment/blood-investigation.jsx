@@ -132,7 +132,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
 
           <div style={{ width: '100%', margin: '20px' }}>
             <Grid item xs={12} md={12} lg={12}>
-              <Typography variant="subtitle1" style={{ marginBottom: '10px' }}>
+              <Typography variant="subtitle1" style={{ marginBottom: '10px',fontSize: '18px' }}>
                 <b>Blood Investigation</b>
               </Typography><br/>
               <select

@@ -31,15 +31,17 @@ export default function PatientPage() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
+ 
   const [selectedBed, setSelectedBed] = useState(null);
   const [selectedTreatment, setSelectedTreatment] = useState(null);
   const [state, setState] = useState({
-    prescription: '',
-    bloodInv1: '',
-    bloodInv2: '',
-    radiology: '',
+    prescription:'',
+    bloodInv1:'',
+    bloodInv2:'',
+    radiology1:null,
+    radiology2:null,
     ecg: 'Mid Axillary',
-    referral: '',
+    referral:'',
   });
 
   useEffect(() => {
@@ -59,6 +61,8 @@ export default function PatientPage() {
       ...state,
       [e.target.name]: value,
     });
+
+    console.log("state IS:",state)
   };
 
   const renderContent = (selectedTreatment, state, setState, handleChange, selectedPatient) => {

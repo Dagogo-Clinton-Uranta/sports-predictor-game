@@ -5,6 +5,9 @@ import { fCurrency } from 'src/utils/formatNumber';
 import { Paper } from '@material-ui/core';
 import { setSelectedPatient } from 'src/redux/reducers/patient.slice';
 
+import MAN from '../../assets/images/man.png';
+
+
 function preventDefault(event) {
   event.preventDefault();
 }
