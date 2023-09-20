@@ -13,6 +13,22 @@ import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
 import Modal from '@mui/material/Modal';
 
+
+
+import { BodyComponent } from 'reactjs-human-body';
+//import { PartsInput } from 'reactjs-human-body/dist/components/BodyComponent/BodyComponent';
+import {useFloating} from '@floating-ui/react';
+
+import styled from 'styled-components';
+
+
+
+const StyledDiv = styled.div`
+  padding: 10px;
+  background-color: white;
+  color: black;
+`;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -95,6 +111,19 @@ const ECG = ({ state, setState, handleChange }) => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {setOpen(false)};
 
+  /*BODY PARTS LOGIC */
+  const [params, setParams] = useState(true);
+
+
+const exampleParams = {
+  head: { selected: true },
+  leftArm: { show: false },
+};
+
+  const onChange = (parts) => console.log('Changed Parts:', parts);
+  const onClick = (id) => console.log('Changed Id:', id);
+  console.log("params are",params);
+/*BODY PARTS LOGIC END */
 
   return (
     <>
@@ -107,8 +136,28 @@ const ECG = ({ state, setState, handleChange }) => {
       aria-describedby="modal-modal-description"
     >
        <center style={{backgroundColor:"white",borderRadius:"10px",width:"90%"}}>
-       <img src={ECGIMG} style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>
+
+       {<img src={ECGIMG} style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>}
+        {/*params ? (
+        <StyledDiv>
+          Showing with params {JSON.stringify(exampleParams, null, 2)}
+          <BodyComponent
+              partsInput={{
+                head: { show: true },
+              }}
+            onChange={onChange}
+            onClick={onClick}
+          />
+        </StyledDiv>
+      ) : (
+        <StyledDiv>
+          Example With no Params
+          <BodyComponent onChange={onChange} onClick={onClick} />
+        </StyledDiv>
+      )*/}
        </center>
+
+      
     </Modal>
      
    {

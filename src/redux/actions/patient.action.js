@@ -122,7 +122,7 @@ export const dischargePatients = (uid, setLoading, navigate) => async (dispatch)
   for (let i = 1; i <= maxBedNumber; i++) {
     if (dischargeBedNumbers.includes(i)) {
       // Found the bed number to discharge
-      await userRef.update({ bedNumber: null, isAdmitted: false });
+      await userRef.update({ bedNumber: null, isAdmitted: null });
       console.log(`Discharged user with bed number ${i}`);
       notifySuccessFxn(`Discharged patient!`);
       dispatch(setSelectedPatient(null));
