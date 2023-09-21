@@ -100,9 +100,9 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   const bloodInv2Setup = (e)=>{
 
     let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
-    console.log(targetCategoryTest[0].title )
+   
     setBloodInv2(targetCategoryTest[0].title)
-    console.log("bloodInv2",bloodInv2 )
+    console.log("bloodInv2 is set as",bloodInv2 )
   }
 
 
@@ -205,7 +205,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
               >
                 {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.bloodInv1 )).map((prop)=>(
 
-                     <option value={prop}>{prop.title}</option>
+                     <option value={prop.uid}>{prop.title}</option>
                        
 
                      ))  

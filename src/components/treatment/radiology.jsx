@@ -103,7 +103,7 @@ const Radiology = ({ state, setState, handleChange }) => {
      const radiology2Setup = (e)=>{
    
        let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
-       console.log(targetCategoryTest[0].title )
+     
        setRadiology2(targetCategoryTest[0].title)
        console.log("radiology2",radiology2 )
      }
@@ -201,7 +201,7 @@ const Radiology = ({ state, setState, handleChange }) => {
               >
                {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.radiology1 )).map((prop)=>(
 
-               <option value={prop}>{prop.title}</option>
+               <option value={prop.uid}>{prop.title}</option>
                  
                
                ))  
