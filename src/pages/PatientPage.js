@@ -16,7 +16,7 @@ import IMG4 from '../assets/images/intervention.png';
 import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
-import { getAdmittedPatients, getPatients, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
+import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getPatients, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
 import { ToastContainer } from 'react-toastify';
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
@@ -47,6 +47,8 @@ export default function PatientPage() {
   useEffect(() => {
     dispatch(getWaitingRoomPatients());
     dispatch(getAdmittedPatients());
+    dispatch(fetchAllTreatmentCategories());
+    dispatch(fetchAllTreatmentTests());
     dispatch(fetchUserData(user?.id));
   }, []);
 

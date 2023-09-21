@@ -1,6 +1,6 @@
 import { notifyErrorFxn, notifySuccessFxn } from "src/utils/toast-fxn";
 import { db } from "../../config/firebase";
-import { clearPatient, fetchAdmittedPatients, fetchPatients, setIsLoading, setSelectedPatient } from '../reducers/patient.slice';
+import { clearPatient, fetchAdmittedPatients, fetchPatients, setIsLoading, setSelectedPatient,saveAllTreatmentCategories,saveAllTreatmentTests } from '../reducers/patient.slice';
 
 export const getWaitingRoomPatients = () => async (dispatch) => {
  dispatch(setIsLoading(true));
@@ -166,3 +166,46 @@ export const reset = () => async (dispatch) => {
     dispatch(setIsLoading(false));
   }
 };
+
+
+
+export const fetchAllTreatmentTests = (chosenSection)=> async(dispatch) =>{
+
+
+  var categories = db.collection("TreatmentTests");
+  categories.get().then((snapshot) => {
+    const groupMembers = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log("ALL Treatments tests ARE :",groupMembers)
+    if (groupMembers.length) {
+    dispatch(saveAllTreatmentTests(groupMembers))
+
+  } else {
+      console.log("No treatments tests in database!");
+  }
+}).catch((error) => {
+  console.log("Error getting treatments tests:", error);
+});
+
+
+  
+ };
+
+
+
+ export const fetchAllTreatmentCategories = (chosenSection)=> async(dispatch) =>{
+
+  var categories = db.collection("TreatmentCategory");
+  categories.get().then((snapshot) => {
+    const groupMembers = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log("ALL Treatments categories ARE :",groupMembers)
+    if (groupMembers.length) {
+    dispatch(saveAllTreatmentCategories(groupMembers))
+
+  } else {
+      console.log("No treatment categoies in database!");
+  }
+}).catch((error) => {
+  console.log("Error getting treatments categories:", error);
+});
+  
+ }

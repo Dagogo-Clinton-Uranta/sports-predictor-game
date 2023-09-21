@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { submitPrescription} from 'src/redux/actions/candidate.action';
-import { admitPatients } from 'src/redux/actions/patient.action';
+import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
@@ -77,6 +77,13 @@ const Prescription = ({ state, handleChange }) => {
   };
 
 
+  useEffect(() => {
+    
+    dispatch(fetchAllTreatmentCategories());
+    dispatch(fetchAllTreatmentTests());
+  }, []);
+
+  const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
 
 
   const submitPrescriptionResponse = (patientId,b1) => {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { admitPatients } from 'src/redux/actions/patient.action';
+import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { submitRadiology} from 'src/redux/actions/candidate.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
@@ -55,6 +55,8 @@ const Radiology = ({ state, setState, handleChange }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [radiology1,setRadiology1] = useState('')
+  const [radiology2,setRadiology2] = useState('')
 
   const mystyle = {
     fontFamily: 'Arial',
@@ -79,7 +81,32 @@ const Radiology = ({ state, setState, handleChange }) => {
   };
 
 
+  useEffect(() => {
+    
+    dispatch(fetchAllTreatmentCategories());
+    dispatch(fetchAllTreatmentTests());
+  }, []);
 
+  const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
+
+
+
+  const radiology1Setup = (e)=>{
+
+
+    let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
+    console.log(targetCategory[0].title )
+       setRadiology1(targetCategory[0].title)
+       console.log("radiology1",radiology1 )
+     }
+   
+     const radiology2Setup = (e)=>{
+   
+       let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
+       console.log(targetCategoryTest[0].title )
+       setRadiology2(targetCategoryTest[0].title)
+       console.log("radiology2",radiology2 )
+     }
 
   const submitRadiologyresponse = (patientId,b1,b2) => {
     dispatch(submitRadiology(user.uid,patientId,b1,b2))
@@ -144,15 +171,19 @@ const Radiology = ({ state, setState, handleChange }) => {
               <select
                 name="radiology1"
                 value={state.radiology1}
-                onChange={handleChange}
+                onChange={(e)=>{handleChange(e);radiology1Setup(e)}}
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
               >
-                <option value=""></option>
-                <option value="CXray">CXray</option>
-                <option value="YGray">YGray</option>
-                <option value="Sinsa">Sinsa</option>
+               {  allTreatmentCategories.filter((item)=>(item.treatmentId === "j7ib7pKNXMCNWqnHRacC" )).map((prop)=>(
+
+                <option value={prop.uid}>{prop.title}</option>
+                  
+                
+                ))  
+                
+                }
               </select>
             </Grid>
 
@@ -162,17 +193,20 @@ const Radiology = ({ state, setState, handleChange }) => {
               <select
                 name="radiology2"
                 value={state.radiology2}
-                onChange={handleChange}
+                onChange={(e)=>{handleChange(e);radiology2Setup(e)}}
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
                 disabled={state.radiology1===null ? true : false}
               >
-                <option value=""></option>
-                <option value="Chest">Chest</option>
-                <option value="Thorax">Thorax</option>
-                <option value="Abdomen">Abdomen</option>
-                <option value="Pelvis">Pelvis</option>
+               {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.radiology1 )).map((prop)=>(
+
+               <option value={prop}>{prop.title}</option>
+                 
+               
+               ))  
+               
+            }
               </select>
             </Grid>
 
@@ -181,7 +215,7 @@ const Radiology = ({ state, setState, handleChange }) => {
             <div style={{padding: '10px', border: state.radiology ? '1px solid #00000033' : ''}}>
              {state.radiology1 !== null && 
               <> &nbsp; 
-             <Chip label={state.radiology2} onClick={handleClick} onDelete={handleDelete1} />
+             <Chip label={radiology2} onClick={handleClick} onDelete={handleDelete1} />
              </>}
 
             </div>
@@ -201,7 +235,7 @@ const Radiology = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.radiology1||!state.radiology2||loading}
-                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,state.radiology1,state.radiology2)}}
+                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2)}}
                   >
                     Submit
                   </Button>

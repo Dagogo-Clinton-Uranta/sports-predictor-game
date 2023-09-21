@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { admitPatients } from 'src/redux/actions/patient.action';
+import { admitPatients,fetchAllTreatmentCategories,fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { submitBloodInvestigation } from 'src/redux/actions/candidate.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
@@ -51,11 +51,14 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   const { selectedPatient } = useSelector((state) => state.patient);
   const {user } = useSelector((state) => state.auth);
 
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+  const [bloodInv1,setBloodInv1] = useState('')
+  const [bloodInv2,setBloodInv2] = useState('')
+ 
   const mystyle = {
     fontFamily: 'Arial',
     fontStyle: 'normal',
@@ -84,9 +87,39 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
     console.info('You clicked the Chip.');
   };
 
+
+  const bloodInv1Setup = (e)=>{
+
+
+ let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
+ console.log(targetCategory[0].title )
+    setBloodInv1(targetCategory[0].title)
+    console.log("bloodInv1",bloodInv1 )
+  }
+
+  const bloodInv2Setup = (e)=>{
+
+    let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
+    console.log(targetCategoryTest[0].title )
+    setBloodInv2(targetCategoryTest[0].title)
+    console.log("bloodInv2",bloodInv2 )
+  }
+
+
+
   const submitBIresponse = (patientId,b1,b2) => {
     dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2))
   }
+
+
+  useEffect(() => {
+    
+    dispatch(fetchAllTreatmentCategories());
+    dispatch(fetchAllTreatmentTests());
+  }, []);
+
+  const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
+
 
   const handleDelete = () => {
     setState({
@@ -142,15 +175,20 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
               <select
                 name="bloodInv1"
                 value={state.bloodInv1}
-                onChange={handleChange}
+                onChange={(e)=>{handleChange(e);bloodInv1Setup(e)}}
+              
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
               >
-                <option value=""></option>
-                <option value="Toxicology">Toxicology</option>
-                <option value="Pantalogy">Pantalogy</option>
-                <option value="Heriye">+Heriye</option>
+          {  allTreatmentCategories.filter((item)=>(item.treatmentId === "7aHB3TreYQYh3bzBS65K" )).map((prop)=>(
+
+                 <option value={prop.uid}>{prop.title}</option>
+                   
+             
+          ))  
+                
+             }
               </select>
             </Grid>
             <div style={{ marginTop: '10px' }}></div>
@@ -158,21 +196,27 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
               <select
                 name="bloodInv2"
                 value={state.bloodInv2}
-                onChange={handleChange}
+                onChange={(e)=>{handleChange(e);bloodInv2Setup(e)}}
+               
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
                 disabled={!state.bloodInv1 ? true : false}
               >
-                <option value=""></option>
-                <option value="Full Blood Count">Full Blood Count</option>
-                <option value="Half Blood Count">Half Blood Count</option>
+                {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.bloodInv1 )).map((prop)=>(
+
+                     <option value={prop}>{prop.title}</option>
+                       
+
+                     ))  
+                     
+                     }
               </select>
             </Grid>
             <br/>
             <div style={{padding: '10px', border: state.bloodInv2 ? '1px solid #00000033' : ''}}>
              {state.bloodInv2 && <> &nbsp; 
-              <Chip label={state.bloodInv2} onClick={handleClick} onDelete={handleDelete} /></>}
+              <Chip label={bloodInv2} onClick={handleClick} onDelete={handleDelete} /></>}
             </div>
             <div style={{ padding: '10px' }}>
               <br />
@@ -190,7 +234,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.bloodInv1 ||!state.bloodInv1  ||loading}
-                    onClick={()=>{submitBIresponse(selectedPatient?.uid,state.bloodInv1,state.bloodInv2)}}
+                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2)}}
                   >
                     Submit
                   </Button>

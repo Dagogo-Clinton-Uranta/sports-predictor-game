@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { admitPatients } from 'src/redux/actions/patient.action';
+import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { submitReferral} from 'src/redux/actions/candidate.action';
 
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
@@ -55,6 +55,7 @@ const Referrals = ({ state, setState, handleChange }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {user } = useSelector((state) => state.auth);
+  const [referral,setReferral] = useState('')
 
   const mystyle = {
     fontFamily: 'Arial',
@@ -79,7 +80,23 @@ const Referrals = ({ state, setState, handleChange }) => {
   };
 
 
- 
+  const referralSetup = (e)=>{
+
+
+    let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
+    console.log(targetCategory[0].title )
+       setReferral(targetCategory[0].title)
+       console.log("referral",referral )
+     }
+
+  useEffect(() => {
+    
+    dispatch(fetchAllTreatmentCategories());
+    dispatch(fetchAllTreatmentTests());
+  }, []);
+
+  const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
+
 
 
   const submitReferralResponse = (patientId,b1) => {
@@ -145,21 +162,24 @@ const Referrals = ({ state, setState, handleChange }) => {
               <select
                 name="referral"
                 value={state.referral}
-                onChange={handleChange}
+                onChange={(e)=>{handleChange(e);referralSetup(e)}}
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
               >
-                <option value=""></option>
-                <option value="Cardiology Department">Cardiology Department</option>
-                <option value="Polar Department">Polar Department</option>
-                <option value="Laser Department">Laser Department</option>
-                <option value="Banku Department">Banku Department</option>
+              {  allTreatmentCategories.filter((item)=>(item.treatmentId === "wcN8WP6CXlG3SFDzJNsq" )).map((prop)=>(
+
+               <option value={prop.uid}>{prop.title}</option>
+                 
+               
+               ))  
+               
+               }
               </select>
             </Grid>
             <br/><br/>
             <div style={{padding: '10px', border: state.referral ? '1px solid #00000033' : ''}}>
-             {state.referral &&  <Chip label={state.referral} onClick={handleClick} onDelete={handleDelete1} />}
+             {state.referral &&  <Chip label={referral} onClick={handleClick} onDelete={handleDelete1} />}
              
             </div>
             <div style={{ padding: '10px' }}>
@@ -178,7 +198,7 @@ const Referrals = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.referral||loading}
-                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,state.referral)}}
+                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,referral)}}
                   >
                     Submit
                   </Button>
