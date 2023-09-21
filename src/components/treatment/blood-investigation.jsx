@@ -5,6 +5,7 @@ import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Div
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients } from 'src/redux/actions/patient.action';
+import { submitBloodInvestigation } from 'src/redux/actions/candidate.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
@@ -48,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 const BloodInvestigation = ({ state, setState, handleChange }) => {
   const { selectedPatient } = useSelector((state) => state.patient);
+  const {user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -83,6 +86,10 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
+
+  const submitBIresponse = (b1,b2) => {
+    dispatch(submitBloodInvestigation(user.uid,b1,b2))
+  }
 
   const handleDelete = () => {
     setState({
@@ -179,13 +186,14 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
                     fullWidth
                     variant="contained"
                     style={{
-                      backgroundColor: '#21D0C3',
+                      backgroundColor:!state.bloodInv1||!state.bloodInv2?'#199e94':'#21D0C3',
                       color: 'white',
                       fontSize: '15px',
                       padding: '4px',
                       height: '50px',
                     }}
-                    disabled={loading}
+                    disabled={!state.bloodInv1 ||!state.bloodInv1  ||loading}
+                    onClick={()=>{submitBIresponse(state.bloodInv1,state.bloodInv2)}}
                   >
                     Submit
                   </Button>

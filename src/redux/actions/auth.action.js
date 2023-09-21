@@ -34,15 +34,15 @@ var today  = new Date();
     user.email,
     user.password
 ).then((res)=>{
-  return db.collection('Patients').doc(res.user.uid).set({
+  return db.collection('Candidates').doc(res.user.uid).set({
     uid: res.user.uid,
     email: user.email,
     firstName: user.fname,
     lastName: user.lname,
-    age: '25',
+   /* age: '25',
     gender: 'Male',
     complaint: 'Malu',
-    isAdmitted: false,
+    isAdmitted: false,*/
     password: user.password,
     accountCreated: today.toLocaleDateString("en-US", options),
   })
@@ -89,7 +89,7 @@ export const uploadImage = (user, file, navigate, setLoading) => async (dispatch
 
 
 export const fetchUserData = (id, type, navigate, setLoading) => async (dispatch) => {
-  var user = db.collection("Admins").doc(id);
+  var user = db.collection("Candidates").doc(id);
   user.get().then((doc) => {
   if (doc.exists) {
     // console.log("User Data:", doc.data());

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { submitPrescription} from 'src/redux/actions/candidate.action';
 import { admitPatients } from 'src/redux/actions/patient.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
@@ -51,6 +52,7 @@ const Prescription = ({ state, handleChange }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const {user } = useSelector((state) => state.auth);
 
   const mystyle = {
     fontFamily: 'Arial',
@@ -78,6 +80,11 @@ const Prescription = ({ state, handleChange }) => {
   const admitPatientFxn = () => {
     dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
   };
+
+
+  const submitPrescriptionResponse = (b1) => {
+    dispatch(submitPrescription(user.uid,b1))
+  }
 
   return (
     <>
@@ -152,13 +159,14 @@ const Prescription = ({ state, handleChange }) => {
                   fullWidth
                   variant="contained"
                   style={{
-                    backgroundColor: '#21D0C3',
+                    backgroundColor:!state.prescription?'#199e94':'#21D0C3',
                     color: 'white',
                     fontSize: '15px',
                     padding: '4px',
                     height: '50px',
                   }}
-                  disabled={loading}
+                  disabled={!state.prescription||loading}
+                  onClick={()=>{submitPrescriptionResponse(state.prescription)}}
                 >
                   Submit
                 </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect,useRef} from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
@@ -125,6 +125,11 @@ const exampleParams = {
   console.log("params are",params);
 /*BODY PARTS LOGIC END */
 
+
+/*FLOATING UI LOGIC */
+const {refs, x, y, strategy,floatingStyles} = useFloating();
+/*FLOATING UI LOGIC END */
+
   return (
     <>
    
@@ -135,9 +140,26 @@ const exampleParams = {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-       <center style={{backgroundColor:"white",borderRadius:"10px",width:"90%"}}>
+       <center style={{backgroundColor:"white",borderRadius:"10px",width:"90%",height:"90%"}}>
 
-       {<img src={ECGIMG} style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>}
+       {<img src={ECGIMG}   ref={refs.setReference} style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>}
+       <div ref={refs.setFloating}  style={{
+     position: "absolute",
+      left: "-490",
+      top: "100",
+      width: 'max-content',
+        }}>
+        Tooltip
+      </div>
+
+      <div ref={refs.setFloating}  style={{
+      position: "absolute",
+      left: "-190",
+      top: "845",
+      width: 'max-content',
+        }}>
+        Oladipo
+      </div>
         {/*params ? (
         <StyledDiv>
           Showing with params {JSON.stringify(exampleParams, null, 2)}

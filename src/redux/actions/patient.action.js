@@ -85,6 +85,8 @@ export const admitPatients = (uid, setLoading, navigate) => async (dispatch) => 
 };
 
 
+
+
 export const dischargePatients = (uid, setLoading, navigate) => async (dispatch) => {
   console.log('FUNCTIONALITY CHECKER.');
   setLoading(true);

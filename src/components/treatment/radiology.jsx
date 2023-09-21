@@ -5,6 +5,7 @@ import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Div
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients } from 'src/redux/actions/patient.action';
+import { submitRadiology} from 'src/redux/actions/candidate.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
@@ -48,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Radiology = ({ state, setState, handleChange }) => {
   const { selectedPatient } = useSelector((state) => state.patient);
+  const {user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -79,6 +82,10 @@ const Radiology = ({ state, setState, handleChange }) => {
   const admitPatientFxn = () => {
     dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
   };
+
+  const submitRadiologyresponse = (b1,b2) => {
+    dispatch(submitRadiology(user.uid,b1,b2))
+  }
 
   const handleClick = () => {
     console.info('You clicked the Chip.');
@@ -189,13 +196,14 @@ const Radiology = ({ state, setState, handleChange }) => {
                     fullWidth
                     variant="contained"
                     style={{
-                      backgroundColor: '#21D0C3',
+                     backgroundColor:!state.radiology1 ||!state.radiology1  ?'#199e94':'#21D0C3',
                       color: 'white',
                       fontSize: '15px',
                       padding: '4px',
                       height: '50px',
                     }}
-                    disabled={loading}
+                    disabled={!state.radiology1||!state.radiology2||loading}
+                    onClick={()=>{submitRadiologyresponse(state.radiology1,state.radiology2)}}
                   >
                     Submit
                   </Button>
