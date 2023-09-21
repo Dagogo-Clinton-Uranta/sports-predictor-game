@@ -79,12 +79,10 @@ const Radiology = ({ state, setState, handleChange }) => {
   };
 
 
-  const admitPatientFxn = () => {
-    dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
-  };
 
-  const submitRadiologyresponse = (b1,b2) => {
-    dispatch(submitRadiology(user.uid,b1,b2))
+
+  const submitRadiologyresponse = (patientId,b1,b2) => {
+    dispatch(submitRadiology(user.uid,patientId,b1,b2))
   }
 
   const handleClick = () => {
@@ -203,7 +201,7 @@ const Radiology = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.radiology1||!state.radiology2||loading}
-                    onClick={()=>{submitRadiologyresponse(state.radiology1,state.radiology2)}}
+                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,state.radiology1,state.radiology2)}}
                   >
                     Submit
                   </Button>

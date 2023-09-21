@@ -79,13 +79,11 @@ const Referrals = ({ state, setState, handleChange }) => {
   };
 
 
-  const admitPatientFxn = () => {
-    dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
-  };
+ 
 
 
-  const submitReferralResponse = (b1) => {
-    dispatch(submitReferral(user.uid,b1))
+  const submitReferralResponse = (patientId,b1) => {
+    dispatch(submitReferral(user.uid,patientId,b1))
   }
 
 
@@ -180,7 +178,7 @@ const Referrals = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.referral||loading}
-                    onClick={()=>{submitReferralResponse(state.referral)}}
+                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,state.referral)}}
                   >
                     Submit
                   </Button>

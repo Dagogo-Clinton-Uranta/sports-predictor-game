@@ -79,16 +79,13 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   };
 
 
-  const admitPatientFxn = () => {
-    dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
-  };
 
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
 
-  const submitBIresponse = (b1,b2) => {
-    dispatch(submitBloodInvestigation(user.uid,b1,b2))
+  const submitBIresponse = (patientId,b1,b2) => {
+    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2))
   }
 
   const handleDelete = () => {
@@ -193,7 +190,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.bloodInv1 ||!state.bloodInv1  ||loading}
-                    onClick={()=>{submitBIresponse(state.bloodInv1,state.bloodInv2)}}
+                    onClick={()=>{submitBIresponse(selectedPatient?.uid,state.bloodInv1,state.bloodInv2)}}
                   >
                     Submit
                   </Button>

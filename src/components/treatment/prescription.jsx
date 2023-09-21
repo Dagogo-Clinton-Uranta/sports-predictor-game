@@ -77,13 +77,10 @@ const Prescription = ({ state, handleChange }) => {
   };
 
 
-  const admitPatientFxn = () => {
-    dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
-  };
 
 
-  const submitPrescriptionResponse = (b1) => {
-    dispatch(submitPrescription(user.uid,b1))
+  const submitPrescriptionResponse = (patientId,b1) => {
+    dispatch(submitPrescription(user.uid,patientId,b1))
   }
 
   return (
@@ -166,7 +163,7 @@ const Prescription = ({ state, handleChange }) => {
                     height: '50px',
                   }}
                   disabled={!state.prescription||loading}
-                  onClick={()=>{submitPrescriptionResponse(state.prescription)}}
+                  onClick={()=>{submitPrescriptionResponse(selectedPatient?.uid,state.prescription)}}
                 >
                   Submit
                 </Button>
