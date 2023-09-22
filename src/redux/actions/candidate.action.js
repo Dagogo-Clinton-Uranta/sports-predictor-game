@@ -53,14 +53,18 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
         ...candidateResponseArray[particularPatientPosition],
         chosenBloodInvestigation: b1,
         bloodInvestigationTest:b2,
-        patientId
+        patientId,
+        takenOn:new Date()
+
       }
   
      }else{
       candidateResponseArray.push({
         chosenBloodInvestigation: b1,
     bloodInvestigationTest:b2,
-    patientId
+    patientId,
+    takenOn:new Date()
+
       })
      }
   
@@ -101,7 +105,8 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
       ...candidateResponseArray[particularPatientPosition],
       chosenRadiology: b1,
       radiologyTest:b2,
-      patientId
+      patientId,
+      takenOn:new Date()
     
     }
 
@@ -109,7 +114,8 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
     candidateResponseArray.push({
       chosenRadiology: b1,
       radiologyTest:b2,
-      patientId
+      patientId,
+      takenOn:new Date()
     
     })
    }
@@ -147,13 +153,15 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
 
       ...candidateResponseArray[particularPatientPosition],
       prescriptionWriteup: b1,
-      patientId
+      patientId,
+      takenOn:new Date(),
     }
 
    }else{
     candidateResponseArray.push({
       prescriptionWriteup: b1,
-      patientId
+      patientId,
+      takenOn:new Date()
     })
    }
 
@@ -192,13 +200,15 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
   
         ...candidateResponseArray[particularPatientPosition],
         chosenReferral: b1,
-        patientId
+        patientId,
+        takenOn:new Date(),
       }
   
      }else{
       candidateResponseArray.push({
         chosenReferral: b1,
-        patientId
+        patientId,
+        takenOn:new Date()
       })
      }
 
