@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
+import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar, Box,CircularProgress } from '@mui/material';
+import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients,fetchAllTreatmentCategories,fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
@@ -11,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
+import bloodresult1 from '../../assets/images/bloodresult1.jpeg'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,14 +52,30 @@ const useStyles = makeStyles((theme) => ({
 const BloodInvestigation = ({ state, setState, handleChange }) => {
   const { selectedPatient } = useSelector((state) => state.patient);
   const {user } = useSelector((state) => state.auth);
+  console.log("our candidate's response is ",user.response)
+  console.log("our selected patient is ",selectedPatient)
+
+  //OKAY SO WE GONNA LOOP THROUGH RESPONSES, MATCH THEM TO THE SELECTED USER, 
+  //IF THERE IS A MATCH, AND IN THAT MATCH, THE RESPONSE IS CORRECT
+  //THEN WE CAN CHANGE WHAT HAPPENS WHEN YOU CLICK THE BLOOD INVESTIGATION
+  //AND THE NOTIFICATION WOBBLING
 
 
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [testTaken,setTestTaken] = useState(false);
   const [bloodInv1,setBloodInv1] = useState('')
   const [bloodInv2,setBloodInv2] = useState('')
+
+
+/*MODAL MANIPULATION LOGIC */
+  const [openPdf, setOpenPdf] = React.useState(false);
+  const handleOpenPdf = () => {setOpenPdf(true)}
+  const handleClosePdf = () => {setOpenPdf(false)};
+/*MODAL MANIPULATION LOGIC END */
+
  
   const mystyle = {
     fontFamily: 'Arial',
@@ -67,6 +85,20 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
     lineHeight: '30px',
     color: 'black',
   };
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: "95%",
+    height:"90%",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+ 
 
   const getAvatarSrc = (gender) => {
     switch (gender) {
@@ -107,8 +139,8 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
 
 
 
-  const submitBIresponse = (patientId,b1,b2) => {
-    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2))
+  const submitBIresponse = (patientId,b1,b2,b3) => {
+    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3))
   }
 
 
@@ -117,6 +149,29 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
     dispatch(fetchAllTreatmentCategories());
     dispatch(fetchAllTreatmentTests());
   }, []);
+
+
+  useEffect(() => {
+   
+
+   const candidateResponseArray = user.response? user.response:[]
+
+   const particularPatientPosition = selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1
+  
+
+  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true)
+  {
+
+    setTestTaken("loading")
+   setTimeout(()=>{setTestTaken(true)},5000)
+    
+  }else{
+    setTestTaken(false)
+  }
+
+
+    
+  }, [selectedPatient,user]);
 
   const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
 
@@ -132,6 +187,24 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
 
   return (
     <>
+
+
+<Modal
+        open={openPdf}
+        onClose={handleClosePdf}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+  
+  <Box sx={style} style={{position:"relative"}}> 
+   <center style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
+   <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={bloodresult1} />
+   </center>
+   </Box>   
+    </Modal>
+
+
+
       {selectedPatient && (
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
@@ -167,11 +240,18 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
             </Grid>
           </Grid>
 
+
+        {!testTaken?
+          <>
           <div style={{ width: '100%', margin: '20px' }}>
-            <Grid item xs={12} md={12} lg={12}>
+          
+         
+           <Grid item xs={12} md={12} lg={12}>
               <Typography variant="subtitle1" style={{ marginBottom: '10px',fontSize: '18px' }}>
                 <b>Blood Investigation</b>
               </Typography><br/>
+      
+            
               <select
                 name="bloodInv1"
                 value={state.bloodInv1}
@@ -181,7 +261,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
               >
-          {  allTreatmentCategories.filter((item)=>(item.treatmentId === "7aHB3TreYQYh3bzBS65K" )).map((prop)=>(
+             {  allTreatmentCategories.filter((item)=>(item.treatmentId === "7aHB3TreYQYh3bzBS65K" )).map((prop)=>(
 
                  <option value={prop.uid}>{prop.title}</option>
                    
@@ -233,8 +313,8 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
                       padding: '4px',
                       height: '50px',
                     }}
-                    disabled={!state.bloodInv1 ||!state.bloodInv1  ||loading}
-                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2)}}
+                    disabled={!state.bloodInv1 ||!state.bloodInv2  ||loading}
+                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,state.bloodInv2)}}
                   >
                     Submit
                   </Button>
@@ -242,6 +322,57 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
               </Grid>
             </div>
           </div>
+
+          </>
+          :
+    
+          <Grid container spacing={2} style={{margin:"0 auto",display:"flex", alignItems: 'bottom', justifyContent:'center'}}>
+               
+               <Grid item xs={12} md={12} lg={12}>
+               <Typography variant="subtitle1" style={{ marginTop: '4px',marginLeft:"4px",marginBottom: '50px',fontSize: '18px' }}>
+                <b>Blood Investigation</b>
+              </Typography><br/>
+              </Grid> 
+               
+              { testTaken !== false && testTaken === "loading"?
+
+              <div style={{display:"flex",justifyContent:"center",flexDirection:"column",gap:"2rem"}}>
+              "Please wait while we compute your results..."
+               <center>
+              <CircularProgress />
+              </center>
+              </div>
+              :
+
+
+                <Grid item xs={4} md={4}>
+
+                 <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    style={{
+                      backgroundColor:'#21D0C3',
+                      color: 'white',
+                      fontSize: '15px',
+                      padding: '4px',
+                      height: '50px',
+                    }}
+                    
+                    onClick={()=>{handleOpenPdf()}}
+                  >
+                    View Result
+                  </Button>
+
+                
+                </Grid>
+              }
+                
+ 
+              </Grid>
+
+          }
+
         </Grid>
       )}
     </>

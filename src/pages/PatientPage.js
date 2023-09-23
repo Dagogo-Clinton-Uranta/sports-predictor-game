@@ -18,6 +18,8 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getPatients, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
 import { ToastContainer } from 'react-toastify';
+import {CSSTransition,TransitionGroup} from 'react-transition-group';
+import './stylefiles/transitions.css';
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
@@ -29,11 +31,14 @@ export default function PatientPage() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-  const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
+
  
   const [selectedBed, setSelectedBed] = useState(null);
   const [selectedTreatment, setSelectedTreatment] = useState(null);
+
+const [showPic,setShowPic] = useState(true)
+const [bloodInvClicked,setBloodInvClicked] = useState(false)
+
   const [state, setState] = useState({
     prescription:'',
     bloodInv1:'',
@@ -51,6 +56,52 @@ export default function PatientPage() {
     dispatch(fetchAllTreatmentTests());
     dispatch(fetchUserData(user?.id));
   }, []);
+
+
+  const { user } = useSelector((state) => state.auth);
+  const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
+
+  useEffect(() => {
+   
+  if(selectedTreatment !== 1){  
+ setBloodInvClicked(false)
+  }
+
+   const candidateResponseArray = user.response? user.response:[]
+
+   const particularPatientPosition = selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1
+  
+
+  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true)
+  {
+   
+   
+    
+     // stop the blinking after 18 times run
+    var timesRun = 0;
+    const interval = setInterval(() => {
+   timesRun += 1;
+    
+    console.log("i have run now",timesRun)
+
+
+      if(timesRun >= 17){
+        clearInterval(interval);
+    }
+      setShowPic((showPic) => !showPic);
+
+
+    }, 500);
+
+    return () => clearInterval(interval);
+    
+  }
+
+
+    
+  }, [selectedPatient]);
+
+
 
   const handleSelectBed = (bedNum) => {
     console.log(`Selected Bed: ${bedNum}`);
@@ -157,12 +208,17 @@ export default function PatientPage() {
                 onClick={() => {
                  if(selectedBed){
                   setSelectedTreatment(1);
+                  setBloodInvClicked(true)
                  }
                 }}>
+                  
                   <center>
                     {' '}
-                    <img src={IMG1} alt="Image 1" style={{ marginTop: '12%', marginRight: '10%' }} />
+                    
+                    <img src={IMG1} alt="Image 1" style={{opacity:!bloodInvClicked?(showPic?"1":"0.4"):1, marginTop: '12%', marginRight: '10%' }} />
                   </center>
+
+
                   <Typography variant="subtitle1" style={{ textAlign: 'left', marginTop: '35%' }}>
                     INVESTIGATIONS
                   </Typography>

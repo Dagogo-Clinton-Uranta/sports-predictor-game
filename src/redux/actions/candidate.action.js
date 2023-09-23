@@ -1,6 +1,8 @@
 import { db } from "../../config/firebase";
 import { fetchCandidates, fetchSingleCandidate } from "../reducers/candidate.slice";
 import { notifyErrorFxn, notifySuccessFxn } from "src/utils/toast-fxn";
+import { fetchUserData } from "./auth.action";
+//I am refreshing user data when a candidate takes a test, so I need to call user data from the auth actions file
 
 export const getCandidates = (uid) => async (dispatch) => {
     db.collection('Candidates').get().then((snapshot) => {
@@ -30,7 +32,7 @@ export const getSingleCandidate = (id) => async (dispatch) => {
 };
 
 
-export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch) => {
+export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -53,6 +55,8 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
         ...candidateResponseArray[particularPatientPosition],
         chosenBloodInvestigation: b1,
         bloodInvestigationTest:b2,
+        bloodInvestigationTestId:b3,
+        bloodInvestigationPassed:null,
         patientId,
         takenOn:new Date()
 
@@ -61,9 +65,11 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
      }else{
       candidateResponseArray.push({
         chosenBloodInvestigation: b1,
-    bloodInvestigationTest:b2,
-    patientId,
-    takenOn:new Date()
+        bloodInvestigationTest:b2,
+        bloodInvestigationTestId:b3,
+        bloodInvestigationPassed:null,
+        patientId,
+        takenOn:new Date()
 
       })
      }
@@ -73,7 +79,48 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2) =>async (dispatch
 
      await userRef.update({ response:[...candidateResponseArray]
      });
+
+
+
+    
+     const refetchUser = await userRef.get();
+     const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
+
   
+     const testToCheck = db.collection('TreatmentTests').doc(redoResponseArray[particularPatientPosition].bloodInvestigationTestId);
+    const testSnapshot = await testToCheck.get();
+
+    
+
+
+
+
+    if(testSnapshot.exists && testSnapshot.data().title === redoResponseArray[particularPatientPosition].bloodInvestigationTest){
+     redoResponseArray[particularPatientPosition] = {
+  
+      ...redoResponseArray[particularPatientPosition],
+      bloodInvestigationPassed:true,
+    }
+
+  }else{
+
+    redoResponseArray[particularPatientPosition] = {
+  
+      ...redoResponseArray[particularPatientPosition],
+      bloodInvestigationPassed:false,
+    }
+
+  }
+
+
+
+  await userRef.update({ response:[...redoResponseArray]
+  });
+
+  console.log("the user we wanna fetch is",uid)
+  dispatch(fetchUserData(uid))
+
+
     notifySuccessFxn(`submitted blood investigation!`);
     
 }
