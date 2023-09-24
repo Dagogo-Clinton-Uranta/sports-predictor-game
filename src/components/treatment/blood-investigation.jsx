@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme) => ({
 const BloodInvestigation = ({ state, setState, handleChange }) => {
   const { selectedPatient } = useSelector((state) => state.patient);
   const {user } = useSelector((state) => state.auth);
-  console.log("our candidate's response is ",user.response)
-  console.log("our selected patient is ",selectedPatient)
+ // console.log("our candidate's response is ",user.response)
+ // console.log("our selected patient is ",selectedPatient)
 
   //OKAY SO WE GONNA LOOP THROUGH RESPONSES, MATCH THEM TO THE SELECTED USER, 
   //IF THERE IS A MATCH, AND IN THAT MATCH, THE RESPONSE IS CORRECT
@@ -68,6 +68,18 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   const [testTaken,setTestTaken] = useState(false);
   const [bloodInv1,setBloodInv1] = useState('')
   const [bloodInv2,setBloodInv2] = useState('')
+  
+  
+  const [candidateResponseArray,setCandidateResponseArray]= useState(user.response? user.response:[])
+   const [particularPatientPosition,setParticularPatientPosition] = useState(selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+ 
+const [neverSubmitted,setNeverSubmitted] =  useState((particularPatientPosition === -1  ) ?true:false)
+const [hasSubmittedBefore,setHasSubmittedBefore] = useState((particularPatientPosition !== -1  ) ?true:false)
+const [trigger,setTrigger] = useState(true)
+
+
+
+   
 
 
 /*MODAL MANIPULATION LOGIC */
@@ -124,9 +136,9 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
 
 
  let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
- console.log(targetCategory[0].title )
+ //console.log(targetCategory[0].title )
     setBloodInv1(targetCategory[0].title)
-    console.log("bloodInv1",bloodInv1 )
+   // console.log("bloodInv1",bloodInv1 )
   }
 
   const bloodInv2Setup = (e)=>{
@@ -134,13 +146,15 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
     let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
    
     setBloodInv2(targetCategoryTest[0].title)
-    console.log("bloodInv2 is set as",bloodInv2 )
+    //console.log("bloodInv2 is set as",bloodInv2 )
   }
 
 
 
   const submitBIresponse = (patientId,b1,b2,b3) => {
+    setHasSubmittedBefore(true)
     dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3))
+    
   }
 
 
@@ -151,27 +165,84 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   }, []);
 
 
+
+  /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION*/ 
   useEffect(() => {
    
 
-   const candidateResponseArray = user.response? user.response:[]
 
-   const particularPatientPosition = selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1
-  
+    setTestTaken(false)
+   
+   
 
-  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true)
+   if(neverSubmitted===true && hasSubmittedBefore === true )
   {
 
     setTestTaken("loading")
    setTimeout(()=>{setTestTaken(true)},5000)
     
+  }
+  
+  
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+
+   setTestTaken(true)
+
+  }
+
+
+  setCandidateResponseArray(user.response? user.response:[])
+  setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+  setNeverSubmitted((particularPatientPosition === -1  ) ?true:false)
+
+  //YOU PROBABLY NEED A DIFFERENT LOGIC THAN THE ONE COMMENTED OUT BELOW, TO HAVE SUBMITTED BEFORE OR NEVER BEEN SUBMITTED TO CHANGE ONLY AFTER THE FIRST SUBMIT OF A PATIENT
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  setTrigger(!trigger)
+
+
+
+  }, [selectedPatient,user]);
+   /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION - END*/ 
+
+
+
+
+  /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION RERUN*/ 
+  useEffect(() => {
+   
+    setTestTaken(false)
+   
+   
+
+   if(neverSubmitted===true && hasSubmittedBefore === true )
+  {
+
+    setTestTaken("loading")
+   setTimeout(()=>{setTestTaken(true)},5000)
+    
+  }
+  
+  
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+
+   setTestTaken(true)
+
   }else{
     setTestTaken(false)
   }
 
 
-    
-  }, [selectedPatient,user]);
+  setCandidateResponseArray(user.response? user.response:[])
+  setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+  setNeverSubmitted(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) === -1  ?true:false)
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  
+
+ 
+}, [trigger]);
+   /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION RERUN - END*/ 
+
+
 
   const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
 
@@ -205,7 +276,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
 
 
 
-      {selectedPatient && (
+     
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
           <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
@@ -241,7 +312,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
           </Grid>
 
 
-        {!testTaken?
+        {testTaken === false?
           <>
           <div style={{ width: '100%', margin: '20px' }}>
           
@@ -337,7 +408,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
               { testTaken !== false && testTaken === "loading"?
 
               <div style={{display:"flex",justifyContent:"center",flexDirection:"column",gap:"2rem"}}>
-              "Please wait while we compute your results..."
+              "Please wait while we fetch your results..."
                <center>
               <CircularProgress />
               </center>
@@ -374,7 +445,7 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
           }
 
         </Grid>
-      )}
+     
     </>
   );
 };
