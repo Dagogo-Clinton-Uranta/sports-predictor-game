@@ -154,7 +154,7 @@ const [trigger,setTrigger] = useState(true)
   const submitBIresponse = (patientId,b1,b2,b3) => {
     setHasSubmittedBefore(true)
     dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3))
-    
+
   }
 
 
@@ -325,7 +325,7 @@ const [trigger,setTrigger] = useState(true)
             
               <select
                 name="bloodInv1"
-                value={state.bloodInv1}
+                value={state.bloodInv1 }
                 onChange={(e)=>{handleChange(e);bloodInv1Setup(e)}}
               
                 className={classes.searchInput}
@@ -352,7 +352,7 @@ const [trigger,setTrigger] = useState(true)
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
-                disabled={!state.bloodInv1 ? true : false}
+                disabled={state.bloodInv1.length <1 ? true : false}
               >
                 {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.bloodInv1 )).map((prop)=>(
 
@@ -378,13 +378,13 @@ const [trigger,setTrigger] = useState(true)
                     fullWidth
                     variant="contained"
                     style={{
-                      backgroundColor:!state.bloodInv1||!state.bloodInv2?'#199e94':'#21D0C3',
+                      backgroundColor:state.bloodInv1.length <1 ||state.bloodInv2.length <1||bloodInv2.length <1||bloodInv1.length <1  ?'#199e94':'#21D0C3',
                       color: 'white',
                       fontSize: '15px',
                       padding: '4px',
                       height: '50px',
                     }}
-                    disabled={!state.bloodInv1 ||!state.bloodInv2  ||loading}
+                    disabled={state.bloodInv1.length <1  ||state.bloodInv2.length <1 ||bloodInv2.length <1||bloodInv1.length <1  ||loading}
                     onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,state.bloodInv2)}}
                   >
                     Submit
