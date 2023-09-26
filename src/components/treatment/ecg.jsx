@@ -223,7 +223,7 @@ const {refs, x, y, strategy,floatingStyles} = useFloating();
               <Typography variant="subtitle1" style={{ marginBottom: '0px', fontSize: '18px' }}>
                 <b>ECG</b>
               </Typography>
-             <center style={{position:"relative",marginTop:"-2%"}} onClick={()=>{setOpen(true)}} >
+             <center style={{position:"relative",marginTop:"-2%"}} /*onClick={()=>{setOpen(true)}}*/ >
                <img src={ECGIMG} style={{height:"220px",width:"110px" ,position:"relative",top:"20%"}}/>
                </center>
               {/* <select

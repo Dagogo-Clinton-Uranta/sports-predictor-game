@@ -32,14 +32,12 @@ export const getSingleCandidate = (id) => async (dispatch) => {
 };
 
 
-export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispatch) => {
+export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
 
   if (userSnapshot.exists) {
-
-    
 
 
     const candidateResponseArray = userSnapshot.data().response?userSnapshot.data().response:[]
@@ -54,8 +52,9 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispa
   
         ...candidateResponseArray[particularPatientPosition],
         chosenBloodInvestigation: b1,
-        bloodInvestigationTest:b2,
-        bloodInvestigationTestId:b3,
+        chosenBloodInvestigationId: b4,
+        chosenBloodInvestigationTests:b2,
+        chosenBloodInvestigationTestIds:b3,
         bloodInvestigationPassed:null,
         patientId,
         takenOn:new Date()
@@ -65,8 +64,9 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispa
      }else{
       candidateResponseArray.push({
         chosenBloodInvestigation: b1,
-        bloodInvestigationTest:b2,
-        bloodInvestigationTestId:b3,
+        chosenBloodInvestigationId: b4,
+        chosenbloodInvestigationTests:b2,
+        chosenbloodInvestigationTestIds:b3,
         bloodInvestigationPassed:null,
         patientId,
         takenOn:new Date()
@@ -129,15 +129,15 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispa
 
 
 
-  export const submitRadiology =  (uid,patientId,b1,b2) =>async (dispatch) => {
+  export const submitRadiology =  (uid,patientId,b1,b2,b3,b4) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
 
   if (userSnapshot.exists) {
 
-    console.log("user is",userSnapshot.data())
-
+    console.log("user in question is",userSnapshot.data())
+    console.log("our inputs are",patientId,b1,b2,b3,b4)
 
     const candidateResponseArray = userSnapshot.data().response?userSnapshot.data().response:[]
 
@@ -151,7 +151,10 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispa
 
       ...candidateResponseArray[particularPatientPosition],
       chosenRadiology: b1,
-      radiologyTest:b2,
+      chosenRadiologyId: b4,
+      chosenRadiologyTests:b2,
+      chosenRadiologyTestIds:b3,
+      radiologyPassed:null,
       patientId,
       takenOn:new Date()
     
@@ -160,7 +163,10 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispa
    }else{
     candidateResponseArray.push({
       chosenRadiology: b1,
-      radiologyTest:b2,
+      chosenRadiologyId: b4,
+      chosenRadiologyTests:b2,
+      chosenRadiologyTestIds:b3,
+      radiologyPassed:null,
       patientId,
       takenOn:new Date()
     
@@ -168,8 +174,46 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3) =>async (dispa
    }
 
 
+  
+
    await userRef.update({ response:[...candidateResponseArray]
    });
+
+   console.log("CHECKMARK",uid) // ANYWHERE BELOW HERE IT STOPS WORKING
+
+   const refetchUser = await userRef.get();
+   const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
+
+
+   const testToCheck = db.collection('TreatmentTests').doc(redoResponseArray[particularPatientPosition].radiologyTestId);
+  const testSnapshot = await testToCheck.get();
+
+
+
+  if(testSnapshot.exists && testSnapshot.data().title === redoResponseArray[particularPatientPosition].radiologyTest){
+    redoResponseArray[particularPatientPosition] = {
+ 
+     ...redoResponseArray[particularPatientPosition],
+     radiologyPassed:true,
+   }
+
+ }else{
+
+   redoResponseArray[particularPatientPosition] = {
+ 
+     ...redoResponseArray[particularPatientPosition],
+     radiologyPassed:false,
+   }
+
+ }
+
+
+
+ await userRef.update({ response:[...redoResponseArray]
+ });
+
+ 
+ dispatch(fetchUserData(uid))
   
     notifySuccessFxn(`submitted radiology!`);
     

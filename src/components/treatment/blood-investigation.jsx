@@ -67,7 +67,8 @@ const BloodInvestigation = ({ state, setState, handleChange }) => {
   const [loading, setLoading] = useState(false);
   const [testTaken,setTestTaken] = useState(false);
   const [bloodInv1,setBloodInv1] = useState('')
-  const [bloodInv2,setBloodInv2] = useState('')
+  const [bloodInv2,setBloodInv2] = useState([])
+  const [bloodInv2IdArray,setBloodInv2IdArray] = useState([])
   
   
   const [candidateResponseArray,setCandidateResponseArray]= useState(user.response? user.response:[])
@@ -136,26 +137,42 @@ const [trigger,setTrigger] = useState(true)
 
 
  let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
- //console.log(targetCategory[0].title )
+
     setBloodInv1(targetCategory[0].title)
-   // console.log("bloodInv1",bloodInv1 )
+  
+   /* setState({
+      ...state,
+      bloodInv2: '',
+    });*/
+
+    setBloodInv2([])
+    setBloodInv2IdArray([])
+   
+
+
   }
 
   const bloodInv2Setup = (e)=>{
 
     let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
    
-    setBloodInv2(targetCategoryTest[0].title)
+  if(!bloodInv2.includes(targetCategoryTest[0].title)){  setBloodInv2([...bloodInv2,targetCategoryTest[0].title])}
+
+  if(!bloodInv2IdArray.includes(targetCategoryTest[0].title)){  setBloodInv2IdArray([...bloodInv2IdArray,targetCategoryTest[0].uid])}
     //console.log("bloodInv2 is set as",bloodInv2 )
+ 
+ 
   }
 
 
 
-  const submitBIresponse = (patientId,b1,b2,b3) => {
+  const submitBIresponse = (patientId,b1,b2,b3,b4) => {
     setHasSubmittedBefore(true)
-    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3))
+    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3,b4))
 
   }
+
+
 
 
   useEffect(() => {
@@ -164,6 +181,22 @@ const [trigger,setTrigger] = useState(true)
     dispatch(fetchAllTreatmentTests());
   }, []);
 
+
+
+  /*THIS USE EFFECT IS SO THAT WE CAN RESET THE SELECTIONS WHEN THE PATIENT IS CHANGED */
+  useEffect(()=>{
+   
+   /* setState({
+      ...state,
+      bloodInv1: '',
+      bloodInv2: '',
+    });*/
+  
+
+
+    setBloodInv2([])
+    setBloodInv2IdArray([])
+  },[selectedPatient])
 
 
   /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION*/ 
@@ -211,7 +244,7 @@ const [trigger,setTrigger] = useState(true)
   useEffect(() => {
    
     setTestTaken(false)
-   
+    console.log("OUR STATE IS:",state)
    
 
    if(neverSubmitted===true && hasSubmittedBefore === true )
@@ -247,12 +280,29 @@ const [trigger,setTrigger] = useState(true)
   const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
 
 
-  const handleDelete = () => {
+  const handleDelete = (tbr,tbrId) => {
+    
+
+     let placeholder =   bloodInv2.filter((item)=>(item !== tbr))
+     let placeholder2 =   bloodInv2IdArray.filter((item)=>(item !== tbrId))
+
+
+      setBloodInv2([...placeholder])
+      setBloodInv2IdArray([...placeholder2])
+  };
+
+
+  const resetAllOptions = (tbr) => {
     setState({
         ...state,
         bloodInv1: '',
         bloodInv2: '',
       });
+
+      setBloodInv2([])
+      setBloodInv2IdArray([])
+      setBloodInv1('')
+
   };
 
 
@@ -352,7 +402,7 @@ const [trigger,setTrigger] = useState(true)
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
-                disabled={state.bloodInv1.length <1 ? true : false}
+                disabled={state.bloodInv1 && state.bloodInv1.length <1 ? true : false}
               >
                 {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.bloodInv1 )).map((prop)=>(
 
@@ -366,8 +416,16 @@ const [trigger,setTrigger] = useState(true)
             </Grid>
             <br/>
             <div style={{padding: '10px', border: state.bloodInv2 ? '1px solid #00000033' : ''}}>
-             {state.bloodInv2 && <> &nbsp; 
-              <Chip label={bloodInv2} onClick={handleClick} onDelete={handleDelete} /></>}
+             {state.bloodInv2 &&
+              <> 
+                 &nbsp; 
+               {  bloodInv2.map((item,index)=>(
+              <Chip label={item} onClick={handleClick} onDelete={()=>{handleDelete(item,bloodInv2IdArray[index])}} />
+              ))
+                }
+
+              </>
+              }
             </div>
             <div style={{ padding: '10px' }}>
               <br />
@@ -385,11 +443,34 @@ const [trigger,setTrigger] = useState(true)
                       height: '50px',
                     }}
                     disabled={state.bloodInv1.length <1  ||state.bloodInv2.length <1 ||bloodInv2.length <1||bloodInv1.length <1  ||loading}
-                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,state.bloodInv2)}}
+                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,bloodInv2IdArray,state.bloodInv1)}}
                   >
                     Submit
                   </Button>
                 </Grid>
+
+               {testTaken === false &&
+               
+               <Grid item xs={4} md={4}>
+                  <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    style={{
+                      backgroundColor:'#21D0C3',
+                      color: 'white',
+                      fontSize: '15px',
+                      padding: '4px',
+                      height: '50px',
+                    }}
+                    disabled={false}
+                    onClick={()=>{resetAllOptions()}}
+                  >
+                    Clear
+                  </Button>
+                </Grid>
+                }
+
               </Grid>
             </div>
           </div>

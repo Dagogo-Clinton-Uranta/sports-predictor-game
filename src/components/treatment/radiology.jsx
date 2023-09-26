@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
+import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar,Box,CircularProgress  } from '@mui/material';
+import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
@@ -11,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
-
+import radiologyresult1 from '../../assets/images/radiologyresult1.jpeg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,8 +56,24 @@ const Radiology = ({ state, setState, handleChange }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [testTaken,setTestTaken] = useState(false);
   const [radiology1,setRadiology1] = useState('')
-  const [radiology2,setRadiology2] = useState('')
+  const [radiology2,setRadiology2] = useState([])
+  const [radiology2IdArray,setRadiology2IdArray] = useState([])
+
+  const [candidateResponseArray,setCandidateResponseArray]= useState(user.response? user.response:[])
+  const [particularPatientPosition,setParticularPatientPosition] = useState(selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+
+const [neverSubmitted,setNeverSubmitted] =  useState((particularPatientPosition === -1  ) ?true:false)
+const [hasSubmittedBefore,setHasSubmittedBefore] = useState((particularPatientPosition !== -1  ) ?true:false)
+const [trigger,setTrigger] = useState(true)
+
+/*MODAL MANIPULATION LOGIC */
+const [openPdf, setOpenPdf] = React.useState(false);
+const handleOpenPdf = () => {setOpenPdf(true)}
+const handleClosePdf = () => {setOpenPdf(false)};
+/*MODAL MANIPULATION LOGIC END */
+
 
   const mystyle = {
     fontFamily: 'Arial',
@@ -65,6 +82,20 @@ const Radiology = ({ state, setState, handleChange }) => {
     fontSize: '18px',
     lineHeight: '30px',
     color: 'black',
+  };
+
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: "95%",
+    height:"90%",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
   };
 
   const getAvatarSrc = (gender) => {
@@ -79,6 +110,19 @@ const Radiology = ({ state, setState, handleChange }) => {
         return MAN; 
     }
   };
+
+/*THIS USE EFFECT IS SO THAT WE CAN RESET THE SELECTIONS WHEN THE PATIENT IS CHANGED */
+  useEffect(()=>{
+   /*setState({
+        ...state,
+        radiology1: '',
+        radiology2: '',
+      });*/
+    
+    setRadiology2([])
+    setRadiology2IdArray([])
+  },[selectedPatient])
+
 
 
   useEffect(() => {
@@ -95,39 +139,166 @@ const Radiology = ({ state, setState, handleChange }) => {
 
 
     let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
-    console.log(targetCategory[0].title )
+    
        setRadiology1(targetCategory[0].title)
-       console.log("radiology1",radiology1 )
+     
+      /*setState({
+        ...state,
+        radiology2: '',
+      });*/
+    
+      setRadiology2([])
+      setRadiology2IdArray([])
+
+      console.log("OUR STATE IS:",state)
+      console.log("OUR RADIOLOGY NAMES ARRAY IS:",radiology2)
+      console.log("OUR RADIOLOGY ID ARRAY IS:",radiology2IdArray)
+
      }
    
      const radiology2Setup = (e)=>{
    
        let   targetCategoryTest =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0 ? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
-     
-       setRadiology2(targetCategoryTest[0].title)
-       console.log("radiology2",radiology2 )
+       
+
+      if(!radiology2.includes(targetCategoryTest[0].title)){ setRadiology2([...radiology2,targetCategoryTest[0].title])}
+
+
+       if(!radiology2IdArray.includes(targetCategoryTest[0].uid)){setRadiology2IdArray([...radiology2IdArray,targetCategoryTest[0].uid])}
+
+       console.log("OUR RADIOLOGY NAMES ARRAY IS:",radiology2)
+       console.log("OUR RADIOLOGY ID ARRAY IS:",radiology2IdArray)
+      
      }
 
-  const submitRadiologyresponse = (patientId,b1,b2) => {
-    dispatch(submitRadiology(user.uid,patientId,b1,b2))
+  const submitRadiologyresponse = (patientId,b1,b2,b3,b4) => {
+    dispatch(submitRadiology(user.uid,patientId,b1,b2,b3,b4))
   }
 
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
 
-  const handleDelete1 = () => {
+  const handleDelete1 = (tbr,tbrId) => {
+    let placeholder =   radiology2.filter((item)=>(item !== tbr))
+     let placeholder2 =   radiology2IdArray.filter((item)=>(item !== tbrId))
+
+
+      setRadiology2([...placeholder])
+      setRadiology2IdArray([...placeholder2])
+  };
+
+
+
+   /*LOGIC FOR SETTING VIEW RESULTS FOR RADIOLOGY*/ 
+   useEffect(() => {
+   
+    console.log("OUR STATE IS:",state)
+
+    setTestTaken(false)
+   
+   
+
+   if(neverSubmitted===true && hasSubmittedBefore === true )
+  {
+
+    setTestTaken("loading")
+   setTimeout(()=>{setTestTaken(true)},5000)
+    
+  }
+  
+  
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+
+   setTestTaken(true)
+
+  }
+
+
+  setCandidateResponseArray(user.response? user.response:[])
+  setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+  setNeverSubmitted((particularPatientPosition === -1  ) ?true:false)
+
+  //YOU PROBABLY NEED A DIFFERENT LOGIC THAN THE ONE COMMENTED OUT BELOW, TO HAVE SUBMITTED BEFORE OR NEVER BEEN SUBMITTED TO CHANGE ONLY AFTER THE FIRST SUBMIT OF A PATIENT
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  setTrigger(!trigger)
+
+
+
+  }, [selectedPatient,user]);
+   //LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION - END 
+
+
+     //LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION RERUN
+  useEffect(() => {
+   
+    setTestTaken(false)
+   
+   
+
+   if(neverSubmitted===true && hasSubmittedBefore === true )
+  {
+
+    setTestTaken("loading")
+   setTimeout(()=>{setTestTaken(true)},5000)
+    
+  }
+  
+  
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+
+   setTestTaken(true)
+
+  }else{
+    setTestTaken(false)
+  }
+
+
+  setCandidateResponseArray(user.response? user.response:[])
+  setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+  setNeverSubmitted(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) === -1  ?true:false)
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  
+
+ 
+}, [trigger]);
+   //LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION RERUN - END
+
+
+   const resetAllOptions = (tbr) => {
     setState({
         ...state,
-        radiology1:'',
-        radiology2:'',
+        radiology1: '',
+        radiology2: '',
       });
+
+      setRadiology2([])
+      setRadiology2IdArray([])
+      setRadiology1('')
+
   };
 
 
   return (
     <>
-      {selectedPatient && (
+      
+
+
+<Modal
+        open={openPdf}
+        onClose={handleClosePdf}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+  
+  <Box sx={style} style={{position:"relative"}}> 
+   <center style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
+   <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={radiologyresult1} />
+   </center>
+   </Box>   
+    </Modal>
+
+
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
           <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
@@ -162,6 +333,9 @@ const Radiology = ({ state, setState, handleChange }) => {
             </Grid>
           </Grid>
 
+
+          {testTaken === false?
+          <>
           <div style={{ width: '100%', margin: '20px' }}>
             <Grid item xs={12} md={12} lg={12}>
               <Typography variant="subtitle1" style={{ marginBottom: '10px', fontSize: '18px' }}>
@@ -197,7 +371,7 @@ const Radiology = ({ state, setState, handleChange }) => {
                 className={classes.searchInput}
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
-                disabled={state.radiology1===null ? true : false}
+                disabled={state.radiology1 && state.radiology1.length < 1 ? true : false}
               >
                {  allTreatmentTests.filter((item)=>(item.treatmentCategoryId === state.radiology1 )).map((prop)=>(
 
@@ -212,11 +386,16 @@ const Radiology = ({ state, setState, handleChange }) => {
 
 
             <br/><br/>
-            <div style={{padding: '10px', border: state.radiology ? '1px solid #00000033' : ''}}>
-             {state.radiology1 !== null && 
+            <div style={{padding: '10px', border: state.radiology2 ? '1px solid #00000033' : ''}}>
+             {state.radiology2  && 
               <> &nbsp; 
-             <Chip label={radiology2} onClick={handleClick} onDelete={handleDelete1} />
-             </>}
+                {  radiology2.map((item,index)=>(
+             <Chip label={item} onClick={handleClick} onDelete={()=>{handleDelete1(item,radiology2IdArray[index])}} />
+             ))
+            }
+
+             </>
+             }
 
             </div>
             <div style={{ padding: '10px' }}>
@@ -235,16 +414,91 @@ const Radiology = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.radiology1||!state.radiology2||loading}
-                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2)}}
+                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,state.radiology1)}}
                   >
                     Submit
                   </Button>
                 </Grid>
+               
+                {testTaken === false &&
+               
+               <Grid item xs={4} md={4}>
+                  <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    style={{
+                      backgroundColor:'#21D0C3',
+                      color: 'white',
+                      fontSize: '15px',
+                      padding: '4px',
+                      height: '50px',
+                    }}
+                    disabled={false}
+                    onClick={()=>{resetAllOptions()}}
+                  >
+                    Clear
+                  </Button>
+                </Grid>
+                }
+
+
               </Grid>
             </div>
           </div>
+ 
+          </>
+          :
+
+          <Grid container spacing={2} style={{margin:"0 auto",display:"flex", alignItems: 'bottom', justifyContent:'center'}}>
+               
+          <Grid item xs={12} md={12} lg={12}>
+          <Typography variant="subtitle1" style={{ marginTop: '4px',marginLeft:"4px",marginBottom: '50px',fontSize: '18px' }}>
+           <b>Radiology</b>
+         </Typography><br/>
+         </Grid> 
+          
+         { testTaken !== false && testTaken === "loading"?
+
+         <div style={{display:"flex",justifyContent:"center",flexDirection:"column",gap:"2rem"}}>
+         "Please wait while we fetch your results..."
+          <center>
+         <CircularProgress />
+         </center>
+         </div>
+         :
+
+
+           <Grid item xs={4} md={4}>
+
+            <Button
+               type="submit"
+               fullWidth
+               variant="contained"
+               style={{
+                 backgroundColor:'#21D0C3',
+                 color: 'white',
+                 fontSize: '15px',
+                 padding: '4px',
+                 height: '50px',
+               }}
+               
+               onClick={()=>{handleOpenPdf()}}
+             >
+               View Result
+             </Button>
+
+           
+           </Grid>
+         }
+           
+
+         </Grid>
+
+     }
+
         </Grid>
-      )}
+      
     </>
   );
 };
