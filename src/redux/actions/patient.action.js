@@ -138,7 +138,7 @@ export const dischargePatients = (uid, setLoading, navigate) => async (dispatch)
   setLoading(false);
 };
 
-export const reset = () => async (dispatch) => {
+export const reset = (uid) => async (dispatch) => {
   dispatch(setIsLoading(true));
 
   try {
@@ -156,6 +156,18 @@ export const reset = () => async (dispatch) => {
     });
 
     await batch.commit();
+
+/*resetting ALL the tests submitted */
+    const userRef = db.collection('Candidates').doc(uid);
+    const userSnapshot = await userRef.get();
+    
+
+  if (userSnapshot.exists) {
+   await userRef.update({ response:[ ]
+   });
+
+  }
+
 
     dispatch(setIsLoading(false));
     dispatch(clearPatient());

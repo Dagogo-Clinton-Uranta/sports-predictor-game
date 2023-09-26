@@ -54,11 +54,12 @@ const [bloodInvClicked,setBloodInvClicked] = useState(false)
     dispatch(getAdmittedPatients());
     dispatch(fetchAllTreatmentCategories());
     dispatch(fetchAllTreatmentTests());
-    dispatch(fetchUserData(user?.id));
+    dispatch(fetchUserData(user?.uid));
   }, []);
 
 
   const { user } = useSelector((state) => state.auth);
+  console.log("we wanna do reset---->",user)
   const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
 
   useEffect(() => {
@@ -331,7 +332,7 @@ const [bloodInvClicked,setBloodInvClicked] = useState(false)
                     onClick={() => {
                       setSelectedBed(null);
                       setSelectedTreatment(null);
-                      dispatch(reset())
+                      dispatch(reset(user?.uid))
                     }}
                   >
                     Reset

@@ -179,7 +179,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
    await userRef.update({ response:[...candidateResponseArray]
    });
 
-   console.log("CHECKMARK",uid) // ANYWHERE BELOW HERE IT STOPS WORKING
+  
 
    const refetchUser = await userRef.get();
    const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
