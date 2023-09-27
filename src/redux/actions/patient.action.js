@@ -1,6 +1,8 @@
 import { notifyErrorFxn, notifySuccessFxn } from "src/utils/toast-fxn";
 import { db } from "../../config/firebase";
 import { clearPatient, fetchAdmittedPatients, fetchPatients, setIsLoading, setSelectedPatient,saveAllTreatmentCategories,saveAllTreatmentTests } from '../reducers/patient.slice';
+import { fetchUserData } from "./auth.action";
+
 
 export const getWaitingRoomPatients = () => async (dispatch) => {
  dispatch(setIsLoading(true));
@@ -166,6 +168,8 @@ export const reset = (uid) => async (dispatch) => {
    await userRef.update({ response:[ ]
    });
 
+   dispatch(fetchUserData(uid))
+   
   }
 
 

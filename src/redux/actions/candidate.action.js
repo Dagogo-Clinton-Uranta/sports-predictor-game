@@ -4,6 +4,8 @@ import { notifyErrorFxn, notifySuccessFxn } from "src/utils/toast-fxn";
 import { fetchUserData } from "./auth.action";
 //I am refreshing user data when a candidate takes a test, so I need to call user data from the auth actions file
 
+
+
 export const getCandidates = (uid) => async (dispatch) => {
     db.collection('Candidates').get().then((snapshot) => {
         const cand = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
@@ -120,13 +122,17 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
   await userRef.update({ response:[...redoResponseArray]
-  });
+  }).then((value)=>{
+   
 
-  console.log("the user we wanna fetch is",uid)
+    console.log("the user we wanna fetch is",uid)
   dispatch(fetchUserData(uid))
 
 
     notifySuccessFxn(`submitted blood investigation!`);
+  })
+
+  
     
 }
   
@@ -221,12 +227,16 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
  await userRef.update({ response:[...redoResponseArray]
- });
-
- 
+ }).then((value)=>{
+  
+   
  dispatch(fetchUserData(uid))
   
-    notifySuccessFxn(`submitted radiology!`);
+ notifySuccessFxn(`submitted radiology!`);
+
+ })
+
+ 
     
 }
   
