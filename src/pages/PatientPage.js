@@ -94,15 +94,15 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
     console.log("i have run now",timesRun)
 
 
-      if(timesRun >= 17){
+      if(timesRun >= 27){
         clearInterval(interval);
     }
-      setShowPic((showPic) => !showPic);
-
+      setShowPic(!showPic);
+      
 
     }, 500);
 
-    return () => clearInterval(interval);
+    //return () => clearInterval(interval);
     
   }
 
@@ -112,24 +112,29 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
   {
    
   
-    
-     // stop the blinking after 18 times run
+   
     var timesRunRadiology = 0;
-    const intervalRadiology = setInterval(() => {
+   
+    
+    const intervalRadiology = 
+    
+    
+      
+      setInterval(() => {
    timesRunRadiology += 1;
     
-  
 
-
-      if(timesRunRadiology >= 17){
+      if(timesRunRadiology >= 27){
         clearInterval(intervalRadiology);
     }
-      setBlinkRadiology((blinkRadiology) => !blinkRadiology);
+      setBlinkRadiology(!blinkRadiology);
 
+    }
+    , 500);
 
-    }, 500);
+ 
 
-    return () => clearInterval(intervalRadiology);
+   // return () => clearInterval(intervalRadiology);
     
   }
 
