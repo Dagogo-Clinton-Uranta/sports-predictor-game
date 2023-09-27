@@ -304,7 +304,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   {  user.response[particularPatientPosition].radiologyAnswerImages.map((item)=>(
    
     <center style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}} >
-    <img    src ={item} />
+    <img  src ={item} />
     </center>
 ))
  }

@@ -1,10 +1,25 @@
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React,{useEffect} from 'react';
+import {  reset } from 'src/redux/actions/patient.action';
+
+
 
 const EntryPage = () => {
     const navigate = useNavigate();
-  return (
+    const dispatch = useDispatch()
+    const { user } = useSelector((state) => state.auth);
+ 
+    useEffect(() => {
+     dispatch(reset(user?.uid))
+    }, []);
+  
+ 
+ 
+ 
+ 
+    return (
     <div
       style={{
         display: 'flex',
