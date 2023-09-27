@@ -100,7 +100,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
       setShowPic(!showPic);
       
 
-    }, 500);
+    }, 800);
 
     //return () => clearInterval(interval);
     
@@ -130,7 +130,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
       setBlinkRadiology(!blinkRadiology);
 
     }
-    , 500);
+    , 800);
 
  
 
