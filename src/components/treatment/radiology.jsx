@@ -128,7 +128,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
 
 
   useEffect(() => {
-    
+    console.log("OUR ISSUE FOR RADIOLOGY IS!:")
     dispatch(fetchAllTreatmentCategories());
     dispatch(fetchAllTreatmentTests());
   }, []);
@@ -193,8 +193,6 @@ const handleClosePdf = () => {setOpenPdf(false)};
    /*LOGIC FOR SETTING VIEW RESULTS FOR RADIOLOGY*/ 
    useEffect(() => {
    
-  
- console.log("radiology whats up")
     setTestTaken(false)
    
    
@@ -307,7 +305,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
    pagination={{clickable:true}}
    
    > 
-    {user && user.response  && user.response[particularPatientPosition].radiologyAnswerImages ?
+    {user && user.response  &&  user.response[particularPatientPosition] && user.response[particularPatientPosition].radiologyAnswerImages ?
     
     user.response[particularPatientPosition].radiologyAnswerImages.map((item)=>(
     <SwiperSlide className="swiperContainer" >

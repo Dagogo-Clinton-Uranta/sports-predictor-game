@@ -1,5 +1,5 @@
 import { Grid, Container, Typography, Button, Paper, CircularProgress } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from 'src/redux/actions/auth.action';
@@ -65,8 +65,19 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
 
   const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
 
+  const previousValue = useRef(null);
+ 
   useEffect(() => {
-   
+      previousValue.current = selectedPatient;
+  }, [selectedPatient]);
+
+
+
+  useEffect(() => {
+
+    let timesRun = 27;
+    let timesRunRadiology = 27;
+    
   if(selectedTreatment !== 1){  
  setBloodInvClicked(false)
   }
@@ -76,27 +87,35 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
      }
    
 
-   const candidateResponseArray = user.response? user.response:[]
+   const candidateResponseArray =user && user.response? user.response:[]
 
-   const particularPatientPosition = selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1
+   const particularPatientPosition = selectedPatient && candidateResponseArray && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1
   
 
-  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true)
+  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true)
   {
    
    
-    
-     // stop the blinking after 18 times run
-    var timesRun = 0;
+     // stop the blinking after 27 times run
+     timesRun = 0;
+
+    /* if(previousValue.current !==  selectedPatient){
+      timesRun = 27;
+  }*/
+   
+
+
     const interval = setInterval(() => {
-   timesRun += 1;
+  
     
-    console.log("i have run now",timesRun)
+   
 
 
-      if(timesRun >= 27){
+      if(timesRun >= 27 || previousValue.current !==  selectedPatient){
         clearInterval(interval);
     }
+    console.log("i have run blood inv now",timesRun)
+    timesRun += 1;
       setShowPic(!showPic);
       
 
@@ -108,25 +127,30 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
 
 
 
-  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition].radiologyPassed === true)
+  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].radiologyPassed === true)
   {
    
-  
-   
-    var timesRunRadiology = 0;
    
     
+     timesRunRadiology = 0;
+   
+    /* if(previousValue.current !==  selectedPatient){
+      timesRunRadiology = 27;
+  }*/
+
+
     const intervalRadiology = 
     
     
       
       setInterval(() => {
-   timesRunRadiology += 1;
-    
+      
 
-      if(timesRunRadiology >= 27){
+      if(timesRunRadiology >= 27 ){
         clearInterval(intervalRadiology);
     }
+    console.log("i have run radiology now",timesRunRadiology)
+    timesRunRadiology += 1;
       setBlinkRadiology(!blinkRadiology);
 
     }
@@ -248,7 +272,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
                 onClick={() => {
                  if(selectedBed){
                   setSelectedTreatment(1);
-                  setBloodInvClicked(true)
+                 setBloodInvClicked(true)
                  }
                 }}>
                   

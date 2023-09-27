@@ -178,7 +178,7 @@ const [trigger,setTrigger] = useState(true)
 
 
   useEffect(() => {
-    
+    console.log("OUR ISSUE FOR BLOOD INV IS!:")
     dispatch(fetchAllTreatmentCategories());
     dispatch(fetchAllTreatmentTests());
   }, []);
@@ -336,7 +336,7 @@ const [trigger,setTrigger] = useState(true)
    pagination={{clickable:true}}
    
    > 
-    {user && user.response  && user.response[particularPatientPosition].bloodInvestigationAnswerImages ?
+    {user && user.response  && user.response[particularPatientPosition]  &&   user.response[particularPatientPosition].bloodInvestigationAnswerImages ?
     
     user.response[particularPatientPosition].bloodInvestigationAnswerImages.map((item)=>(
     <SwiperSlide className="swiperContainer" >
