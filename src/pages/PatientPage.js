@@ -66,17 +66,21 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
   const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
 
   const previousValue = useRef(null);
- 
-  useEffect(() => {
+  previousValue.current = selectedPatient;
+
+  /*useEffect(() => {
       previousValue.current = selectedPatient;
-  }, [selectedPatient]);
+  }, [selectedPatient]);*/
 
 
 
   useEffect(() => {
 
-    let timesRun = 27;
-    let timesRunRadiology = 27;
+    let timesRun = 0;
+    let timesRunRadiology = 0;
+
+    let interval;
+    let intervalRadiology;
     
   if(selectedTreatment !== 1){  
  setBloodInvClicked(false)
@@ -94,10 +98,11 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
 
   if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true)
   {
-   
-   
+     
+
+
      // stop the blinking after 27 times run
-     timesRun = 0;
+     
 
     /* if(previousValue.current !==  selectedPatient){
       timesRun = 27;
@@ -105,23 +110,24 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
    
 
 
-    const interval = setInterval(() => {
+     interval = setInterval(() => {
   
     
-   
-
-
-      if(timesRun >= 27 || previousValue.current !==  selectedPatient){
-        clearInterval(interval);
-    }
     console.log("i have run blood inv now",timesRun)
     timesRun += 1;
-      setShowPic(!showPic);
+   
+    if(timesRun >= 27){
+      clearInterval(interval);
+  }
+  if(timesRun%2 ===1){setShowPic(false)} 
+    else{
+      setShowPic(true)
+    }
       
 
     }, 800);
 
-    //return () => clearInterval(interval);
+ // return () => clearInterval(interval);
     
   }
 
@@ -131,38 +137,44 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
   {
    
    
-    
-     timesRunRadiology = 0;
-   
     /* if(previousValue.current !==  selectedPatient){
       timesRunRadiology = 27;
   }*/
 
 
-    const intervalRadiology = 
-    
-    
+     intervalRadiology = 
       
       setInterval(() => {
       
 
-      if(timesRunRadiology >= 27 ){
+    
+    console.log("i have run radiology now",timesRunRadiology,blinkRadiology)
+    timesRunRadiology += 1;
+
+     if(timesRunRadiology >= 27 ){
         clearInterval(intervalRadiology);
     }
-    console.log("i have run radiology now",timesRunRadiology)
-    timesRunRadiology += 1;
-      setBlinkRadiology(!blinkRadiology);
 
+    if(timesRunRadiology%2 ===1){setBlinkRadiology(false)} 
+    else{
+      setBlinkRadiology(true)
+    }
+    
+     
     }
     , 800);
 
- 
-
-   // return () => clearInterval(intervalRadiology);
+   
+   
+ // return () => clearInterval(intervalRadiology);
     
   }
+ 
 
-    
+  return () => {clearInterval(intervalRadiology); clearInterval(interval)}
+ 
+
+
   }, [selectedPatient]);
 
 
@@ -279,7 +291,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
                   <center>
                     {' '}
                     
-                    <img src={IMG1} alt="Image 1" style={{opacity:!bloodInvClicked?(showPic?"1":"0.4"):1, marginTop: '12%', marginRight: '10%' }} />
+                    <img src={IMG1} alt="Image 1" style={{opacity:!bloodInvClicked?(showPic===true?"1":"0.4"):1, marginTop: '12%', marginRight: '10%' }} />
                   </center>
 
 
@@ -297,7 +309,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
                  }
                 }}>
                   <center>
-                    <img src={IMG2} alt="Image 2" style={{opacity:!radiologyClicked?(blinkRadiology?"1":"0.4"):1, marginTop: '12%', marginRight: '10%' }} />
+                    <img src={IMG2} alt="Image 2" style={{opacity:!radiologyClicked?(blinkRadiology===true?"1":"0.4"):1, marginTop: '12%', marginRight: '10%' }} />
                     </center>
 
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
