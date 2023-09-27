@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar, Box,CircularProgress } from '@mui/material';
+import Carousel from 'react-material-ui-carousel'
 import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -319,42 +320,37 @@ const [trigger,setTrigger] = useState(true)
         aria-describedby="modal-modal-description"
       >
   
-  <Box sx={style} style={{position:"relative"}}> 
-   <center style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
+  <Box sx={style} > 
+   <center >
    
-   <Swiper className="swiperContiainer" style={{backgroundColor:"pink"}}
-   //swiper js options
-   modules={[ Pagination, Scrollbar, A11y,Autoplay]}
    
-   autoplay={{
-    delay: 1000,
-    disableOnInteraction: false,
-  }}
-   scrollbar={{ draggable: true }}
-   slidesPerView={2}
-   spaceBetween={50}
-   pagination={{clickable:true}}
-   
-   > 
     {user && user.response  && user.response[particularPatientPosition]  &&   user.response[particularPatientPosition].bloodInvestigationAnswerImages ?
     
-    user.response[particularPatientPosition].bloodInvestigationAnswerImages.map((item)=>(
-    <SwiperSlide className="swiperContainer" >
-    
-    <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={item} />
-    </SwiperSlide>
-  
+
+    <Carousel
+    navButtonsAlwaysVisible={true}
+   
+    sx={{position:"absolute",marginLeft:"10%",top:"-10px",width:"80%",height:"105%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}}>
+  {  user.response[particularPatientPosition].bloodInvestigationAnswerImages.map((item)=>(
+   
+    <center style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}} >
+    <img    src ={item} />
+    </center>
 ))
+ }
+</Carousel  >
 
      : 
-     
-     <SwiperSlide className="swiperItem">
+
+     <Carousel sx={{position:"absolute",marginLeft:"10%",top:"0px",width:"80%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}}>
      
      <p>No images loaded for the correct answer, please check back later..</p>
-     </SwiperSlide>
+  
+     </Carousel>
+
     }
 
-   </Swiper> 
+   
 
 
 

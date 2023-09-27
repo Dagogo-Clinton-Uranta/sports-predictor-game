@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar,Box,CircularProgress  } from '@mui/material';
+import Carousel from 'react-material-ui-carousel'
 import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -289,43 +290,42 @@ const handleClosePdf = () => {setOpenPdf(false)};
         aria-describedby="modal-modal-description"
       >
   
-  <Box sx={style} style={{position:"relative"}}> 
-   <center style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
-   <Swiper className="swiperContainer"
-   //swiper js options
-   modules={[ Pagination, Scrollbar, A11y,Autoplay]}
+  <Box sx={style} > 
+   <center >
    
-   autoplay={{
-    delay: 3500,
-    disableOnInteraction: false,
-  }}
-   scrollbar={{ draggable: true }}
-   slidesPerView={2}
-   spaceBetween={50}
-   pagination={{clickable:true}}
    
-   > 
-    {user && user.response  &&  user.response[particularPatientPosition] && user.response[particularPatientPosition].radiologyAnswerImages ?
+    {user && user.response  && user.response[particularPatientPosition]  &&   user.response[particularPatientPosition].bloodInvestigationAnswerImages ?
     
-    user.response[particularPatientPosition].radiologyAnswerImages.map((item)=>(
-    <SwiperSlide className="swiperContainer" >
-    
-    <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={item} />
-    </SwiperSlide>
-  
+
+    <Carousel
+    navButtonsAlwaysVisible={true}
+   
+    sx={{position:"absolute",marginLeft:"10%",top:"0px",width:"60%",height:"92%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}}>
+  {  user.response[particularPatientPosition].radiologyAnswerImages.map((item)=>(
+   
+    <center style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}} >
+    <img    src ={item} />
+    </center>
 ))
+ }
+</Carousel  >
 
      : 
+
+     <Carousel sx={{position:"absolute",marginLeft:"10%",top:"0px",width:"80%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}}>
      
-     <SwiperSlide className="swiperItem">
-     
-     <p>No images loaded for this answer, please check back later..</p>
-     </SwiperSlide>
+     <p>No images loaded for the correct answer, please check back later..</p>
+  
+     </Carousel>
+
     }
 
-   </Swiper> 
+   
+
+
+
    </center>
-   </Box>   
+   </Box>  
     </Modal>
 
 
