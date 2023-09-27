@@ -294,7 +294,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
    <center >
    
    
-    {user && user.response  && user.response[particularPatientPosition]  &&   user.response[particularPatientPosition].bloodInvestigationAnswerImages ?
+    {user && user.response  && user.response[particularPatientPosition]  &&   user.response[particularPatientPosition].radiologyAnswerImages ?
     
 
     <Carousel
