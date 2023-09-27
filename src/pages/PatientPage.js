@@ -39,6 +39,9 @@ export default function PatientPage() {
 const [showPic,setShowPic] = useState(true)
 const [bloodInvClicked,setBloodInvClicked] = useState(false)
 
+const [blinkRadiology,setBlinkRadiology] = useState(true)
+const [radiologyClicked,setRadiologyClicked] = useState(false)
+
   const [state, setState] = useState({
     prescription:'',
     bloodInv1:'',
@@ -59,7 +62,7 @@ const [bloodInvClicked,setBloodInvClicked] = useState(false)
 
 
   const { user } = useSelector((state) => state.auth);
-  console.log("we wanna do reset---->",user)
+
   const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
 
   useEffect(() => {
@@ -67,6 +70,11 @@ const [bloodInvClicked,setBloodInvClicked] = useState(false)
   if(selectedTreatment !== 1){  
  setBloodInvClicked(false)
   }
+
+  if(selectedTreatment !== 2){  
+    setRadiologyClicked(false)
+     }
+   
 
    const candidateResponseArray = user.response? user.response:[]
 
@@ -99,13 +107,39 @@ const [bloodInvClicked,setBloodInvClicked] = useState(false)
   }
 
 
+
+  if(particularPatientPosition !== -1 && candidateResponseArray[particularPatientPosition].radiologyPassed === true)
+  {
+   
+  
+    
+     // stop the blinking after 18 times run
+    var timesRunRadiology = 0;
+    const intervalRadiology = setInterval(() => {
+   timesRunRadiology += 1;
+    
+  
+
+
+      if(timesRunRadiology >= 17){
+        clearInterval(intervalRadiology);
+    }
+      setBlinkRadiology((blinkRadiology) => !blinkRadiology);
+
+
+    }, 500);
+
+    return () => clearInterval(intervalRadiology);
+    
+  }
+
     
   }, [selectedPatient]);
 
 
 
   const handleSelectBed = (bedNum) => {
-    console.log(`Selected Bed: ${bedNum}`);
+    console.log(`Selected Bed is: ${bedNum}`);
     setSelectedBed(bedNum);
   };
 
@@ -230,11 +264,13 @@ const [bloodInvClicked,setBloodInvClicked] = useState(false)
                 onClick={() => {
                  if(selectedBed){
                   setSelectedTreatment(2);
+                  setRadiologyClicked(true)
                  }
                 }}>
                   <center>
-                    <img src={IMG2} alt="Image 2" style={{ marginTop: '12%', marginRight: '10%' }} />
-                  </center>
+                    <img src={IMG2} alt="Image 2" style={{opacity:!radiologyClicked?(blinkRadiology?"1":"0.4"):1, marginTop: '12%', marginRight: '10%' }} />
+                    </center>
+
                   <Typography variant="subtitle1" style={{ textAlign: 'center', marginTop: '35%' }}>
                     RADIOLOGY
                   </Typography>

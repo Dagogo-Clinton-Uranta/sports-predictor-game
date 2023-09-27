@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { submitRadiology} from 'src/redux/actions/candidate.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Scrollbar, A11y, Autoplay} from 'swiper';
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
@@ -150,10 +152,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
       setRadiology2([])
       setRadiology2IdArray([])
 
-      console.log("OUR STATE IS:",state)
-      console.log("OUR RADIOLOGY NAMES ARRAY IS:",radiology2)
-      console.log("OUR RADIOLOGY ID ARRAY IS:",radiology2IdArray)
-
+    
      }
    
      const radiology2Setup = (e)=>{
@@ -166,8 +165,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
 
        if(!radiology2IdArray.includes(targetCategoryTest[0].uid)){setRadiology2IdArray([...radiology2IdArray,targetCategoryTest[0].uid])}
 
-       console.log("OUR RADIOLOGY NAMES ARRAY IS:",radiology2)
-       console.log("OUR RADIOLOGY ID ARRAY IS:",radiology2IdArray)
+        
       
      }
 
@@ -190,11 +188,13 @@ const handleClosePdf = () => {setOpenPdf(false)};
 
 
 
+
+
    /*LOGIC FOR SETTING VIEW RESULTS FOR RADIOLOGY*/ 
    useEffect(() => {
    
-    console.log("OUR STATE IS:",state)
-
+  
+ console.log("radiology whats up")
     setTestTaken(false)
    
    
@@ -208,7 +208,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   }
   
   
-  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].radiologyPassed === true )){
 
    setTestTaken(true)
 
@@ -220,7 +220,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   setNeverSubmitted((particularPatientPosition === -1  ) ?true:false)
 
   //YOU PROBABLY NEED A DIFFERENT LOGIC THAN THE ONE COMMENTED OUT BELOW, TO HAVE SUBMITTED BEFORE OR NEVER BEEN SUBMITTED TO CHANGE ONLY AFTER THE FIRST SUBMIT OF A PATIENT
-  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("radiologyPassed"))*/?true:false)
   setTrigger(!trigger)
 
 
@@ -245,7 +245,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   }
   
   
-  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].radiologyPassed === true )){
 
    setTestTaken(true)
 
@@ -257,7 +257,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   setCandidateResponseArray(user.response? user.response:[])
   setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
   setNeverSubmitted(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) === -1  ?true:false)
-  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("radiologyPassed"))*/?true:false)
   
 
  
@@ -293,7 +293,39 @@ const handleClosePdf = () => {setOpenPdf(false)};
   
   <Box sx={style} style={{position:"relative"}}> 
    <center style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
-   <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={radiologyresult1} />
+   <Swiper className="swiperContainer"
+   //swiper js options
+   modules={[ Pagination, Scrollbar, A11y,Autoplay]}
+   
+   autoplay={{
+    delay: 3500,
+    disableOnInteraction: false,
+  }}
+   scrollbar={{ draggable: true }}
+   slidesPerView={2}
+   spaceBetween={50}
+   pagination={{clickable:true}}
+   
+   > 
+    {user && user.response  && user.response[particularPatientPosition].radiologyAnswerImages ?
+    
+    user.response[particularPatientPosition].radiologyAnswerImages.map((item)=>(
+    <SwiperSlide className="swiperContainer" >
+    
+    <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={item} />
+    </SwiperSlide>
+  
+))
+
+     : 
+     
+     <SwiperSlide className="swiperItem">
+     
+     <p>No images loaded for this answer, please check back later..</p>
+     </SwiperSlide>
+    }
+
+   </Swiper> 
    </center>
    </Box>   
     </Modal>
@@ -407,13 +439,13 @@ const handleClosePdf = () => {setOpenPdf(false)};
                     fullWidth
                     variant="contained"
                     style={{
-                     backgroundColor:!state.radiology1 ||!state.radiology1  ?'#199e94':'#21D0C3',
+                     backgroundColor:state.radiology1 && state.radiology1.length <1  ||state.radiology2 &&  state.radiology2.length <1 ||radiology1 &&  radiology1.length <1||radiology2 &&  radiology2.length <1   ?'#199e94':'#21D0C3',
                       color: 'white',
                       fontSize: '15px',
                       padding: '4px',
                       height: '50px',
                     }}
-                    disabled={!state.radiology1||!state.radiology2||loading}
+                    disabled={state.radiology1 && state.radiology1.length <1  ||state.radiology2 && state.radiology2.length <1 ||radiology1 && radiology1.length <1||radiology2 && radiology2.length <1  ||loading}
                     onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,state.radiology1)}}
                   >
                     Submit

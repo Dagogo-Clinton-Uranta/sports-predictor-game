@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients,fetchAllTreatmentCategories,fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { submitBloodInvestigation } from 'src/redux/actions/candidate.action';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Scrollbar, A11y, Autoplay} from 'swiper';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
@@ -129,7 +131,7 @@ const [trigger,setTrigger] = useState(true)
 
 
   const handleClick = () => {
-    console.info('You clicked the Chip.');
+    console.info('You clicked the Chip, yeh.');
   };
 
 
@@ -217,7 +219,7 @@ const [trigger,setTrigger] = useState(true)
   }
   
   
-  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true )){
 
    setTestTaken(true)
 
@@ -244,7 +246,7 @@ const [trigger,setTrigger] = useState(true)
   useEffect(() => {
    
     setTestTaken(false)
-    console.log("OUR STATE IS:",state)
+    console.log("OUR STATE IS!:",state)
    
 
    if(neverSubmitted===true && hasSubmittedBefore === true )
@@ -256,7 +258,7 @@ const [trigger,setTrigger] = useState(true)
   }
   
   
-  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  ||  candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === false )){
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true  )){
 
    setTestTaken(true)
 
@@ -319,7 +321,43 @@ const [trigger,setTrigger] = useState(true)
   
   <Box sx={style} style={{position:"relative"}}> 
    <center style={{display:"flex",justifyContent:"center",alignItems:"flex-end"}}>
-   <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={bloodresult1} />
+   
+   <Swiper className="swiperContiainer" style={{backgroundColor:"pink"}}
+   //swiper js options
+   modules={[ Pagination, Scrollbar, A11y,Autoplay]}
+   
+   autoplay={{
+    delay: 1000,
+    disableOnInteraction: false,
+  }}
+   scrollbar={{ draggable: true }}
+   slidesPerView={2}
+   spaceBetween={50}
+   pagination={{clickable:true}}
+   
+   > 
+    {user && user.response  && user.response[particularPatientPosition].bloodInvestigationAnswerImages ?
+    
+    user.response[particularPatientPosition].bloodInvestigationAnswerImages.map((item)=>(
+    <SwiperSlide className="swiperContainer" >
+    
+    <img  style={{position:"absolute",top:"0%",height:"100%"}}   src ={item} />
+    </SwiperSlide>
+  
+))
+
+     : 
+     
+     <SwiperSlide className="swiperItem">
+     
+     <p>No images loaded for the correct answer, please check back later..</p>
+     </SwiperSlide>
+    }
+
+   </Swiper> 
+
+
+
    </center>
    </Box>   
     </Modal>

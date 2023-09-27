@@ -65,8 +65,8 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
       candidateResponseArray.push({
         chosenBloodInvestigation: b1,
         chosenBloodInvestigationId: b4,
-        chosenbloodInvestigationTests:b2,
-        chosenbloodInvestigationTestIds:b3,
+        chosenBloodInvestigationTests:b2,
+        chosenBloodInvestigationTestIds:b3,
         bloodInvestigationPassed:null,
         patientId,
         takenOn:new Date()
@@ -87,7 +87,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
 
   
-     const testToCheck = db.collection('TreatmentTests').doc(redoResponseArray[particularPatientPosition].bloodInvestigationTestId);
+     const testToCheck = db.collection('TreatmentCategory').doc(redoResponseArray[particularPatientPosition].chosenBloodInvestigationId);
     const testSnapshot = await testToCheck.get();
 
     
@@ -95,11 +95,16 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
 
-    if(testSnapshot.exists && testSnapshot.data().title === redoResponseArray[particularPatientPosition].bloodInvestigationTest){
+    if(testSnapshot.exists && 
+      
+      redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))
+
+      ){
      redoResponseArray[particularPatientPosition] = {
   
       ...redoResponseArray[particularPatientPosition],
       bloodInvestigationPassed:true,
+      bloodInvestigationAnswerImages:testSnapshot.data().answerImages
     }
 
   }else{
@@ -185,16 +190,22 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
    const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
 
 
-   const testToCheck = db.collection('TreatmentTests').doc(redoResponseArray[particularPatientPosition].radiologyTestId);
+   const testToCheck = db.collection('TreatmentCategory').doc(redoResponseArray[particularPatientPosition].chosenRadiologyId);
   const testSnapshot = await testToCheck.get();
 
 
 
-  if(testSnapshot.exists && testSnapshot.data().title === redoResponseArray[particularPatientPosition].radiologyTest){
+  if(testSnapshot.exists && 
+
+   
+    redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))
+    
+    ){
     redoResponseArray[particularPatientPosition] = {
  
      ...redoResponseArray[particularPatientPosition],
      radiologyPassed:true,
+     radiologyAnswerImages:testSnapshot.data().answerImages
    }
 
  }else{
