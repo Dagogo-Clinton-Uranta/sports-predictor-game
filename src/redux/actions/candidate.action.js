@@ -54,7 +54,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   
         ...candidateResponseArray[particularPatientPosition],
         chosenBloodInvestigation: b1,
-        chosenBloodInvestigationId: b4,
+        chosenComplaintId: b4,
         chosenBloodInvestigationTests:b2,
         chosenBloodInvestigationTestIds:b3,
         bloodInvestigationPassed:null,
@@ -66,7 +66,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      }else{
       candidateResponseArray.push({
         chosenBloodInvestigation: b1,
-        chosenBloodInvestigationId: b4,
+        chosenComplaintId: b4,
         chosenBloodInvestigationTests:b2,
         chosenBloodInvestigationTestIds:b3,
         bloodInvestigationPassed:null,
@@ -106,7 +106,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   
       ...redoResponseArray[particularPatientPosition],
       bloodInvestigationPassed:true,
-      bloodInvestigationAnswerImages:testSnapshot.data().answerImages
+      bloodInvestigationAnswerImages:['https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/bloodinv1.jpeg?alt=media&token=6a14d66d-5943-40b8-b76e-cd003502bae5','https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/bloodinv2.jpeg?alt=media&token=6040b950-ccd6-42de-a710-c029b74afde7']/*testSnapshot.data().answerImages*/
     }
 
   }else{
@@ -162,7 +162,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
       ...candidateResponseArray[particularPatientPosition],
       chosenRadiology: b1,
-      chosenRadiologyId: b4,
+      chosenComplaintId: b4,
       chosenRadiologyTests:b2,
       chosenRadiologyTestIds:b3,
       radiologyPassed:null,
@@ -174,7 +174,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
    }else{
     candidateResponseArray.push({
       chosenRadiology: b1,
-      chosenRadiologyId: b4,
+      chosenComplaintId: b4,
       chosenRadiologyTests:b2,
       chosenRadiologyTestIds:b3,
       radiologyPassed:null,
@@ -211,7 +211,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
  
      ...redoResponseArray[particularPatientPosition],
      radiologyPassed:true,
-     radiologyAnswerImages:testSnapshot.data().answerImages
+     radiologyAnswerImages:['https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/radiologyresult1.jpeg?alt=media&token=c9e501ef-da43-4a19-89fe-de0352eafe87']/*testSnapshot.data().answerImages*/
    }
 
  }else{
