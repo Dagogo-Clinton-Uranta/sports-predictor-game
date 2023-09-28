@@ -445,7 +445,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
                       height: '50px',
                     }}
                     disabled={state.radiology1 && state.radiology1.length <1  ||state.radiology2 && state.radiology2.length <1 ||radiology1 && radiology1.length <1||radiology2 && radiology2.length <1  ||loading}
-                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,state.radiology1)}}
+                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,selectedPatient?.complaintId)}}
                   >
                     Submit
                   </Button>

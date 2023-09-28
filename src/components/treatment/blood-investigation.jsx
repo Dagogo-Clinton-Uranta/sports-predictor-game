@@ -477,7 +477,7 @@ const [trigger,setTrigger] = useState(true)
                       height: '50px',
                     }}
                     disabled={state.bloodInv1.length <1  ||state.bloodInv2.length <1 ||bloodInv2.length <1||bloodInv1.length <1  ||loading}
-                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,bloodInv2IdArray,state.bloodInv1)}}
+                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,bloodInv2IdArray,selectedPatient?.complaintId)}}
                   >
                     Submit
                   </Button>

@@ -89,7 +89,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
 
   
-     const testToCheck = db.collection('TreatmentCategory').doc(redoResponseArray[particularPatientPosition].chosenBloodInvestigationId);
+     const testToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPosition].chosenComplaintId);
     const testSnapshot = await testToCheck.get();
 
     
@@ -97,9 +97,9 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
 
-    if(testSnapshot.exists && 
+    if(testSnapshot.exists && true
       
-      redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))
+     /* redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))*/
 
       ){
      redoResponseArray[particularPatientPosition] = {
@@ -196,15 +196,15 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
    const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
 
 
-   const testToCheck = db.collection('TreatmentCategory').doc(redoResponseArray[particularPatientPosition].chosenRadiologyId);
+   const testToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPosition].chosenComplaintId);
   const testSnapshot = await testToCheck.get();
 
 
 
-  if(testSnapshot.exists && 
+  if(testSnapshot.exists && true 
 
    
-    redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))
+    /*redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))*/
     
     ){
     redoResponseArray[particularPatientPosition] = {
