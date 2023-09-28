@@ -97,9 +97,9 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
 
-    if(testSnapshot.exists && true
+    if(testSnapshot.exists && testSnapshot.data().chosenBloodInvestigationIdArray &&
       
-     /* redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))*/
+      ! (redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().chosenBloodInvestigationIdArray.includes(item))))
 
       ){
      redoResponseArray[particularPatientPosition] = {
@@ -198,28 +198,29 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
    const testToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPosition].chosenComplaintId);
   const testSnapshot = await testToCheck.get();
+ console.log("radiology complaint is",testSnapshot.data())
 
 
-
-  if(testSnapshot.exists && true 
+  if(testSnapshot.exists && testSnapshot.data().treatment.chosenRadiologyIdArray &&
 
    
-    /*redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().correctAnswers.includes(item)))*/
+    redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().treatment.chosenRadiologyIdArray.includes(item)))
     
     ){
     redoResponseArray[particularPatientPosition] = {
- 
+  
      ...redoResponseArray[particularPatientPosition],
      radiologyPassed:true,
      radiologyAnswerImages:['https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/radiologyresult1.jpeg?alt=media&token=c9e501ef-da43-4a19-89fe-de0352eafe87']/*testSnapshot.data().answerImages*/
    }
-
+   
+   console.log(" radiology test has passed", redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().treatment.chosenRadiologyIdArray.includes(item))))
  }else{
-
+  console.log(" radiology test has failed woefully", redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().treatment.chosenRadiologyIdArray.includes(item))))
    redoResponseArray[particularPatientPosition] = {
  
      ...redoResponseArray[particularPatientPosition],
-     radiologyPassed:true,
+     radiologyPassed:false,
    }
 
  }

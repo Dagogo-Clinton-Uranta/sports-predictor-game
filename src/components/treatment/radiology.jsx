@@ -129,7 +129,8 @@ const handleClosePdf = () => {setOpenPdf(false)};
 
 
   useEffect(() => {
-    console.log("OUR ISSUE FOR RADIOLOGY IS!:")
+    console.log("NEW RESPONSE is!:",user.response)
+
     dispatch(fetchAllTreatmentCategories());
     dispatch(fetchAllTreatmentTests());
   }, []);
@@ -315,7 +316,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
 
      <Carousel sx={{position:"absolute",marginLeft:"10%",top:"0px",width:"80%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center"}}>
      
-     <p>No images loaded for the correct answer, please check back later..</p>
+     <p>No images loaded for this test, please check back later..</p>
   
      </Carousel>
 
