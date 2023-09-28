@@ -114,7 +114,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
     redoResponseArray[particularPatientPosition] = {
   
       ...redoResponseArray[particularPatientPosition],
-      bloodInvestigationPassed:false,
+      bloodInvestigationPassed:true,
     }
 
   }
@@ -219,7 +219,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
    redoResponseArray[particularPatientPosition] = {
  
      ...redoResponseArray[particularPatientPosition],
-     radiologyPassed:false,
+     radiologyPassed:true,
    }
 
  }
