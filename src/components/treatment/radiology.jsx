@@ -150,9 +150,10 @@ const handleClosePdf = () => {setOpenPdf(false)};
         radiology2: '',
       });*/
     
+      /*
       setRadiology2([])
       setRadiology2IdArray([])
-
+      */
     
      }
    

@@ -132,7 +132,7 @@ const [trigger,setTrigger] = useState(true)
 
 
   const handleClick = () => {
-    console.info('You clicked the Chip, yeh.');
+    console.info('You clicked the Chip.');
   };
 
 
@@ -148,8 +148,8 @@ const [trigger,setTrigger] = useState(true)
       bloodInv2: '',
     });*/
 
-    setBloodInv2([])
-    setBloodInv2IdArray([])
+   /* setBloodInv2([])
+    setBloodInv2IdArray([])*/
    
 
 
