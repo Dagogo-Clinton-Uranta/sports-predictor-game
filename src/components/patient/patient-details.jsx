@@ -27,11 +27,11 @@ const PatientDetails = () => {
 
   const getAvatarSrc = (gender) => {
     switch (gender) {
-      case 'Male':
+      case 'male':
         return MAN;
-      case 'Female':
+      case 'female':
         return WOMAN;
-      case 'Kid':
+      case 'kid':
         return KID;
       default:
         return MAN; 
@@ -52,7 +52,7 @@ const PatientDetails = () => {
    {selectedPatient && (
      <Grid container spacing={1}>
      <Grid item>
-     <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
+     <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.icon.toLowerCase())} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
        {/* </ButtonBase> */}
      </Grid>
      <Grid item xs={12} sm container>
@@ -62,7 +62,7 @@ const PatientDetails = () => {
             {selectedPatient?.firstName + ' ' + ' ' + selectedPatient?.lastName}
            </Typography>
            <Typography variant="body2" gutterBottom style={mystyle}>
-           {selectedPatient?.age}YRS | KID
+           {selectedPatient?.age}YRS | {selectedPatient?.icon?.toUpperCase()}
            </Typography>
 
            <Typography variant="body2" color="text.secondary" style={mystyle}>

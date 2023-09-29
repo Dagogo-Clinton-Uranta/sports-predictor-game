@@ -81,11 +81,11 @@ const ECG = ({ state, setState, handleChange }) => {
 
   const getAvatarSrc = (gender) => {
     switch (gender) {
-      case 'Male':
+      case 'male':
         return MAN;
-      case 'Female':
+      case 'female':
         return WOMAN;
-      case 'Kid':
+      case 'kid':
         return KID;
       default:
         return MAN; 
@@ -186,7 +186,7 @@ const {refs, x, y, strategy,floatingStyles} = useFloating();
       selectedPatient && (
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
-          <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
+          <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.icon.toLowerCase())} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
             {/* </ButtonBase> */}
           </Grid>
           <Grid item xs={12} sm container>
@@ -213,7 +213,7 @@ const {refs, x, y, strategy,floatingStyles} = useFloating();
                 </div>
               </Grid>
               <Typography variant="body2" gutterBottom style={mystyle} sx={{ ml: 1.8 }}>
-                {selectedPatient?.age}YRS | {selectedPatient?.gender.toUpperCase()}
+                {selectedPatient?.age}YRS | {selectedPatient?.icon.toUpperCase()}
               </Typography>
             </Grid>
           </Grid>
