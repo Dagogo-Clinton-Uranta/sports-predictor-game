@@ -97,11 +97,14 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
 
-    if(testSnapshot.exists && testSnapshot.data().chosenBloodInvestigationIdArray &&
+    if(testSnapshot.exists && testSnapshot.data().treatment.chosenBloodInvestigationIdArray &&
       
-      ! (redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().chosenBloodInvestigationIdArray.includes(item))))
+       (redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().treatment.chosenBloodInvestigationIdArray.includes(item))))
 
       ){
+
+
+
      redoResponseArray[particularPatientPosition] = {
   
       ...redoResponseArray[particularPatientPosition],
@@ -114,7 +117,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
     redoResponseArray[particularPatientPosition] = {
   
       ...redoResponseArray[particularPatientPosition],
-      bloodInvestigationPassed:true,
+      bloodInvestigationPassed:false,
     }
 
   }
@@ -147,13 +150,13 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
   if (userSnapshot.exists) {
 
-    console.log("user in question is",userSnapshot.data())
-    console.log("our inputs are",patientId,b1,b2,b3,b4)
+  //  console.log("user in question is",userSnapshot.data())
+   // console.log("our inputs are",patientId,b1,b2,b3,b4)
 
     const candidateResponseArray = userSnapshot.data().response?userSnapshot.data().response:[]
 
     const particularPatientPosition =  candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(patientId):-1
-    console.log("particular patients position",particularPatientPosition)
+    //console.log("particular patients position",particularPatientPosition)
 
 
    if(particularPatientPosition !== -1){
@@ -188,59 +191,98 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   
 
    await userRef.update({ response:[...candidateResponseArray]
-   });
+   }).then(async(notUsing)=>{
 
-  
+ 
 
    const refetchUser = await userRef.get();
    const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
+   
+   const particularPatientPositionAlso =  candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(patientId):-1
+
+   const complaintToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPositionAlso].chosenComplaintId);
+  const complaintSnapshot = await complaintToCheck.get();
+ //console.log("radiology complaint is",complaintSnapshot.data())
 
 
-   const testToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPosition].chosenComplaintId);
-  const testSnapshot = await testToCheck.get();
- console.log("radiology complaint is",testSnapshot.data())
-
-
-  if(testSnapshot.exists && testSnapshot.data().treatment.chosenRadiologyIdArray &&
+  if(complaintSnapshot.exists && complaintSnapshot.data().treatment.chosenRadiologyIdArray &&
 
    
-    redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().treatment.chosenRadiologyIdArray.includes(item)))
+     (redoResponseArray[particularPatientPositionAlso].chosenRadiologyTestIds.every((item)=>(complaintSnapshot.data().treatment.chosenRadiologyIdArray.includes(item))))
     
     ){
-    redoResponseArray[particularPatientPosition] = {
+
+     let correctAnswers= complaintSnapshot.data().treatment.chosenRadiologyIdArray
+     //console.log ("what we are sending treatment tests to search is",correctAnswers)
+
+   await  db.collection('TreatmentTests')
+    .where('uid', 'in', correctAnswers)
+    .get()
+    .then((snapshot) => {
+      const correctAnswerImages = snapshot.docs.map((doc) => (doc.data().answerImage));
+      
+      if (correctAnswerImages.length) {
+       
+        redoResponseArray[particularPatientPositionAlso] = {
   
-     ...redoResponseArray[particularPatientPosition],
-     radiologyPassed:true,
-     radiologyAnswerImages:['https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/radiologyresult1.jpeg?alt=media&token=c9e501ef-da43-4a19-89fe-de0352eafe87']/*testSnapshot.data().answerImages*/
-   }
+          ...redoResponseArray[particularPatientPositionAlso],
+          radiologyPassed:true,
+          radiologyAnswerImages:correctAnswerImages
+        }
+        
+     
+      } else {
+       
+        redoResponseArray[particularPatientPositionAlso] = {
+  
+          ...redoResponseArray[particularPatientPositionAlso],
+          radiologyPassed:true,
+          radiologyAnswerImages:[]
+        }
+
+      }
+    })
+    .catch((error) => {
+      console.log('Error getting document:', error);
+      notifyErrorFxn(`error assigning correct answer images for radiology!`);
+    });
+      
    
-   console.log(" radiology test has passed", redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().treatment.chosenRadiologyIdArray.includes(item))))
  }else{
-  console.log(" radiology test has failed woefully", redoResponseArray[particularPatientPosition].chosenRadiologyTestIds.every((item)=>(testSnapshot.data().treatment.chosenRadiologyIdArray.includes(item))))
-   redoResponseArray[particularPatientPosition] = {
  
-     ...redoResponseArray[particularPatientPosition],
+   redoResponseArray[particularPatientPositionAlso] = {
+ 
+     ...redoResponseArray[particularPatientPositionAlso],
      radiologyPassed:false,
    }
 
  }
 
+ 
 
+ return redoResponseArray
 
- await userRef.update({ response:[...redoResponseArray]
- }).then((value)=>{
+}).then((updatedArray)=>{
+  //console.log("redo UPDATED response array just b4 update --->>: ", updatedArray);
   
+  userRef.update({ response:[...updatedArray]
+  }).then((value)=>{
+    
+    
+  dispatch(fetchUserData(uid))
    
- dispatch(fetchUserData(uid))
-  
- notifySuccessFxn(`submitted radiology!`);
-
- })
+  notifySuccessFxn(`submitted radiology!`);
 
  
+  })
+  
+ 
+})
     
 }
-  
+
+
+
   }
 
 

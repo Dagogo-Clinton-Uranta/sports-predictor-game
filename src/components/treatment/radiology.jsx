@@ -172,7 +172,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
       
      }
 
-  const submitRadiologyresponse = (patientId,b1,b2,b3,b4) => {
+  const submitRadiologyResponse = (patientId,b1,b2,b3,b4) => {
     dispatch(submitRadiology(user.uid,patientId,b1,b2,b3,b4))
   }
 
@@ -446,7 +446,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
                       height: '50px',
                     }}
                     disabled={state.radiology1 && state.radiology1.length <1  ||state.radiology2 && state.radiology2.length <1 ||radiology1 && radiology1.length <1||radiology2 && radiology2.length <1  ||loading}
-                    onClick={()=>{submitRadiologyresponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,selectedPatient?.complaintId)}}
+                    onClick={()=>{submitRadiologyResponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,selectedPatient?.complaintId)}}
                   >
                     Submit
                   </Button>
