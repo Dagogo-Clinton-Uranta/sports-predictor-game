@@ -318,7 +318,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   }
 
 
-  export const submitPrescription=  (uid,patientId,b1) =>async (dispatch) => {
+  export const submitPrescription=  (uid,patientId,b1,b2) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -339,15 +339,17 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
     candidateResponseArray[particularPatientPosition] = {
 
       ...candidateResponseArray[particularPatientPosition],
-      prescriptionWriteup: b1,
+      prescriptionResponseArray: b1,
       patientId,
+      chosenComplaintId:b2,
       takenOn:new Date(),
     }
 
    }else{
     candidateResponseArray.push({
-      prescriptionWriteup: b1,
+      prescriptionResponseArray: b1,
       patientId,
+      chosenComplaintId:b2,
       takenOn:new Date()
     })
    }
@@ -355,9 +357,93 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
     await userRef.update({ response:[...candidateResponseArray]
-    });
+    }).then(async(notUsing)=>{
+
+ 
+
+      const refetchUser = await userRef.get();
+      const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
+      
+      const particularPatientPositionAlso =  candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(patientId):-1
+   
+      const complaintToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPositionAlso].chosenComplaintId);
+     const complaintSnapshot = await complaintToCheck.get();
+    //console.log("radiology complaint is",complaintSnapshot.data())
+   
+   
+     if(complaintSnapshot.exists && complaintSnapshot.data().treatment.correctPrescriptionArray &&
+   
+      
+        (redoResponseArray[particularPatientPositionAlso].prescriptionResponseArray.every((item)=>(complaintSnapshot.data().treatment.correctPrescriptionArray.includes(item))))
+       
+       ){
+   
+       // let correctAnswers= complaintSnapshot.data().treatment.correctPrescriptionArray
+       
+      /*await  db.collection('TreatmentTests')*/
+       //.where('uid', 'in', correctAnswers)
+      /* .get()*/
+       /*.then((snapshot) => {*/
+        // const correctAnswerImages = snapshot.docs.map((doc) => (doc.data().answerImage));
+         
+        /* if (correctAnswerImages.length) {
+          
+           redoResponseArray[particularPatientPositionAlso] = {
+     
+             ...redoResponseArray[particularPatientPositionAlso],
+             radiologyPassed:true,
+             radiologyAnswerImages:correctAnswerImages
+           }
+           
+        
+         }*/ /*else {*/
+          
+           redoResponseArray[particularPatientPositionAlso] = {
+     
+             ...redoResponseArray[particularPatientPositionAlso],
+             prescriptionPassed:true,
+           }
+   
+       /*  }*/
+      /* }) */
+      /* .catch((error) => {
+         console.log('Error getting document:', error);
+         notifyErrorFxn(`error assigning correct answer images for radiology!`);
+       });*/
+         
+      
+    }else{
+    
+      redoResponseArray[particularPatientPositionAlso] = {
+    
+        ...redoResponseArray[particularPatientPositionAlso],
+        prescriptionPassed:false,
+      }
+   
+    }
+   
+    
+   
+    return redoResponseArray
+   
+   }).then((updatedArray)=>{
+    
+     
+     userRef.update({ response:[...updatedArray]
+     }).then((value)=>{
+       
+       
+     dispatch(fetchUserData(uid))
+      
+     notifySuccessFxn(`submitted Prescription!`);
+   
+    
+     })
+     
+    
+   })
   
-    notifySuccessFxn(`submitted Prescription!`);
+   
     
 }
    
