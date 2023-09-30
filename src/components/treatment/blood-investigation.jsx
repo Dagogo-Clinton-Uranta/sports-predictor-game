@@ -215,12 +215,19 @@ const [trigger,setTrigger] = useState(true)
   {
 
     setTestTaken("loading")
-   setTimeout(()=>{setTestTaken(true)},5000)
+   setTimeout(()=>{
+    if(candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true){
+    setTestTaken(true)
+    }else{
+      setTestTaken(false)
+    }
+  
+  },5000)
     
   }
   
-  
-  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true )){
+   
+  else if( hasSubmittedBefore !== true && particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true )){
 
    setTestTaken(true)
 
@@ -254,7 +261,13 @@ const [trigger,setTrigger] = useState(true)
   {
 
     setTestTaken("loading")
+   
+    if(candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true){
    setTimeout(()=>{setTestTaken(true)},5000)
+    }else{
+      setTestTaken(false)
+    }
+
     
   }
   

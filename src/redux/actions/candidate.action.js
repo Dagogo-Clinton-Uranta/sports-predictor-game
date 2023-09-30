@@ -80,61 +80,93 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
      await userRef.update({ response:[...candidateResponseArray]
-     });
+     }).then(async(notUsing)=>{
 
+ 
 
-
-    
-     const refetchUser = await userRef.get();
-     const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
-
-  
-     const testToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPosition].chosenComplaintId);
-    const testSnapshot = await testToCheck.get();
-
-    
-
-
-
-
-    if(testSnapshot.exists && testSnapshot.data().treatment.chosenBloodInvestigationIdArray &&
+      const refetchUser = await userRef.get();
+      const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
       
-       (redoResponseArray[particularPatientPosition].chosenBloodInvestigationTestIds.every((item)=>(testSnapshot.data().treatment.chosenBloodInvestigationIdArray.includes(item))))
-
-      ){
-
-
-
-     redoResponseArray[particularPatientPosition] = {
-  
-      ...redoResponseArray[particularPatientPosition],
-      bloodInvestigationPassed:true,
-      bloodInvestigationAnswerImages:['https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/bloodinv1.jpeg?alt=media&token=6a14d66d-5943-40b8-b76e-cd003502bae5','https://firebasestorage.googleapis.com/v0/b/ibara-34497.appspot.com/o/bloodinv2.jpeg?alt=media&token=6040b950-ccd6-42de-a710-c029b74afde7']/*testSnapshot.data().answerImages*/
-    }
-
-  }else{
-
-    redoResponseArray[particularPatientPosition] = {
-  
-      ...redoResponseArray[particularPatientPosition],
-      bloodInvestigationPassed:false,
-    }
-
-  }
-
-
-
-  await userRef.update({ response:[...redoResponseArray]
-  }).then((value)=>{
+      const particularPatientPositionAlso =  candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(patientId):-1
    
-
-    console.log("the user we wanna fetch is",uid)
-  dispatch(fetchUserData(uid))
-
-
-    notifySuccessFxn(`submitted blood investigation!`);
-  })
-
+      const complaintToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPositionAlso].chosenComplaintId);
+     const complaintSnapshot = await complaintToCheck.get();
+    //console.log("radiology complaint is",complaintSnapshot.data())
+   
+   
+     if(complaintSnapshot.exists && complaintSnapshot.data().treatment.chosenBloodInvestigationIdArray &&
+   
+      
+        (redoResponseArray[particularPatientPositionAlso].chosenBloodInvestigationTestIds.every((item)=>(complaintSnapshot.data().treatment.chosenBloodInvestigationIdArray.includes(item))))
+       
+       ){
+   
+        let correctAnswers= complaintSnapshot.data().treatment.chosenBloodInvestigationIdArray
+        //console.log ("what we are sending treatment tests to search is",correctAnswers)
+   
+      await  db.collection('TreatmentTests')
+       .where('uid', 'in', correctAnswers)
+       .get()
+       .then((snapshot) => {
+         const correctAnswerImages = snapshot.docs.map((doc) => (doc.data().answerImage));
+         
+         if (correctAnswerImages.length) {
+          
+           redoResponseArray[particularPatientPositionAlso] = {
+     
+             ...redoResponseArray[particularPatientPositionAlso],
+             bloodInvestigationPassed:true,
+             bloodInvestigationAnswerImages:correctAnswerImages
+           }
+           
+        
+         } else {
+          
+           redoResponseArray[particularPatientPositionAlso] = {
+     
+             ...redoResponseArray[particularPatientPositionAlso],
+             bloodInvestigationPassed:true,
+             bloodInvestigationAnswerImages:[]
+           }
+   
+         }
+       })
+       .catch((error) => {
+         console.log('Error getting document:', error);
+         notifyErrorFxn(`error assigning correct answer images for radiology!`);
+       });
+         
+      
+    }else{
+    
+      redoResponseArray[particularPatientPositionAlso] = {
+    
+        ...redoResponseArray[particularPatientPositionAlso],
+        bloodInvestigationPassed:false,
+      }
+   
+    }
+   
+    
+   
+    return redoResponseArray
+   
+   }).then((updatedArray)=>{
+    
+     
+     userRef.update({ response:[...updatedArray]
+     }).then((value)=>{
+       
+       
+     dispatch(fetchUserData(uid))
+      
+     notifySuccessFxn(`submitted blood investigation!`);
+   
+    
+     })
+     
+    
+   })
   
     
 }
@@ -263,7 +295,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
  return redoResponseArray
 
 }).then((updatedArray)=>{
-  //console.log("redo UPDATED response array just b4 update --->>: ", updatedArray);
+ 
   
   userRef.update({ response:[...updatedArray]
   }).then((value)=>{
