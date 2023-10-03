@@ -314,13 +314,13 @@ const [testTaken,setTestTaken] = useState(false);
                     fullWidth
                     variant="contained"
                     style={{
-                      backgroundColor:!state.referral?'#199e94':'#21D0C3',
+                      backgroundColor:!state.referral || referralIdArray.length<1 ?'#199e94':'#21D0C3',
                       color: 'white',
                       fontSize: '15px',
                       padding: '4px',
                       height: '50px',
                     }}
-                    disabled={!state.referral||loading}
+                    disabled={!state.referral||referralIdArray.length<1 ||loading}
                     onClick={()=>{submitReferralResponse(selectedPatient?.uid,state.referral,referral,referralIdArray,selectedPatient?.complaintId)}}
                   >
                     Submit
