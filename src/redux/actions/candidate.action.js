@@ -509,7 +509,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
     
    
    
-     if(complaintSnapshot.exists && complaintSnapshot.data().treatment.chosenReferralIdArray &&
+     if(complaintSnapshot.exists && complaintSnapshot.data().treatment.chosenReferralsIdArray &&
    
       
         (redoResponseArray[particularPatientPositionAlso].chosenReferralIds.every((item)=>(complaintSnapshot.data().treatment.chosenReferralsIdArray.includes(item))))

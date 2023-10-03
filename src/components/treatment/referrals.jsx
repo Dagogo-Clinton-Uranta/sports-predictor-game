@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar } from '@mui/material';
+import { Grid, Container, Chip, Paper, TextareaAutosize, Button, Typography, Divider, Avatar,CircularProgress } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
@@ -59,6 +59,14 @@ const Referrals = ({ state, setState, handleChange }) => {
   const [referral,setReferral] = useState([])
   const [referralIdArray,setReferralIdArray] = useState([])
 
+  const [candidateResponseArray,setCandidateResponseArray]= useState(user.response? user.response:[])
+  const [particularPatientPosition,setParticularPatientPosition] = useState(selectedPatient && candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+
+const [neverSubmitted,setNeverSubmitted] =  useState((particularPatientPosition === -1  ) ?true:false)
+const [hasSubmittedBefore,setHasSubmittedBefore] = useState((particularPatientPosition !== -1  ) ?true:false)
+const [trigger,setTrigger] = useState(true)
+const [testTaken,setTestTaken] = useState(false);
+
   const mystyle = {
     fontFamily: 'Arial',
     fontStyle: 'normal',
@@ -80,6 +88,98 @@ const Referrals = ({ state, setState, handleChange }) => {
         return MAN; 
     }
   };
+
+
+  /*LOGIC FOR SETTING VIEW RESULTS FOR PRESCRIPTION*/ 
+  useEffect(() => {
+   
+
+
+    setTestTaken(false)
+   
+   
+
+   if(neverSubmitted===true && hasSubmittedBefore === true )
+  {
+
+    setTestTaken("loading")
+   setTimeout(()=>{
+    if(candidateResponseArray[particularPatientPosition].referralPassed === true){
+    setTestTaken(true)
+    }else{
+      setTestTaken(false)
+    }
+  
+  },5000)
+    
+  }
+  
+   
+  else if( hasSubmittedBefore !== true && particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].referralPassed === true )){
+
+   setTestTaken(true)
+
+  }
+
+
+  setCandidateResponseArray(user.response? user.response:[])
+  setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+  setNeverSubmitted((particularPatientPosition === -1  ) ?true:false)
+
+  //YOU PROBABLY NEED A DIFFERENT LOGIC THAN THE ONE COMMENTED OUT BELOW, TO HAVE SUBMITTED BEFORE OR NEVER BEEN SUBMITTED TO CHANGE ONLY AFTER THE FIRST SUBMIT OF A PATIENT
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  setTrigger(!trigger)
+
+
+
+  }, [selectedPatient,user]);
+   /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION - END*/ 
+
+
+
+  /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION RERUN*/ 
+  useEffect(() => {
+   
+    setTestTaken(false)
+    console.log("OUR STATE IS!:",state)
+   
+
+   if(neverSubmitted===true && hasSubmittedBefore === true )
+  {
+
+    setTestTaken("loading")
+   
+    if(candidateResponseArray[particularPatientPosition].referralPassed === true){
+   setTimeout(()=>{setTestTaken(true)},5000)
+    }else{
+      setTestTaken(false)
+    }
+
+    
+  }
+  
+  
+  else if(particularPatientPosition !== -1 && (candidateResponseArray[particularPatientPosition].referralPassed === true  )){
+
+   setTestTaken(true)
+
+  }else{
+    setTestTaken(false)
+  }
+
+
+  setCandidateResponseArray(user.response? user.response:[])
+  setParticularPatientPosition(selectedPatient && user.response && user.response.length> 0 ? user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id):-1)
+  setNeverSubmitted(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) === -1  ?true:false)
+  setHasSubmittedBefore(user.response.map((item)=>(item.patientId)).indexOf(selectedPatient.id) !== -1 /*&& (candidateResponseArray[particularPatientPosition] && candidateResponseArray[particularPatientPosition].hasOwnProperty("bloodInvestigationPassed"))*/?true:false)
+  
+
+ 
+}, [trigger]);
+   /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION RERUN - END*/ 
+
+
+
 
 
   const referralSetup = (e)=>{
@@ -135,7 +235,7 @@ const Referrals = ({ state, setState, handleChange }) => {
 
   return (
     <>
-      {selectedPatient && (
+     
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
           <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.icon.toLowerCase())} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
@@ -170,6 +270,7 @@ const Referrals = ({ state, setState, handleChange }) => {
             </Grid>
           </Grid>
 
+        { testTaken === false ?
           <div style={{ width: '100%', margin: '20px' }}>
             <Grid item xs={12} md={12} lg={12}>
               <Typography variant="subtitle1" style={{ marginBottom: '10px', fontSize: '18px' }}>
@@ -228,8 +329,57 @@ const Referrals = ({ state, setState, handleChange }) => {
               </Grid>
             </div>
           </div>
+          :
+     
+          <Grid container spacing={2} style={{margin:"0 auto",display:"flex", alignItems: 'bottom', justifyContent:'center'}}>
+               
+          <Grid item xs={12} md={12} lg={12}>
+          <Typography variant="subtitle1" style={{ marginTop: '4px',marginLeft:"4px",marginBottom: '50px',fontSize: '18px' }}>
+           <b>Referrals</b>
+         </Typography><br/>
+         </Grid> 
+          
+         { testTaken !== false && testTaken === "loading"?
+   
+         <div style={{display:"flex",justifyContent:"center",flexDirection:"column",gap:"2rem"}}>
+         "Checking..."
+          <center>
+         <CircularProgress />
+         </center>
+         </div>
+         :
+   
+   
+           <Grid item xs={4} md={4}>
+   
+            <Button
+               type="submit"
+               fullWidth
+               variant="contained"
+               style={{
+                 backgroundColor:'#199e94',
+                 color: 'white',
+                 fontSize: '15px',
+                 padding: '8px',
+                 height: '60px',
+               }}
+                
+             >
+               Referrals Approved
+             </Button>
+   
+           
+           </Grid>
+   
+         }
+   
+   
         </Grid>
-      )}
+
+         }
+
+        </Grid>
+      
     </>
   );
 };

@@ -98,7 +98,7 @@ const [testTaken,setTestTaken] = useState(false);
   };
 
 
-  /*LOGIC FOR SETTING VIEW RESULTS FOR BLOOD INVESTIGATION*/ 
+  /*LOGIC FOR SETTING VIEW RESULTS FOR PRESCRIPTION*/ 
   useEffect(() => {
    
 
@@ -308,7 +308,7 @@ const [testTaken,setTestTaken] = useState(false);
       { testTaken !== false && testTaken === "loading"?
 
       <div style={{display:"flex",justifyContent:"center",flexDirection:"column",gap:"2rem"}}>
-      "Checking for your results..."
+      "Checking..."
        <center>
       <CircularProgress />
       </center>
