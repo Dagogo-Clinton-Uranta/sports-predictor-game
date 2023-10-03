@@ -185,7 +185,7 @@ const [testTaken,setTestTaken] = useState(false);
   const referralSetup = (e)=>{
 
 
-    let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
+    let   targetCategory =  allTreatmentTests.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentTests.filter((item)=>(item.uid === e.target.value )):[{title:null}]
     console.log(targetCategory[0].title )
       
     if(!referral.includes(targetCategory[0].title)){ setReferral([...referral,targetCategory[0].title])}
@@ -285,7 +285,7 @@ const [testTaken,setTestTaken] = useState(false);
                 style={{ minHeight: '50px', fontSize: '17px', outline: '1px solid #eee' }}
                 required
               >
-              {  allTreatmentCategories.filter((item)=>(item.treatmentId === "wcN8WP6CXlG3SFDzJNsq" )).map((prop)=>(
+              {  allTreatmentTests.filter((item)=>(item.treatmentId === "wcN8WP6CXlG3SFDzJNsq" )).map((prop)=>(
 
                <option value={prop.uid}>{prop.title}</option>
                  
