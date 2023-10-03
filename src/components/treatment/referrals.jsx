@@ -56,7 +56,8 @@ const Referrals = ({ state, setState, handleChange }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {user } = useSelector((state) => state.auth);
-  const [referral,setReferral] = useState('')
+  const [referral,setReferral] = useState([])
+  const [referralIdArray,setReferralIdArray] = useState([])
 
   const mystyle = {
     fontFamily: 'Arial',
@@ -86,8 +87,13 @@ const Referrals = ({ state, setState, handleChange }) => {
 
     let   targetCategory =  allTreatmentCategories.filter((item)=>(item.uid === e.target.value )).length > 0? allTreatmentCategories.filter((item)=>(item.uid === e.target.value )):[{title:null}]
     console.log(targetCategory[0].title )
-       setReferral(targetCategory[0].title)
-       console.log("referral",referral )
+      
+    if(!referral.includes(targetCategory[0].title)){ setReferral([...referral,targetCategory[0].title])}
+    if(!referralIdArray.includes(targetCategory[0].title)){ setReferralIdArray([...referralIdArray,targetCategory[0].uid])}
+    
+
+    console.log("referral",referral )
+     console.log("referralIdArray",referralIdArray )
      }
 
   useEffect(() => {
@@ -96,12 +102,20 @@ const Referrals = ({ state, setState, handleChange }) => {
     dispatch(fetchAllTreatmentTests());
   }, []);
 
+  /*THIS USE EFFECT IS SO THAT WE CAN RESET THE SELECTIONS WHEN THE PATIENT IS CHANGED */
+  useEffect(()=>{
+   
+     setReferral([])
+     setReferralIdArray([])
+   },[selectedPatient])
+ 
+
   const { allTreatmentCategories,allTreatmentTests } = useSelector((state) => state.patient);
 
 
 
-  const submitReferralResponse = (patientId,b1) => {
-    dispatch(submitReferral(user.uid,patientId,b1))
+  const submitReferralResponse = (patientId,b1,b2,b3,b4) => {
+    dispatch(submitReferral(user.uid,patientId,b1,b2,b3,b4))
   }
 
 
@@ -109,11 +123,13 @@ const Referrals = ({ state, setState, handleChange }) => {
     console.info('You clicked the Chip.');
   };
 
-  const handleDelete1 = () => {
-    setState({
-        ...state,
-        referral: '',
-      });
+  const handleDelete1 = (tbr,tbrId) => {
+    let placeholder =   referral.filter((item)=>(item !== tbr))
+     let placeholder2 =   referralIdArray.filter((item)=>(item !== tbrId))
+
+
+      setReferral([...placeholder])
+      setReferralIdArray([...placeholder2])
   };
 
 
@@ -180,7 +196,12 @@ const Referrals = ({ state, setState, handleChange }) => {
             </Grid>
             <br/><br/>
             <div style={{padding: '10px', border: state.referral ? '1px solid #00000033' : ''}}>
-             {state.referral &&  <Chip label={referral} onClick={handleClick} onDelete={handleDelete1} />}
+             {referral && referral.length > 0 && 
+             referral.map((item,index)=>(
+              <Chip label={item} onClick={handleClick} onDelete={()=>{handleDelete1(item,referralIdArray[index])}} />
+             
+              ))
+            }
              
             </div>
             <div style={{ padding: '10px' }}>
@@ -199,7 +220,7 @@ const Referrals = ({ state, setState, handleChange }) => {
                       height: '50px',
                     }}
                     disabled={!state.referral||loading}
-                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,referral)}}
+                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,state.referral,referral,referralIdArray,selectedPatient?.complaintId)}}
                   >
                     Submit
                   </Button>

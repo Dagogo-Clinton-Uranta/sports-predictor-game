@@ -450,7 +450,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   }
 
 
-  export const submitReferral=  (uid,patientId,b1) =>async (dispatch) => {
+  export const submitReferral=  (uid,patientId,b1,b2,b3,b4) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -461,7 +461,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
     const candidateResponseArray = userSnapshot.data().response?userSnapshot.data().response:[]
-    console.log("candidate response array",candidateResponseArray)
+
 
 
     const particularPatientPosition =  candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(patientId):-1
@@ -473,6 +473,9 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   
         ...candidateResponseArray[particularPatientPosition],
         chosenReferral: b1,
+        chosenComplaintId: b4,
+        chosenReferrals:b2,
+        chosenReferralIds:b3,
         patientId,
         takenOn:new Date(),
       }
@@ -480,6 +483,9 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      }else{
       candidateResponseArray.push({
         chosenReferral: b1,
+        chosenComplaintId: b4,
+        chosenReferrals:b2,
+        chosenReferralIds:b3,
         patientId,
         takenOn:new Date()
       })
@@ -488,9 +494,96 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
     
 
-    await userRef.update({ response:[...candidateResponseArray]});
+    await userRef.update({ response:[...candidateResponseArray]})
+    .then(async(notUsing)=>{
+
+ 
+
+      const refetchUser = await userRef.get();
+      const redoResponseArray = refetchUser.data().response?refetchUser.data().response:[]
+      
+      const particularPatientPositionAlso =  candidateResponseArray.length > 0 ? candidateResponseArray.map((item)=>(item.patientId)).indexOf(patientId):-1
+   
+      const complaintToCheck = db.collection('Complaints').doc(redoResponseArray[particularPatientPositionAlso].chosenComplaintId);
+     const complaintSnapshot = await complaintToCheck.get();
+    
+   
+   
+     if(complaintSnapshot.exists && complaintSnapshot.data().treatment.chosenReferralIdArray &&
+   
+      
+        (redoResponseArray[particularPatientPositionAlso].chosenReferralIds.every((item)=>(complaintSnapshot.data().treatment.chosenReferralsIdArray.includes(item))))
+       
+       ){
+   
+       /* let correctAnswers= complaintSnapshot.data().treatment.chosenRadiologyIdArray
+      
+   
+      await  db.collection('TreatmentTests')
+       .where('uid', 'in', correctAnswers)
+       .get()
+       .then((snapshot) => {
+         const correctAnswerImages = snapshot.docs.map((doc) => (doc.data().answerImage));
+         
+         if (correctAnswerImages.length) {
+          
+           redoResponseArray[particularPatientPositionAlso] = {
+     
+             ...redoResponseArray[particularPatientPositionAlso],
+             radiologyPassed:true,
+             radiologyAnswerImages:correctAnswerImages
+           }
+           
+        
+         } else { */
+          
+           redoResponseArray[particularPatientPositionAlso] = {
+     
+             ...redoResponseArray[particularPatientPositionAlso],
+             referralPassed:true,
+            
+           }
+   
+      /*   }*/
+   /*    })
+       .catch((error) => {
+         console.log('Error getting document:', error);
+         notifyErrorFxn(`error assigning correct answer images for radiology!`);
+       });*/
+         
+      
+    }else{
+    
+      redoResponseArray[particularPatientPositionAlso] = {
+    
+        ...redoResponseArray[particularPatientPositionAlso],
+        referralPassed:false,
+      }
+   
+    }
+   
+    
+   
+    return redoResponseArray
+   
+   }).then((updatedArray)=>{
+    
+     
+     userRef.update({ response:[...updatedArray]
+     }).then((value)=>{
+       
+       
+     dispatch(fetchUserData(uid))
+      
+     notifySuccessFxn(`submitted referrals!`);
+   
+    
+     })
+     
+    
+   })
   
-    notifySuccessFxn(`submitted Referral!`);
+   
     
 }
   

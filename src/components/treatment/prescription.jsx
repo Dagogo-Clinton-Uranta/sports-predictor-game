@@ -301,7 +301,7 @@ const [testTaken,setTestTaken] = useState(false);
                
        <Grid item xs={12} md={12} lg={12}>
        <Typography variant="subtitle1" style={{ marginTop: '4px',marginLeft:"4px",marginBottom: '50px',fontSize: '18px' }}>
-        <b>Blood Investigation</b>
+        <b>Prescription</b>
       </Typography><br/>
       </Grid> 
        
@@ -323,15 +323,15 @@ const [testTaken,setTestTaken] = useState(false);
             fullWidth
             variant="contained"
             style={{
-              backgroundColor:'#21D0C3',
+              backgroundColor:'#199e94',
               color: 'white',
               fontSize: '15px',
-              padding: '4px',
-              height: '50px',
+              padding: '8px',
+              height: '60px',
             }}
              
           >
-            Prescription Passed
+            Prescription Approved
           </Button>
 
         
