@@ -16,7 +16,7 @@ import IMG4 from '../assets/images/intervention.png';
 import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
-import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getPatients, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
+import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients,refreshCountdown ,getAllPatients,removePatient, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 import './stylefiles/transitions.css';
@@ -25,6 +25,7 @@ import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
 import ECG from 'src/components/treatment/ecg';
 import Referrals from 'src/components/treatment/referrals';
+import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta }  from 'react-countdown';
 
 export default function PatientPage() {
   const theme = useTheme();
@@ -52,21 +53,24 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
     referral:'',
   });
 
+  const { user } = useSelector((state) => state.auth);
+
+  const { selectedPatient, patients,patientTimers ,admittedPatients, isLoading } = useSelector((state) => state.patient);
+  //console.log("PATIENT TIMERS IS-->",patientTimers)
   useEffect(() => {
+    dispatch(getAllPatients(patientTimers?patientTimers:[]));
     dispatch(getWaitingRoomPatients());
     dispatch(getAdmittedPatients());
     dispatch(fetchAllTreatmentCategories());
     dispatch(fetchAllTreatmentTests());
     dispatch(fetchUserData(user?.uid));
-  }, []);
+  }, [patients]);
+
+console.log("selected patient is ---->",selectedPatient)
 
 
-  const { user } = useSelector((state) => state.auth);
-
-  const { selectedPatient, patients, admittedPatients, isLoading } = useSelector((state) => state.patient);
-
-  const previousValue = useRef(null);
-  previousValue.current = selectedPatient;
+  /*const previousValue = useRef(null);
+  previousValue.current = selectedPatient;*/
 
   /*useEffect(() => {
       previousValue.current = selectedPatient;
@@ -113,7 +117,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
      interval = setInterval(() => {
   
     
-    console.log("i have run blood inv now",timesRun)
+    //console.log("i have run blood inv now",timesRun)
     timesRun += 1;
    
     if(timesRun >= 27){
@@ -148,7 +152,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
       
 
     
-    console.log("i have run radiology now",timesRunRadiology,blinkRadiology)
+    //("i have run radiology now",timesRunRadiology,blinkRadiology)
     timesRunRadiology += 1;
 
      if(timesRunRadiology >= 27 ){
@@ -180,7 +184,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
 
 
   const handleSelectBed = (bedNum) => {
-    console.log(`Selected Bed is: ${bedNum}`);
+    //console.log(`Selected Bed is: ${bedNum}`);
     setSelectedBed(bedNum);
   };
 
@@ -191,7 +195,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
       [e.target.name]: value,
     });
 
-    console.log("state IS:",state)
+    //console.log("state IS:",state)
   };
 
   const renderContent = (selectedTreatment, state, setState, handleChange, selectedPatient) => {
@@ -227,12 +231,33 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
           draggable
           pauseOnHover
         />
-        {isLoading ? (
+        {isLoading || patients.length <1 ? (
           <center>
             <CircularProgress />
           </center>
         ) : (
           <Grid container spacing={2}>
+
+          {
+            patientTimers && patientTimers.map((item)=>(
+              <div style={{display:"none",width:"0%",height:"0%",position:"relative",left:"50%"}}>
+                   {item.firstName}{" "} {item.lastName}{" "}{"---> "}
+                 <Countdown date={Date.now() + item.screenCountdown}
+              
+               precision={1000} 
+               intervalDelay={10000}
+             
+            onTick ={()=>{dispatch(refreshCountdown(patientTimers))}} 
+               onComplete={()=>{dispatch(removePatient(item.id,item.firstName,item.lastName,patientTimers,(selectedPatient &&selectedPatient.uid? selectedPatient.uid:null)))}}
+             
+               />
+               </div>
+            )
+            )
+          }
+
+
+
             <Grid item xs={10} sm={4.5} sx={{ border: '0px solid red' }}>
               <Paper
                 sx={{
@@ -409,7 +434,7 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
                     onClick={() => {
                       setSelectedBed(null);
                       setSelectedTreatment(null);
-                      dispatch(reset(user?.uid))
+                      dispatch(reset(user?.uid,patientTimers))
                     }}
                   >
                     Reset
