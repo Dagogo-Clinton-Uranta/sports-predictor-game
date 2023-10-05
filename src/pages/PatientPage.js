@@ -231,16 +231,16 @@ console.log("selected patient is ---->",selectedPatient)
           draggable
           pauseOnHover
         />
-        {isLoading || patients.length <1 ? (
+        {/*isLoading || patients.length <1 ? (
           <center>
             <CircularProgress />
           </center>
-        ) : (
+        ) : */(
           <Grid container spacing={2}>
 
           {
             patientTimers && patientTimers.map((item)=>(
-              <div style={{display:"none",width:"0%",height:"0%",position:"relative",left:"50%"}}>
+              <div style={{display:"block",width:"0%",height:"0%",position:"relative",left:"50%"}}>
                    {item.firstName}{" "} {item.lastName}{" "}{"---> "}
                  <Countdown date={Date.now() + item.screenCountdown}
               
@@ -254,7 +254,7 @@ console.log("selected patient is ---->",selectedPatient)
                </div>
             )
             )
-          }
+            }
 
 
 

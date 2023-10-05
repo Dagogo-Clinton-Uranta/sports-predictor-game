@@ -63,7 +63,7 @@ export const getWaitingRoomPatients = (existingTimes) => async (dispatch) => {
     })
     .catch((error) => {
       var errorMessage = error.message;
-      console.log('Error fetching patients', errorMessage);
+      console.log('Error fetching waiting room patients', errorMessage);
     //  dispatch(setIsLoading(false));
     });
 };
@@ -386,7 +386,7 @@ export const reset = (uid,existingTimes) => async (dispatch) => {
     dispatch(fetchPatientTimers(patientTimers))
   
     
-  //dispatch(setIsLoading(false));
+  dispatch(setIsLoading(false));
 
  
   })
@@ -435,7 +435,7 @@ export const fetchAllTreatmentTests = (chosenSection)=> async(dispatch) =>{
     dispatch(saveAllTreatmentCategories(groupMembers))
 
   } else {
-      console.log("No treatment categoies in database!");
+      console.log("No treatment categories in database!");
   }
 }).catch((error) => {
   console.log("Error getting treatments categories:", error);
