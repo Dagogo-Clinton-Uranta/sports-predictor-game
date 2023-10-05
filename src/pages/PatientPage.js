@@ -231,14 +231,14 @@ console.log("selected patient is ---->",selectedPatient)
           draggable
           pauseOnHover
         />
-        {/*isLoading || patients.length <1 ? (
+        {isLoading || patients.length <1 ? (
           <center>
             <CircularProgress />
           </center>
-        ) : */(
+        ) : (
           <Grid container spacing={2}>
 
-          {
+          {/*
             patientTimers && patientTimers.map((item)=>(
               <div style={{display:"block",width:"0%",height:"0%",position:"relative",left:"50%"}}>
                    {item.firstName}{" "} {item.lastName}{" "}{"---> "}
@@ -252,9 +252,9 @@ console.log("selected patient is ---->",selectedPatient)
              
                />
                </div>
-            )
-            )
-            }
+            ))
+            
+            */}
 
 
 

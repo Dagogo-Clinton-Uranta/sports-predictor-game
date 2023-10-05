@@ -5,7 +5,6 @@ import "firebase/auth";
 
 
 
-/* THIS IS THE ORIGINAL , THE SECOND ONE IS JUST TO TEST
 const firebaseConfig = {
   apiKey: "AIzaSyCdlxFQSkuSiCD80rJnuuOVLbfwdtyKPzs",
   authDomain: "ibara-34497.firebaseapp.com",
@@ -14,10 +13,10 @@ const firebaseConfig = {
   messagingSenderId: "886817189981",
   appId: "1:886817189981:web:f69ca549f78c1186cbddb4",
   measurementId: "G-TNGY4Q8KYS"
-};*/
+};
 
 /*THIS IS JUST TO TEST, ABOVE IS THE ORIGINAL */
-const firebaseConfig = {
+/*const firebaseConfig = {
   apiKey: "AIzaSyA6wRcGrtQ1yQ6VSZ7Y3y4dVG1pf92Rx7Q",
   authDomain: "ibara-substitute-db.firebaseapp.com",
   projectId: "ibara-substitute-db",
@@ -25,7 +24,7 @@ const firebaseConfig = {
   messagingSenderId: "583816383054",
   appId: "1:583816383054:web:fa0dfd20213d00feee511f",
   measurementId: "G-WRDH7CGN4N"
-};
+};*/
 
 // Initialize Firebase
 export const fb = firebase.initializeApp(firebaseConfig);
