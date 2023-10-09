@@ -15,7 +15,6 @@ import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
-import radiologyresult1 from '../../assets/images/radiologyresult1.jpeg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -204,7 +203,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   {
 
     setTestTaken("loading")
-   setTimeout(()=>{setTestTaken(true)},5000)
+   setTimeout(()=>{setTestTaken(true)},(selectedPatient && selectedPatient.waitTime?Number(selectedPatient.waitTime)*1000:5000))
     
   }
   
@@ -241,7 +240,7 @@ const handleClosePdf = () => {setOpenPdf(false)};
   {
 
     setTestTaken("loading")
-   setTimeout(()=>{setTestTaken(true)},5000)
+   setTimeout(()=>{setTestTaken(true)},(selectedPatient && selectedPatient.waitTime?Number(selectedPatient.waitTime)*1000:5000))
     
   }
   

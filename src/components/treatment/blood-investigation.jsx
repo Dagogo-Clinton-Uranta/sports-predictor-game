@@ -8,14 +8,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { admitPatients,fetchAllTreatmentCategories,fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
 import { submitBloodInvestigation } from 'src/redux/actions/candidate.action';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Scrollbar, A11y, Autoplay} from 'swiper';
+
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
-import bloodresult1 from '../../assets/images/bloodresult1.jpeg'
+
 
 
 const useStyles = makeStyles((theme) => ({

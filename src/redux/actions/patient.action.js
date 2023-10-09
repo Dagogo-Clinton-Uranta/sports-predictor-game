@@ -2,7 +2,6 @@ import { notifyErrorFxn, notifySuccessFxn,notifyInfoFxn } from "src/utils/toast-
 import { db } from "../../config/firebase";
 import { clearPatient, fetchAdmittedPatients, fetchAllPatients,fetchPatients,fetchPatientTimers ,setIsLoading, setSelectedPatient,saveAllTreatmentCategories,saveAllTreatmentTests } from '../reducers/patient.slice';
 import { fetchUserData } from "./auth.action";
-import { useDispatch, useSelector } from 'react-redux';
 
 
 
