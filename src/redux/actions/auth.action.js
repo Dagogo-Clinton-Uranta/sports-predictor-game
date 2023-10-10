@@ -3,6 +3,7 @@ import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUse
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/group.slice';
+import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getWaitingRoomPatients } from './patient.action';
 
 
 export const signin = (user, navigate, setLoading) => async (dispatch) => {
@@ -12,6 +13,10 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     var user = userCredential.user;
     console.log('Signed In user is: ', user.email);
      dispatch(fetchUserData(user.uid, "sigin", navigate, setLoading));
+     dispatch(getWaitingRoomPatients());
+    dispatch(getAdmittedPatients());
+    dispatch(fetchAllTreatmentCategories());
+    dispatch(fetchAllTreatmentTests());
   })
   .catch((error) => {
     setLoading(false);

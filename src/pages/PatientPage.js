@@ -58,12 +58,12 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
   const { selectedPatient, patients,patientTimers ,admittedPatients, isLoading } = useSelector((state) => state.patient);
   //console.log("PATIENT TIMERS IS-->",patientTimers)
   useEffect(() => {
-    dispatch(getAllPatients(patientTimers?patientTimers:[]));
-    dispatch(getWaitingRoomPatients());
-    dispatch(getAdmittedPatients());
-    dispatch(fetchAllTreatmentCategories());
-    dispatch(fetchAllTreatmentTests());
-    dispatch(fetchUserData(user?.uid));
+    //dispatch(getAllPatients(patientTimers?patientTimers:[]));
+    //dispatch(getWaitingRoomPatients());
+    //dispatch(getAdmittedPatients());
+    //dispatch(fetchAllTreatmentCategories());
+    //dispatch(fetchAllTreatmentTests());
+    //dispatch(fetchUserData(user?.uid));
   }, [patients]);
 
 console.log("selected patient is ---->",selectedPatient)
