@@ -12,13 +12,14 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     // Signed in
     var user = userCredential.user;
     console.log('Signed In user is: ', user.email);
-     dispatch(fetchCandidateData("ADq0LNbilFVUdDl8WrLIbOeP8xl2", "sigin", navigate, setLoading));
+    
     
        dispatch(getAllPatients());
       
        
         dispatch(fetchAllTreatmentCategories());
         dispatch(fetchAllTreatmentTests());
+        dispatch(fetchCandidateData("ADq0LNbilFVUdDl8WrLIbOeP8xl2", "sigin", navigate, setLoading));
   })
   .catch((error) => {
     setLoading(false);
@@ -125,7 +126,7 @@ export const fetchCandidateData = (id, type, navigate, setLoading) => async (dis
     dispatch(storeUserData(doc.data()));
     if(type === "sigin"){
       // notifySuccessFxn("Logged In😊");
-      navigate('/dashboard/home', { replace: true });
+      navigate('/dashboard/entry', { replace: true });
     }
   } else {
       setLoading(false);

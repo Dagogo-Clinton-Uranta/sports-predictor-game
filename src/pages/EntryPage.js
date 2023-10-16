@@ -104,7 +104,7 @@ const EntryPage = () => {
           zIndex:6,
         }}
         onClick={() => {
-            navigate('/patient');
+            navigate('/dashboard/home');
         }}
       >
        Begin Exam
