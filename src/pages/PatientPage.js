@@ -31,7 +31,7 @@ export default function PatientPage() {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();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
 
  
   const [selectedBed, setSelectedBed] = useState(null);
