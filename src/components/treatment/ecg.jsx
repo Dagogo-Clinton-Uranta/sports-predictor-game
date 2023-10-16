@@ -15,9 +15,9 @@ import Modal from '@mui/material/Modal';
 
 
 
-import { BodyComponent } from 'reactjs-human-body';
+//import { BodyComponent } from 'reactjs-human-body';
 //import { PartsInput } from 'reactjs-human-body/dist/components/BodyComponent/BodyComponent';
-import {useFloating} from '@floating-ui/react';
+//import {useFloating} from '@floating-ui/react';
 
 import styled from 'styled-components';
 
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ECG = ({ state, setState, handleChange }) => {
-  const { selectedPatient } = useSelector((state) => state.patient);
+  const { selectedPatient,admittedPatients } = useSelector((state) => state.patient);
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -127,7 +127,7 @@ const exampleParams = {
 
 
 /*FLOATING UI LOGIC */
-const {refs, x, y, strategy,floatingStyles} = useFloating();
+//const {refs, x, y, strategy,floatingStyles} = useFloating();
 /*FLOATING UI LOGIC END */
 
   return (
@@ -142,8 +142,8 @@ const {refs, x, y, strategy,floatingStyles} = useFloating();
     >
        <center style={{backgroundColor:"white",borderRadius:"10px",width:"90%",height:"90%"}}>
 
-       {<img src={ECGIMG}   ref={refs.setReference} style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>}
-       <div ref={refs.setFloating}  style={{
+       {<img src={ECGIMG}   /*ref={refs.setReference}*/ style={{height:"70%",width:"20%" ,position:"relative",top:"20%"}}/>}
+       <div /*ref={refs.setFloating} */ style={{
      position: "absolute",
       left: "-490",
       top: "100",
@@ -152,7 +152,7 @@ const {refs, x, y, strategy,floatingStyles} = useFloating();
         Tooltip
       </div>
 
-      <div ref={refs.setFloating}  style={{
+      <div /*ref={refs.setFloating} */ style={{
       position: "absolute",
       left: "-190",
       top: "845",
@@ -275,3 +275,4 @@ const {refs, x, y, strategy,floatingStyles} = useFloating();
 };
 
 export default ECG;
+

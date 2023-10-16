@@ -2,7 +2,7 @@ import { Grid, Container, Typography, Button, Paper, CircularProgress } from '@m
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserData } from 'src/redux/actions/auth.action';
+//import { fetchCandidateData } from 'src/redux/actions/auth.action';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
 import { fetchMyTransactions } from 'src/redux/actions/transaction.action';
@@ -16,7 +16,7 @@ import IMG4 from '../assets/images/intervention.png';
 import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
-import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients,refreshCountdown ,getAllPatients,removePatient, getWaitingRoomPatients, reset } from 'src/redux/actions/patient.action';
+import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -25,13 +25,13 @@ import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
 import ECG from 'src/components/treatment/ecg';
 import Referrals from 'src/components/treatment/referrals';
-import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta }  from 'react-countdown';
+import Countdown from 'react-countdown';
 
 export default function PatientPage() {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();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
+  const dispatch = useDispatch();
 
  
   const [selectedBed, setSelectedBed] = useState(null);
@@ -55,18 +55,33 @@ const [radiologyClicked,setRadiologyClicked] = useState(false)
 
   const { user } = useSelector((state) => state.auth);
 
-  const { selectedPatient, patients,patientTimers ,admittedPatients, isLoading } = useSelector((state) => state.patient);
-  //console.log("PATIENT TIMERS IS-->",patientTimers)
+  const { selectedPatient, allPatients,patients,patientTimers ,waitTimers,admittedPatients, isLoading } = useSelector((state) => state.patient);
+  console.log("PATIENTS TIMERS IS----LOOK HERE-->",patientTimers)
+
+
+
+  window.onload = function(){
+    dispatch(getAllPatients());
+    console.log("I JUST RELOADED NOW")
+  }
+
+
+
   useEffect(() => {
-    //dispatch(getAllPatients(patientTimers?patientTimers:[]));
-    //dispatch(getWaitingRoomPatients());
-    //dispatch(getAdmittedPatients());
-    //dispatch(fetchAllTreatmentCategories());
-    //dispatch(fetchAllTreatmentTests());
-    //dispatch(fetchUserData(user?.uid));
+
+    if(user && user.isExaminer){
+
+    navigate('/dashboard/examiner')
+    }
+   //   dispatch(getAllPatients(patientTimers?patientTimers:[]));
+   //   dispatch(getWaitingRoomPatients());
+   //   dispatch(getAdmittedPatients());
+   //   dispatch(fetchAllTreatmentCategories());
+   //   dispatch(fetchAllTreatmentTests());
+   // dispatch(fetchCandidateData(user?.uid));
   }, [patients]);
 
-console.log("selected patient is ---->",selectedPatient)
+console.log("selected patient is ----->",selectedPatient)
 
 
   /*const previousValue = useRef(null);
@@ -219,7 +234,7 @@ console.log("selected patient is ---->",selectedPatient)
 
   return (
     <>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ marginTop:"5%" }}>
         <ToastContainer
           position="top-right"
           autoClose={1000}
@@ -231,16 +246,37 @@ console.log("selected patient is ---->",selectedPatient)
           draggable
           pauseOnHover
         />
-        {isLoading || patients.length <1 ? (
+        {isLoading ? (
           <center>
             <CircularProgress />
           </center>
         ) : (
           <Grid container spacing={2}>
 
-          {/*
-            patientTimers && patientTimers.map((item)=>(
-              <div style={{display:"block",width:"0%",height:"0%",position:"relative",left:"50%"}}>
+
+         {
+            waitTimers && waitTimers.map((item,index)=>(
+              <div style={{display:"none",width:"100%",position:"relative",left:"40%",marginBottom:index=== waitTimers.length -1?"2rem":"0rem"}}>
+                   {item.firstName}{" "} {item.lastName}{" "}{"---> "}
+                 <Countdown date={Date.now() + item.waitCountdown}
+              
+               precision={1000} 
+               intervalDelay={10000}
+             
+               onTick ={()=>{dispatch(refreshWaitdown(waitTimers))}}                                                                                                                                                  
+               onComplete={()=>{dispatch(enterPatient(item.id,item.firstName,item.lastName,waitTimers,(selectedPatient &&selectedPatient.uid? selectedPatient.uid:null),patients,allPatients,patientTimers))}}
+             
+               />
+               </div>
+            ))
+            
+            }
+
+
+
+          {
+             patientTimers &&patientTimers.length >0  && patientTimers.map((item)=>(
+              <div style={{display:"none",width:"100%",position:"relative",left:"40%"}}>
                    {item.firstName}{" "} {item.lastName}{" "}{"---> "}
                  <Countdown date={Date.now() + item.screenCountdown}
               
@@ -248,13 +284,13 @@ console.log("selected patient is ---->",selectedPatient)
                intervalDelay={10000}
              
             onTick ={()=>{dispatch(refreshCountdown(patientTimers))}} 
-               onComplete={()=>{dispatch(removePatient(item.id,item.firstName,item.lastName,patientTimers,(selectedPatient &&selectedPatient.uid? selectedPatient.uid:null)))}}
+               onComplete={()=>{dispatch(removePatient(item.id,item.firstName,item.lastName,patientTimers,(selectedPatient &&selectedPatient.uid? selectedPatient.uid:null),admittedPatients,patients))}}
              
                />
                </div>
             ))
             
-            */}
+             }
 
 
 

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const Prescription = ({ state, handleChange }) => {
-  const { selectedPatient } = useSelector((state) => state.patient);
+  const { selectedPatient,admittedPatients } = useSelector((state) => state.patient);
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -190,8 +190,8 @@ const [testTaken,setTestTaken] = useState(false);
 
 
 
-  const submitPrescriptionResponse = (patientId,b1,b2) => {
-    dispatch(submitPrescription(user.uid,patientId,b1,b2))
+  const submitPrescriptionResponse = (patientId,b1,b2,admittedPatients) => {
+    dispatch(submitPrescription(user.uid,patientId,b1,b2,admittedPatients))
   }
 
   return (
@@ -284,7 +284,7 @@ const [testTaken,setTestTaken] = useState(false);
                     height: '50px',
                   }}
                   disabled={!state.prescription||loading}
-                  onClick={()=>{submitPrescriptionResponse(selectedPatient?.uid,prescriptionArray,selectedPatient?.complaintId)}}
+                  onClick={()=>{submitPrescriptionResponse(selectedPatient?.uid,prescriptionArray,selectedPatient?.complaintId,admittedPatients)}}
                 >
                   Submit
                 </Button>

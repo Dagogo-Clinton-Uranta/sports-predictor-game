@@ -3,7 +3,7 @@ import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUse
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/group.slice';
-import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getWaitingRoomPatients } from './patient.action';
+import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getAllPatients, getWaitingRoomPatients } from './patient.action';
 
 
 export const signin = (user, navigate, setLoading) => async (dispatch) => {
@@ -12,11 +12,13 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     // Signed in
     var user = userCredential.user;
     console.log('Signed In user is: ', user.email);
-     dispatch(fetchUserData(user.uid, "sigin", navigate, setLoading));
-     dispatch(getWaitingRoomPatients());
-    dispatch(getAdmittedPatients());
-    dispatch(fetchAllTreatmentCategories());
-    dispatch(fetchAllTreatmentTests());
+     dispatch(fetchCandidateData("ADq0LNbilFVUdDl8WrLIbOeP8xl2", "sigin", navigate, setLoading));
+    
+       dispatch(getAllPatients());
+      
+       
+        dispatch(fetchAllTreatmentCategories());
+        dispatch(fetchAllTreatmentTests());
   })
   .catch((error) => {
     setLoading(false);
@@ -113,6 +115,29 @@ export const fetchUserData = (id, type, navigate, setLoading) => async (dispatch
 });
 return user;
 };
+
+
+export const fetchCandidateData = (id, type, navigate, setLoading) => async (dispatch) => {
+  var user = db.collection("Candidates").doc(id);
+  user.get().then((doc) => {
+  if (doc.exists) {
+    // console.log("User Data:", doc.data());
+    dispatch(storeUserData(doc.data()));
+    if(type === "sigin"){
+      // notifySuccessFxn("Logged In😊");
+      navigate('/dashboard/home', { replace: true });
+    }
+  } else {
+      setLoading(false);
+      notifyErrorFxn("Unauthorized❌")
+      console.log("No such document!");
+  }
+}).catch((error) => {
+  console.log("Error getting document:", error);
+});
+return user;
+};
+
 
 
 export const uploadProfileImage = (profileData, file, userID, navigate, setLoading) => async (dispatch) => {

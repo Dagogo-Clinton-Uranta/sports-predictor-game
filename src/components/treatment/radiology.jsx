@@ -6,15 +6,15 @@ import Carousel from 'react-material-ui-carousel'
 import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests } from 'src/redux/actions/patient.action';
+import { admitPatients, fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients } from 'src/redux/actions/patient.action';
 import { submitRadiology} from 'src/redux/actions/candidate.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Scrollbar, A11y, Autoplay} from 'swiper';
+
 import { useNavigate } from 'react-router-dom';
 import MAN from '../../assets/images/man.png';
 import WOMAN from '../../assets/images/woman.png';
 import KID from '../../assets/images/kid.png';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Radiology = ({ state, setState, handleChange }) => {
-  const { selectedPatient } = useSelector((state) => state.patient);
+  const { selectedPatient ,admittedPatients} = useSelector((state) => state.patient);
   const {user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -171,8 +171,8 @@ const handleClosePdf = () => {setOpenPdf(false)};
       
      }
 
-  const submitRadiologyResponse = (patientId,b1,b2,b3,b4) => {
-    dispatch(submitRadiology(user.uid,patientId,b1,b2,b3,b4))
+  const submitRadiologyResponse = (patientId,b1,b2,b3,b4,admittedPatients) => {
+    dispatch(submitRadiology(user.uid,patientId,b1,b2,b3,b4,admittedPatients))
   }
 
   const handleClick = () => {
@@ -445,12 +445,12 @@ const handleClosePdf = () => {setOpenPdf(false)};
                       height: '50px',
                     }}
                     disabled={state.radiology1 && state.radiology1.length <1  ||state.radiology2 && state.radiology2.length <1 ||radiology1 && radiology1.length <1||radiology2 && radiology2.length <1  ||loading}
-                    onClick={()=>{submitRadiologyResponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,selectedPatient?.complaintId)}}
+                    onClick={()=>{submitRadiologyResponse(selectedPatient?.uid,radiology1,radiology2,radiology2IdArray,selectedPatient?.complaintId,admittedPatients)}}
                   >
                     Submit
                   </Button>
                 </Grid>
-               
+              
                 {testTaken === false &&
                
                <Grid item xs={4} md={4}>

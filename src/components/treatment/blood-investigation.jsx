@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BloodInvestigation = ({ state, setState, handleChange }) => {
-  const { selectedPatient } = useSelector((state) => state.patient);
+  const { selectedPatient,admittedPatients } = useSelector((state) => state.patient);
   const {user } = useSelector((state) => state.auth);
  // console.log("our candidate's response is ",user.response)
  // console.log("our selected patient is ",selectedPatient)
@@ -168,9 +168,9 @@ const [trigger,setTrigger] = useState(true)
 
 
 
-  const submitBIresponse = (patientId,b1,b2,b3,b4) => {
+  const submitBIresponse = (patientId,b1,b2,b3,b4,admittedPatients) => {
     setHasSubmittedBefore(true)
-    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3,b4))
+    dispatch(submitBloodInvestigation(user.uid,patientId,b1,b2,b3,b4,admittedPatients))
 
   }
 
@@ -221,7 +221,7 @@ const [trigger,setTrigger] = useState(true)
       setTestTaken(false)
     }
   
-  },5000)
+  },(selectedPatient && selectedPatient.waitTime?Number(selectedPatient.waitTime)*1000:5000))
     
   }
   
@@ -261,11 +261,13 @@ const [trigger,setTrigger] = useState(true)
 
     setTestTaken("loading")
    
-    if(candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true){
-   setTimeout(()=>{setTestTaken(true)},5000)
-    }else{
+   /* if(candidateResponseArray[particularPatientPosition].bloodInvestigationPassed === true){*/
+   setTimeout(()=>{setTestTaken(true)},(selectedPatient && selectedPatient.waitTime ?Number(selectedPatient.waitTime)*1000:5000))
+   /* }*/
+    
+    /*else{
       setTestTaken(false)
-    }
+    }*/
 
     
   }
@@ -375,7 +377,7 @@ const [trigger,setTrigger] = useState(true)
      
         <Grid container spacing={1} sx={{ minWidth: 100 }}>
           <Grid item>
-          <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.icon.toLowerCase())} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
+          <Avatar alt="avatar" src={getAvatarSrc(selectedPatient && selectedPatient.icon.toLowerCase())} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
             {/* </ButtonBase> */}
           </Grid>
           <Grid item xs={12} sm container>
@@ -489,7 +491,7 @@ const [trigger,setTrigger] = useState(true)
                       height: '50px',
                     }}
                     disabled={state.bloodInv1.length <1  ||state.bloodInv2.length <1 ||bloodInv2.length <1||bloodInv1.length <1  ||loading}
-                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,bloodInv2IdArray,selectedPatient?.complaintId)}}
+                    onClick={()=>{submitBIresponse(selectedPatient?.uid,bloodInv1,bloodInv2,bloodInv2IdArray,selectedPatient?.complaintId,admittedPatients)}}
                   >
                     Submit
                   </Button>

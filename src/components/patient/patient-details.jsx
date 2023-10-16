@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import IMG from '../../assets/images/empty-avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Container, Paper, Button, Typography, ButtonBase, Avatar } from '@mui/material';
@@ -27,11 +27,11 @@ const PatientDetails = () => {
 
   const getAvatarSrc = (gender) => {
     switch (gender) {
-      case 'male':
+      case 'Male':
         return MAN;
-      case 'female':
+      case 'Female':
         return WOMAN;
-      case 'kid':
+      case 'Kid':
         return KID;
       default:
         return MAN; 
@@ -42,17 +42,20 @@ const PatientDetails = () => {
     dispatch(admitPatients(selectedPatient?.uid, setLoading, navigate));
   }
 
-
   const dischargePatientFxn = () => {
-  dispatch(dischargePatients(selectedPatient?.uid, setLoading, navigate));
-}
+    dispatch(dischargePatients(selectedPatient?.uid, setLoading, navigate));
+  }
 
+  useEffect(()=>{
+  console.log("our selected patient after submitting is--->",selectedPatient)
+  }
+  ,[selectedPatient])
   return (
    <>
    {selectedPatient && (
      <Grid container spacing={1}>
      <Grid item>
-     <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.icon.toLowerCase())} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
+     <Avatar alt="avatar" src={getAvatarSrc(selectedPatient.gender)} style={{ width: '80px', height: '80px', marginRight: '20px' }} />
        {/* </ButtonBase> */}
      </Grid>
      <Grid item xs={12} sm container>
@@ -62,7 +65,7 @@ const PatientDetails = () => {
             {selectedPatient?.firstName + ' ' + ' ' + selectedPatient?.lastName}
            </Typography>
            <Typography variant="body2" gutterBottom style={mystyle}>
-           {selectedPatient?.age}YRS | {selectedPatient?.icon?.toUpperCase()}
+           {selectedPatient?.age}YRS | KID
            </Typography>
 
            <Typography variant="body2" color="text.secondary" style={mystyle}>
@@ -74,13 +77,112 @@ const PatientDetails = () => {
      </Grid>
      <div style={{padding: '10px'}}>
      <center>
-           <div style={{ marginTop: '10px', minHeight: '250px', border: '0px solid red' }}>
-            {selectedPatient?.aboutIssue ?? 'pturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis '}
+     {(selectedPatient.chosenBloodInvestigationTests || selectedPatient.chosenRadiologyTests || selectedPatient.prescriptionResponseArray || selectedPatient.chosenReferrals) &&
+              <b>Actions List</b>
+            }
+
+
+           <div style={{ marginTop: '10px', minHeight: '250px', minWidth:"500px",border: '0px solid red',display:"grid" , gridTemplateColumns:( (selectedPatient.chosenBloodInvestigationTests||selectedPatient.chosenRadiologyTests || selectedPatient.prescriptionResponseArray||selectedPatient.chosenReferrals)?"1fr 1fr" :"1fr"),gap:"1rem"}}>
+
+            
+            { (!selectedPatient.chosenBloodInvestigationTests && !selectedPatient.chosenRadiologyTests && !selectedPatient.prescriptionResponseArray && !selectedPatient.chosenReferrals) && 
+             (
+             selectedPatient.aboutIssue?
+             selectedPatient.aboutIssue:
+             'pturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis '
+             )
+            }
+          
+            
+        
+            {
+            selectedPatient && selectedPatient.chosenBloodInvestigationTests &&
+            (
+            <div>
+            <p>INVESTIGATIONS</p>
+            {<div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
+              { 
+            selectedPatient.chosenBloodInvestigationTests.map((item)=>(
+              <li>{item}</li>
+               ))
+              } 
+              </div> 
+            }
+
+           </div>
+           )
+               }
+
+
+         {
+            selectedPatient && selectedPatient.chosenRadiologyTests &&
+            (
+            <div>
+            <p>RADIOLOGY</p>
+            {<div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
+              { 
+            selectedPatient.chosenRadiologyTests.map((item)=>(
+              <li>{item}</li>
+               ))
+              } 
+              </div> 
+            }
+
+           </div>
+           )
+               }
+
+             
+         { 
+            selectedPatient && selectedPatient.prescriptionResponseArray &&
+            (
+            <div>
+            <p>PRESCRIPTIONS</p>
+            {<div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
+              { 
+            selectedPatient.prescriptionResponseArray.map((item)=>(
+              <li>{item}</li>
+               ))
+              } 
+              </div> 
+            }
+
+           </div>
+           )
+               }
+
+
+
+         {
+            selectedPatient && selectedPatient.chosenReferrals &&
+            (
+            <div>
+            <p>REFERRALS</p>
+            {<div style={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
+              { 
+            selectedPatient.chosenReferrals.map((item)=>(
+              <li>{item}</li>
+               ))
+              } 
+              </div> 
+            }
+
+           </div>
+           )
+               }
+
+
+
+      
+            
+
+
+
            </div>
          </center>
          {/* <hr /> */}
            <br/>
-           <Grid container spacing={2} style={{alignContent: 'bottom', alignItems: 'bottom',marginTop:"-80px"}}>
+           <Grid container spacing={2} style={{alignContent: 'bottom', alignItems: 'bottom'}}>
          <Grid item xs={6} md={6}>
            <Button
              type="submit"

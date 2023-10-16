@@ -4,6 +4,7 @@ const initialState = {
   allPatients: [],
   patients: [],
   patientTimers:[],
+  waitTimers:[],
   admittedPatients: [],
   selectedPatient: null,
   isLoading: false,
@@ -32,6 +33,13 @@ const patientSlice = createSlice({
         state.error = '';
         state.message = '';
       },
+
+      fetchWaitTimers: (state, action) => {
+        state.waitTimers = action.payload;
+        state.error = '';
+        state.message = '';
+      },
+
     fetchAdmittedPatients: (state, action) => {
         state.admittedPatients = action.payload;
         state.error = '';
@@ -58,9 +66,10 @@ const patientSlice = createSlice({
         state.message = '';
       },
     clearPatient: (state, action) => {
-      state.allPatients= [];
+      state.allPatients= action.payload.patients;
       state.patients= [];
-      state.patientTimers=action.payload;
+      state.patientTimers=[];
+      state.waitTimers=action.payload.waitTimers;
       state.admittedPatients= [];
       state.selectedPatient= null;
       state.isLoading= false;
@@ -78,6 +87,7 @@ export const {
  fetchPatients,
  fetchAllPatients,
  fetchPatientTimers,
+ fetchWaitTimers,
  fetchAdmittedPatients,
  setSelectedPatient,
  saveAllTreatmentCategories,
@@ -87,5 +97,8 @@ export const {
 } = actions;
 
 export default reducer;
+
+
+
 
 

@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Referrals = ({ state, setState, handleChange }) => {
-  const { selectedPatient } = useSelector((state) => state.patient);
+  const { selectedPatient,admittedPatients } = useSelector((state) => state.patient);
   console.log("selected patient is",selectedPatient )
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -214,8 +214,8 @@ const [testTaken,setTestTaken] = useState(false);
 
 
 
-  const submitReferralResponse = (patientId,b1,b2,b3,b4) => {
-    dispatch(submitReferral(user.uid,patientId,b1,b2,b3,b4))
+  const submitReferralResponse = (patientId,b1,b2,b3,b4,admittedPatients) => {
+    dispatch(submitReferral(user.uid,patientId,b1,b2,b3,b4,admittedPatients))
   }
 
 
@@ -321,7 +321,7 @@ const [testTaken,setTestTaken] = useState(false);
                       height: '50px',
                     }}
                     disabled={!state.referral||referralIdArray.length<1 ||loading}
-                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,state.referral,referral,referralIdArray,selectedPatient?.complaintId)}}
+                    onClick={()=>{submitReferralResponse(selectedPatient?.uid,state.referral,referral,referralIdArray,selectedPatient?.complaintId,admittedPatients)}}
                   >
                     Submit
                   </Button>
@@ -385,3 +385,4 @@ const [testTaken,setTestTaken] = useState(false);
 };
 
 export default Referrals;
+

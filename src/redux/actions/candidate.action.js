@@ -1,9 +1,8 @@
 import { db } from "../../config/firebase";
 import { fetchCandidates, fetchSingleCandidate } from "../reducers/candidate.slice";
 import { notifyErrorFxn, notifySuccessFxn } from "src/utils/toast-fxn";
-import { fetchUserData } from "./auth.action";
-//I am refreshing user data when a candidate takes a test, so I need to call user data from the auth actions file
-
+import { fetchCandidateData } from "./auth.action";
+import { setSelectedPatient,fetchAdmittedPatients } from "../reducers/patient.slice";
 
 
 export const getCandidates = (uid) => async (dispatch) => {
@@ -34,7 +33,7 @@ export const getSingleCandidate = (id) => async (dispatch) => {
 };
 
 
-export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (dispatch) => {
+export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4,b5) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -103,6 +102,29 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
    
         let correctAnswers= complaintSnapshot.data().treatment.chosenBloodInvestigationIdArray
         //console.log ("what we are sending treatment tests to search is",correctAnswers)
+
+          /*====  adding blood investigations to a particular admitted patient ====== */
+       const patientReplacementArray = [...b5]
+
+       const patientIdToChange = patientReplacementArray.map((item)=>(item.uid)).indexOf(patientId)
+      
+       console.log("halo blood inv--->",patientIdToChange)
+
+       if(patientIdToChange !== -1){
+         patientReplacementArray[patientIdToChange] = {...patientReplacementArray[patientIdToChange],chosenBloodInvestigationTests:b2}
+        
+         
+       }else{
+         notifyErrorFxn("we cant find this guy to update his blood inv")
+       }
+ 
+       dispatch(fetchAdmittedPatients(patientReplacementArray));
+ 
+       
+ 
+       /*======adding blood investigations to particular admitted patient END ===== */
+
+
    
       await  db.collection('TreatmentTests')
        .where('uid', 'in', correctAnswers)
@@ -130,6 +152,10 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
            }
    
          }
+
+         
+
+
        })
        .catch((error) => {
          console.log('Error getting document:', error);
@@ -157,8 +183,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      userRef.update({ response:[...updatedArray]
      }).then((value)=>{
        
-       
-     dispatch(fetchUserData(uid))
+     dispatch(fetchCandidateData(uid))
       
      notifySuccessFxn(`submitted blood investigation!`);
    
@@ -175,7 +200,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
 
 
 
-  export const submitRadiology =  (uid,patientId,b1,b2,b3,b4) =>async (dispatch) => {
+  export const submitRadiology =  (uid,patientId,b1,b2,b3,b4,b5) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -273,6 +298,23 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
         }
 
       }
+
+      /*====  adding radiology to a particular admitted patient ====== */
+        
+      const patientReplacementArray = [...b5]
+
+      const patientIdToChange = patientReplacementArray.map((item)=>(item.uid)).indexOf(patientId)
+
+      if(patientIdToChange !== -1){
+        patientReplacementArray[patientIdToChange] = {...patientReplacementArray[patientIdToChange],chosenRadiologyTests:b2}
+      
+      }else{
+        notifyErrorFxn("we cant find this guy to update his radiology")
+      }
+
+      dispatch(fetchAdmittedPatients(patientReplacementArray));
+
+      /*======adding radiology to a particular admitted patients END ===== */
     })
     .catch((error) => {
       console.log('Error getting document:', error);
@@ -301,7 +343,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   }).then((value)=>{
     
     
-  dispatch(fetchUserData(uid))
+  dispatch(fetchCandidateData(uid))
    
   notifySuccessFxn(`submitted radiology!`);
 
@@ -318,7 +360,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   }
 
 
-  export const submitPrescription=  (uid,patientId,b1,b2) =>async (dispatch) => {
+  export const submitPrescription=  (uid,patientId,b1,b2,b3) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -403,6 +445,24 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
              ...redoResponseArray[particularPatientPositionAlso],
              prescriptionPassed:true,
            }
+
+
+            /*====  adding prescription to a particular admitted patient ====== */
+        
+            const patientReplacementArray = [...b3]
+
+            const patientIdToChange = patientReplacementArray.map((item)=>(item.uid)).indexOf(patientId)
+            
+            if(patientIdToChange !== -1){
+              patientReplacementArray[patientIdToChange] = {...patientReplacementArray[patientIdToChange],prescriptionResponseArray:b1}
+               
+            }else{
+              notifyErrorFxn("we cant find this guy to update his prescription")
+            }
+      
+            dispatch(fetchAdmittedPatients(patientReplacementArray));
+
+      /*======adding prescription toa particular admitted patient END ===== */
    
        /*  }*/
       /* }) */
@@ -433,7 +493,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      }).then((value)=>{
        
        
-     dispatch(fetchUserData(uid))
+     dispatch(fetchCandidateData(uid))
       
      notifySuccessFxn(`submitted Prescription!`);
    
@@ -450,7 +510,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
   }
 
 
-  export const submitReferral=  (uid,patientId,b1,b2,b3,b4) =>async (dispatch) => {
+  export const submitReferral=  (uid,patientId,b1,b2,b3,b4,b5) =>async (dispatch) => {
     const userRef = db.collection('Candidates').doc(uid);
     const userSnapshot = await userRef.get();
     
@@ -543,6 +603,23 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
              referralPassed:true,
             
            }
+
+             /*====  adding referrals to a particular admitted patient ====== */
+        
+             const patientReplacementArray = [...b5]
+
+             const patientIdToChange = patientReplacementArray.map((item)=>(item.uid)).indexOf(patientId)
+           
+             if(patientIdToChange !== -1){
+               patientReplacementArray[patientIdToChange] = {...patientReplacementArray[patientIdToChange],chosenReferrals:b2}
+             }else{
+               notifyErrorFxn("we cant find this guy to update his radiology")
+             }
+       
+             dispatch(fetchAdmittedPatients(patientReplacementArray));
+
+      /*======adding referrals to a particular admitted patient END ===== */
+
    
       /*   }*/
    /*    })
@@ -573,7 +650,7 @@ export const submitBloodInvestigation =  (uid,patientId,b1,b2,b3,b4) =>async (di
      }).then((value)=>{
        
        
-     dispatch(fetchUserData(uid))
+     dispatch(fetchCandidateData(uid))
       
      notifySuccessFxn(`submitted referrals!`);
    
