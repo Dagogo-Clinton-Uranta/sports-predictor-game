@@ -32,9 +32,9 @@ export default function LoginForm() {
       <Stack spacing={3}>
       <TextField
       required
-      name="email"
-      type="email"
-      label="Email address"
+      name="Username"
+      type="text"
+      label="Username"
       onChange={(e) => setEmail(e.target.value)}
       sx={{ borderRadius: '12px', background: '#D9D9D921' }}
     />
@@ -58,9 +58,7 @@ export default function LoginForm() {
         />
       </Stack>
 
-      <Typography variant="body2" sx={{ mt: 2, mb: 2, color: '#21D0C3', textAlign: 'right' }}>
-              <Link href='/register' variant="subtitle2"><span style={{color: '#21D0C3' }}>Forgot Password?</span></Link>
-            </Typography>
+      
 
 
       {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
@@ -69,9 +67,18 @@ export default function LoginForm() {
           Forgot password?
         </Link>
       </Stack> */}
-      <LoadingButton fullWidth size="large" type="submit" disabled={loading} style={{backgroundColor: '#21D0C3', color: 'white'}}>
+
+      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+      </Stack>
+
+
+      <LoadingButton fullWidth size="large" type="submit" disabled={loading} style={{backgroundColor: '#260952', color: 'white'}}>
         {loading ? "Loading..." : "Login"}
       </LoadingButton>
+
+      <Typography variant="body2" sx={{ mt: 2, mb: 2, color: '#260952', textAlign: 'left' }}>
+              <Link href='/register' variant="subtitle2"><span style={{color: '#260952' }}>Dont have an account? Register</span></Link>
+            </Typography>
       </form>
     </>
   );

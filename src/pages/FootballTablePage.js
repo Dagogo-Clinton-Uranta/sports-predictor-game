@@ -1,4 +1,4 @@
-import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,7 +48,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 
-export default function PatientPage() {
+export default function FootballTablePage() {
   const theme = useTheme();
  // const classes = useStyles()
 
@@ -77,12 +77,6 @@ const premTeams = [
 "West Bromwich Albion",
 "West Ham United",
 "Wolverhampton Wanderers",
-]
-const standingsList = [
-  {userName:"Avengers",pick:"Salah"},
-  {userName:"BB Team",pick:"Fernandes"},
-  {userName:"C Team",pick:"Kane"},
-  {userName:"Tots",pick:"Son"}
 ]
 
   
@@ -163,49 +157,63 @@ const standingsList = [
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#f4f0ec" }}>
     
    
-<TableContainer component={Paper} style={{marginTop:"4rem"}}>
-      
- 
-        <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#f4f0ec",mb: 2}}>
-          STANDINGS
-        </Typography>
+    
+    <div>
+    <p>Teams</p>  
+    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
+  
+    <Select
+          style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
+         inputProps={{
+         /* classes: {
+              icon: classes.icon,
+          },*/
+      }}
+        
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={"Select a Team"}
+          label="icon"
+          onChange={(event) => {
+          
+          }}
+        >
+       
+       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+)):
+<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
+}
+       
+        </Select>
 
-        <Table sx={{ tableLayout:"fixed",backgroundColor:"#f4f0ec" }} aria-label="custom pagination table">
-          <TableHead  sx={{backgroundColor:"#f4f0ec  !important" }} >
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell align="left">Username</TableCell>
-              <TableCell align="left">Pick</TableCell>
+
+        </div>  
+      </div>
+
+
+     
+
+  <div style={{backgroundColor:"lightgrey", color:"#260448",textAlign:"center"}}>SELECTION</div>
+    
+      <TextField
+            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
+            fullWidth
+            placeholder=" Add blood investigation"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {"Arsenal"}
+           //onChange = {(e)=>{setTitle(e.target.value)}}
+           
             
-             
-            </TableRow>
-          </TableHead>
+            />
 
-         <Divider/>
 
-          <TableBody>
-            {standingsList.map((row,index) => (
-                  <TableRow key={index}>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
-                      {index+1}
-                    </TableCell>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.userName}
-                    </TableCell>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                  
-                    {row.pick}
-                    </TableCell>
-                    </TableRow>  
-                  ))
-    
-                  
-            }
-    
-                
-           </TableBody>
-         </Table>
-       </TableContainer>
+            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+              Submit
+            </Button>
+
    
   </Container>
 

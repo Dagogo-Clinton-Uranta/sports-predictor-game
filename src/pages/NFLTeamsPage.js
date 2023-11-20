@@ -1,4 +1,4 @@
-import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,10 +28,10 @@ import Referrals from 'src/components/treatment/referrals';
 import Countdown from 'react-countdown';
 
 import FLOGO from '../assets/images/fLogo.png';
-import SALAH from '../assets/images/salah.jpeg';
-import BRUNO from '../assets/images/BRUNO.jpeg';
-import ALISSON from '../assets/images/ALISSON.jpeg'
-import HALAAND from '../assets/images/HAALAND.jpeg'
+import NFL4 from '../assets/images/NFL4.jpeg';
+import NFL1 from '../assets/images/NFL1.jpeg';
+import NFL2 from '../assets/images/NFL2.jpeg'
+import NFL3 from '../assets/images/NFL3.jpeg'
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -48,7 +48,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 
-export default function PatientPage() {
+export default function NFLTeamsPage() {
   const theme = useTheme();
  // const classes = useStyles()
 
@@ -77,12 +77,6 @@ const premTeams = [
 "West Bromwich Albion",
 "West Ham United",
 "Wolverhampton Wanderers",
-]
-const standingsList = [
-  {userName:"Avengers",pick:"Salah"},
-  {userName:"BB Team",pick:"Fernandes"},
-  {userName:"C Team",pick:"Kane"},
-  {userName:"Tots",pick:"Son"}
 ]
 
   
@@ -126,28 +120,28 @@ const standingsList = [
           gridColumnGap: "15px",
           gridRowGap: "15px"}}> 
     
-    <div style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
+    <div style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
         backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.4rem",
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
+        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</div>
    
    
-    <div style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
+    <div style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
         backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.4rem",
-        backgroundRepeat: 'no-repeat', }}>ASSIST</div>
+        backgroundRepeat: 'no-repeat', }}>50+ RECIEVING YARDS</div>
    
    
-    <div style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
+    <div style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.4rem",
-        backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
+        backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</div>
    
    
-    <div style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
+    <div style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
         backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.4rem",
-        backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
+        backgroundRepeat: 'no-repeat', }} >100+ PASSING YARDS</div>
 
          </div>
     
@@ -163,49 +157,63 @@ const standingsList = [
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#f4f0ec" }}>
     
    
-<TableContainer component={Paper} style={{marginTop:"4rem"}}>
-      
- 
-        <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#f4f0ec",mb: 2}}>
-          STANDINGS
-        </Typography>
+    
+    <div>
+    <p>Teams</p>  
+    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '162px' }}>
+  
+    <Select
+          style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
+         inputProps={{
+         /* classes: {
+              icon: classes.icon,
+          },*/
+      }}
+        
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={"Select a Team"}
+          label="icon"
+          onChange={(event) => {
+          
+          }}
+        >
+       
+       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+)):
+<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
+}
+       
+        </Select>
 
-        <Table sx={{ tableLayout:"fixed",backgroundColor:"#f4f0ec" }} aria-label="custom pagination table">
-          <TableHead  sx={{backgroundColor:"#f4f0ec  !important" }} >
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell align="left">Username</TableCell>
-              <TableCell align="left">Pick</TableCell>
+
+        </div>  
+      </div>
+
+
+    
+
+  <div style={{backgroundColor:"lightgrey", color:"#260448",textAlign:"center"}}>SELECTION</div>
+    
+      <TextField
+            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
+            fullWidth
+            placeholder=" Add blood investigation"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {"Arsenal"}
+           //onChange = {(e)=>{setTitle(e.target.value)}}
+           
             
-             
-            </TableRow>
-          </TableHead>
+            />
 
-         <Divider/>
 
-          <TableBody>
-            {standingsList.map((row,index) => (
-                  <TableRow key={index}>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
-                      {index+1}
-                    </TableCell>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.userName}
-                    </TableCell>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                  
-                    {row.pick}
-                    </TableCell>
-                    </TableRow>  
-                  ))
-    
-                  
-            }
-    
-                
-           </TableBody>
-         </Table>
-       </TableContainer>
+            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+              Submit
+            </Button>
+
    
   </Container>
 

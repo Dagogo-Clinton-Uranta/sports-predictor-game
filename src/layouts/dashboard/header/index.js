@@ -66,25 +66,16 @@ export default function Header({ onOpenNav }) {
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
+       
         <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%' }}>
-        <CustomSearchBar title="Search anything..."/>
-      </Box>
-      &nbsp; &nbsp;
-      <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button
-          variant="contained"
-          style={{ minHeight: '50px', minWidth: '145px', backgroundColor: '#392751' }}
-        >
-          SERACH
-        </Button>
-      </Box>
-    </Grid>
+      
+       </Grid>
         {/* <Searchbar /> */}
         {/* <Searchbar2 /> */}
         <Box sx={{ flexGrow: 1 }} />
+        
         <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-        Administration &nbsp;
+        Joe &nbsp;
         </Typography>
         <Stack
           direction="row"
@@ -96,7 +87,9 @@ export default function Header({ onOpenNav }) {
         >
           {/* <NotificationsPopover /> */}
           <AccountPopover />
-        </Stack>    
+        </Stack>   
+        
+         
       </StyledToolbar>
     </StyledRoot>
   );

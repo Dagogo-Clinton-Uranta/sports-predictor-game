@@ -9,6 +9,13 @@ import RegisterPage from './pages/RegisterPage';
 import PatientPage from './pages/PatientPage';
 import EntryPage from './pages/EntryPage';
 
+import FootballTeamsPage from './pages/FootballTeamsPage'
+import FootballTablePage from './pages/FootballTablePage'
+
+import NFLPlayersPage from './pages/NFLPlayersPage'
+import NFLTeamsPage from './pages/NFLTeamsPage'
+import FootballPlayersPage from './pages/FootballPlayersPage';
+
 
 export default function Router() {
   const routes = useRoutes([
@@ -18,7 +25,12 @@ export default function Router() {
       children: [
         { element: <Navigate to="/login" />, index: true },
         { path: 'entry', element:  <EntryPage /> },
-        { path: 'home', element:  <PatientPage /> },
+        { path: 'home', element:  <FootballTeamsPage /> },
+        { path: 'football-teams', element:  <FootballTeamsPage /> },
+        { path: 'football-players', element:  <FootballPlayersPage /> },
+        { path: 'nfl-teams', element:  <NFLTeamsPage /> },
+        { path: 'nfl-players', element:  <NFLPlayersPage /> },
+        { path: 'football-table', element:  <PatientPage /> },
         { path: 'patient', element: <PatientPage /> },
       ],
     },

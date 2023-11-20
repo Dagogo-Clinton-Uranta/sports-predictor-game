@@ -14,6 +14,7 @@ import NavSection from '../../../components/nav-section';
 import navConfig from './config';
 import BONLOGO from '../../../assets/images/logo.png';
 
+import FLOGO from '../../../assets/images/fLogo.png';
 // ----------------------------------------------------------------------
 
 // const NAV_WIDTH = 280;
@@ -56,7 +57,7 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>{/* <Logo /> */}</Box>
       <Box sx={{ mb: 5, mx: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Link underline="none">
-          <img src={BONLOGO} width="170" height="40" alt="Logo" />
+          <img src={FLOGO} width="110" height="110" alt="Logo" />
         </Link>
       </Box>
 
@@ -83,7 +84,7 @@ export default function Nav({ openNav, onCloseNav }) {
               width: NAV_WIDTH,
               // bgcolor: 'background.default',
               // bgcolor: '#60A1EC',
-              bgcolor: '#000000',
+              bgcolor: '#260952',
               borderRightStyle: 'dashed',
             },
           }}

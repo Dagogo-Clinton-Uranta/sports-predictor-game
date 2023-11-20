@@ -27,9 +27,10 @@ const EntryPage = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
-        background: 'linear-gradient(to bottom, #000000, #15197ED9)',
+       
         position: 'relative',
         backgroundImage: `url(${BACKGROUND_IMG2})`,
+        background: 'linear-gradient(to bottom, #000000, #15197ED9)',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
        

@@ -9,6 +9,7 @@ import BANNER_IMG from '../assets/images/banner-bg.png';
 import IMG from '../assets/images/img-2.png';
 import MALE from '../assets/images/man.png';
 import FEMALE from '../assets/images/woman.png';
+import FLOGO from '../assets/images/fLogo.png';
 import LoginForm from 'src/components/login/LoginForm';
 
 // ----------------------------------------------------------------------
@@ -57,25 +58,16 @@ export default function LoginPage() {
         <title> IBARA </title>
       </Helmet>
 
-      <StyledRoot style={{ flexDirection: 'row-reverse' }}>
-      <Container maxWidth="sm" style={{ border: '1px solid #0000001A', flex: 2,   marginTop: '2%', marginBottom: '2%', borderRadius: '15px' }}>
-          <StyledContent>
-          <Typography variant="h4" gutterBottom style={{textAlign: 'center', fontSize: '46px'}} >
-              Login
-            </Typography>
+      <StyledRoot style={{  flexDirection: 'row' }}>
+   
 
-          <Typography variant="h6" gutterBottom style={{textAlign: 'center', marginTop: '60px' }} >
-          Select your gender
-          </Typography>
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px' }}>
-              <img src={MALE} width="130" height="130" />
-              <Divider sx={{ my: 3,}}>
-                OR
-              </Divider>
-            <img src={FEMALE} width="130" height="130" />
-            </div>
-            <Typography variant="h6" sx={{ textAlign: 'center', mb: 2}}>
-                Enter login details
+   <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
+
+      <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px' }}>
+          <StyledContent>
+          
+            <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+                Login
               </Typography>
             <LoginForm />
           
@@ -87,6 +79,24 @@ export default function LoginPage() {
             </Divider> */}
           </StyledContent>
         </Container>
+
+      <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px' }}>
+          <StyledContent>
+         
+        
+          <div style={{ display: 'flex', justifyContent: 'center',alignItems:"center", marginBottom: '50px' }}>
+            
+            <img src={FLOGO} width="160" height="160" />
+            </div>
+          
+            <Typography variant="h4" gutterBottom style={{textAlign: 'center' }} >
+          FANTASY PREDICTOR
+          </Typography>
+
+          </StyledContent>
+        </Container>
+
+     </Container>
      
       </StyledRoot>
     </>

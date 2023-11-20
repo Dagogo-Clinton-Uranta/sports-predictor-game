@@ -12,21 +12,36 @@ const navConfig = [
     icon: icon('dashboard'),
   },
   {
-    title: 'student',
-    path: '/dashboard/students',
+    title: 'competitions',
+    path: '/dashboard/football-players',
     icon: icon('student'),
-  },
-  {
-    title: 'teacher',
-    path: '/dashboard/teachers',
-    icon: icon('teacher'),
+    children:[
+      
+        {
+          title: 'goal scorer',
+          //path: '/dashboard/football-teams',
+          path: '#',
+          icon: icon('teacher'),
+        },
+        {
+          title: 'assists',
+          path: '/dashboard/football-table',
+          icon: icon('teacher'),
+        },
+        {
+          title: 'penalty',
+          path: '/dashboard/nfl-teams',
+          icon: icon('teacher'),
+        },
+        {
+          title: 'clean sheet',
+          path: '/dashboard/nfl-players',
+          icon: icon('teacher'),
+        },
+      
+    ]
   },
 
-  {
-    title: 'reports',
-    path: '/dashboard/reports',
-    icon: icon('report'),
-  },
   {
     title: 'settings',
     // path: '/dashboard/settings',

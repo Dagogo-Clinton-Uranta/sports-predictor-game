@@ -126,7 +126,7 @@ export const fetchCandidateData = (id, type, navigate, setLoading) => async (dis
     dispatch(storeUserData(doc.data()));
     if(type === "sigin"){
       // notifySuccessFxn("Logged In😊");
-      navigate('/dashboard/entry', { replace: true });
+      navigate('/dashboard/home', { replace: true });
     }
   } else {
       setLoading(false);

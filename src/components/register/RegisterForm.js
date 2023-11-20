@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar } from '@mui/material';
+import {Typography, Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../iconify';
@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup, uploadImage } from 'src/redux/actions/auth.action';
 import { notifySuccessFxn } from 'src/utils/toast-fxn';
+
 
 
 const schema = Yup.object().shape({
@@ -60,9 +61,9 @@ export default function RegisterForm() {
     <>
       <form onSubmit={userSignup}>
       <Stack spacing={3}>
-        <TextField name="fname" required label="First Name" value={fname} onChange={(e) => setFName(e.target.value)}/>
-        <TextField name="lname" required label="Last Name" value={lname} onChange={(e) => setLName(e.target.value)}/>
-        <TextField name="email" required label="Email address" type="email" onChange={(e) => setEmail(e.target.value)}/>
+        <TextField name="Username" required label="Username" value={fname} onChange={(e) => setFName(e.target.value)}/>
+       
+       
         <TextField
           name="password"
           label="Password"
@@ -79,6 +80,8 @@ export default function RegisterForm() {
             ),
           }}
         />
+
+   <TextField name="League ID" required label="League ID" value={lname} onChange={(e) => setLName(e.target.value)}/>
           {/* <Grid
           container
           direction="row"
@@ -116,9 +119,14 @@ export default function RegisterForm() {
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" disabled={loading} style={{backgroundColor: '#D72A8B', color: 'white'}}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" disabled={loading} style={{backgroundColor:'#260952', color: 'white'}}>
         {loading ? "Loading..." : "Register"}
       </LoadingButton>
+
+
+      <Typography variant="body2" sx={{ mt: 2, mb: 2, color: '#260952', textAlign: 'left' }}>
+              <Link href='/login' variant="subtitle2"><span style={{color: '#260952' }}>Have an account? Login</span></Link>
+            </Typography>
       </form>
     </>
   );
