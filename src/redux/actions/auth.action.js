@@ -19,7 +19,7 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
        
         dispatch(fetchAllTreatmentCategories());
         dispatch(fetchAllTreatmentTests());
-        dispatch(fetchCandidateData("ADq0LNbilFVUdDl8WrLIbOeP8xl2", "sigin", navigate, setLoading));
+        dispatch(fetchCandidateData(user.uid, "sigin", navigate, setLoading));
   })
   .catch((error) => {
     setLoading(false);
@@ -119,7 +119,7 @@ return user;
 
 
 export const fetchCandidateData = (id, type, navigate, setLoading) => async (dispatch) => {
-  var user = db.collection("Candidates").doc(id);
+  var user = db.collection("users").doc(id);
   user.get().then((doc) => {
   if (doc.exists) {
     // console.log("User Data:", doc.data());
