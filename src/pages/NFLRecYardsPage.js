@@ -28,10 +28,10 @@ import Referrals from 'src/components/treatment/referrals';
 import Countdown from 'react-countdown';
 
 import FLOGO from '../assets/images/fLogo.png';
-import SALAH from '../assets/images/salah.jpeg';
-import BRUNO from '../assets/images/BRUNO.jpeg';
-import ALISSON from '../assets/images/ALISSON.jpeg'
-import HALAAND from '../assets/images/HAALAND.jpeg'
+import NFL4 from '../assets/images/NFL4.jpeg';
+import NFL1 from '../assets/images/NFL1.jpeg';
+import NFL2 from '../assets/images/NFL2.jpeg'
+import NFL3 from '../assets/images/NFL3.jpeg'
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -48,7 +48,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 
-export default function FootballTeamsPage() {
+export default function NFLReceivingYardsPage() {
   const theme = useTheme();
  // const classes = useStyles()
 
@@ -102,7 +102,7 @@ const premTeams = [
 
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+     <Typography variant="h6" onClick={()=>{navigate('/dashboard/football-goalscorers')}} sx={{ textAlign: 'left',color:"lightgray", mb: 2}}>
           Football
         </Typography>
 
@@ -112,38 +112,38 @@ const premTeams = [
     </div>
         <Divider/>
         
-         <div style={{display: "grid",
+        <div style={{display: "grid",
        
-         marginTop:"1.3rem",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gridTemplateRows: "repeat(2, 1fr)",
-          gridColumnGap: "15px",
-          gridRowGap: "15px"}}> 
-    
-    <div style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
-        backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
-   
-   
-    <div style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>ASSIST</div>
-   
-   
-    <div style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
-   
-   
-    <div style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
+       marginTop:"1.3rem",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridColumnGap: "15px",
+        gridRowGap: "15px"}}> 
+  
+  <center style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
+      backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</center>
+ 
+ 
+  <center style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
+      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }}>50+ RECEIVING YARDS</center>
+ 
+ 
+  <center style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+     backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</center>
+ 
+ 
+  <center style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }} >100+ PASSING YARDS</center>
 
-         </div>
+       </div>
     
 
       {/* <Divider sx={{ my: 3 }}>
@@ -159,8 +159,9 @@ const premTeams = [
    
     
     <div>
+    <h4>NFL &nbsp; - &nbsp; Receiving Yards</h4>
     <p>Teams</p>  
-    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '162px' }}>
+    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   
     <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
@@ -192,7 +193,38 @@ const premTeams = [
       </div>
 
 
-     
+      <div style={{marginTop:"-6rem"}}>
+    <p>Player</p>  
+    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
+  
+    <Select
+          style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
+         inputProps={{
+         /* classes: {
+              icon: classes.icon,
+          },*/
+      }}
+        
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={"Select a Team"}
+          label="icon"
+          onChange={(event) => {
+          
+          }}
+        >
+       
+       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+)):
+<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
+}
+       
+        </Select>
+
+
+        </div>  
+      </div>
 
       <div style={{backgroundColor:/*"#f5f6ec"*/'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SELECTION</div>
     

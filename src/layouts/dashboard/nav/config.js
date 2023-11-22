@@ -19,25 +19,27 @@ const navConfig = [
       
         {
           title: 'GOAL SCORER',
-          //path: '/dashboard/football-teams',
-          path: '#',
+          path: '/dashboard/football-goalscorers',
+          
           icon: icon('teacher'),
         },
         {
           title: 'ASSIST',
-          path: '/dashboard/football-table',
-          icon: icon('teacher'),
-        },
-        {
-          title: 'PENALTY',
-          path: '/dashboard/nfl-teams',
+          path: '/dashboard/football-assists',
           icon: icon('teacher'),
         },
         {
           title: 'CLEAN SHEET',
-          path: '/dashboard/nfl-players',
+          path: '/dashboard/football-cleansheet',
           icon: icon('teacher'),
         },
+
+        {
+          title: 'TEAM WIN',
+          path: '/dashboard/football-teamwin',
+          icon: icon('teacher'),
+        },
+        
       
     ]
   },
@@ -49,23 +51,23 @@ const navConfig = [
       
         {
           title: 'TOUCHDOWN',
-          //path: '/dashboard/football-teams',
-          path: '#',
+          path: '/dashboard/nfl-touchdown',
+          
           icon: icon('teacher'),
         },
         {
-          title: 'PASSING YARDS',
-          path: '/dashboard/football-table',
+          title: 'RUSHING YARDS',
+          path: '/dashboard/nfl-rushyards',
           icon: icon('teacher'),
         },
         {
           title: 'RECEIVING YARDS',
-          path: '/dashboard/nfl-teams',
+          path: '/dashboard/nfl-recyards',
           icon: icon('teacher'),
         },
         {
           title: 'TEAM WIN',
-          path: '/dashboard/nfl-players',
+          path: '/dashboard/nfl-teamwin',
           icon: icon('teacher'),
         },
       
