@@ -68,14 +68,16 @@ export default function Header({ onOpenNav }) {
         <Box sx={{ flexGrow: 1 }} />
        
         <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-      
+        <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
+        WELCOME JOE - 10,000 Points
+        </Typography>
        </Grid>
         {/* <Searchbar /> */}
         {/* <Searchbar2 /> */}
         <Box sx={{ flexGrow: 1 }} />
         
         <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-        Joe &nbsp;
+        
         </Typography>
         <Stack
           direction="row"

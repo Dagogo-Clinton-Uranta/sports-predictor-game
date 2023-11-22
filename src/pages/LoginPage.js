@@ -55,7 +55,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> IBARA </title>
+        <title> FANTASY PREDICTOR </title>
       </Helmet>
 
       <StyledRoot style={{  flexDirection: 'row' }}>

@@ -103,7 +103,7 @@ const standingsList = [
         />
         { <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
-<Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#f4f0ec" }}>
+<Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     <StyledContent>
 
 
@@ -127,26 +127,26 @@ const standingsList = [
           gridRowGap: "15px"}}> 
     
     <div style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
-        backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.4rem",
+        backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
         backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
    
    
     <div style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.4rem",
+        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }}>ASSIST</div>
    
    
     <div style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.4rem",
+       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
    
    
     <div style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.4rem",
+        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
 
          </div>
@@ -160,18 +160,18 @@ const standingsList = [
     </StyledContent>
   </Container>
 
-<Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#f4f0ec" }}>
+<Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
 <TableContainer component={Paper} style={{marginTop:"4rem"}}>
       
  
-        <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#f4f0ec",mb: 2}}>
+        <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#FAFAFA",mb: 2}}>
           STANDINGS
         </Typography>
 
-        <Table sx={{ tableLayout:"fixed",backgroundColor:"#f4f0ec" }} aria-label="custom pagination table">
-          <TableHead  sx={{backgroundColor:"#f4f0ec  !important" }} >
+        <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
+          <TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
             <TableRow>
               <TableCell></TableCell>
               <TableCell align="left">Username</TableCell>

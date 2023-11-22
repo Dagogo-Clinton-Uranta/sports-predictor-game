@@ -42,7 +42,7 @@ var today  = new Date();
     user.email,
     user.password
 ).then((res)=>{
-  return db.collection('Candidates').doc(res.user.uid).set({
+  return db.collection('users').doc(res.user.uid).set({
     uid: res.user.uid,
     email: user.email,
     firstName: user.fname,

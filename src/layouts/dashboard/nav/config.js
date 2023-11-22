@@ -7,34 +7,64 @@ const icon = (name) => <img src={`/assets/icons2/${name}.png`} sx={{ width: 1, h
 
 const navConfig = [
   {
-    title: 'dashboard',
+    title: 'HOME',
     path: '/dashboard/home',
     icon: icon('dashboard'),
   },
   {
-    title: 'competitions',
+    title: 'FOOTBALL',
     path: '/dashboard/football-players',
     icon: icon('student'),
     children:[
       
         {
-          title: 'goal scorer',
+          title: 'GOAL SCORER',
           //path: '/dashboard/football-teams',
           path: '#',
           icon: icon('teacher'),
         },
         {
-          title: 'assists',
+          title: 'ASSIST',
           path: '/dashboard/football-table',
           icon: icon('teacher'),
         },
         {
-          title: 'penalty',
+          title: 'PENALTY',
           path: '/dashboard/nfl-teams',
           icon: icon('teacher'),
         },
         {
-          title: 'clean sheet',
+          title: 'CLEAN SHEET',
+          path: '/dashboard/nfl-players',
+          icon: icon('teacher'),
+        },
+      
+    ]
+  },
+  {
+    title: 'NFL',
+    path: '/dashboard/football-players',
+    icon: icon('student'),
+    children:[
+      
+        {
+          title: 'TOUCHDOWN',
+          //path: '/dashboard/football-teams',
+          path: '#',
+          icon: icon('teacher'),
+        },
+        {
+          title: 'PASSING YARDS',
+          path: '/dashboard/football-table',
+          icon: icon('teacher'),
+        },
+        {
+          title: 'RECEIVING YARDS',
+          path: '/dashboard/nfl-teams',
+          icon: icon('teacher'),
+        },
+        {
+          title: 'TEAM WIN',
           path: '/dashboard/nfl-players',
           icon: icon('teacher'),
         },
@@ -43,7 +73,7 @@ const navConfig = [
   },
 
   {
-    title: 'settings',
+    title: 'SETTINGS',
     // path: '/dashboard/settings',
     path: '#',
     icon: icon('settings'),
