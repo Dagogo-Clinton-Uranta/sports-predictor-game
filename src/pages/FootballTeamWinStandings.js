@@ -167,7 +167,7 @@ const standingsList = [
       
  
         <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#FAFAFA",mb: 2}}>
-          STANDINGS
+         FOOTBALL - Team win standings
         </Typography>
 
         <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">

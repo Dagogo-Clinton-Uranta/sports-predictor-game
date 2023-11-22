@@ -112,39 +112,42 @@ const premTeams = [
     </div>
         <Divider/>
         
-         <div style={{display: "grid",
+        <div style={{display: "grid",
        
-         marginTop:"1.3rem",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gridTemplateRows: "repeat(2, 1fr)",
-          gridColumnGap: "15px",
-          gridRowGap: "15px"}}> 
-    
-    <div style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
-        backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
-   
-   
-    <div style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>ASSIST</div>
-   
-   
-    <div style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
-   
-   
-    <div style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
+       marginTop:"1.3rem",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridColumnGap: "15px",
+        gridRowGap: "15px"}}> 
+  
+  <div onClick={()=>{navigate('/dashboard/football-goalscorers-standings')}}
+   style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
+      backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
+ 
+ 
+  <div onClick={()=>{navigate('/dashboard/football-assists-standings')}}
+   style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
+      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }}>ASSIST</div>
+ 
+ 
+  <div onClick={()=>{navigate('/dashboard/football-cleansheet-standings')}}
+  style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+     backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
+ 
+ 
+  <div onClick={()=>{navigate('/dashboard/football-teamwin-standings')}}
+   style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
 
-         </div>
-    
+       </div>
 
       {/* <Divider sx={{ my: 3 }}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
