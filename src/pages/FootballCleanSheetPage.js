@@ -164,8 +164,22 @@ const premTeams = [
     
     <div>
     <h4>FOOTBALL &nbsp; - &nbsp; Clean Sheet</h4>
+
+    <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+          PREDICT
+        </Typography>
+
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} onClick={()=>{navigate('/dashboard/football-cleansheet-results')}}>
+          RESULTS
+        </Typography>
+    </div>
+    
+    <Divider/>
+
+
     <p>Teams</p>  
-    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '162px' }}>
+    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '157px' }}>
   
     <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}

@@ -1,5 +1,7 @@
 // component
 import SvgColor from '../../../components/svg-color';
+import { IoIosAmericanFootball } from "react-icons/io";
+import { IoIosFootball } from "react-icons/io";
 
 
 // const icon = (name) => <SvgColor src={`/assets/icons/${name}.png`} sx={{ width: 1, height: 1 }} />;
@@ -13,65 +15,15 @@ const navConfig = [
   },
   {
     title: 'FOOTBALL',
-    path: '/dashboard/football-players',
-    icon: icon('student'),
-    children:[
-      
-        {
-          title: 'GOAL SCORER',
-          path: '/dashboard/football-goalscorers',
-          
-          icon: icon('teacher'),
-        },
-        {
-          title: 'ASSIST',
-          path: '/dashboard/football-assists',
-          icon: icon('teacher'),
-        },
-        {
-          title: 'CLEAN SHEET',
-          path: '/dashboard/football-cleansheet',
-          icon: icon('teacher'),
-        },
-
-        {
-          title: 'TEAM WIN',
-          path: '/dashboard/football-teamwin',
-          icon: icon('teacher'),
-        },
-        
-      
-    ]
+    path: '/dashboard/football-goalscorers',
+    icon: <IoIosFootball />,
+    
   },
   {
     title: 'NFL',
-    path: '/dashboard/football-players',
-    icon: icon('student'),
-    children:[
-      
-        {
-          title: 'TOUCHDOWN',
-          path: '/dashboard/nfl-touchdown',
-          
-          icon: icon('teacher'),
-        },
-        {
-          title: 'RUSHING YARDS',
-          path: '/dashboard/nfl-rushyards',
-          icon: icon('teacher'),
-        },
-        {
-          title: 'RECEIVING YARDS',
-          path: '/dashboard/nfl-recyards',
-          icon: icon('teacher'),
-        },
-        {
-          title: 'TEAM WIN',
-          path: '/dashboard/nfl-teamwin',
-          icon: icon('teacher'),
-        },
-      
-    ]
+    path: '/dashboard/nfl-touchdown',
+    icon: <IoIosAmericanFootball />,
+   
   },
 
   {

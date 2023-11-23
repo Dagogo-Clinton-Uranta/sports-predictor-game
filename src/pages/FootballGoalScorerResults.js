@@ -112,7 +112,7 @@ const standingsList = [
           Football
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
           NFL
         </Typography>
     </div>
@@ -126,28 +126,28 @@ const standingsList = [
         gridColumnGap: "15px",
         gridRowGap: "15px"}}> 
   
-  <div onClick={()=>{navigate('/dashboard/football-goalscorers-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-goalscorers')}}
    style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
       backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
       backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
  
  
-  <div onClick={()=>{navigate('/dashboard/football-assists-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-assists')}}
    style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>ASSIST</div>
  
  
-  <div onClick={()=>{navigate('/dashboard/football-cleansheet-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-cleansheet')}}
   style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
  
  
-  <div onClick={()=>{navigate('/dashboard/football-teamwin-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-teamwin')}}
    style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
@@ -167,12 +167,23 @@ const standingsList = [
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
-<TableContainer component={Paper} style={{marginTop:"4rem"}}>
+<TableContainer component={Paper} style={{marginTop:"0rem"}}>
       
  
-        <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#FAFAFA",mb: 2}}>
-          FOOTBALL - Goal Scorer Results
-        </Typography>
+<h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>
+
+     
+<div style={{display:"flex", justifyContent:"space-between"}}>
+  <Typography  onClick={()=>{navigate('/dashboard/football-goalscorers')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}}>
+      PREDICT
+    </Typography>
+
+    <Typography  variant="h6" sx={{ textAlign: 'left', mb: 2}} >
+      RESULTS
+    </Typography>
+</div>
+    <Divider/>
+
 
         <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
           <TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >

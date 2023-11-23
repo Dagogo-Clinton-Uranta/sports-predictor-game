@@ -112,7 +112,7 @@ const standingsList = [
           Football
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
           NFL
         </Typography>
     </div>

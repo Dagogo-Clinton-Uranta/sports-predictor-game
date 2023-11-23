@@ -120,25 +120,29 @@ const premTeams = [
           gridColumnGap: "15px",
           gridRowGap: "15px"}}> 
     
-    <div style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
+    <div onClick={()=>{navigate('/dashboard/football-goalscorers')}}
+     style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
         backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
         backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
    
    
-    <div style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
+    <div  onClick={()=>{navigate('/dashboard/football-assists')}}
+     style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
         backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }}>ASSIST</div>
    
    
-    <div style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
+    <div  onClick={()=>{navigate('/dashboard/football-cleansheet')}}
+     style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
    
    
-    <div style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
+    <div  onClick={()=>{navigate('/dashboard/football-teamwin')}}
+     style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
         backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
@@ -161,6 +165,19 @@ const premTeams = [
     <div>
 
     <h4>FOOTBALL &nbsp; - &nbsp; Assist</h4>
+
+    <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+          PREDICT
+        </Typography>
+
+        <Typography onClick={()=>{navigate('/dashboard/football-assists-results')}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} >
+          RESULTS
+        </Typography>
+    </div>
+    <Divider/>
+
+
     <p>Teams</p>  
     <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   
@@ -195,7 +212,7 @@ const premTeams = [
 
 
 
-      <div style={{marginTop:"-6rem"}}>
+      <div style={{marginTop:"-4rem"}}>
     <p>Player</p>  
     <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   

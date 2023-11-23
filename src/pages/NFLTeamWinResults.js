@@ -32,6 +32,7 @@ import NFL4 from '../assets/images/NFL4.jpeg';
 import NFL1 from '../assets/images/NFL1.jpeg';
 import NFL2 from '../assets/images/NFL2.jpeg'
 import NFL3 from '../assets/images/NFL3.jpeg'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -45,7 +46,12 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 
-
+const standingsList = [
+  {userName:"Avengers",pick:"Salah"},
+  {userName:"BB Team",pick:"Fernandes"},
+  {userName:"C Team",pick:"Kane"},
+  {userName:"Tots",pick:"Son"}
+]
 
 
 export default function NFLTeamWinResultsPage() {
@@ -102,7 +108,7 @@ const premTeams = [
 
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgray"}} onClick={()=>{navigate('/dashboard/football-goalscorers')}}>
           Football
         </Typography>
 
@@ -112,38 +118,42 @@ const premTeams = [
     </div>
         <Divider/>
         
-         <div style={{display: "grid",
+        <div style={{display: "grid",
        
-         marginTop:"1.3rem",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gridTemplateRows: "repeat(2, 1fr)",
-          gridColumnGap: "15px",
-          gridRowGap: "15px"}}> 
-    
-    <center style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
-        backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</center>
-   
-   
-    <center style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>50+ RECEIVING YARDS</center>
-   
-   
-    <center style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center',padding:"10px",  
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</center>
-   
-   
-    <center style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center',padding:"10px",  
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }} >100+ PASSING YARDS</center>
+       marginTop:"1.3rem",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridColumnGap: "15px",
+        gridRowGap: "15px"}}> 
+  
+  <center  onClick={()=>{navigate('/dashboard/nfl-touchdown')}}
+   style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
+      backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</center>
+ 
+ 
+  <center onClick={()=>{navigate('/dashboard/nfl-recyards')}}
+   style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
+      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }}>50+ RECEIVING YARDS</center>
+ 
+ 
+  <center onClick={()=>{navigate('/dashboard/nfl-rushyards')}}
+   style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+     backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</center>
+ 
+ 
+  <center onClick={()=>{navigate('/dashboard/nfl-teamwin')}}
+   style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
+      backgroundRepeat: 'no-repeat', }} >TEAM WIN</center>
 
-         </div>
+       </div>
     
 
       {/* <Divider sx={{ my: 3 }}>
@@ -153,69 +163,66 @@ const premTeams = [
       </Divider> */}
     </StyledContent>
   </Container>
-
-<Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
+  <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
+    
     
    
-    
-    <div>
-    <p>Teams</p>  
-    <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '162px' }}>
-  
-    <Select
-          style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
-         inputProps={{
-         /* classes: {
-              icon: classes.icon,
-          },*/
-      }}
-        
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={"Select a Team"}
-          label="icon"
-          onChange={(event) => {
+    <TableContainer component={Paper} style={{marginTop:"0rem"}}>
           
-          }}
-        >
-       
-       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
-)):
-<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
-}
-       
-        </Select>
-
-
-        </div>  
-      </div>
-
-
+    <h4>NFL &nbsp; - &nbsp; Team Win</h4>
     
-
-      <div style={{backgroundColor:/*"#f5f6ec"*/'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SELECTION</div>
+         
+    <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography  onClick={()=>{navigate('/dashboard/nfl-teamwin')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}}>
+          PREDICT
+        </Typography>
     
-      <TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
-            fullWidth
-            placeholder=" Add blood investigation"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {"Arsenal"}
-           //onChange = {(e)=>{setTitle(e.target.value)}}
-           
-            
-            />
-
-
-            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
-              Submit
-            </Button>
-
-   
-  </Container>
+        <Typography  variant="h6" sx={{ textAlign: 'left', mb: 2}} >
+          RESULTS
+        </Typography>
+    </div>
+        <Divider/>
+    
+    
+            <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
+              <TableHead  sx={{backgroundColor:"#FAFAFA " }} >
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell align="left">Username</TableCell>
+                  <TableCell align="left">Pick</TableCell>
+                
+                 
+                </TableRow>
+              </TableHead>
+    
+             <Divider/>
+    
+              <TableBody>
+                {standingsList.map((row,index) => (
+                      <TableRow key={index}>
+                        <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
+                          {index+1}
+                        </TableCell>
+                        <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
+                          {row.userName}
+                        </TableCell>
+                        <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
+                      
+                        {row.pick}
+                        </TableCell>
+                        </TableRow>  
+                      ))
+        
+                      
+                }
+        
+                    
+               </TableBody>
+             </Table>
+           </TableContainer>
+       
+      </Container>
+    
 
 
 </Container>

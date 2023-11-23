@@ -120,28 +120,32 @@ const premTeams = [
         gridColumnGap: "15px",
         gridRowGap: "15px"}}> 
   
-  <center style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
+  <center  onClick={()=>{navigate('/dashboard/nfl-touchdown')}}
+   style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
       backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
       backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</center>
  
  
-  <center style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
+  <center onClick={()=>{navigate('/dashboard/nfl-recyards')}}
+   style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>50+ RECEIVING YARDS</center>
  
  
-  <center style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
+  <center onClick={()=>{navigate('/dashboard/nfl-rushyards')}}
+   style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</center>
  
  
-  <center style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
+  <center onClick={()=>{navigate('/dashboard/nfl-teamwin')}}
+   style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-      backgroundRepeat: 'no-repeat', }} >100+ PASSING YARDS</center>
+      backgroundRepeat: 'no-repeat', }} >TEAM WIN</center>
 
        </div>
     
@@ -160,6 +164,18 @@ const premTeams = [
     
     <div>
     <h4>NFL &nbsp; - &nbsp; Receiving Yards</h4>
+
+    <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography   variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+          PREDICT
+        </Typography>
+
+        <Typography onClick={()=>{navigate('/dashboard/nfl-recyards-results')}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} >
+          RESULTS
+        </Typography>
+    </div>
+        <Divider/>
+
     <p>Teams</p>  
     <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   
@@ -193,7 +209,7 @@ const premTeams = [
       </div>
 
 
-      <div style={{marginTop:"-6rem"}}>
+      <div style={{marginTop:"-4rem"}}>
     <p>Player</p>  
     <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   
