@@ -5,11 +5,13 @@ import thunk from 'redux-thunk';
 import storage from './storage';
 import authReducer from './reducers/auth.slice';
 import patientReducer from './reducers/patient.slice';
+import footballReducer from './reducers/patient.slice';
 
 
 const reducers = combineReducers({
   auth: authReducer,
   patient: patientReducer,
+  football:footballReducer,
 });
 
 const persistConfig = {

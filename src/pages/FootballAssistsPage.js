@@ -17,6 +17,9 @@ import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
+
+import {submitAssistPrediction} from 'src/redux/actions/football.action';
+
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -79,7 +82,20 @@ const premTeams = [
 "Wolverhampton Wanderers",
 ]
 
+const userPrediction = {
+  playerId:"YyDTzEVzE3ElDsfQ2EmU",
+  playerName:"Marcus Rashford",
+  userId:"el2iJl0WN1O3zqPu0ZVRWz1pUAl1",
+  userName:"Farmers"
+}
+
+const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
   
+
+const submitThisAssistPrediction = (prediction,compId)=>{
+
+    dispatch(submitAssistPrediction(prediction,compId))
+}
 
   return (
     <>
@@ -266,7 +282,7 @@ const premTeams = [
             />
 
 
-            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(userPrediction,assistCompId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

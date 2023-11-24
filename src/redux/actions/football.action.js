@@ -2,8 +2,9 @@ import { db, fb, auth, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
-import { isItLoading, saveAllGroup, saveEmployeer, saveGroupMembers, saveMyGroup, savePrivateGroup, savePublicGroup } from '../reducers/group.slice';
+import { isItLoading, saveAllGroup, saveEmployeer, saveGroupMembers, saveMyGroup, savePrivateGroup, savePublicGroup } from '../reducers/football.slice';
 
+import firebase from "firebase/app";
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
   var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -464,3 +465,39 @@ export const fetchEmployeer = (id) => async (dispatch) => {
 });
 return user;
 };
+
+
+
+export const submitAssistPrediction = (assistPick,compId) => async (dispatch) => {
+
+
+
+  db.collection("competitions").doc(compId.trim()).update({
+    userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
+  }).then((docRef) => {
+    console.log(" course Document updated is: ", docRef);
+    notifySuccessFxn("Submitted Assist Prediction Successfully!")
+
+    db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
+    if(doc.exists){
+      console.log("COMPETITIONS PACK-->",doc.data())
+     
+     //dispatch( fetchSubjectsInPackDetails(doc.data().subjectsInPack)) ---> U NEED TO REDISPATCH THIS COMPETITION SO THAT ONE CAN SEE IT IN THE assists PICKS PAGE,logic not written yet
+     
+     
+    }else{
+      notifyErrorFxn("problem updating assist competition?")
+    }
+    })
+   
+    //dispatch(fetchWatchListData)
+    //dispatch(playlistUpdate(true));
+  })
+  .catch((error) => {
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("Error submitting your assist pick, please try again. ")
+    
+  });
+
+
+}

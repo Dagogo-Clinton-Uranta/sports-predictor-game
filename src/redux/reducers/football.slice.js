@@ -11,7 +11,7 @@ const initialState = {
       isLoading: false,
 };
 
-const groupSlice = createSlice({
+const footballSlice = createSlice({
   name: 'group',
   initialState,
   reducers: {
@@ -44,7 +44,7 @@ const groupSlice = createSlice({
   },
 });
 
-const { actions, reducer } = groupSlice;
+const { actions, reducer } = footballSlice;
 
 export const {
  saveMyGroup,

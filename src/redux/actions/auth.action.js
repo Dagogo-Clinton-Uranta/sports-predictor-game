@@ -2,7 +2,7 @@ import { db, fb, auth, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
-import { clearGroup } from '../reducers/group.slice';
+import { clearGroup } from '../reducers/football.slice';
 import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getAllPatients, getWaitingRoomPatients } from './patient.action';
 
 
