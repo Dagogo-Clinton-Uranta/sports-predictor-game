@@ -47,7 +47,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/login" />, index: true },
         { path: 'entry', element:  <EntryPage /> },
-        { path: 'home', element:  <FootballTeamsPage /> },
+        { path: 'home', element:  <FootballGoalScorersPage  /> },
 
         { path: 'football-teamwin', element:  <FootballTeamWinPage /> },
         { path: 'football-teamwin-standings', element:  <FootballTeamWinStandingsPage /> },

@@ -97,16 +97,16 @@ const premTeams = [
         />
         { <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
-<Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
+<Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" ,}}>
     <StyledContent>
 
 
-     <div style={{display:"flex", justifyContent:"space-between"}}>
+     <div style={{display:"flex", justifyContent:"space-between",cursor:"pointer",}}>
      <Typography variant="h6" onClick={()=>{navigate('/dashboard/football-goalscorers')}} sx={{ textAlign: 'left',color:"lightgray", mb: 2}}>
           Football
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
           NFL
         </Typography>
     </div>
@@ -123,27 +123,27 @@ const premTeams = [
     <center  onClick={()=>{navigate('/dashboard/nfl-touchdown')}}
    style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
       backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
-      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
       backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</center>
  
  
   <center onClick={()=>{navigate('/dashboard/nfl-recyards')}}
    style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
-       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)', cursor:"pointer", 
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>50+ RECEIVING YARDS</center>
  
  
   <center onClick={()=>{navigate('/dashboard/nfl-rushyards')}}
    style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
-       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</center>
  
  
   <center onClick={()=>{navigate('/dashboard/nfl-teamwin')}}
    style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px", 
-      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }} >TEAM WIN</center>
 
@@ -167,11 +167,11 @@ const premTeams = [
 
 
     <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Typography   variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+      <Typography   variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
           PREDICT
         </Typography>
 
-        <Typography onClick={()=>{navigate('/dashboard/nfl-teamwin-results')}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} >
+        <Typography onClick={()=>{navigate('/dashboard/nfl-teamwin-results')}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} >
           RESULTS
         </Typography>
     </div>

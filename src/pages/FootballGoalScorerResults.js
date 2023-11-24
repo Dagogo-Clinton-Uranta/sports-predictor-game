@@ -108,11 +108,11 @@ const standingsList = [
 
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
           Football
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
           NFL
         </Typography>
     </div>
@@ -129,27 +129,27 @@ const standingsList = [
   <div onClick={()=>{navigate('/dashboard/football-goalscorers')}}
    style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
       backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
-      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
       backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
  
  
   <div onClick={()=>{navigate('/dashboard/football-assists')}}
    style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
-       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  cursor:"pointer",
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>ASSIST</div>
  
  
   <div onClick={()=>{navigate('/dashboard/football-cleansheet')}}
   style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
  
  
   <div onClick={()=>{navigate('/dashboard/football-teamwin')}}
    style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+      boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
 
@@ -174,11 +174,11 @@ const standingsList = [
 
      
 <div style={{display:"flex", justifyContent:"space-between"}}>
-  <Typography  onClick={()=>{navigate('/dashboard/football-goalscorers')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}}>
+  <Typography  onClick={()=>{navigate('/dashboard/football-goalscorers')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}}>
       PREDICT
     </Typography>
 
-    <Typography  variant="h6" sx={{ textAlign: 'left', mb: 2}} >
+    <Typography  variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}} >
       RESULTS
     </Typography>
 </div>
