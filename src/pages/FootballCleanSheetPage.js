@@ -20,6 +20,11 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
+
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+
+
+
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
@@ -32,6 +37,7 @@ import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -79,7 +85,56 @@ const premTeams = [
 "Wolverhampton Wanderers",
 ]
 
+  const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
+
   
+  const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+
+const {user} = useSelector((state) => state.auth);
+const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
+const [teamPlayers,setTeamPlayers] =  useState([])
+const [chosenPlayer,setChosenPlayer] = useState({})
+
+
+useEffect(()=>{
+
+  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+ 
+ 
+  if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
+  setTeamPlayers(teamPlayersInFocus)
+ 
+ },[premierLeagueTeams,teamPlayersInFocus])
+   
+ 
+ useEffect(()=>{
+  
+   if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+  
+  
+   if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
+   setTeamPlayers(teamPlayersInFocus)
+ 
+  
+  },[premierLeagueTeams,teamPlayersInFocus])
+ 
+ 
+ const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
+   
+      dispatch(getPremierLeagueTeamPlayers(teamId))
+     
+      console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
+ }
+ 
+ const submitThisAssistPrediction = (prediction,compId)=>{
+  if(!chosenPlayer){
+    notifyErrorFxn("Please select a player before submitting!")
+  }else{
+     dispatch(submitAssistPrediction(prediction,compId))
+  }
+ }
+
+
 
   return (
     <>
@@ -120,28 +175,28 @@ const premTeams = [
         gridColumnGap: "15px",
         gridRowGap: "15px"}}> 
   
-  <div onClick={()=>{navigate('/dashboard/football-goalscorers-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-goalscorers')}}
    style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
       backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
       backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
  
  
-  <div onClick={()=>{navigate('/dashboard/football-assists-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-assists')}}
    style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>ASSIST</div>
  
  
-  <div onClick={()=>{navigate('/dashboard/football-cleansheet-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-cleansheet')}}
   style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
      backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
       backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
  
  
-  <div onClick={()=>{navigate('/dashboard/football-teamwin-standings')}}
+  <div onClick={()=>{navigate('/dashboard/football-teamwin')}}
    style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
@@ -194,14 +249,20 @@ const premTeams = [
           value={"Select a Team"}
           label="icon"
           onChange={(event) => {
-          
+            setChosenPlayer({teamId:event.target.value.id,
+                             name:event.target.value.name,
+                             userId:user.id,
+                             teamName:user.teamName
+            
+            })
+            console.log("CHOSEN PLAYER IS--->",event.target.value)
           }}
         >
        
-       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+       {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
 )):
-<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
+<MenuItem style={{color:"black"}}  value={null}>{"No teams listed!"}</MenuItem>
 }
        
         </Select>
@@ -218,18 +279,18 @@ const premTeams = [
       <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
             fullWidth
-            placeholder=" Add blood investigation"
+            placholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"Arsenal"}
+            value= {chosenPlayer && chosenPlayer.name}
            //onChange = {(e)=>{setTitle(e.target.value)}}
            
             
             />
 
 
-            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button  onClick={()=>{submitThisAssistPrediction(chosenPlayer,cleanSheetCompId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

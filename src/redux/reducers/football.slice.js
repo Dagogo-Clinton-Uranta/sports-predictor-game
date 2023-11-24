@@ -8,11 +8,13 @@ const initialState = {
        groupMembers: [], 
        employeer: {}, 
        message: '',
+       premierLeagueTeams:[],
+       teamPlayersInFocus:[],
       isLoading: false,
 };
 
 const footballSlice = createSlice({
-  name: 'group',
+  name: 'football',
   initialState,
   reducers: {
     saveMyGroup: (state, action) => {
@@ -21,6 +23,12 @@ const footballSlice = createSlice({
     saveAllGroup: (state, action) => {
         state.allGroups = action.payload;
     },
+    savePremierLeagueTeams: (state, action) => {
+      state.premierLeagueTeams = action.payload;
+  },
+  saveTeamPlayersInFocus: (state, action) => {
+    state.teamPlayersInFocus = action.payload;
+},
     savePublicGroup: (state, action) => {
         state.publicGroups = action.payload;
     },
@@ -51,6 +59,8 @@ export const {
  saveAllGroup,
  savePublicGroup,
  savePrivateGroup,
+ saveTeamPlayersInFocus,
+ savePremierLeagueTeams,
  saveGroupMembers,
  saveEmployeer,
  isItLoading,

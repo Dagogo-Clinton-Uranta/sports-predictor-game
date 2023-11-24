@@ -20,6 +20,10 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
+
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+
+
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
@@ -27,11 +31,14 @@ import ECG from 'src/components/treatment/ecg';
 import Referrals from 'src/components/treatment/referrals';
 import Countdown from 'react-countdown';
 
+
+
 import FLOGO from '../assets/images/fLogo.png';
 import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -82,6 +89,56 @@ const premTeams = [
 ]
 
   
+
+const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
+
+
+const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+
+const {user} = useSelector((state) => state.auth);
+const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
+const [teamPlayers,setTeamPlayers] =  useState([])
+const [chosenPlayer,setChosenPlayer] = useState({})
+
+
+useEffect(()=>{
+
+  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+ 
+ 
+  if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
+  setTeamPlayers(teamPlayersInFocus)
+ 
+ },[premierLeagueTeams,teamPlayersInFocus])
+   
+ 
+ useEffect(()=>{
+  
+   if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+  
+  
+   if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
+   setTeamPlayers(teamPlayersInFocus)
+ 
+  
+  },[premierLeagueTeams,teamPlayersInFocus])
+ 
+ 
+ const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
+   
+      dispatch(getPremierLeagueTeamPlayers(teamId))
+     
+      console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
+ }
+ 
+ const submitThisAssistPrediction = (prediction,compId)=>{
+  if(!chosenPlayer){
+    notifyErrorFxn("Please select a player before submitting!")
+  }else{
+     dispatch(submitAssistPrediction(prediction,compId))
+  }
+ }
+
 
   return (
     <>
@@ -196,14 +253,20 @@ const premTeams = [
           value={"Select a Team"}
           label="icon"
           onChange={(event) => {
-          
+            setChosenPlayer({teamId:event.target.value.id,
+                             name:event.target.value.name,
+                             userId:user.id,
+                             teamName:user.teamName
+            
+            })
+            console.log("CHOSEN PLAYER IS--->",event.target.value)
           }}
         >
        
-       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+       {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
 )):
-<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
+<MenuItem style={{color:"black"}}  value={null}>{"No teams listed!"}</MenuItem>
 }
        
         </Select>
@@ -220,18 +283,18 @@ const premTeams = [
       <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
             fullWidth
-            placeholder=" Add blood investigation"
+            placholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"Arsenal"}
+            value= {chosenPlayer && chosenPlayer.name}
            //onChange = {(e)=>{setTitle(e.target.value)}}
            
             
             />
 
 
-            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,teamWinCompId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

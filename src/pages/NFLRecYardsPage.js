@@ -247,7 +247,7 @@ const premTeams = [
       <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
             fullWidth
-            placeholder=" Add blood investigation"
+            placholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}

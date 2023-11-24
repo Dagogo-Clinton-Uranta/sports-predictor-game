@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import storage from './storage';
 import authReducer from './reducers/auth.slice';
 import patientReducer from './reducers/patient.slice';
-import footballReducer from './reducers/patient.slice';
+import footballReducer from './reducers/football.slice';
 
 
 const reducers = combineReducers({

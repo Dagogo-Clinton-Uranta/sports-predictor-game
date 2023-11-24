@@ -2,7 +2,7 @@ import { db, fb, auth, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
-import { isItLoading, saveAllGroup, saveEmployeer, saveGroupMembers, saveMyGroup, savePrivateGroup, savePublicGroup } from '../reducers/football.slice';
+import { isItLoading, saveAllGroup, saveEmployeer, saveGroupMembers, saveMyGroup, savePremierLeagueTeams, savePrivateGroup, savePublicGroup, saveTeamPlayersInFocus } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
 
@@ -468,7 +468,98 @@ return user;
 
 
 
+export const getPremierLeagueTeams = () => async (dispatch) => {
+
+  dispatch(isItLoading(true));
+  db.collection('teams')
+  //.where('leagueId', '==', teamId)
+    .get()
+    .then((snapshot) => {
+      const teams = snapshot.docs.map((doc) => ({ ...doc.data() }));
+      if (teams.length) {
+        dispatch(isItLoading(false));
+       
+        dispatch(savePremierLeagueTeams(teams));
+        console.log('teams Data--->:', teams);
+      } else {
+        dispatch(isItLoading(false));
+        console.log('No group members!');
+      }
+    })
+    .catch((error) => {
+      console.log('Error getting document:', error);
+      dispatch(isItLoading(false));
+    });
+
+}
+
+
+export const getPremierLeagueTeamPlayers = (teamId)  => async (dispatch) => {
+
+
+  dispatch(isItLoading(true));
+  db.collection('players')
+  .where('teamId', '==', teamId)
+    .get()
+    .then((snapshot) => {
+      const teamplayers = snapshot.docs.map((doc) => ({ ...doc.data() }));
+      if (teamplayers.length) {
+        dispatch(isItLoading(false));
+        console.log('teamplayers Data:', teamplayers);
+        dispatch(saveTeamPlayersInFocus(teamplayers));
+      } else {
+        dispatch(isItLoading(false));
+        console.log('No players in this team!');
+      }
+    })
+    .catch((error) => {
+      console.log('Error getting document:', error);
+      dispatch(isItLoading(false));
+    });
+
+
+
+}
+
+
+
 export const submitAssistPrediction = (assistPick,compId) => async (dispatch) => {
+
+
+
+  db.collection("competitions").doc(compId.trim()).update({
+    userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
+  }).then((docRef) => {
+    console.log(" course Document updated is: ", docRef);
+    notifySuccessFxn("Submitted Assist Prediction Successfully!")
+
+    db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
+    if(doc.exists){
+      console.log("COMPETITIONS PACK-->",doc.data())
+     
+     //dispatch( fetchSubjectsInPackDetails(doc.data().subjectsInPack)) ---> U NEED TO REDISPATCH THIS COMPETITION SO THAT ONE CAN SEE IT IN THE assists PICKS PAGE,logic not written yet
+     
+     
+    }else{
+      notifyErrorFxn("problem updating assist competition?")
+    }
+    })
+   
+    //dispatch(fetchWatchListData)
+    //dispatch(playlistUpdate(true));
+  })
+  .catch((error) => {
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("Error submitting your assist pick, please try again. ")
+    
+  });
+
+
+}
+
+
+
+export const submitTeamsPrediction = (assistPick,compId) => async (dispatch) => {
 
 
 
