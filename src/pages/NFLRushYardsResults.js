@@ -174,7 +174,7 @@ const premTeams = [
          
     <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography  onClick={()=>{navigate('/dashboard/nfl-rushyards')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey"}}>
-          PREDICT
+          SELECT
         </Typography>
     
         <Typography  variant="h6" sx={{ textAlign: 'left', mb: 2}} >

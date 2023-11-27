@@ -35,11 +35,11 @@ import HALAAND from '../assets/images/HAALAND.jpeg'
 
 
 const StyledContent = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+  width: "100%",
   margin: 'auto',
   minHeight: '50vh',
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   flexDirection: 'column',
   padding: theme.spacing(5, 5, 12, 5),
 }));
@@ -48,7 +48,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 
-export default function FootballAssistsResultsPage() {
+export default function ProfilePage() {
   const theme = useTheme();
  // const classes = useStyles()
 
@@ -79,10 +79,16 @@ const premTeams = [
 "Wolverhampton Wanderers",
 ]
 const standingsList = [
-  {userName:"Avengers",pick:"Salah"},
-  {userName:"BB Team",pick:"Fernandes"},
-  {userName:"C Team",pick:"Kane"},
-  {userName:"Tots",pick:"Son"}
+
+  {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
+  {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},
+  {date:"11/11/23",action:"TEAM WIN",amount:"-10,000"},
+  {date:"11/11/23",action:"ASSIST WIN",amount:"+100,000"},
+  {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
+  {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},
+
+ 
+ 
 ]
 
   
@@ -103,57 +109,128 @@ const standingsList = [
         />
         { <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
-<Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
+
+        <Container  style={{display: 'flex',flexDirection:"column",flex:4, justifyContent: 'center',alignItems:"center", gap:"1rem",marginTop: '2%', marginBottom: '2%', }}>
+
+<Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center", border: '1px solid #0000001A', borderRadius: '15px',backgroundColor:"#FAFAFA"}}>
     <StyledContent>
 
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          Football
+          AMOUNT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}}  onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
+       {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
           NFL
-        </Typography>
+        </Typography>*/}
     </div>
         <Divider/>
         
-         <div style={{display: "grid",
-       
-         marginTop:"1.3rem",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          gridTemplateRows: "repeat(2, 1fr)",
-          gridColumnGap: "15px",
-          gridRowGap: "15px"}}> 
-    
-    <div onClick={()=>{navigate('/dashboard/football-goalscorers')}}
-     style={{backgroundImage:`url(${SALAH})`,borderRadius:"0.5rem" , backgroundPosition: 'center', 
-        backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
-        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >GOAL SCORER</div>
-   
-   
-    <div onClick={()=>{navigate('/dashboard/football-assists')}}
-    style={{backgroundImage:`url(${BRUNO})`, borderRadius:"0.5rem",backgroundPosition: 'center', 
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  cursor:"pointer",
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>ASSIST</div>
-   
-   
-    <div  onClick={()=>{navigate('/dashboard/football-cleansheet')}}
-    style={{backgroundImage:`url(${ALISSON})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
-       backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>CLEAN SHEET</div>
-   
-   
-    <div  onClick={()=>{navigate('/dashboard/football-teamwin')}}
-    style={{backgroundImage:`url(${HALAAND})`,borderRadius:"0.5rem",backgroundPosition: 'center',  
-        boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",
-        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
+        <div style={{display: "grid",
+     
+       marginTop:"1.3rem",
+        gridTemplateColumns: "repeat(1, 1fr)",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridColumnGap: "15px",
+        gridRowGap: "15px"}}> 
+  
+ 
+  <div onClick={()=>{navigate('/dashboard/football-cleansheet')}}
+  style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
+      
+     backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"2.5rem",paddingRight:"2rem",paddingLeft:"2rem",
+      backgroundRepeat: 'no-repeat', }}>
+        
+        <div >
+      
+      </div>
+        
 
-         </div>
+      <div >
+      10,000
+      </div>
+        
+        
+      <div style={{fontSize:"1rem",marginBottom:"20px"}}>
+      POINTS
+      </div>
+        </div>
+ 
+    
+        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"50%" }}>
+              Submit
+            </Button>
+ 
+
+       </div>
+    
+
+   </StyledContent>
+  </Container>
+
+  <Container  style={{display: 'flex', justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A', borderRadius: '15px',backgroundColor:"#FAFAFA"}}>
+    <StyledContent>
+
+
+     <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+          AMOUNT
+        </Typography>
+
+       {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
+          NFL
+        </Typography>*/}
+    </div>
+        <Divider/>
+        
+        <div style={{display: "grid",
+     
+     marginTop:"1.3rem",
+      gridTemplateColumns: "repeat(1, 1fr)",
+      gridTemplateRows: "repeat(2, 1fr)",
+      gridColumnGap: "15px",
+      gridRowGap: "15px"}}> 
+
+
+<div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
+style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', 
+    
+   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"flex-start",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"2.5rem",padding:"1rem",
+    backgroundRepeat: 'no-repeat', }}>
+      
+     
+      <div >
+       11/11/2023
+      </div>
+
+
+      <div>
+      GOALSCORER
+      </div>
+    
+    </div>
+
+
+<div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
+style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', 
+    
+   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"flex-start",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"2.5rem",padding:"1rem",
+    backgroundRepeat: 'no-repeat' }}>
+
+     <div >
+       11/11/2023
+      </div>
+
+
+      <div >
+      TEAM WIN
+      </div>
+  </div>
+
+
+
+     </div>
     
 
       {/* <Divider sx={{ my: 3 }}>
@@ -164,28 +241,31 @@ const standingsList = [
     </StyledContent>
   </Container>
 
+</Container> 
+
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
-<TableContainer component={Paper} style={{marginTop:"0rem"}}>
+<TableContainer component={Paper} style={{marginTop:"2.7rem"}}>
       
-<h4>FOOTBALL &nbsp; - &nbsp; Assist</h4>
+ 
+{/*<h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>*/}
 
      
 <div style={{display:"flex", justifyContent:"space-between"}}>
-  <Typography  onClick={()=>{navigate('/dashboard/football-assists')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}}>
+  {/*<Typography  onClick={()=>{navigate('/dashboard/football-goalscorers')}}  variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}}>
       SELECT
-    </Typography>
+    </Typography>*/}
 
     <Typography  variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}} >
-      RESULTS
+      TRANSACTIONS
     </Typography>
 </div>
     <Divider/>
 
 
         <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
-          <TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
+          {/*<TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
             <TableRow>
               <TableCell></TableCell>
               <TableCell align="left">Username</TableCell>
@@ -193,22 +273,22 @@ const standingsList = [
             
              
             </TableRow>
-          </TableHead>
+          </TableHead>*/}
 
          <Divider/>
 
-          <TableBody>
+          <TableBody style={{ paddingBottom:"1rem" }}>
             {standingsList.map((row,index) => (
                   <TableRow key={index}>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
-                      {index+1}
+                      {row.date}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.userName}
+                      {row.action}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                   
-                    {row.pick}
+                    {row.amount}
                     </TableCell>
                     </TableRow>  
                   ))

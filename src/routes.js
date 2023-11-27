@@ -38,6 +38,8 @@ import NFLReceivingYardsResultsPage from './pages/NFLRecYardsResults';
 import NFLRushingYardsPage from './pages/NFLRushYardsPage';
 import NFLRushingYardsStandingsPage from './pages/NFLRushYardsStandings';
 import NFLRushingYardsResultsPage from './pages/NFLRushYardsResults';
+import ProfilePage from './pages/ProfilePage';
+import AdminPage from './pages/AdminPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -83,6 +85,8 @@ export default function Router() {
         { path: 'nfl-rushyards-results', element:  <NFLRushingYardsResultsPage /> },
 
 
+        { path: 'profile', element:  <ProfilePage /> },
+        { path: 'admin', element:  <AdminPage /> },
 
 
         { path: 'nfl-teams', element:  <NFLTeamsPage /> },

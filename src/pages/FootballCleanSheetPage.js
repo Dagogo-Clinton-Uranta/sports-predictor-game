@@ -222,7 +222,7 @@ useEffect(()=>{
 
     <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          PREDICT
+          SELECT
         </Typography>
 
         <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/football-cleansheet-results')}}>

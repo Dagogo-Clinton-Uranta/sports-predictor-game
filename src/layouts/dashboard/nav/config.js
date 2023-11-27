@@ -2,6 +2,9 @@
 import SvgColor from '../../../components/svg-color';
 import { IoIosAmericanFootball } from "react-icons/io";
 import { IoIosFootball } from "react-icons/io";
+import { MdOutlineManageAccounts } from "react-icons/md";
+
+import { AiOutlineUser } from "react-icons/ai";
 
 
 // const icon = (name) => <SvgColor src={`/assets/icons/${name}.png`} sx={{ width: 1, height: 1 }} />;
@@ -23,6 +26,18 @@ const navConfig = [
     title: 'NFL',
     path: '/dashboard/nfl-touchdown',
     icon: <IoIosAmericanFootball />,
+   
+  },
+  {
+    title: 'PROFILE',
+    path: '/dashboard/profile',
+    icon: <AiOutlineUser />,
+   
+  },
+  {
+    title: 'ADMIN',
+    path: '/dashboard/admin',
+    icon:<MdOutlineManageAccounts />
    
   },
 
