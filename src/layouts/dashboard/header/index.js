@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton, Typography, Grid, Button } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
@@ -39,6 +40,37 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
+
+const RespDisplay = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     display:"flex",
+    flexDirection: 'column',
+    
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    display:"flex",
+    flexDirection: 'row',
+    gap:"6rem",
+ 
+  },
+}));
+
+
+const RespHidden = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     display:"none",
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    display:"inline",
+  
+ },
+
+}));
+
 // ----------------------------------------------------------------------
 
 Header.propTypes = {
@@ -60,18 +92,22 @@ export default function Header({ onOpenNav }) {
         >
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
-        <Typography variant="h4" sx={{color: '#392751', fontSize: '36px' }}>
-       <b> Dashboard</b>
-         {/* Welcome {user?.firstName + " " + user?.lastName}🖐🏽 */}
-        </Typography>
+      
+      <RespDisplay>
+            <Typography variant="h4" sx={{color: '#392751', fontSize: '36px' }}>
+           <RespHidden> Dashboard</RespHidden>
+             {/* Welcome {user?.firstName + " " + user?.lastName}🖐🏽 */}
+            </Typography>
+    
+            <Box sx={{ flexGrow: 1 }} />
+           
+            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
+            WELCOME TO {user && user.leagues && user.leagues.length >0  ?user.leagues[0].leagueName :"919 DEFENDERS"},&nbsp; {user && user.firstName ?user.firstName :"JOE"}<RespHidden>&nbsp;&nbsp; - 10,000 Points</RespHidden>
+            </Typography>
+           </Grid>
+       </RespDisplay>
 
-        <Box sx={{ flexGrow: 1 }} />
-       
-        <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-        WELCOME TO {user && user.leagues && user.leagues.length >0  ?user.leagues[0].leagueName :"919 DEFENDERS"},&nbsp; {user && user.firstName ?user.firstName :"JOE"}&nbsp;&nbsp; - 10,000 Points
-        </Typography>
-       </Grid>
         {/* <Searchbar /> */}
         {/* <Searchbar2 /> */}
         <Box sx={{ flexGrow: 1 }} />

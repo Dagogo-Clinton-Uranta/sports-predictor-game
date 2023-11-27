@@ -50,6 +50,26 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 
+const RespContent = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+  },
+}));
+
+
+
+const RespGrid = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: "repeat(1, 1fr)",
+  },
+
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+}));
+
+
+
 
 
 
@@ -150,14 +170,14 @@ notifyErrorFxn("Please select a player before submitting!")
           draggable
           pauseOnHover
         />
-        { <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
+        { <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
 <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:/*"#f4f0ec"*/'#FAFAFA' }}>
     <StyledContent>
 
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer"}}>
           Football
         </Typography>
 
@@ -167,10 +187,10 @@ notifyErrorFxn("Please select a player before submitting!")
     </div>
         <Divider/>
         
-         <div style={{display: "grid",
+         <RespGrid style={{display: "grid",
        
          marginTop:"1.3rem",
-          gridTemplateColumns: "repeat(2, 1fr)",
+          //gridTemplateColumns: "repeat(2, 1fr)",
           gridTemplateRows: "repeat(2, 1fr)",
           gridColumnGap: "15px",
           gridRowGap: "15px"}}> 
@@ -202,7 +222,7 @@ notifyErrorFxn("Please select a player before submitting!")
         backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
         backgroundRepeat: 'no-repeat', }} >TEAM WIN</div>
 
-         </div>
+         </RespGrid>
     
 
       {/* <Divider sx={{ my: 3 }}>
@@ -336,7 +356,7 @@ notifyErrorFxn("Please select a player before submitting!")
   </Container>
 
 
-</Container>
+</RespContent>
 }
       </Container>
     </>
