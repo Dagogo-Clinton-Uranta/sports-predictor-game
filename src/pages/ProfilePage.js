@@ -45,7 +45,23 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 
+const RespContent = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+  },
+}));
 
+
+
+const RespGrid = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: "repeat(1, 1fr)",
+  },
+
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: "repeat(2, 1fr)",
+  },
+}));
 
 
 export default function ProfilePage() {
@@ -107,7 +123,7 @@ const standingsList = [
           draggable
           pauseOnHover
         />
-        { <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
+        { <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
 
         <Container  style={{display: 'flex',flexDirection:"column",flex:4, justifyContent: 'center',alignItems:"center", gap:"1rem",marginTop: '2%', marginBottom: '2%', }}>
@@ -127,10 +143,10 @@ const standingsList = [
     </div>
         <Divider/>
         
-        <div style={{display: "grid",
+        <RespGrid style={{display: "grid",
      
        marginTop:"1.3rem",
-        gridTemplateColumns: "repeat(1, 1fr)",
+       // gridTemplateColumns: "repeat(1, 1fr)",
         gridTemplateRows: "repeat(2, 1fr)",
         gridColumnGap: "15px",
         gridRowGap: "15px"}}> 
@@ -163,7 +179,7 @@ const standingsList = [
             </Button>
  
 
-       </div>
+       </RespGrid>
     
 
    </StyledContent>
@@ -304,7 +320,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
   </Container>
 
 
-</Container>
+</RespContent>
 }
       </Container>
     </>
