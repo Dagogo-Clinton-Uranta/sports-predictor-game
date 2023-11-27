@@ -5,6 +5,8 @@ import { IoIosFootball } from "react-icons/io";
 import { MdOutlineManageAccounts } from "react-icons/md";
 
 import { AiOutlineUser } from "react-icons/ai";
+import { PiCirclesFourDuotone } from "react-icons/pi";
+
 
 
 // const icon = (name) => <SvgColor src={`/assets/icons/${name}.png`} sx={{ width: 1, height: 1 }} />;
@@ -26,6 +28,12 @@ const navConfig = [
     title: 'NFL',
     path: '/dashboard/nfl-touchdown',
     icon: <IoIosAmericanFootball />,
+   
+  },
+  {
+    title: 'PICK 4',
+    path: '/dashboard/pick-four-goalscorers',
+    icon: <PiCirclesFourDuotone />,
    
   },
   {

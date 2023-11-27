@@ -40,6 +40,18 @@ import NFLRushingYardsStandingsPage from './pages/NFLRushYardsStandings';
 import NFLRushingYardsResultsPage from './pages/NFLRushYardsResults';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
+import PickFourTeamWinPage from './pages/PickFourTeamWinPage';
+import PickFourTeamWinStandingsPage from './pages/PickFourTeamWinStandings';
+import PickFourTeamWinResultsPage from './pages/PickFourTeamWinResults';
+import PickFourCleanSheetPage from './pages/PickFourCleanSheetPage';
+import PickFourCleanSheetStandingsPage from './pages/PickFourCleanSheetStandings';
+import PickFourCleanSheetResultsPage from './pages/PickFourCleanSheetResults';
+import PickFourGoalScorersPage from './pages/PickFourGoalScorersPage';
+import PickFourGoalScorersStandingsPage from './pages/PickGoalScorerStandings';
+import PickFourGoalScorersResultsPage from './pages/PickFourGoalScorerResults';
+import PickFourAssistsPage from './pages/PickFourAssistsPage';
+import PickFourAssistsStandingsPage from './pages/PickFourAssistsStandings';
+import PickFourAssistsResultsPage from './pages/PickFourAssistsResults';
 
 export default function Router() {
   const routes = useRoutes([
@@ -50,6 +62,25 @@ export default function Router() {
         { element: <Navigate to="/login" />, index: true },
         { path: 'entry', element:  <EntryPage /> },
         { path: 'home', element:  <FootballGoalScorersPage  /> },
+
+
+        { path: 'pick-four-teamwin', element:  <PickFourTeamWinPage /> },
+        { path: 'pick-four-teamwin-standings', element:  <PickFourTeamWinStandingsPage /> },
+        { path: 'pick-four-teamwin-results', element:  <PickFourTeamWinResultsPage /> },
+        
+        { path: 'pick-four-cleansheet', element:  <PickFourCleanSheetPage /> },
+        { path: 'pick-four-cleansheet-standings', element:  <PickFourCleanSheetStandingsPage /> },
+        { path: 'pick-four-cleansheet-results', element:  <PickFourCleanSheetResultsPage /> },
+       
+       
+        { path: 'pick-four-goalscorers', element:  <PickFourGoalScorersPage /> },
+        { path: 'pick-four-goalscorers-standings', element:  <PickFourGoalScorersStandingsPage /> },
+        { path: 'pick-four-goalscorers-results', element:  <PickFourGoalScorersResultsPage /> },
+
+         {path: 'pick-four-assists', element:  <PickFourAssistsPage /> },
+         {path: 'pick-four-assists-standings', element:  <PickFourAssistsStandingsPage /> },
+         {path: 'pick-four-assists-results', element:  <PickFourAssistsResultsPage /> },
+
 
         { path: 'football-teamwin', element:  <FootballTeamWinPage /> },
         { path: 'football-teamwin-standings', element:  <FootballTeamWinStandingsPage /> },
