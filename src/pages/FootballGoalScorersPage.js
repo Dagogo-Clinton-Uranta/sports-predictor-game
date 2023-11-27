@@ -262,7 +262,7 @@ notifyErrorFxn("Please select a player before submitting!")
 }
        
         </Select>
-s
+
 
         </div>  
       </div>
