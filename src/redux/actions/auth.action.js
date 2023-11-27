@@ -39,18 +39,14 @@ var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
 var today  = new Date();
 
   fb.auth().createUserWithEmailAndPassword(
-    user.email,
+    user.fname,
     user.password
 ).then((res)=>{
   return db.collection('users').doc(res.user.uid).set({
     uid: res.user.uid,
-    email: user.email,
-    firstName: user.fname,
-    lastName: user.lname,
-   /* age: '25',
-    gender: 'Male',
-    complaint: 'Malu',
-    isAdmitted: false,*/
+    userName: user.fname,
+    leagueCode:user.leagueCode,
+    leagueId:user.leagueId,
     password: user.password,
     accountCreated: today.toLocaleDateString("en-US", options),
   })

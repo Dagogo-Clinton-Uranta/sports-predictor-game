@@ -27,6 +27,8 @@ export default function RegisterForm() {
   const [fname, setFName] = useState('');
   const [lname, setLName] = useState('');
   const [leagueCode,setLeagueCode] =  useState('');
+  const [leagueId,setLeagueId] =  useState('');
+
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +48,7 @@ export default function RegisterForm() {
   const userSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    const user = {fname, lname, email, phone, password,leagueCode};
+    const user = {fname,leagueCode, password,leagueCode};
     dispatch(signup(user, navigate, setLoading)); 
   }
 
@@ -82,8 +84,8 @@ export default function RegisterForm() {
           }}
         />
 
-   <TextField name="League ID" required label="League ID" value={lname} onChange={(e) => setLName(e.target.value)}/>
-   <TextField name="League Code" required label="League Code" value={lname} onChange={(e) => setLeagueCode(e.target.value)}/>
+   <TextField name="League ID" required label="League ID" value={leagueId} onChange={(e) => setLeagueId(e.target.value)}/>
+   <TextField name="League Code" required label="League Code" value={leagueCode} onChange={(e) => setLeagueCode(e.target.value)}/>
           {/* <Grid
           container
           direction="row"

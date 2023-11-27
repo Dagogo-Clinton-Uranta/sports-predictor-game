@@ -32,6 +32,7 @@ import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
+import { fetchGoalScorerResultsPerLeague, fetchTeamWinResultsPerLeague } from 'src/redux/actions/football.action';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -52,8 +53,29 @@ export default function FootballTeamWinResultsPage() {
   const theme = useTheme();
  // const classes = useStyles()
 
+ const { user } = useSelector((state) => state.auth);
+ const {teamWinResultsPerLeague} = useSelector((state) => state.football);
+
+ console.log("USER LEAGUES",user.Leagues[0].leagueId)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [goalScorerResults,setGoalScorerResults] = useState(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
+
+  useEffect(()=>{
+
+    dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueId))
+    setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
+
+
+    if(goalScorerResults.length < 1 && teamWinResultsPerLeague && teamWinResultsPerLeague.length < 1){
+     dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueId))
+   setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
+    }
+    //setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
+    console.log("TEAM WIN SELECTIONS--->",teamWinResultsPerLeague)
+
+  },[])
 
 
 const premTeams = [
@@ -186,7 +208,7 @@ const standingsList = [
 
 
         <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
-          <TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
+          {<TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
             <TableRow>
               <TableCell></TableCell>
               <TableCell align="left">Username</TableCell>
@@ -194,22 +216,22 @@ const standingsList = [
             
              
             </TableRow>
-          </TableHead>
+          </TableHead>}
 
          <Divider/>
 
           <TableBody>
-            {standingsList.map((row,index) => (
+            {goalScorerResults.map((row,index) => (
                   <TableRow key={index}>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
                       {index+1}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.userName}
+                      {row.teamName}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                   
-                    {row.pick}
+                    {row.name}
                     </TableCell>
                     </TableRow>  
                   ))

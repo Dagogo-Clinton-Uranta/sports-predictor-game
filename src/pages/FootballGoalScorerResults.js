@@ -17,6 +17,7 @@ import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
+import {fetchGoalScorerResultsPerLeague} from 'src/redux/actions/football.action'
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -51,9 +52,25 @@ const StyledContent = styled('div')(({ theme }) => ({
 export default function FootballGoalScorersResultsPage() {
   const theme = useTheme();
  // const classes = useStyles()
+ const { user } = useSelector((state) => state.auth);
+ const {goalScorerResultsPerLeague} = useSelector((state) => state.football);
+
+ console.log("USER LEAGUES",user.Leagues[0].leagueId)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [goalScorerResults,setGoalScorerResults] = useState(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
+
+  useEffect(()=>{
+
+    if(goalScorerResults.length < 1 && goalScorerResultsPerLeague && goalScorerResultsPerLeague.length < 1){
+     dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueId))
+   setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
+    }
+    //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
+    console.log("GOAL SCORER SELECTIONS--->",goalScorerResultsPerLeague)
+
+  },[])
 
 
 const premTeams = [
@@ -199,17 +216,17 @@ const standingsList = [
          <Divider/>
 
           <TableBody>
-            {standingsList.map((row,index) => (
+            {goalScorerResults.map((row,index) => (
                   <TableRow key={index}>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
                       {index+1}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.userName}
+                      {row && row.userName}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                   
-                    {row.pick}
+                    {row && row.playerName}
                     </TableCell>
                     </TableRow>  
                   ))

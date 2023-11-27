@@ -10,6 +10,10 @@ const initialState = {
        message: '',
        premierLeagueTeams:[],
        teamPlayersInFocus:[],
+       goalScorerResultsPerLeague:[],
+       assistResultsPerLeague:[],
+       cleanSheetResultsPerLeague:[],
+       teamWinResultsPerLeague:[],
       isLoading: false,
 };
 
@@ -23,12 +27,30 @@ const footballSlice = createSlice({
     saveAllGroup: (state, action) => {
         state.allGroups = action.payload;
     },
+      
+  saveCleanSheetResultsPerLeague: (state, action) => {
+    state.cleanSheetResultsPerLeague = action.payload;
+  },
+   
     savePremierLeagueTeams: (state, action) => {
       state.premierLeagueTeams = action.payload;
   },
+  saveAssistResultsPerLeague: (state, action) => {
+    state.assistResultsPerLeague = action.payload;
+  },
+ 
   saveTeamPlayersInFocus: (state, action) => {
     state.teamPlayersInFocus = action.payload;
 },
+saveGoalScorerResultsPerLeague: (state, action) => {
+  state.goalScorerResultsPerLeague = action.payload;
+},
+
+saveTeamWinResultsPerLeague: (state, action) => {
+  state.teamWinResultsPerLeague = action.payload;
+},
+ 
+ 
     savePublicGroup: (state, action) => {
         state.publicGroups = action.payload;
     },
@@ -61,6 +83,10 @@ export const {
  savePrivateGroup,
  saveTeamPlayersInFocus,
  savePremierLeagueTeams,
+ saveGoalScorerResultsPerLeague,
+ saveAssistResultsPerLeague,
+ saveTeamWinResultsPerLeague,
+ saveCleanSheetResultsPerLeague,
  saveGroupMembers,
  saveEmployeer,
  isItLoading,

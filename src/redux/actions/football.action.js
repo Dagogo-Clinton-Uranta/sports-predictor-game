@@ -2,7 +2,14 @@ import { db, fb, auth, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
-import { isItLoading, saveAllGroup, saveEmployeer, saveGroupMembers, saveMyGroup, savePremierLeagueTeams, savePrivateGroup, savePublicGroup, saveTeamPlayersInFocus } from '../reducers/football.slice';
+import { isItLoading, saveAllGroup, saveEmployeer,
+   saveGroupMembers, saveMyGroup, savePremierLeagueTeams,
+    savePrivateGroup, savePublicGroup, saveTeamPlayersInFocus,
+    saveGoalScorerResultsPerLeague,
+    saveAssistResultsPerLeague,
+    saveCleanSheetResultsPerLeague,
+    saveTeamWinResultsPerLeague
+  } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
 
@@ -591,4 +598,99 @@ export const submitTeamsPrediction = (assistPick,compId) => async (dispatch) => 
   });
 
 
+}
+
+
+export const fetchGoalScorerResultsPerLeague = (leagueId) => async (dispatch) => {
+ 
+  db.collection("competitions")
+  .where("compName", "==", "Goal Scorer")
+  .where("leagueId", "==", leagueId)
+  .get()
+  .then((snapshot) => {
+    const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    const  userSelections = goalScorers[0].userSelections
+  if (goalScorers && goalScorers[0]) {
+    dispatch(isItLoading(false));
+    console.log("goal scorers Data:", goalScorers[0].userSelections);
+    dispatch(saveGoalScorerResultsPerLeague(userSelections));
+  } else {
+      dispatch(isItLoading(false));
+      console.log("No public groups!");
+  }
+})
+  
+}
+
+
+
+export const fetchAssistResultsPerLeague = (leagueId) => async (dispatch) => {
+  
+  db.collection("competitions")
+  .where("compName", "==", "Assist")
+  .where("leagueId", "==", leagueId)
+  .get()
+  .then((snapshot) => {
+    const assists = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    const  userSelections = assists[0].userSelections
+  if (assists && assists[0]) {
+    dispatch(isItLoading(false));
+    console.log("assist Data:", assists[0].userSelections);
+   
+    dispatch(saveAssistResultsPerLeague(userSelections));
+  } else {
+    dispatch(saveAssistResultsPerLeague(userSelections));
+      dispatch(isItLoading(false));
+      console.log("No assists comp with this league id!");
+  }
+})
+  
+}
+
+
+
+
+export const fetchCleanSheetResultsPerLeague = (leagueId) => async (dispatch) => {
+ 
+  db.collection("competitions")
+  .where("compName", "==", "Clean Sheet")
+  .where("leagueId", "==", leagueId)
+  .get()
+  .then((snapshot) => {
+    const CleanSheets = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    const  userSelections = CleanSheets[0].userSelections
+  if (CleanSheets && CleanSheets[0]) {
+    dispatch(isItLoading(false));
+    console.log("clean sheet Data--->:", CleanSheets[0].userSelections);
+    dispatch(saveCleanSheetResultsPerLeague(userSelections));
+  } else {
+      dispatch(isItLoading(false));
+      console.log("no clean sheet with this league id!");
+  }
+})
+  
+}
+
+
+
+
+export const fetchTeamWinResultsPerLeague = (leagueId) => async (dispatch) => {
+ 
+  db.collection("competitions")
+  .where("compName", "==", "Team Win")
+  .where("leagueId", "==", leagueId)
+  .get()
+  .then((snapshot) => {
+    const TeamWins = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    const  userSelections = TeamWins[0].userSelections
+  if (TeamWins && TeamWins[0]) {
+    dispatch(isItLoading(false));
+    console.log("team win Data:", TeamWins[0].userSelections);
+    dispatch(saveTeamWinResultsPerLeague(userSelections));
+  } else {
+      dispatch(isItLoading(false));
+      console.log("No public groups!");
+  }
+})
+  
 }
