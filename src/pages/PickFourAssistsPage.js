@@ -113,6 +113,7 @@ const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
+const [chosenTeam,setChosenTeam] = useState('')
 
 useEffect(()=>{
 
@@ -262,19 +263,25 @@ const submitThisAssistPrediction = (prediction,compId)=>{
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={chosenTeam}
           label="icon"
           onChange={(event) => {
-             
-            getPremierLeagueTeamPlayersForAssists(event.target.value.id)
 
+             const teamNamesOnly =  leagueTeams.map((item)=>(item.name))
+
+             const IdofInterest = teamNamesOnly.indexOf(event.target.value)
+
+
+            getPremierLeagueTeamPlayersForAssists(leagueTeams[IdofInterest].id)
+            console.log("EVENT TARGET TEAM",event.target.value)
+            setChosenTeam(event.target.value)
           }}
         >
        
        {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
+  <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
-<MenuItem style={{color:"black"}}  value={null}>{"No teams listed!"}</MenuItem>
+<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
 }
        
         </Select>
@@ -289,7 +296,7 @@ const submitThisAssistPrediction = (prediction,compId)=>{
     <p>Player</p>  
     <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   
-    <Select
+     <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
          inputProps={{
          /* classes: {
@@ -299,26 +306,33 @@ const submitThisAssistPrediction = (prediction,compId)=>{
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={chosenPlayer.name}
           label="icon"
           onChange={(event) => {
-            setChosenPlayer({teamId:event.target.value.id,
-              name:event.target.value.name,
-              userId:user.id,
-              teamName:user.teamName
-          })
-             console.log("CHOSEN PLAYER IS--->",event.target.value)
-          }}
+
+            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+
+             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+
+       
+
+
+            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
+                             name:teamPlayersInFocus[IdofInterest].name,
+                             userId:user.id,
+                             teamName:user.teamName
+                         })
+            console.log("CHOSEN PLAYER IS--->",event.target.value)
+         }}
         >
        
        {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
+  <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
 }
        
         </Select>
-
 
         </div>  
       </div>

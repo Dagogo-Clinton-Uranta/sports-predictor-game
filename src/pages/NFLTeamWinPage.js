@@ -20,6 +20,9 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
+
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
@@ -96,6 +99,56 @@ const premTeams = [
 "Wolverhampton Wanderers",
 ]
 
+
+const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
+
+
+const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+const {user} = useSelector((state) => state.auth);
+const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
+const [teamPlayers,setTeamPlayers] =  useState([])
+const [chosenPlayer,setChosenPlayer] = useState({}) 
+const [chosenTeam,setChosenTeam] = useState('')
+
+useEffect(()=>{
+
+  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+ 
+ 
+  if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
+  setTeamPlayers(teamPlayersInFocus)
+ 
+ },[premierLeagueTeams,teamPlayersInFocus])
+
+
+
+ useEffect(()=>{
+ 
+  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+ 
+ 
+  if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
+  setTeamPlayers(teamPlayersInFocus)
+
+ 
+ },[premierLeagueTeams,teamPlayersInFocus])
+
+
+
+ const getPremierLeagueTeamPlayersForGoalScorers = (teamId) =>{
+  
+  dispatch(getPremierLeagueTeamPlayers(teamId))
+ 
+  console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
+}
+
+const submitThisAssistPrediction = (prediction,compId)=>{
+if(!chosenPlayer){
+notifyErrorFxn("Please select a player before submitting!")
+}else{
+ dispatch(submitAssistPrediction(prediction,compId))
+}
+}
   
 
   return (
@@ -207,15 +260,28 @@ const premTeams = [
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={chosenPlayer.name}
           label="icon"
           onChange={(event) => {
-          
-          }}
+
+            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+
+             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+
+       
+
+
+            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
+                             name:teamPlayersInFocus[IdofInterest].name,
+                             userId:user.id,
+                             teamName:user.teamName
+                         })
+            console.log("CHOSEN PLAYER IS--->",event.target.value)
+         }}
         >
        
-       {premTeams && premTeams.length >0 ? premTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+       {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
 }
@@ -238,14 +304,14 @@ const premTeams = [
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"Arsenal"}
+            value= {chosenPlayer && chosenPlayer.name}
            //onChange = {(e)=>{setTitle(e.target.value)}}
            
             
             />
 
 
-            <Button style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+<Button /*onClick={()=>{submitThisAssistPrediction(chosenPlayer,goalScorerCompId)}}*/  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

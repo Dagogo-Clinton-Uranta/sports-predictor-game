@@ -33,6 +33,8 @@ import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
 
+import HOWTO from '../assets/images/HOW-TO-PLAY.pdf'
+
 
 const StyledContent = styled('div')(({ theme }) => ({
   width: "100%",
@@ -123,6 +125,17 @@ const standingsList = [
           draggable
           pauseOnHover
         />
+
+          <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+          <a href={HOWTO} download >
+         <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"8rem" }}>
+              How To Play
+            </Button>
+            </a>
+
+            </div>
+
+
         { <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
 
@@ -191,7 +204,7 @@ const standingsList = [
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          AMOUNT
+          COMPETITIONS
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>

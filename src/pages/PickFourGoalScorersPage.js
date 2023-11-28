@@ -109,7 +109,7 @@ const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({}) 
-
+const [chosenTeam,setChosenTeam] = useState('')
 
 useEffect(()=>{
 
@@ -265,15 +265,23 @@ notifyErrorFxn("Please select a player before submitting!")
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={chosenTeam}
           label="icon"
           onChange={(event) => {
-            getPremierLeagueTeamPlayersForGoalScorers(event.target.value.id)
+
+             const teamNamesOnly =  leagueTeams.map((item)=>(item.name))
+
+             const IdofInterest = teamNamesOnly.indexOf(event.target.value)
+
+
+            getPremierLeagueTeamPlayersForGoalScorers(leagueTeams[IdofInterest].id)
+            console.log("EVENT TARGET TEAM",event.target.value)
+            setChosenTeam(event.target.value)
           }}
         >
        
        {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
+  <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
 }
@@ -300,11 +308,19 @@ notifyErrorFxn("Please select a player before submitting!")
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={chosenPlayer.name}
           label="icon"
           onChange={(event) => {
-            setChosenPlayer({teamId:event.target.value.id,
-                             name:event.target.value.name,
+
+            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+
+             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+
+       
+
+
+            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
+                             name:teamPlayersInFocus[IdofInterest].name,
                              userId:user.id,
                              teamName:user.teamName
                          })
@@ -313,12 +329,13 @@ notifyErrorFxn("Please select a player before submitting!")
         >
        
        {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
+  <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
 }
        
         </Select>
+
 
 
         </div>  

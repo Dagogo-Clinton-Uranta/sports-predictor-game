@@ -46,7 +46,7 @@ var today  = new Date();
     uid: res.user.uid,
     userName: user.fname,
     leagueCode:user.leagueCode,
-    leagueId:user.leagueId,
+    //leagueId:user.leagueId,
     password: user.password,
     accountCreated: today.toLocaleDateString("en-US", options),
   })

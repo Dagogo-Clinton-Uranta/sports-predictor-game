@@ -14,6 +14,7 @@ import NotificationsPopover from './NotificationsPopover';
 import Searchbar2 from './Searchbar2';
 import { useSelector } from 'react-redux';
 import CustomSearchBar from 'src/components/global/CustomSearchBar';
+import { FaFlag } from "react-icons/fa6";
 
 // ----------------------------------------------------------------------
 
@@ -112,8 +113,8 @@ export default function Header({ onOpenNav }) {
         {/* <Searchbar2 /> */}
         <Box sx={{ flexGrow: 1 }} />
         
-        <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-        
+        <Typography variant="h4" sx={{color: '#392751', fontSize: '32px',marginRight:"1rem",marginTop:"0.6rem" }}>
+        <FaFlag />
         </Typography>
         <Stack
           direction="row"

@@ -266,23 +266,30 @@ useEffect(()=>{
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={chosenPlayer.name}
           label="icon"
           onChange={(event) => {
-            setChosenPlayer({teamId:event.target.value.id,
-                             name:event.target.value.name,
+
+            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+
+             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+
+       
+
+
+            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
+                             name:teamPlayersInFocus[IdofInterest].name,
                              userId:user.id,
                              teamName:user.teamName
-            
-            })
+                         })
             console.log("CHOSEN PLAYER IS--->",event.target.value)
-          }}
+         }}
         >
        
-       {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi.name}</MenuItem>
+       {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
+  <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
-<MenuItem style={{color:"black"}}  value={null}>{"No teams listed!"}</MenuItem>
+<MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
 }
        
         </Select>

@@ -7,7 +7,7 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import { PiCirclesFourDuotone } from "react-icons/pi";
 
-
+import { FaFlag } from "react-icons/fa6";
 
 // const icon = (name) => <SvgColor src={`/assets/icons/${name}.png`} sx={{ width: 1, height: 1 }} />;
 const icon = (name) => <img src={`/assets/icons2/${name}.png`} sx={{ width: 1, height: 1 }} />;
@@ -39,7 +39,7 @@ const navConfig = [
   {
     title: 'PROFILE',
     path: '/dashboard/profile',
-    icon: <AiOutlineUser />,
+    icon: <FaFlag />,
    
   },
   {
