@@ -114,7 +114,9 @@ export default function Header({ onOpenNav }) {
         <Box sx={{ flexGrow: 1 }} />
         
         <Typography variant="h4" sx={{color: '#392751', fontSize: '32px',marginRight:"1rem",marginTop:"0.6rem" }}>
+        <RespHidden>
         <FaFlag />
+        </RespHidden>
         </Typography>
         <Stack
           direction="row"

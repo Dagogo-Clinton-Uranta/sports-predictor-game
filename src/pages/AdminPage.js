@@ -20,6 +20,7 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
+
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
 import Radiology from 'src/components/treatment/radiology';
@@ -32,6 +33,7 @@ import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
+import './points.css'
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -61,6 +63,50 @@ const RespGrid = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: "repeat(2, 1fr)",
   },
+}));
+
+
+const RespHidden = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     display:"none",
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    display:"inline",
+  
+ },
+
+}));
+
+
+const RespVar = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+    fontSize:"1.5rem ",
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width:"35rem",
+    fontSize:"2.5rem ",
+  
+ },
+
+}));
+
+
+const RespInp = styled('input')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+    fontSize:"1.5rem ",
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width:"35rem",
+    fontSize:"2.5rem ",
+  
+ },
+
 }));
 
 
@@ -153,10 +199,10 @@ const standingsList = [
         gridRowGap: "15px"}}> 
   
  
-  <div onClick={()=>{navigate('/dashboard/football-cleansheet')}}
+  <RespVar
   style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
       
-     backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"2.5rem",paddingRight:"2rem",paddingLeft:"2rem",
+     backgroundSize: 'cover', height:"90px",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
       backgroundRepeat: 'no-repeat', }}>
         
         <div >
@@ -164,33 +210,40 @@ const standingsList = [
       </div>
         
 
-      <div >
-      10,000
-      </div>
+      <RespInp className= "bigPoints"
+            style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"50%",fontWeight:"bold"}}
+            
+            placholder= "select a team or player"
+            value= { "10,000"}
+           //onChange = {(e)=>{setTitle(e.target.value)}}
+           
+            
+            />
         
         
       <div style={{fontSize:"1rem",marginBottom:"20px"}}>
       POINTS
       </div>
-        </div>
+        </RespVar>
+
+
  
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
 
-        <Button onClick={()=>{}}  style={{}}>
-              
-         </Button> 
+       </RespGrid>
 
 
-        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"50%" }}>
+
+       <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:"2rem"}}>
+        
+       
+        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',width:"30%" }}>
               Submit
-            </Button>
-
+         </Button>
+        
             <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
               x
             </Button> 
         </div>
-
-       </RespGrid>
     
 
    </StyledContent>
@@ -221,15 +274,15 @@ const standingsList = [
 
 
 <div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
-style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', 
+style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', marginLeft:"-1rem",
     
-   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"2.5rem",padding:"1rem",
+   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
     backgroundRepeat: 'no-repeat', }}>
       
      
-      <div >
+      <RespHidden>
        11/11/2023
-      </div>
+      </RespHidden>
 
 
       <div>
@@ -245,14 +298,14 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
 
 <div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
-style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', 
+style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A',  marginLeft:"-1rem",
     
-   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"2.5rem",padding:"1rem",
+   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
     backgroundRepeat: 'no-repeat' }}>
 
-     <div >
+     <RespHidden >
        11/11/2023
-      </div>
+      </RespHidden>
 
 
       <div >

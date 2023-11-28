@@ -1,0 +1,8 @@
+.bigPoints:focus {
+    outline: none;
+  }
+
+
+  .bigPoints:active {
+    outline: none;
+  }
