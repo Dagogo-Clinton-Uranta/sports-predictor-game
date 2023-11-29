@@ -81,12 +81,17 @@ export default function FootballCleanSheetResultsPage() {
 
   useEffect(()=>{
     dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueId))
-    setGoalScorerResults(cleanSheetResultsPerLeague?cleanSheetResultsPerLeague:[])
+    setGoalScorerResults(cleanSheetResultsPerLeague)
    
-    if(goalScorerResults.length < 1 /*&& cleanSheetResultsPerLeague && cleanSheetResultsPerLeague.length < 1*/){
-     dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueId))
-   setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
-    }
+   
+    //setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
+    console.log("CLEAN SHEET SELECTIONS--->",goalScorerResults)
+
+  },[])
+
+  useEffect(()=>{
+   
+    setGoalScorerResults(cleanSheetResultsPerLeague)
     //setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
     console.log("CLEAN SHEET SELECTIONS--->",goalScorerResults)
 

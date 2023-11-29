@@ -83,13 +83,19 @@ export default function FootballTeamWinResultsPage() {
   useEffect(()=>{
 
     dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueId))
-    setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
+    setGoalScorerResults(teamWinResultsPerLeague)
 
 
-    if(goalScorerResults.length < 1 && teamWinResultsPerLeague && teamWinResultsPerLeague.length < 1){
-     dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueId))
-   setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
-    }
+   
+    //setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
+    console.log("TEAM WIN SELECTIONS--->",teamWinResultsPerLeague)
+
+  },[])
+
+  useEffect(()=>{
+
+  
+    setGoalScorerResults(teamWinResultsPerLeague)
     //setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
     console.log("TEAM WIN SELECTIONS--->",teamWinResultsPerLeague)
 

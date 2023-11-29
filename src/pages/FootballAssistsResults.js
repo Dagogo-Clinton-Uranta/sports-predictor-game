@@ -83,13 +83,18 @@ export default function FootballAssistsResultsPage() {
   useEffect(()=>{
     
     dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueId))
-    setGoalScorerResults(assistResultsPerLeague   ?assistResultsPerLeague:[])
+    setGoalScorerResults(assistResultsPerLeague)
      
 
-    if(goalScorerResults.length < 1 && assistResultsPerLeague && assistResultsPerLeague.length < 1){
-     dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueId))
-   setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
-    }
+    //setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
+    console.log("ASSIST SELECTIONS---->",goalScorerResults)
+
+  },[])
+
+
+  useEffect(()=>{
+    
+    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueId))
     //setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
     console.log("ASSIST SELECTIONS---->",goalScorerResults)
 

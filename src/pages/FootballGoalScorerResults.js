@@ -81,11 +81,21 @@ export default function FootballGoalScorersResultsPage() {
   const [goalScorerResults,setGoalScorerResults] = useState(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
 
   useEffect(()=>{
+    
+    dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueId))
+    setGoalScorerResults(goalScorerResultsPerLeague )
 
-    if(goalScorerResults.length < 1 && goalScorerResultsPerLeague && goalScorerResultsPerLeague.length < 1){
-     dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueId))
-   setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
-    }
+   
+    //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
+    console.log("GOAL SCORER SELECTIONS--->",goalScorerResultsPerLeague)
+
+  },[])
+
+  useEffect(()=>{
+   
+    setGoalScorerResults(goalScorerResultsPerLeague )
+
+   
     //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
     console.log("GOAL SCORER SELECTIONS--->",goalScorerResultsPerLeague)
 
