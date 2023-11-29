@@ -270,15 +270,15 @@ useEffect(()=>{
           label="icon"
           onChange={(event) => {
 
-            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+            const teamNamesOnly =  leagueTeams.map((item)=>(item.name))
 
-             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+             const IdofInterest = teamNamesOnly.indexOf(event.target.value)
 
        
 
 
-            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
-                             name:teamPlayersInFocus[IdofInterest].name,
+            setChosenPlayer({teamId:leagueTeams[IdofInterest].id,
+                             name:leagueTeams[IdofInterest].name,
                              userId:user.id,
                              teamName:user.teamName
                          })
@@ -286,7 +286,7 @@ useEffect(()=>{
          }}
         >
        
-       {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
+       {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
   <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>

@@ -47,6 +47,25 @@ const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(5, 5, 12, 5),
 }));
 
+
+
+const RespContent = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection: 'row',
+    width:"70%",
+    margin:"0 auto",
+    justifyContent:"center",
+    alignItems:"center",
+   
+  },
+}));
+
+
 // ----------------------------------------------------------------------
 
 export default function RegisterPage() {
@@ -61,9 +80,9 @@ export default function RegisterPage() {
       <StyledRoot style={{  flexDirection: 'row' }}>
    
 
-   <Container  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
+   <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
 
-      <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:4, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px' }}>
+      <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:3, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',height:"100%" }}>
           <StyledContent>
           
             <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
@@ -80,7 +99,7 @@ export default function RegisterPage() {
           </StyledContent>
         </Container>
 
-      <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px' }}>
+      <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',height:"100%" }}>
           <StyledContent>
          
         
@@ -96,7 +115,7 @@ export default function RegisterPage() {
           </StyledContent>
         </Container>
 
-     </Container>
+     </RespContent>
      
       </StyledRoot>
     </>

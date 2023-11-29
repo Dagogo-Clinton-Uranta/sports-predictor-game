@@ -15,6 +15,7 @@ import Searchbar2 from './Searchbar2';
 import { useSelector } from 'react-redux';
 import CustomSearchBar from 'src/components/global/CustomSearchBar';
 import { FaFlag } from "react-icons/fa6";
+import nigeria from "../../../assets/images/nig.png"
 
 // ----------------------------------------------------------------------
 
@@ -113,9 +114,9 @@ export default function Header({ onOpenNav }) {
         {/* <Searchbar2 /> */}
         <Box sx={{ flexGrow: 1 }} />
         
-        <Typography variant="h4" sx={{color: '#392751', fontSize: '32px',marginRight:"1rem",marginTop:"0.6rem" }}>
+        <Typography variant="h4" sx={{color: '#392751', fontSize: '32px',marginRight:"1rem",marginTop:"0rem" }}>
         <RespHidden>
-        <FaFlag />
+        <img src={nigeria} alt="nigeria flag"/>
         </RespHidden>
         </Typography>
         <Stack

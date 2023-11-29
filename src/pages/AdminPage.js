@@ -133,6 +133,8 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [title,setTitle] = useState( "10,000")
+
 
 const premTeams = [
 "Arsenal",
@@ -158,12 +160,12 @@ const premTeams = [
 ]
 const standingsList = [
 
-  {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
-  {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},
-  {date:"11/11/23",action:"TEAM WIN",amount:"-10,000"},
-  {date:"11/11/23",action:"ASSIST WIN",amount:"+100,000"},
-  {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
-  {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},
+  {date:"Avengers",action:"MANAGE",amount:"50,000"},
+  {date:"BB Team",action:"MANAGE",amount:"20,000"},
+  {date:"919 Defenders",action:"MANAGE",amount:"10,000"},
+  {date:"Avengers",action:"MANAGE",amount:"100,000"},
+  {date:"919 Defenders",action:"MANAGE",amount:"50,000"},
+  {date:"BB Team",action:"MANAGE",amount:"20,000"},
 
  
  
@@ -228,9 +230,9 @@ const standingsList = [
       <RespInp className= "bigPoints"
             style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"50%",fontWeight:"bold"}}
             
-            placholder= "select a team or player"
-            value= { "10,000"}
-           //onChange = {(e)=>{setTitle(e.target.value)}}
+            placholder= "input a value"
+            value= { title}
+           onChange = {(e)=>{setTitle(e.target.value)}}
            
             
             />
@@ -242,7 +244,8 @@ const standingsList = [
         </RespVar>
 
 
- 
+
+
 
        </RespGrid>
 
@@ -374,15 +377,15 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
 
         <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
-          {/*<TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
+          <TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell align="left">Username</TableCell>
-              <TableCell align="left">Pick</TableCell>
+              <TableCell>Team Name</TableCell>
+              <TableCell align="left">Balance</TableCell>
+              <TableCell align="left"></TableCell>
             
              
             </TableRow>
-          </TableHead>*/}
+          </TableHead>
 
          <Divider/>
 
@@ -393,11 +396,11 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
                       {row.date}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.action}
+                       {row.amount}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                  
-                    {row.amount}
+                     {row.action}
+                    
                     </TableCell>
                     </TableRow>  
                   ))

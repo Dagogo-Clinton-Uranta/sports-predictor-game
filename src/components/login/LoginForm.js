@@ -33,9 +33,9 @@ export default function LoginForm() {
       <Stack spacing={3}>
       <TextField
       required
-      name="Username"
+      name="Email Address"
       type="text"
-      label="Username"
+      label="Email Address"
       onChange={(e) => setEmail(e.target.value)}
       sx={{ borderRadius: '12px', background: '#D9D9D921' }}
     />

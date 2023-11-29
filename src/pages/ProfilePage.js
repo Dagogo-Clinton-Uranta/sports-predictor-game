@@ -170,14 +170,14 @@ const standingsList = [
           pauseOnHover
         />
 
-          <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+         {/* <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
           <a href={HOWTO} download >
          <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"rem" }}>
               How To Play
             </Button>
             </a>
 
-            </div>
+         </div>*/}
 
 
         { <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
@@ -224,7 +224,7 @@ const standingsList = [
       <RespInp className="bigPoints"
             style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
             
-            placholder= "select a team or player"
+            placholder= "input a value"
             value= {title}
            onChange = {(e)=>{setTitle(e.target.value)}}
            

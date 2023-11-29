@@ -20,6 +20,9 @@ const schema = Yup.object().shape({
   });
 
 
+
+  
+
 export default function RegisterForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +30,7 @@ export default function RegisterForm() {
   const [fname, setFName] = useState('');
   const [lname, setLName] = useState('');
   const [leagueCode,setLeagueCode] =  useState('');
-  const [leagueId,setLeagueId] =  useState('');
+  const [teamName,setTeamName] =  useState('');
 
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -48,7 +51,7 @@ export default function RegisterForm() {
   const userSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    const user = {fname, password,leagueCode};
+    const user = {fname, password,teamName,leagueCode};
     dispatch(signup(user, navigate, setLoading)); 
   }
 
@@ -64,7 +67,7 @@ export default function RegisterForm() {
     <>
       <form onSubmit={userSignup}>
       <Stack spacing={3}>
-        <TextField name="Username" required label="Username" value={fname} onChange={(e) => setFName(e.target.value)}/>
+        <TextField name="Email" required label="Email" value={fname} onChange={(e) => setFName(e.target.value)}/>
        
        
         <TextField
@@ -84,7 +87,7 @@ export default function RegisterForm() {
           }}
         />
 
-   {/*<TextField name="League ID" required label="League ID" value={leagueId} onChange={(e) => setLeagueId(e.target.value)}/>*/}
+   <TextField name="Team name" required label="Team Name" value={teamName} onChange={(e) => setTeamName(e.target.value)}/>
    <TextField name="League Code" required label="League Code" value={leagueCode} onChange={(e) => setLeagueCode(e.target.value)}/>
           {/* <Grid
           container
