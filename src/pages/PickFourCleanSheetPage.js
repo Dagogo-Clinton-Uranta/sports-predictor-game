@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams, saveCleanSheetPickFourPrediction} from 'src/redux/actions/football.action';
 
 
 
@@ -142,11 +142,11 @@ useEffect(()=>{
       console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
  }
  
- const submitThisAssistPrediction = (prediction,compId)=>{
+ const  saveThisCleanSheetPickFour = (prediction,navigate)=>{
   if(!chosenPlayer){
-    notifyErrorFxn("Please select a player before submitting!")
+    notifyErrorFxn("Please select a team before submitting!")
   }else{
-     dispatch(submitAssistPrediction(prediction,compId))
+     dispatch( saveCleanSheetPickFourPrediction(prediction,navigate))
   }
  }
 
@@ -266,15 +266,15 @@ useEffect(()=>{
           label="icon"
           onChange={(event) => {
 
-            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+            const teamNamesOnly =  leagueTeams.map((item)=>(item.name))
 
-             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+             const IdofInterest = teamNamesOnly.indexOf(event.target.value)
 
        
 
 
-            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
-                             name:teamPlayersInFocus[IdofInterest].name,
+            setChosenPlayer({teamId:leagueTeams[IdofInterest].id,
+                             name:leagueTeams[IdofInterest].name,
                              userId:user.id,
                              teamName:user.teamName
                          })
@@ -282,7 +282,7 @@ useEffect(()=>{
          }}
         >
        
-       {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
+       {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
   <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
@@ -313,7 +313,7 @@ useEffect(()=>{
             />
 
 
-            <Button onClick={()=>{navigate('/dashboard/pick-four-teamwin')}}  /*onClick={()=>{submitThisAssistPrediction(chosenPlayer,cleanSheetCompId)}}*/  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button /*onClick={()=>{navigate('/dashboard/pick-four-teamwin')}}*/  onClick={()=>{ saveThisCleanSheetPickFour(chosenPlayer,navigate)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

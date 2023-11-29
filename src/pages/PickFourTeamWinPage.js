@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams, submitPickFourPrediction} from 'src/redux/actions/football.action';
 
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -107,15 +107,31 @@ const premTeams = [
   
 
 const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
+const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
+const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
+const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+
+
+const { cleanSheetPickFour,goalScorerPickFour,assistPickFour,premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+
+
+
+
+
+
 
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
 
+
+const compIdArray = [goalScorerCompId,assistCompId,cleanSheetCompId,teamWinCompId]
+const savedCompArray = [goalScorerPickFour,assistPickFour,cleanSheetPickFour,chosenPlayer]
+
+console.log("ALL OUR PICK 4 PICKS TO THIS POINT ARE--->",savedCompArray)
 
 useEffect(()=>{
 
@@ -146,12 +162,15 @@ useEffect(()=>{
      
       console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
  }
- 
- const submitThisAssistPrediction = (prediction,compId)=>{
+
+
+         
+
+ const submitThisPickFourPrediction = (teamWinSelection,savedCompArr,compIdArr,userId)=>{
   if(!chosenPlayer){
-    notifyErrorFxn("Please select a player before submitting!")
+    notifyErrorFxn("Please select a team before submitting!")
   }else{
-     dispatch(submitAssistPrediction(prediction,compId))
+     dispatch(submitPickFourPrediction(teamWinSelection,savedCompArr,compIdArr,userId))
   }
  }
 
@@ -270,23 +289,23 @@ useEffect(()=>{
           label="icon"
           onChange={(event) => {
 
-            const playerNamesOnly =  teamPlayersInFocus.map((item)=>(item.name))
+            const teamNamesOnly =  leagueTeams.map((item)=>(item.name))
 
-             const IdofInterest = playerNamesOnly.indexOf(event.target.value)
+            const IdofInterest = teamNamesOnly.indexOf(event.target.value)
 
        
 
 
-            setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
-                             name:teamPlayersInFocus[IdofInterest].name,
-                             userId:user.id,
-                             teamName:user.teamName
-                         })
+             setChosenPlayer({teamId:leagueTeams[IdofInterest].id,
+              name:leagueTeams[IdofInterest].name,
+              userId:user.id,
+              teamName:user.teamName
+          })
             console.log("CHOSEN PLAYER IS--->",event.target.value)
          }}
         >
        
-       {teamPlayers && teamPlayers.length >0 ? teamPlayers.map((kiwi)=>(
+       {leagueTeams && leagueTeams.length >0 ? leagueTeams.map((kiwi)=>(
   <MenuItem style={{color:"black"}} value={kiwi.name}>{kiwi.name}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No items listed!"}</MenuItem>
@@ -317,7 +336,7 @@ useEffect(()=>{
             />
 
 
-            <Button onClick={()=>{}}/*onClick={()=>{submitThisAssistPrediction(chosenPlayer,teamWinCompId)}}*/ style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button  onClick={()=>{submitThisPickFourPrediction(chosenPlayer,savedCompArray,compIdArray,user.id)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

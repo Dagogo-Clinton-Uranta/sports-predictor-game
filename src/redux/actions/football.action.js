@@ -8,7 +8,10 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveGoalScorerResultsPerLeague,
     saveAssistResultsPerLeague,
     saveCleanSheetResultsPerLeague,
-    saveTeamWinResultsPerLeague
+    saveTeamWinResultsPerLeague,
+    saveAssistPickFour,
+    saveGoalScorerPickFour,
+    saveCleanSheetPickFour,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -693,4 +696,63 @@ export const fetchTeamWinResultsPerLeague = (leagueId) => async (dispatch) => {
   }
 })
   
+}
+
+
+
+export const saveAssistPickFourPrediction = (selection,navigate) => async (dispatch) => {
+
+  dispatch(saveAssistPickFour(selection));
+  navigate('/dashboard/pick-four-cleansheet')
+}
+
+
+export const saveGoalScorerPickFourPrediction = (selection,navigate) => async (dispatch) => {
+
+  dispatch(saveGoalScorerPickFour(selection));
+  navigate('/dashboard/pick-four-assists')
+}
+
+export const saveCleanSheetPickFourPrediction = (selection,navigate) => async (dispatch) => {
+
+  dispatch(saveCleanSheetPickFour(selection));
+  navigate('/dashboard/pick-four-teamwin')
+}
+
+export const submitPickFourPrediction = (teamWinSelection,pickFourSelections,competitionIdArray,userId) => async (dispatch) => {
+
+const allFourSelections = [...pickFourSelections,teamWinSelection]
+
+if(competitionIdArray && competitionIdArray.length === 4){
+   
+  competitionIdArray.forEach((compId,index)=>{
+
+    db.collection("competitions").doc(compId.trim()).update({
+      userSelections:firebase.firestore.FieldValue.arrayUnion(allFourSelections[index])
+    }).then((docRef) => {
+      
+
+  db.collection("users").doc(userId).update({
+    pickFourPrediction:firebase.firestore.FieldValue.arrayUnion(allFourSelections[index])
+  })
+
+    })
+   
+    .catch((error) => {
+      console.error("Error adding this subject to the pack, please view--> : ", error);
+      notifyErrorFxn("Error submitting your assist pick, please try again. ")
+      
+    });
+   
+  })
+
+ 
+  notifySuccessFxn("Pick Four Successfully Submitted ")
+
+
+}else{
+  notifyErrorFxn("Something Went wrong while submiting pick 4,please try again")
+}
+
+
 }

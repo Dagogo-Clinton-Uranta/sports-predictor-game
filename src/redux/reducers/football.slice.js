@@ -14,6 +14,10 @@ const initialState = {
        assistResultsPerLeague:[],
        cleanSheetResultsPerLeague:[],
        teamWinResultsPerLeague:[],
+       goalScorerPickFour:{},
+       teamWinPickFour:{},
+       assistPickFour:{},
+       cleanSheetPickFour:{},
       isLoading: false,
 };
 
@@ -24,9 +28,25 @@ const footballSlice = createSlice({
     saveMyGroup: (state, action) => {
         state.myGroups = action.payload;
     },
-    saveAllGroup: (state, action) => {
-        state.allGroups = action.payload;
+    saveGoalScorerPickFour: (state, action) => {
+        state.goalScorerPickFour = action.payload;
     },
+
+    saveAssistPickFour: (state, action) => {
+      state.assistPickFour = action.payload;
+  },
+
+  saveCleanSheetPickFour: (state, action) => {
+    state.cleanSheetPickFour = action.payload;
+},
+
+saveTeamWinPickFour: (state, action) => {
+  state.teamWinPickFour = action.payload;
+},
+
+saveAllGroup: (state, action) => {
+  state.allGroups = action.payload;
+},
       
   saveCleanSheetResultsPerLeague: (state, action) => {
     state.cleanSheetResultsPerLeague = action.payload;
@@ -79,6 +99,9 @@ const { actions, reducer } = footballSlice;
 export const {
  saveMyGroup,
  saveAllGroup,
+ saveAssistPickFour,
+ saveCleanSheetPickFour,
+ saveGoalScorerPickFour,
  savePublicGroup,
  savePrivateGroup,
  saveTeamPlayersInFocus,

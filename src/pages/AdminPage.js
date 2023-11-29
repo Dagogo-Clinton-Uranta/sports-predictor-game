@@ -95,6 +95,21 @@ const RespVar = styled('div')(({ theme }) => ({
 }));
 
 
+const RespButton = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"55%",
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width:"30%",
+   
+  
+ },
+
+}));
+
+
 const RespInp = styled('input')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
@@ -235,14 +250,19 @@ const standingsList = [
 
        <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:"2rem"}}>
         
-       
-        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',width:"30%" }}>
+       <RespButton>
+        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',width:"100%" }}>
               Submit
          </Button>
-        
+      </RespButton>
+
+
+          <RespHidden>
             <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
               x
             </Button> 
+          </RespHidden>
+
         </div>
     
 

@@ -18,7 +18,7 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams, saveAssistPickFourPrediction} from 'src/redux/actions/football.action';
 
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
@@ -145,13 +145,13 @@ const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
      console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
 }
 
-const submitThisAssistPrediction = (prediction,compId)=>{
+const  saveThisAssistPickFour= (prediction,navigate)=>{
  if(!chosenPlayer){
    notifyErrorFxn("Please select a player before submitting!")
  }else{
-    dispatch(submitAssistPrediction(prediction,compId))
+    dispatch( saveAssistPickFourPrediction(prediction,navigate))
  }
-}
+}   
 
   return (
     <>
@@ -358,7 +358,7 @@ const submitThisAssistPrediction = (prediction,compId)=>{
             />
 
 
-            <Button /*onClick={()=>{submitThisAssistPrediction(chosenPlayer,assistCompId)}}*/ onClick={()=>{navigate("/dashboard/pick-four-cleansheet")}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{ saveThisAssistPickFour(chosenPlayer,navigate)}} /*onClick={()=>{navigate("/dashboard/pick-four-cleansheet")}}*/ style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

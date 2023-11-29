@@ -16,12 +16,12 @@ import IMG4 from '../assets/images/intervention.png';
 import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
-import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
+
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,saveGoalScorerPickFourPrediction} from 'src/redux/actions/football.action';
 
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -143,11 +143,11 @@ useEffect(()=>{
   console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
 }
 
-const submitThisAssistPrediction = (prediction,compId)=>{
+const saveThisGoalScorerPickFour = (prediction,navigate)=>{
 if(!chosenPlayer){
 notifyErrorFxn("Please select a player before submitting!")
 }else{
- dispatch(submitAssistPrediction(prediction,compId))
+ dispatch( saveGoalScorerPickFourPrediction(prediction,navigate))
 }
 }
 
@@ -362,7 +362,7 @@ notifyErrorFxn("Please select a player before submitting!")
             />
 
 
-            <Button /*onClick={()=>{submitThisAssistPrediction(chosenPlayer,goalScorerCompId)}}*/onClick={()=>{navigate('/dashboard/pick-four-assists')}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{ saveThisGoalScorerPickFour(chosenPlayer,navigate)}} /*onClick={()=>{navigate('/dashboard/pick-four-assists')}}*/  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 
