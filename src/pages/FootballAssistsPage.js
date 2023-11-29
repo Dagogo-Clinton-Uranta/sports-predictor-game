@@ -146,11 +146,11 @@ const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
      console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
 }
 
-const submitThisAssistPrediction = (prediction,compId)=>{
+const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
  if(!chosenPlayer){
    notifyErrorFxn("Please select a player before submitting!")
  }else{
-    dispatch(submitAssistPrediction(prediction,compId))
+    dispatch(submitAssistPrediction(prediction,compId,leagueId))
  }
 }
 
@@ -360,7 +360,7 @@ const submitThisAssistPrediction = (prediction,compId)=>{
             />
 
 
-            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,assistCompId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,assistCompId,user.Leagues[0].leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

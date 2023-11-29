@@ -241,11 +241,11 @@ const standingsList = [
                       {index+1}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row && row.userName}
+                      {row && row.userName?row.userName:row && row.teamName}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                   
-                    {row && row.playerName}
+                    {row && row.playerName?row.playerName:row && row.name}
                     </TableCell>
                     </TableRow>  
                   ))

@@ -143,11 +143,11 @@ useEffect(()=>{
       console.log("TEAMS PLAYERS --->",teamPlayersInFocus)
  }
  
- const submitThisAssistPrediction = (prediction,compId)=>{
+ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
   if(!chosenPlayer){
-    notifyErrorFxn("Please select a player before submitting!")
+    notifyErrorFxn("Please select a team before submitting!")
   }else{
-     dispatch(submitAssistPrediction(prediction,compId))
+     dispatch(submitAssistPrediction(prediction,compId,leagueId))
   }
  }
 
@@ -314,7 +314,7 @@ useEffect(()=>{
             />
 
 
-            <Button  onClick={()=>{submitThisAssistPrediction(chosenPlayer,cleanSheetCompId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button  onClick={()=>{submitThisAssistPrediction(chosenPlayer,cleanSheetCompId,user.Leagues[0].leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

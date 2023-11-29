@@ -533,7 +533,7 @@ export const getPremierLeagueTeamPlayers = (teamId)  => async (dispatch) => {
 
 
 
-export const submitAssistPrediction = (assistPick,compId) => async (dispatch) => {
+export const submitAssistPrediction = (assistPick,compId,leagueId) => async (dispatch) => {
 
 
 
@@ -541,14 +541,34 @@ export const submitAssistPrediction = (assistPick,compId) => async (dispatch) =>
     userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
   }).then((docRef) => {
     console.log(" course Document updated is: ", docRef);
-    notifySuccessFxn("Submitted Assist Prediction Successfully!")
+    notifySuccessFxn("Submitted  Prediction Successfully!")
 
     db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
     if(doc.exists){
       console.log("COMPETITIONS PACK-->",doc.data())
      
-     //dispatch( fetchSubjectsInPackDetails(doc.data().subjectsInPack)) ---> U NEED TO REDISPATCH THIS COMPETITION SO THAT ONE CAN SEE IT IN THE assists PICKS PAGE,logic not written yet
-     
+    
+      const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
+      const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
+      const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
+      const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
+
+    if(compId === goalScorerCompId){
+     dispatch(fetchGoalScorerResultsPerLeague(leagueId))
+    }
+
+    if(compId === assistCompId){
+     dispatch(fetchAssistResultsPerLeague(leagueId))
+    }
+
+    if(compId === cleanSheetCompId){
+     dispatch(fetchCleanSheetResultsPerLeague(leagueId))
+     }
+
+
+     if(compId === teamWinCompId){
+     dispatch(fetchTeamWinResultsPerLeague(leagueId))
+     }
      
     }else{
       notifyErrorFxn("problem updating assist competition?")
@@ -577,7 +597,7 @@ export const submitTeamsPrediction = (assistPick,compId) => async (dispatch) => 
     userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
   }).then((docRef) => {
     console.log(" course Document updated is: ", docRef);
-    notifySuccessFxn("Submitted Assist Prediction Successfully!")
+    notifySuccessFxn("Submitted  Prediction Successfully!")
 
     db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
     if(doc.exists){

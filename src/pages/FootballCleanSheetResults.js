@@ -233,17 +233,17 @@ const standingsList = [
           <TableBody>
             {goalScorerResults.map((row,index) => (
                   <TableRow key={index}>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
-                      {index+1}
-                    </TableCell>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                      {row.userName}
-                    </TableCell>
-                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                  
-                    {row.playerName}
-                    </TableCell>
-                    </TableRow>  
+                  <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
+                    {index+1}
+                  </TableCell>
+                  <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
+                    {row && row.userName?row.userName:row && row.teamName}
+                  </TableCell>
+                  <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
+                
+                  {row && row.playerName?row.playerName:row && row.name}
+                  </TableCell>
+                  </TableRow> 
                   ))
     
                   
