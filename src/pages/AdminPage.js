@@ -61,7 +61,9 @@ const RespGrid = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: "repeat(2, 1fr)",
+    //gridTemplateColumns: "repeat(2, 1fr)",
+    gridTemplateColumns: "1fr",
+  
   },
 }));
 
@@ -84,6 +86,8 @@ const RespVar = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
     fontSize:"1.5rem ",
+    flexDirection:"column",
+    gap:"0.5rem",
   },
 
   [theme.breakpoints.up('md')]: {
@@ -95,6 +99,8 @@ const RespVar = styled('div')(({ theme }) => ({
 }));
 
 
+
+
 const RespButton = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"55%",
@@ -103,6 +109,7 @@ const RespButton = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('md')]: {
     width:"30%",
+    marginTop:"1.5rem"
    
   
  },
@@ -114,14 +121,33 @@ const RespInp = styled('input')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
     fontSize:"1.5rem ",
+    border: '1px solid #0000001A'
   },
 
   [theme.breakpoints.up('md')]: {
     width:"35rem",
-    fontSize:"2.5rem ",
+    fontSize:"1.6rem ",
+    border: '1px solid #0000001A'
   
  },
 
+}));
+
+
+const RespInp2 = styled('input')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+     fontSize:"1.2rem ",
+    flexDirection:"column"
+  },
+
+
+  [theme.breakpoints.up('md')]: {
+    width:"46%",
+    fontSize:"1.5rem ",
+ }
+
+  
 }));
 
 
@@ -133,7 +159,7 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [title,setTitle] = useState( "10,000")
+  const [title,setTitle] = useState( "")
 
 
 const premTeams = [
@@ -198,7 +224,7 @@ const standingsList = [
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          KANU WARRIORS
+         START COMPETITION
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -219,7 +245,7 @@ const standingsList = [
   <RespVar
   style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
       
-     backgroundSize: 'cover', height:"90px",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
+     backgroundSize: 'cover', height:"70px",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
       backgroundRepeat: 'no-repeat', }}>
         
         <div >
@@ -228,7 +254,7 @@ const standingsList = [
         
 
       <RespInp className= "bigPoints"
-            style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"50%",fontWeight:"bold"}}
+            style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
             
             placholder= "input a value"
             value= { title}
@@ -237,12 +263,45 @@ const standingsList = [
             
             />
         
-        
+     { /*  
       <div style={{fontSize:"1rem",marginBottom:"20px"}}>
       POINTS
       </div>
+      */}
         </RespVar>
 
+
+        <RespVar
+  style={{backgroundColor:`#FAFAFA`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '0px solid #0000001A',
+      
+     backgroundSize: 'cover', height:"70px",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",marginBottom:"1rem",
+      backgroundRepeat: 'no-repeat', }}>
+        
+        
+        
+
+      <RespInp2 className= "adminBigPoints"
+            style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
+            
+            placholder= "ENTRY FEE"
+           // value= { title}
+           // onChange = {(e)=>{setTitle(e.target.value)}}
+           
+            
+            />
+
+
+<RespInp2 className= "adminbigPoints"
+            style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
+            
+            placholder= "DEADLINE"
+            //value= { title}
+            //onChange = {(e)=>{setTitle(e.target.value)}}
+           
+            
+            />
+          
+        </RespVar>
 
 
 
@@ -260,11 +319,7 @@ const standingsList = [
       </RespButton>
 
 
-          <RespHidden>
-            <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
-              x
-            </Button> 
-          </RespHidden>
+         
 
         </div>
     
@@ -278,7 +333,7 @@ const standingsList = [
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          REQUESTS
+          COMPETITIONS
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>

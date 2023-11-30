@@ -85,7 +85,6 @@ export default function FootballGoalScorersResultsPage() {
     dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueId))
     setGoalScorerResults(goalScorerResultsPerLeague )
 
-   
     //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
     console.log("GOAL SCORER SELECTIONS--->",goalScorerResultsPerLeague)
 

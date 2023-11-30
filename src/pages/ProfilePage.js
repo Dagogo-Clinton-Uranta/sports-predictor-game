@@ -116,7 +116,7 @@ export default function ProfilePage() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
- const [title,setTitle] = useState( "10,000")
+ const [title,setTitle] = useState( "")
 
 const premTeams = [
 "Arsenal",
@@ -191,7 +191,7 @@ const standingsList = [
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          AMOUNT
+          DEPOSIT
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -244,7 +244,7 @@ const standingsList = [
        </RespGrid>
 
        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
-              Submit
+              DEPOSIT
             </Button>
     
 
