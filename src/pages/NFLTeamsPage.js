@@ -123,19 +123,19 @@ const premTeams = [
     <center style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
         backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
         boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
-        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >3+ TOUCHDOWN</center>
+        backgroundRepeat: 'no-repeat', height:"210px", width:"210px" ,display:"flex",justifyContent:"center",alignItems:"center",color:"white", }} >TOUCHDOWN</center>
    
    
     <center style={{backgroundImage:`url(${NFL1})`, borderRadius:"0.5rem",backgroundPosition: 'center', padding:"10px",
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',  
         backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>50+ RECEIVING YARDS</center>
+        backgroundRepeat: 'no-repeat', }}>RECEIVING YARDS</center>
    
    
     <center style={{backgroundImage:`url(${NFL2})`,borderRadius:"0.5rem",backgroundPosition: 'center',padding:"10px",  
          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
        backgroundSize: 'cover', height:"210px", width:"210px",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontWeight:"bold",fontSize:"1.2rem",
-        backgroundRepeat: 'no-repeat', }}>50+ RUSHING YARDS</center>
+        backgroundRepeat: 'no-repeat', }}>RUSHING YARDS</center>
    
    
     <center style={{backgroundImage:`url(${NFL3})`,borderRadius:"0.5rem",backgroundPosition: 'center',padding:"10px",  
