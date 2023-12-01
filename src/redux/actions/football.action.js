@@ -15,6 +15,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
+import { fetchCandidateData } from './auth.action';
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
   var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -774,5 +775,39 @@ if(competitionIdArray && competitionIdArray.length === 4){
   notifyErrorFxn("Something Went wrong while submiting pick 4,please try again")
 }
 
+
+}
+
+
+export const joinCompetition = (compId, userId,accountBalance) => async (dispatch) => {
+
+  db.collection("competitions").doc(compId).get().then((doc)=>{
+
+    const data = doc.data();
+    console.log("account balance ---->",accountBalance)
+      
+    if (data.entryFee > accountBalance){
+     notifyErrorFxn("You do  not have enough balance to join,please top up.")
+     return
+    }else{
+
+      db.collection("users").doc(userId).update({
+        competitions:firebase.firestore.FieldValue.arrayUnion(compId)
+      })
+    
+      dispatch(fetchCandidateData(userId));
+      notifySuccessFxn("Competition Joined Successfully")  
+
+    }
+
+   
+
+
+  })
+.catch((error)=>{
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("Error submitting your assist pick, please try again. ")
+    
+  });
 
 }

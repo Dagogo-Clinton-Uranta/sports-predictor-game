@@ -21,15 +21,10 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition} from 'src/redux/actions/football.action';
 
 
-import BloodInvestigation from 'src/components/treatment/blood-investigation';
-import Prescription from 'src/components/treatment/prescription';
-import Radiology from 'src/components/treatment/radiology';
-import ECG from 'src/components/treatment/ecg';
-import Referrals from 'src/components/treatment/referrals';
-import Countdown from 'react-countdown';
+
 
 import FLOGO from '../assets/images/fLogo.png';
 import SALAH from '../assets/images/salah.jpeg';
@@ -71,6 +66,15 @@ const RespGrid = styled('div')(({ theme }) => ({
 
 
 
+const RespJoin = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    height:"25rem"
+  },
+
+  [theme.breakpoints.up('md')]: {
+    height:"81%"
+  },
+}));
 
 
 
@@ -115,6 +119,9 @@ const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({}) 
 const [chosenTeam,setChosenTeam] = useState('')
 
+ const [joined,setJoined] =  useState(false)
+
+
 useEffect(()=>{
 
   if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
@@ -140,6 +147,21 @@ useEffect(()=>{
 
 
 
+ useEffect(()=>{
+ 
+if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
+
+   setJoined(true)
+
+}
+ 
+ },[user])
+
+
+
+
+
+
  const getPremierLeagueTeamPlayersForGoalScorers = (teamId) =>{
   
   dispatch(getPremierLeagueTeamPlayers(teamId))
@@ -153,6 +175,12 @@ notifyErrorFxn("Please select a player before submitting!")
 }else{
  dispatch(submitAssistPrediction(prediction,compId,leagueId))
 }
+}
+
+const joinLeague = (compId,userId,accountBalance) => {
+
+  dispatch(joinCompetition(compId,userId,accountBalance))
+
 }
 
 
@@ -234,37 +262,42 @@ notifyErrorFxn("Please select a player before submitting!")
     </StyledContent>
   </Container>
 
-<Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
+  {/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  \/  =========================================================== */}
+
+<>
     
    
     
-    <div>
-      <h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>
+   
 
    
+      {joined  &&  
       
+      <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
+     
+      
+     <h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>
+     
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
           SELECT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/football-goalscorers-results')}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{ if(joined){ navigate('/dashboard/football-goalscorers-results')} } }>
           RESULTS
         </Typography>
     </div>
         <Divider/>
 
 
-
+ <div>
     <p>Teams</p>  
     <div style={{ display: 'flex',flexDirection:"column" ,justifyContent: 'space-between', height:"100%",marginBottom: '50px' }}>
   
     <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
          inputProps={{
-         /* classes: {
-              icon: classes.icon,
-          },*/
+        
       }}
         
           labelId="demo-simple-select-label"
@@ -305,10 +338,8 @@ notifyErrorFxn("Please select a player before submitting!")
     <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
          inputProps={{
-         /* classes: {
-              icon: classes.icon,
-          },*/
-      }}
+       
+           }}
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -347,7 +378,7 @@ notifyErrorFxn("Please select a player before submitting!")
 
      
    
-  <div style={{backgroundColor:/*"#f5f6ec"*/'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SELECTION</div>
+  <div style={{backgroundColor:'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SELECTION</div>
   
 
 
@@ -359,7 +390,7 @@ notifyErrorFxn("Please select a player before submitting!")
             multiline
             maxRows={2}
             value= {chosenPlayer && chosenPlayer.name}
-           //onChange = {(e)=>{setTitle(e.target.value)}}
+           
            
             
             />
@@ -369,8 +400,47 @@ notifyErrorFxn("Please select a player before submitting!")
               Submit
             </Button>
 
+     </Container>
+    }
+
+
+
+{/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  /\  =========================================================== */}
+
+
+{/*========================================================================== IF THEY ARE NOT PART OF THIS LEAGUE \/ =========================================================== */}
+
+
+
+
+{!joined  &&  
+      
+      <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
+
+   <h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>
+
+     <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+          SELECT
+        </Typography>
+
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{/*navigate('/dashboard/football-goalscorers-results')*/}}>
+          RESULTS
+        </Typography>
+    </div>
+        <Divider/>
+
+
+         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+            <Button onClick={()=>{joinLeague(goalScorerCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
+              JOIN
+            </Button>
+        </RespJoin>
+
+     </Container>
+    }
    
-  </Container>
+  </>
 
 
 </RespContent>

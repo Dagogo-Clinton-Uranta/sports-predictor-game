@@ -17,8 +17,8 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
        dispatch(getAllPatients());
       
        
-        dispatch(fetchAllTreatmentCategories());
-        dispatch(fetchAllTreatmentTests());
+       // dispatch(fetchAllTreatmentCategories());
+       // dispatch(fetchAllTreatmentTests());
         dispatch(fetchCandidateData(user.uid, "sigin", navigate, setLoading));
   })
   .catch((error) => {

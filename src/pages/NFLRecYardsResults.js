@@ -144,7 +144,7 @@ const premTeams = [
         gridColumnGap: "15px",
         gridRowGap: "15px"}}> 
   
-  <center  onClick={()=>{navigate('/dashboard/nfl-touchdowns')}}
+  <center  onClick={()=>{navigate('/dashboard/nfl-touchdown')}}
    style={{backgroundImage:`url(${NFL4})`,borderRadius:"0.5rem" , backgroundPosition: 'center', padding:"10px",
       backgroundSize: 'cover',fontWeight:"bold",fontSize:"1.2rem",
       boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',cursor:"pointer",

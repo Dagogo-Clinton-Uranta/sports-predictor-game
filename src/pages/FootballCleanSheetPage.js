@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition} from 'src/redux/actions/football.action';
 
 
 
@@ -68,7 +68,15 @@ const RespGrid = styled('div')(({ theme }) => ({
   },
 }));
 
+const RespJoin = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    height:"25rem"
+  },
 
+  [theme.breakpoints.up('md')]: {
+    height:"81%"
+  },
+}));
 
 
 export default function FootballCleanSheetPage() {
@@ -112,6 +120,8 @@ const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeag
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
 
+const [joined,setJoined] =  useState(false)
+
 
 useEffect(()=>{
 
@@ -134,6 +144,17 @@ useEffect(()=>{
  
   
   },[premierLeagueTeams,teamPlayersInFocus])
+
+
+ useEffect(()=>{
+ 
+  if(user && user.competitions && user.competitions.includes(cleanSheetCompId)){
+  
+     setJoined(true)
+  
+  }
+   
+   },[user])
  
  
  const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
@@ -151,6 +172,12 @@ useEffect(()=>{
   }
  }
 
+
+ const joinLeague = (compId,userId,accountBalance) => {
+
+  dispatch(joinCompetition(compId,userId,accountBalance))
+
+}
 
 
   return (
@@ -230,6 +257,10 @@ useEffect(()=>{
     </StyledContent>
   </Container>
 
+    {/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  \/  =========================================================== */}
+
+{joined  &&
+
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
@@ -242,7 +273,7 @@ useEffect(()=>{
           SELECT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/football-cleansheet-results')}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{if(joined){navigate('/dashboard/football-cleansheet-results')}}}>
           RESULTS
         </Typography>
     </div>
@@ -320,6 +351,41 @@ useEffect(()=>{
 
    
   </Container>
+}
+
+{/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  /\  =========================================================== */}
+
+
+{/*========================================================================== IF THEY ARE NOT PART OF THIS LEAGUE \/ =========================================================== */}
+
+
+
+{!joined  &&  
+      
+      <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
+
+   <h4>FOOTBALL &nbsp; - &nbsp; Clean Sheet</h4>
+
+     <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+          SELECT
+        </Typography>
+
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{/*navigate('/dashboard/football-goalscorers-results')*/}}>
+          RESULTS
+        </Typography>
+    </div>
+        <Divider/>
+
+
+         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+            <Button onClick={()=>{joinLeague(cleanSheetCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
+              JOIN
+            </Button>
+        </RespJoin>
+
+     </Container>
+    }
 
 
 </RespContent>
