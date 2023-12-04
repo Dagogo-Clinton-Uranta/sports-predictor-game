@@ -142,7 +142,7 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchTeamWinCompetitionInFocus(teamWinCompId))
+  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
  },[])
 
  

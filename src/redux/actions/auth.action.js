@@ -14,7 +14,7 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     console.log('Signed In user is: ', user.email);
     
     
-       dispatch(getAllPatients());
+      // dispatch(getAllPatients());
       
        
        // dispatch(fetchAllTreatmentCategories());

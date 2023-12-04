@@ -156,7 +156,7 @@ useEffect(()=>{
 
 
    useEffect(()=>{
-    dispatch(fetchAssistCompetitionInFocus(user.Leagues[0].leagueId))
+    dispatch(fetchAssistCompetitionInFocus(user.Leagues[0].leagueCode))
    })
   
 

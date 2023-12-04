@@ -136,8 +136,8 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchGoalScorerCompetitionInFocus(user.Leages[0].leagueCode))
- },[goalScorerCompId])
+  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
+ },[user])
 
  useEffect(()=>{
  
