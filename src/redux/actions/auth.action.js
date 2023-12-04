@@ -38,10 +38,13 @@ export const signup = (user, navigate, setLoading) => async (dispatch) => {
 var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 var today  = new Date();
 
-db.collection("leagues").doc(user.leagueCode).get().then((doc)=>{
+db.collection("leagues")
 
+.where('code', '==', user.leagueCode)
+.get().then((snapshot)=>{
+  const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
 
-if(!doc.exists){
+if(allGroups.length === 0){
 
  notifyErrorFxn("this league does not exist, please check league code")
 }
