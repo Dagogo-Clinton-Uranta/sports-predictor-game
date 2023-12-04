@@ -42,12 +42,12 @@ const navConfig = [
     icon: <FaFlag />,
    
   },
-  {
+ /* {
     title: 'ADMIN',
     path: '/dashboard/admin',
     icon:<MdOutlineManageAccounts />
    
-  },
+ },*/
 
   {
     title: 'SETTINGS',

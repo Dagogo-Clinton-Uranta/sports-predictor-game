@@ -20,7 +20,7 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -66,6 +66,15 @@ const RespGrid = styled('div')(({ theme }) => ({
 }));
 
 
+const RespJoin = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    height:"25rem"
+  },
+
+  [theme.breakpoints.up('md')]: {
+    height:"81%"
+  },
+}));
 
 
 export default function NFLTeamWinPage() {
@@ -103,12 +112,14 @@ const premTeams = [
 const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,competitionInFocus} = useSelector((state) => state.football);
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({}) 
 const [chosenTeam,setChosenTeam] = useState('')
+
+const [joined,setJoined] =  useState(false)
 
 useEffect(()=>{
 
@@ -132,6 +143,13 @@ useEffect(()=>{
 
  
  },[premierLeagueTeams,teamPlayersInFocus])
+
+
+
+ useEffect(()=>{
+  dispatch(fetchCompetitionInFocus(goalScorerCompId))
+ },[])
+
 
 
 
@@ -228,6 +246,11 @@ notifyErrorFxn("Please select a player before submitting!")
     </StyledContent>
   </Container>
 
+
+
+<>
+  {joined  &&  
+
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
@@ -317,6 +340,40 @@ notifyErrorFxn("Please select a player before submitting!")
 
    
   </Container>
+
+}
+
+
+{!joined  &&  
+      
+      <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
+
+   <h4>NFL &nbsp; - &nbsp; Team Win</h4>
+
+     <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+          SELECT
+        </Typography>
+
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{/*navigate('/dashboard/football-goalscorers-results')*/}}>
+          RESULTS
+        </Typography>
+    </div>
+        <Divider/>
+
+
+         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
+
+             {/*<div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>*/}
+            <Button onClick={()=>{/*joinLeague(goalScorerCompId,user.id,user.accountBalance)*/}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
+              JOIN
+            </Button>
+        </RespJoin>
+
+     </Container>
+    }
+
+</>
 
 
 </RespContent>

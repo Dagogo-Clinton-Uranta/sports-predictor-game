@@ -136,7 +136,7 @@ useEffect(()=>{
 
  useEffect(()=>{
   dispatch(fetchCompetitionInFocus(goalScorerCompId))
- })
+ },[])
 
  useEffect(()=>{
  
