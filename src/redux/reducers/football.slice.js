@@ -18,6 +18,7 @@ const initialState = {
        teamWinPickFour:{},
        assistPickFour:{},
        cleanSheetPickFour:{},
+       competitionInFocus:{},
       isLoading: false,
 };
 
@@ -31,6 +32,10 @@ const footballSlice = createSlice({
     saveGoalScorerPickFour: (state, action) => {
         state.goalScorerPickFour = action.payload;
     },
+
+    saveCompetitionInFocus: (state, action) => {
+      state.competitionInFocus = action.payload;
+  },
 
     saveAssistPickFour: (state, action) => {
       state.assistPickFour = action.payload;
@@ -102,6 +107,7 @@ export const {
  saveAssistPickFour,
  saveCleanSheetPickFour,
  saveGoalScorerPickFour,
+ saveCompetitionInFocus,
  savePublicGroup,
  savePrivateGroup,
  saveTeamPlayersInFocus,

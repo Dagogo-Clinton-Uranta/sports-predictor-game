@@ -12,3 +12,11 @@
   }
 
  
+  .adminBigPoints::placeholder {
+    font-weight: bold;
+    opacity: 1;
+    color: lightgrey;
+    padding: 1rem;
+
+
+  }

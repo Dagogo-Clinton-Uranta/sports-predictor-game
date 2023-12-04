@@ -38,6 +38,16 @@ export const signup = (user, navigate, setLoading) => async (dispatch) => {
 var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 var today  = new Date();
 
+db.collection("leagues").doc(user.leagueCode).get().then((doc)=>{
+
+
+if(!doc.exists){
+
+ notifyErrorFxn("this league does not exist, please check league code")
+}
+
+else{
+
   fb.auth().createUserWithEmailAndPassword(
     user.fname,
     user.password
@@ -61,6 +71,11 @@ var today  = new Date();
   dispatch(signupFailed({ errorMessage }));
   setLoading(false);
 })
+
+}
+
+})
+
 }
 
 

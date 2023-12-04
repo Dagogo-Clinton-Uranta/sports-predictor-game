@@ -199,7 +199,7 @@ const premTeams = [
       <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
             fullWidth
-            placholder= "select a team or player"
+            placeholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}

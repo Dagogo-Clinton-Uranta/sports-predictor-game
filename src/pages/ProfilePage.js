@@ -86,7 +86,7 @@ const RespVar = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    width:"35rem",
+    width:"42rem",
     fontSize:"2.5rem ",
   
  },
@@ -101,7 +101,7 @@ const RespInp = styled('input')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    width:"35rem",
+    width:"38rem",
     fontSize:"2.5rem ",
   
  },
@@ -224,7 +224,7 @@ const standingsList = [
       <RespInp className="bigPoints"
             style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
             
-            placholder= "input a value"
+           
             value= {title}
            onChange = {(e)=>{setTitle(e.target.value)}}
            
@@ -324,6 +324,75 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
     </StyledContent>
   </Container>
 
+
+
+
+  <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center", border: '1px solid #0000001A', borderRadius: '15px',backgroundColor:"#FAFAFA"}}>
+    <StyledContent>
+
+
+     <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+          JOIN LEAGUE
+        </Typography>
+
+       {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
+          NFL
+        </Typography>*/}
+    </div>
+        <Divider/>
+        
+        <RespGrid style={{display: "grid",
+     
+       marginTop:"1.3rem",
+       // gridTemplateColumns: "repeat(1, 1fr)",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridColumnGap: "15px",
+        gridRowGap: "15px"}}> 
+  
+ 
+  <RespVar
+  style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
+      
+     backgroundSize: 'cover', height:"90px",display:"flex",justifyContent:"center",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
+      backgroundRepeat: 'no-repeat', }}>
+        
+      
+
+     {/* <div >
+      10,000
+      </div>*/}
+
+      <RespInp className="bigPoints"
+            style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
+            
+            
+            value= {title}
+           onChange = {(e)=>{setTitle(e.target.value)}}
+           
+            
+            />
+        
+        
+      <div style={{fontSize:"1rem",marginBottom:"20px"}}>
+      CODE
+      </div>
+        </RespVar>
+ 
+    
+       
+ 
+
+       </RespGrid>
+
+       <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
+              JOIN
+            </Button>
+    
+
+   </StyledContent>
+  </Container>
+
 </Container> 
 
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
@@ -385,6 +454,10 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
        </TableContainer>
    
   </Container>
+
+
+
+  
 
 
 </RespContent>

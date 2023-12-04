@@ -12,6 +12,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveAssistPickFour,
     saveGoalScorerPickFour,
     saveCleanSheetPickFour,
+    saveCompetitionInFocus,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -816,5 +817,30 @@ export const joinCompetition = (compId, userId,accountBalance) => async (dispatc
     notifyErrorFxn("Error submitting your assist pick, please try again. ")
     
   });
+
+}
+
+
+
+export const fetchCompetitionInFocus = (compId) => async (dispatch) => {
+
+
+  db.collection("competitions").doc(compId).get().then((doc)=>{
+
+    const data = doc.data();
+   
+   dispatch(saveCompetitionInFocus(data))
+
+   
+
+
+  })
+.catch((error)=>{
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("This competition does not exist. ")
+    
+  });
+
+
 
 }

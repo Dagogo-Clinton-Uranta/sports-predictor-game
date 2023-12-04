@@ -34,6 +34,7 @@ import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
 import './points.css'
+import { Input, InputLabel } from '@material-ui/core';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -91,7 +92,7 @@ const RespVar = styled('div')(({ theme }) => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    width:"35rem",
+    width:"42rem",
     fontSize:"2.5rem ",
   
  },
@@ -134,17 +135,18 @@ const RespInp = styled('input')(({ theme }) => ({
 }));
 
 
-const RespInp2 = styled('input')(({ theme }) => ({
+const RespInp2 = styled('Input')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
      fontSize:"1.2rem ",
-    flexDirection:"column"
+   
   },
 
 
   [theme.breakpoints.up('md')]: {
     width:"46%",
     fontSize:"1.5rem ",
+   
  }
 
   
@@ -252,16 +254,28 @@ const standingsList = [
       
       </div>
         
-
-      <RespInp className= "bigPoints"
-            style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
-            
-            placholder= "input a value"
-            value= { title}
-           onChange = {(e)=>{setTitle(e.target.value)}}
-           
-            
-            />
+       
+          
+      <Select
+          style={{backgroundColor:"#FFFFFF",'.MuiOutlinedInput-notchedOutline': { border: 0 },  boxShadow: 'none',borderRadius:"0.1rem",width:"100%",height:"100%"}}
+         inputProps={{
+         /* classes: {
+              icon: classes.icon,
+          },*/
+      }}
+        
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={"Select a Team"}
+          label="icon"
+          onChange={(event) => {
+          
+          }}
+        >   
+  <MenuItem style={{color:"black"}} value={1}>{1}</MenuItem>
+  <MenuItem style={{color:"black"}}  value={2}>{2}</MenuItem>
+     
+        </Select>
         
      { /*  
       <div style={{fontSize:"1rem",marginBottom:"20px"}}>
@@ -279,11 +293,10 @@ const standingsList = [
         
         
         
-
       <RespInp2 className= "adminBigPoints"
             style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
             
-            placholder= "ENTRY FEE"
+            placeholder= {"ENTRY FEE"}
            // value= { title}
            // onChange = {(e)=>{setTitle(e.target.value)}}
            
@@ -291,10 +304,10 @@ const standingsList = [
             />
 
 
-<RespInp2 className= "adminbigPoints"
+<RespInp2 className= "adminBigPoints"
             style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
             
-            placholder= "DEADLINE"
+            placeholder= {"DEADLINE"}
             //value= { title}
             //onChange = {(e)=>{setTitle(e.target.value)}}
            
@@ -406,6 +419,73 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
         </Typography>
       </Divider> */}
     </StyledContent>
+  </Container>
+
+
+  <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center", border: '1px solid #0000001A', borderRadius: '15px',backgroundColor:"#FAFAFA"}}>
+    <StyledContent>
+
+
+     <div style={{display:"flex", justifyContent:"space-between"}}>
+      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
+          DEPOSIT
+        </Typography>
+
+       {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
+          NFL
+        </Typography>*/}
+    </div>
+        <Divider/>
+        
+        <RespGrid style={{display: "grid",
+     
+       marginTop:"1.3rem",
+       // gridTemplateColumns: "repeat(1, 1fr)",
+        gridTemplateRows: "repeat(2, 1fr)",
+        gridColumnGap: "15px",
+        gridRowGap: "15px"}}> 
+  
+ 
+  <RespVar
+  style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
+      
+     backgroundSize: 'cover', height:"90px",display:"flex",justifyContent:"center",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
+      backgroundRepeat: 'no-repeat', }}>
+        
+      
+
+     {/* <div >
+      10,000
+      </div>*/}
+
+      <RespInp className="bigPoints"
+            style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
+            
+            
+            value= {title}
+           onChange = {(e)=>{setTitle(e.target.value)}}
+           
+            
+            />
+        
+        
+      <div style={{fontSize:"1rem",marginBottom:"20px"}}>
+      POINTS
+      </div>
+        </RespVar>
+ 
+    
+       
+ 
+
+       </RespGrid>
+
+       <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
+              DEPOSIT
+            </Button>
+    
+
+   </StyledContent>
   </Container>
 
 </Container> 

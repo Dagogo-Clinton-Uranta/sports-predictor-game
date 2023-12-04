@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton, Typography, Grid, Button } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton, Typography, Grid, Button, Select, MenuItem } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -82,6 +82,7 @@ Header.propTypes = {
 export default function Header({ onOpenNav }) {
   const { user } = useSelector((state) => state.auth);
   return (
+    <>
     <StyledRoot>
       <StyledToolbar>
         <IconButton
@@ -96,28 +97,55 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       
       <RespDisplay>
+      <div style={{display:"flex",flexDirection:"row",gap:"1rem", alignItems:"center",justifyContent:"center"}}>
+      <img src={nigeria} alt="nigeria flag"/> 
+
             <Typography variant="h4" sx={{color: '#392751', fontSize: '36px' }}>
-           <RespHidden> Dashboard</RespHidden>
-             {/* Welcome {user?.firstName + " " + user?.lastName}🖐🏽 */}
-            </Typography>
-    
+        
+ 
+           <RespHidden>  
+              
+           <Select
+          style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"8rem"}}
+         inputProps={{
+         /* classes: {
+              icon: classes.icon,
+          },*/
+      }}
+        
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={"Select a Team"}
+          label="icon"
+          onChange={(event) => {
+          
+          }}
+        >   
+  <MenuItem style={{color:"black"}} value={1}>{1}</MenuItem>
+  <MenuItem style={{color:"black"}}  value={2}>{2}</MenuItem>
+     
+        </Select>
+        
+           
+           </RespHidden>
+        
+     </Typography>
+     </div>
             <Box sx={{ flexGrow: 1 }} />
            
-            <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-            WELCOME TO {user && user.leagues && user.leagues.length >0  ?user.leagues[0].leagueName :"919 DEFENDERS"},&nbsp; {user && user.firstName ?user.firstName :"JOE"}<RespHidden>&nbsp;&nbsp; - 10,000 Points</RespHidden>
-            </Typography>
-           </Grid>
-       </RespDisplay>
+          
+      </RespDisplay>
 
-        {/* <Searchbar /> */}
-        {/* <Searchbar2 /> */}
         <Box sx={{ flexGrow: 1 }} />
         
-        <Typography variant="h4" sx={{color: '#392751', fontSize: '32px',marginRight:"1rem",marginTop:"0rem" }}>
+        <Typography variant="h4" sx={{color: '#392751', fontSize: '20px',marginRight:"1rem",marginTop:"0rem" }}>
+       
+       {user.accountBalance && 
         <RespHidden>
-        <img src={nigeria} alt="nigeria flag"/>
+       
+        {(user.accountBalance).toLocaleString()} &nbsp; PTS
         </RespHidden>
+       }
         </Typography>
         <Stack
           direction="row"
@@ -133,6 +161,19 @@ export default function Header({ onOpenNav }) {
         
          
       </StyledToolbar>
+      
+      <RespHidden>
+      <center>
+         <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
+            WELCOME TO {user && user.leagues && user.leagues.length >0  ?user.leagues[0].leagueName :"919 DEFENDERS"}&nbsp; 
+            </Typography>
+    </center>
+    </RespHidden>
+
     </StyledRoot>
+
+  
+
+    </>
   );
 }

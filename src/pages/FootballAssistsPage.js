@@ -18,7 +18,7 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
 
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
@@ -112,7 +112,7 @@ const userPrediction = {
 
 const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,competitionInFocus} = useSelector((state) => state.football);
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
@@ -153,6 +153,11 @@ useEffect(()=>{
   }
    
    },[user])
+
+
+   useEffect(()=>{
+    dispatch(fetchCompetitionInFocus(assistCompId))
+   })
   
 
 
@@ -381,7 +386,7 @@ const joinLeague = (compId,userId,accountBalance) => {
       <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
             fullWidth
-            placholder= "select a team or player"
+            placeholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}
@@ -424,8 +429,9 @@ const joinLeague = (compId,userId,accountBalance) => {
     </div>
         <Divider/>
 
-
-         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+        
+         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
+         <div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
             <Button onClick={()=>{joinLeague(assistCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>
