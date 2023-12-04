@@ -538,8 +538,22 @@ export const getPremierLeagueTeamPlayers = (teamId)  => async (dispatch) => {
 
 
 
-export const submitAssistPrediction = (assistPick,compId,leagueId) => async (dispatch) => {
+export const submitAssistPrediction = (assistPick,compName,leagueId) => async (dispatch) => {
+  let compId;
 
+  db.collection("competitions")
+  .where("compName", "==", compName)
+  .where("leagueId", "==", leagueId)
+  .get()
+  .then((snapshot) => {
+    const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
+      
+  if (goalScorers && goalScorers[0]) {
+    compId = goalScorers[0].id
+  }
+})
+
+ 
 
 
   db.collection("competitions").doc(compId.trim()).update({
@@ -558,20 +572,20 @@ export const submitAssistPrediction = (assistPick,compId,leagueId) => async (dis
       const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
       const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
-    if(compId === goalScorerCompId){
+    if(compName === "Goal Scorer"){
      dispatch(fetchGoalScorerResultsPerLeague(leagueId))
     }
 
-    if(compId === assistCompId){
+    if(compName === "Assist"){
      dispatch(fetchAssistResultsPerLeague(leagueId))
     }
 
-    if(compId === cleanSheetCompId){
+    if(compName === "Clean Sheet"){
      dispatch(fetchCleanSheetResultsPerLeague(leagueId))
      }
 
 
-     if(compId === teamWinCompId){
+     if(compName === "Team Win"){
      dispatch(fetchTeamWinResultsPerLeague(leagueId))
      }
      
