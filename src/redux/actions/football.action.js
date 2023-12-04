@@ -786,17 +786,24 @@ export const joinCompetition = (compId, userId,accountBalance) => async (dispatc
     const data = doc.data();
     console.log("account balance ---->",accountBalance)
       
-    if (data.entryFee > accountBalance){
-     notifyErrorFxn("You do  not have enough balance to join,please top up.")
+    if (data.entryFee && data.entryFee > accountBalance){
+     notifyErrorFxn("Account Balance too low for this transaction, please fund your account.")
      return
     }else{
 
+      if(data.entryFee ){
       db.collection("users").doc(userId).update({
-        competitions:firebase.firestore.FieldValue.arrayUnion(compId)
+        competitions:firebase.firestore.FieldValue.arrayUnion(compId),
+        accountBalance:Number(accountBalance) - Number(data.entryFee)
       })
+
     
       dispatch(fetchCandidateData(userId));
       notifySuccessFxn("Competition Joined Successfully")  
+      }
+      else{
+        notifySuccessFxn("Issue with competition entry fee")  
+      }
 
     }
 

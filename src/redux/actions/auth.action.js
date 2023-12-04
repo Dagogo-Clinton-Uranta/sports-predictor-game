@@ -48,6 +48,7 @@ var today  = new Date();
     leagueCode:user.leagueCode,
     teamName:user.teamName,
     password: user.password,
+    accountBalance:0,
     accountCreated: today.toLocaleDateString("en-US", options),
   })
 }).then(() => {
