@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCleanSheetCompetitionInFocus} from 'src/redux/actions/football.action';
 
 
 
@@ -113,7 +113,7 @@ const premTeams = [
   const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
 
   
-  const { premierLeagueTeams,teamPlayersInFocus,isLoading,competitionInFocus} = useSelector((state) => state.football);
+  const { premierLeagueTeams,teamPlayersInFocus,isLoading,cleanSheetCompetitionInFocus} = useSelector((state) => state.football);
 
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
@@ -137,7 +137,7 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchCompetitionInFocus(cleanSheetCompId))
+  dispatch(fetchCleanSheetCompetitionInFocus(user.Leagues[0].leagueId))
  })
 
 
@@ -388,7 +388,7 @@ useEffect(()=>{
 
         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
-<div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+<div>ENTRY FEE - {cleanSheetCompetitionInFocus && (cleanSheetCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
 <Button onClick={()=>{joinLeague(cleanSheetCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
  JOIN
 </Button>

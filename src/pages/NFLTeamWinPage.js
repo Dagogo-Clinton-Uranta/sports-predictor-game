@@ -20,7 +20,7 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition} from 'src/redux/actions/football.action';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -147,7 +147,7 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchCompetitionInFocus(goalScorerCompId))
+ // dispatch(fetchCompetitionInFocus(goalScorerCompId))
  },[])
 
 

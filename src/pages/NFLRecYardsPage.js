@@ -20,7 +20,7 @@ import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPa
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition} from 'src/redux/actions/football.action';
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
 import Prescription from 'src/components/treatment/prescription';
@@ -115,7 +115,7 @@ const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
 
 
 useEffect(()=>{
-  dispatch(fetchCompetitionInFocus(goalScorerCompId))
+  //dispatch(fetchCompetitionInFocus(goalScorerCompId))
  },[])
 
 

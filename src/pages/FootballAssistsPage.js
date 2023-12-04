@@ -18,7 +18,7 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchAssistCompetitionInFocus} from 'src/redux/actions/football.action';
 
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
@@ -112,7 +112,7 @@ const userPrediction = {
 
 const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,competitionInFocus} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,assistCompetitionInFocus} = useSelector((state) => state.football);
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
@@ -156,7 +156,7 @@ useEffect(()=>{
 
 
    useEffect(()=>{
-    dispatch(fetchCompetitionInFocus(assistCompId))
+    dispatch(fetchAssistCompetitionInFocus(user.Leagues[0].leagueId))
    })
   
 
@@ -431,7 +431,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
         
          <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
-         <div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+         <div>ENTRY FEE - {assistCompetitionInFocus && (assistCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
             <Button onClick={()=>{joinLeague(assistCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>

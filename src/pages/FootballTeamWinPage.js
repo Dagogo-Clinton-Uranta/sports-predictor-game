@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchTeamWinCompetitionInFocus} from 'src/redux/actions/football.action';
 
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -120,7 +120,7 @@ const premTeams = [
 const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,competitionInFocus} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,teamWinCompetitionInFocus} = useSelector((state) => state.football);
 
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
@@ -131,7 +131,7 @@ const [joined,setJoined] =  useState(false)
 
 useEffect(()=>{
 
-  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
+  if(!leagueTeams.length){dispatch(getPremierLeagueTeams(user.Leagues[0].leagueId))}
  
  
   if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
@@ -142,7 +142,7 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchCompetitionInFocus(teamWinCompId))
+  dispatch(fetchTeamWinCompetitionInFocus(teamWinCompId))
  },[])
 
  
@@ -388,7 +388,7 @@ useEffect(()=>{
 
         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
-<div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+<div>ENTRY FEE - {teamWinCompetitionInFocus && (teamWinCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
 <Button onClick={()=>{joinLeague(teamWinCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
  JOIN
 </Button>

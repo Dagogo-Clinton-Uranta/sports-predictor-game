@@ -12,7 +12,10 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveAssistPickFour,
     saveGoalScorerPickFour,
     saveCleanSheetPickFour,
-    saveCompetitionInFocus,
+    saveTeamWinCompetitionInFocus,
+    saveCleanSheetCompetitionInFocus,
+    saveGoalScorerCompetitionInFocus,
+    saveAssistCompetitionInFocus,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -822,16 +825,142 @@ export const joinCompetition = (compId, userId,accountBalance) => async (dispatc
 
 
 
-export const fetchCompetitionInFocus = (compId) => async (dispatch) => {
+export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
 
 
-  db.collection("competitions").doc(compId).get().then((doc)=>{
+  
+  db.collection("competitions")
+  .where("compName",  "==", "Team Win")
+  .where("leagueId",  "==", compId)
+  .get().then((snapshot)=>{
 
-    const data = doc.data();
+      const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    
+    if(allGroups.length > 0){
+    
+      const data = allGroups[0];
    
-   dispatch(saveCompetitionInFocus(data))
+   dispatch(saveTeamWinCompetitionInFocus(data))
+    }
+    else{
+      notifyErrorFxn("Error fetching this leagues team win comp")
+    }
 
+
+  })
+.catch((error)=>{
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("This competition does not exist. ")
+    
+  });
+
+
+
+}
+
+
+export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) => {
+
+
+  db.collection("competitions")
+  .where("compName",  "==", "Goal Scorer")
+  .where("leagueId",  "==", compId)
+  .get().then((snapshot)=>{
+
+      const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    
+    if(allGroups.length > 0){
+    
+      const data = allGroups[0];
    
+   dispatch(saveGoalScorerCompetitionInFocus(data))
+    }
+    else{
+      notifyErrorFxn("Error fetching this leagues goal scorer comp")
+    }
+
+
+  
+   
+ 
+   
+
+
+
+  })
+.catch((error)=>{
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("This competition does not exist. ")
+    
+  });
+
+
+
+}
+
+
+export const fetchAssistCompetitionInFocus = (compId) => async (dispatch) => {
+
+
+  db.collection("competitions")
+  .where("compName",  "==", "Assist")
+  .where("leagueId",  "==", compId)
+  .get().then((snapshot)=>{
+
+      const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    
+    if(allGroups.length > 0){
+    
+      const data = allGroups[0];
+   
+   dispatch(saveAssistCompetitionInFocus(data))
+    }
+    else{
+      notifyErrorFxn("Error fetching this leagues assist comp")
+    }
+
+
+  
+   
+ 
+   
+
+
+
+  })
+.catch((error)=>{
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("This competition does not exist. ")
+    
+  });
+
+
+
+}
+
+
+
+export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) => {
+
+
+ 
+  db.collection("competitions")
+  .where("compName",  "==", "Clean Sheet")
+  .where("leagueId",  "==", compId)
+  .get().then((snapshot)=>{
+
+      const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    
+    if(allGroups.length > 0){
+    
+      const data = allGroups[0];
+   
+   dispatch(saveCleanSheetCompetitionInFocus(data))
+    }
+    else{
+      notifyErrorFxn("Error fetching this leagues clean sheet comp")
+    }
+
 
 
   })

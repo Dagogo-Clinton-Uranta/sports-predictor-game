@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus} from 'src/redux/actions/football.action';
 
 
 
@@ -109,10 +109,10 @@ const premTeams = [
 "Wolverhampton Wanderers",
 ]
 
-const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
+//const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,competitionInFocus} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus} = useSelector((state) => state.football);
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
@@ -120,6 +120,7 @@ const [chosenPlayer,setChosenPlayer] = useState({})
 const [chosenTeam,setChosenTeam] = useState('')
 
  const [joined,setJoined] =  useState(false)
+ const [goalScorerCompId,setGoalScorerCompId] = useState("umhhXlB1kcrXLcu6hYIQ")
 
 
 useEffect(()=>{
@@ -135,8 +136,8 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchCompetitionInFocus(goalScorerCompId))
- },[])
+  dispatch(fetchGoalScorerCompetitionInFocus(user.Leages[0].leagueCode))
+ },[goalScorerCompId])
 
  useEffect(()=>{
  
@@ -437,7 +438,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
          <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
-             <div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+             <div>ENTRY FEE - {goalScorerCompetitionInFocus && (goalScorerCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
             <Button onClick={()=>{joinLeague(goalScorerCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>
