@@ -401,7 +401,7 @@ const joinLeague = (compId,userId,accountBalance) => {
             />
 
 
-            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,goalScorerCompId,user.Leagues[0].leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Goal Scorer",user.Leagues[0].leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

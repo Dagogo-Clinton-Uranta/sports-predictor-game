@@ -354,7 +354,7 @@ useEffect(()=>{
             />
 
 
-            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,teamWinCompId,user.Leagues[0].leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Team Win",user.Leagues[0].leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 
