@@ -51,7 +51,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 const RespContent = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     flexDirection: 'column',
   },
 }));
@@ -85,11 +85,45 @@ const RespHidden = styled('div')(({ theme }) => ({
 }));
 
 
+
+const RespVisible = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    
+     display:"inline",
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    display:"none",
+  
+ },
+
+}));
+
+
+
 const RespVar = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
     fontSize:"1.5rem ",
     flexDirection:"column",
+    gap:"0.5rem",
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width:"42rem",
+    fontSize:"2.5rem ",
+  
+ },
+
+}));
+
+
+const RespVar2 = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+    fontSize:"1.5rem ",
+    flexDirection:"row",
     gap:"0.5rem",
   },
 
@@ -108,6 +142,7 @@ const RespSelect = styled('select')(({ theme }) => ({
     fontSize:"1rem ",
     flexDirection:"column",
     gap:"0.5rem",
+    height:"2rem",
   },
 
   [theme.breakpoints.up('md')]: {
@@ -124,7 +159,7 @@ const RespSelect = styled('select')(({ theme }) => ({
 
 const RespButton = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
-     width:"55%",
+     width:"100%",
    
   },
 
@@ -159,6 +194,7 @@ const RespInp2 = styled('Input')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
      fontSize:"1.2rem ",
+     height:"10rem",
    
   },
 
@@ -176,6 +212,7 @@ const RespSelect2 = styled('select')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      width:"100%",
      fontSize:"1.2rem ",
+     height:"10rem",
    
   },
 
@@ -188,6 +225,26 @@ const RespSelect2 = styled('select')(({ theme }) => ({
 
   
 }));
+
+
+const RespDeposit = styled('button')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+     borderRadius:"0.5rem"
+     
+  },
+
+
+  [theme.breakpoints.up('md')]: {
+    width:"30%",
+    borderRadius:"0.5rem"
+   
+   
+ }
+
+  
+}));
+
 
 
 
@@ -346,7 +403,7 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
         
        
       <RespSelect
-          style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem",width:"100%",height:"100%"}}
+          style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem",width:"100%"}}
        
         
           labelId="demo-simple-select-label"
@@ -375,7 +432,7 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
         
         
       <RespInp2 className= "adminBigPoints"
-            style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
+            style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',fontWeight:"bold"}}
             
             placeholder= {"ENTRY FEE"}
             value= { entryFee}
@@ -386,7 +443,7 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
 
 
 <RespSelect2 className= "adminBigPoints"
-            style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
+            style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',fontWeight:"bold"}}
             
             placeholder= {"DEADLINE"}
             value= { deadline}
@@ -522,7 +579,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          DEPOSIT &nbsp; {userInFocus && '-'} {userInFocus &&  userInFocus.teamName} 
+          DEPOSIT &nbsp; {userInFocus && '-'} {userInFocus &&  userInFocus.teamName}{userInFocus && '-'}  {userInFocus && <RespVisible>(PTS)</RespVisible>}
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -540,10 +597,10 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
         gridRowGap: "15px"}}> 
   
  
-  <RespVar
+  <RespVar2
   style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
       
-     backgroundSize: 'cover', height:"90px",display:"flex",justifyContent:"center",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
+     backgroundSize: 'cover', height:"90px",display:"flex",justifyContent:"center",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"1rem",paddingLeft:"1rem",
       backgroundRepeat: 'no-repeat', }}>
         
       
@@ -557,11 +614,9 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
             
             
             value= {userInFocus && (userInFocus.accountBalance)}
-           onChange = {(e)=>{setUserInFocus({...userInFocus,accountBalance:Number(e.target.value)})
+           onChange = {(e)=>{setUserInFocus({...userInFocus,accountBalance:e.target.value})}}
           
-            console.log("USER IN FOCUS IS NOW---->",userInFocus)
-          }}
-           
+            
             
             />
         
@@ -569,7 +624,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
       <div style={{fontSize:"1rem",marginBottom:"20px"}}>
       POINTS
       </div>
-        </RespVar>
+        </RespVar2>
  
     
        
@@ -577,9 +632,9 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
        </RespGrid>
 
-       <Button onClick={()=>{updateThisUserBalance(userInFocus,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
+          <RespDeposit onClick={()=>{updateThisUserBalance(userInFocus,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
               DEPOSIT 
-            </Button>
+            </RespDeposit>
     
 
    </StyledContent>

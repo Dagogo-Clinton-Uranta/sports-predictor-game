@@ -48,7 +48,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 const RespContent = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     flexDirection: 'column',
   },
 }));
@@ -64,6 +64,7 @@ const RespGrid = styled('div')(({ theme }) => ({
     gridTemplateColumns: "repeat(2, 1fr)",
   },
 }));
+
 
 const RespHidden = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -107,6 +108,25 @@ const RespInp = styled('input')(({ theme }) => ({
  },
 
 }));
+
+
+const RespButton = styled('button')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+     borderRadius:"0.5rem"
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width:"30%",
+    marginTop:"1.5rem",
+    borderRadius:"0.5rem"
+   
+  
+ },
+
+}));
+
 
 
 
@@ -243,9 +263,9 @@ const standingsList = [
 
        </RespGrid>
 
-       <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
+       <RespButton onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
               DEPOSIT
-            </Button>
+            </RespButton>
     
 
    </StyledContent>
@@ -385,9 +405,9 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
        </RespGrid>
 
-       <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
+       <RespButton onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
               JOIN
-            </Button>
+            </RespButton>
     
 
    </StyledContent>
