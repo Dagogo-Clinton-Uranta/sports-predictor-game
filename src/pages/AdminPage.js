@@ -17,6 +17,7 @@ import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
+import {fetchAllCompetitionsInOneLeague, fetchAllUsersInOneLeague, startCompetition,updateUserBalance } from 'src/redux/actions/football.action';
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -35,6 +36,7 @@ import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
 import './points.css'
 import { Input, InputLabel } from '@material-ui/core';
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -100,6 +102,24 @@ const RespVar = styled('div')(({ theme }) => ({
 }));
 
 
+const RespSelect = styled('select')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+    fontSize:"1rem ",
+    flexDirection:"column",
+    gap:"0.5rem",
+  },
+
+  [theme.breakpoints.up('md')]: {
+    width:"42rem",
+    fontSize:"1.5rem ",
+  
+ },
+
+}));
+
+
+
 
 
 const RespButton = styled('div')(({ theme }) => ({
@@ -152,6 +172,24 @@ const RespInp2 = styled('Input')(({ theme }) => ({
   
 }));
 
+const RespSelect2 = styled('select')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+     width:"100%",
+     fontSize:"1.2rem ",
+   
+  },
+
+
+  [theme.breakpoints.up('md')]: {
+    width:"46%",
+    fontSize:"1.5rem ",
+   
+ }
+
+  
+}));
+
+
 
 
 export default function ProfilePage() {
@@ -161,7 +199,39 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.auth);
+  const { allCompetitionsInOneLeague,allUsersInOneLeague } = useSelector((state) => state.football);
+
   const [title,setTitle] = useState( "")
+
+  const [loading,setLoading] = useState(false)
+
+  const [sportName,setSportName] = useState('Football')
+  const [deadline,setDeadline] = useState('')
+  const [entryFee, setEntryFee] = useState('')
+  const [leagueId,setLeagueId] = useState(user && user.Leagues[0].leagueCode)
+  const [compName, setCompName] = useState('')
+  const  [userInFocus,setUserInFocus] = useState({accountBalance:0,id:"random",teamName:""})
+
+  const addObject = {
+    sportName,
+    deadline,
+    entryFee,
+    leagueId,
+    compName
+ 
+   }
+
+
+
+   
+useEffect(()=>{
+
+    dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues[0].leagueCode))
+    dispatch(fetchAllUsersInOneLeague(user && user.Leagues[0].leagueCode,user && user.Leagues[0].leagueName))
+
+
+},[])
 
 
 const premTeams = [
@@ -199,6 +269,32 @@ const standingsList = [
  
 ]
 
+
+const startThisCompetition = async(addObject,navigate) => {
+   
+  if(!sportName || !deadline ||!entryFee ||!leagueId||!compName){
+    notifyErrorFxn("Please make sure to fill in all fields.")
+  }
+  else{
+ 
+  setLoading(true)
+  dispatch(startCompetition(addObject,navigate))
+ 
+  // console.log("identity is",identity)
+  // console.log("update this subject is updating.........")
+  setTimeout(()=>{setLoading(false)},1800)
+  }
+}
+
+const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
+
+ if (window.confirm(`are you sure you want to update the balance for team "${userInFocus && userInFocus.teamName}" ?`)){
+
+    dispatch(updateUserBalance(userInFocus.id,userInFocus.accountBalance,leagueCode,leagueName )) 
+
+ }
+
+}
   
 
   return (
@@ -244,45 +340,30 @@ const standingsList = [
         gridRowGap: "15px"}}> 
   
  
-  <RespVar
-  style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',   border: '1px solid #0000001A',
-      
-     backgroundSize: 'cover', height:"70px",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",paddingRight:"2rem",paddingLeft:"2rem",
-      backgroundRepeat: 'no-repeat', }}>
+  
         
-        <div >
       
-      </div>
         
        
-          
-      <Select
-          style={{backgroundColor:"#FFFFFF",'.MuiOutlinedInput-notchedOutline': { border: 0 },  boxShadow: 'none',borderRadius:"0.1rem",width:"100%",height:"100%"}}
-         inputProps={{
-         /* classes: {
-              icon: classes.icon,
-          },*/
-      }}
+      <RespSelect
+          style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem",width:"100%",height:"100%"}}
+       
         
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={"Select a Team"}
+          value={compName}
           label="icon"
           onChange={(event) => {
-          
+           setCompName(event.target.value)
           }}
         >   
-  <MenuItem style={{color:"black"}} value={1}>{1}</MenuItem>
-  <MenuItem style={{color:"black"}}  value={2}>{2}</MenuItem>
+  <option style={{color:"black"}} value={"Goal Scorer"}>{"Goal Scorer"}</option>
+  <option style={{color:"black"}}  value={"Assist"}>{"Assist"}</option>
+  <option style={{color:"black"}}  value={"Clean Sheet"}>{"Clean Sheet"}</option>
+  <option style={{color:"black"}}  value={"Team Win"}>{"Team Win"}</option>
      
-        </Select>
-        
-     { /*  
-      <div style={{fontSize:"1rem",marginBottom:"20px"}}>
-      POINTS
-      </div>
-      */}
-        </RespVar>
+        </RespSelect>
+     
 
 
         <RespVar
@@ -297,22 +378,29 @@ const standingsList = [
             style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
             
             placeholder= {"ENTRY FEE"}
-           // value= { title}
-           // onChange = {(e)=>{setTitle(e.target.value)}}
+            value= { entryFee}
+            onChange = {(e)=>{setEntryFee(e.target.value)}}
            
             
             />
 
 
-<RespInp2 className= "adminBigPoints"
+<RespSelect2 className= "adminBigPoints"
             style={{backgroundColor:"#FFFFFF",border: '1px solid #0000001A',height:"100%",fontWeight:"bold"}}
             
             placeholder= {"DEADLINE"}
-            //value= { title}
-            //onChange = {(e)=>{setTitle(e.target.value)}}
+            value= { deadline}
+            onChange = {(e)=>{setDeadline(e.target.value)}}
            
             
-            />
+            >
+
+  <option style={{color:"black"}} value={"Gameweek 17"}>{"Gameweek 17"}</option>
+  <option style={{color:"black"}}  value={"Gameweek 18"}>{"Gameweek 18"}</option>
+  <option style={{color:"black"}}  value={"Gameweek 19"}>{"Gameweek 19"}</option>
+  <option style={{color:"black"}}  value={"Gameweek 20"}>{"Gameweek 20"}</option>
+</RespSelect2>
+
           
         </RespVar>
 
@@ -326,7 +414,7 @@ const standingsList = [
        <div style={{display:"flex",justifyContent:"center",alignItems:"center",gap:"2rem"}}>
         
        <RespButton>
-        <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',width:"100%" }}>
+        <Button onClick={()=>{startThisCompetition(addObject)}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',width:"100%" }}>
               Submit
          </Button>
       </RespButton>
@@ -364,7 +452,11 @@ const standingsList = [
       gridRowGap: "15px"}}> 
 
 
-<div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
+{allCompetitionsInOneLeague && allCompetitionsInOneLeague.map((item)=>(
+
+
+
+<div 
 style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', marginLeft:"-1rem",
     
    backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
@@ -377,18 +469,20 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
 
       <div>
-      KANU WARRIORS
+      {item.compName}
       </div>
 
 
       <div>
-      +10,000 PTS
+      {/*+10,000 PTS*/}
       </div>
     
-    </div>
+  </div>
+    )
 
+      )}   
 
-<div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
+{/*<div 
 style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A',  marginLeft:"-1rem",
     
    backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
@@ -406,7 +500,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
       <div>
       +10,000 PTS
       </div>
-  </div>
+  </div>*/}
 
 
 
@@ -428,7 +522,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          DEPOSIT
+          DEPOSIT &nbsp; {userInFocus && '-'} {userInFocus &&  userInFocus.teamName} 
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -462,8 +556,11 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
             style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
             
             
-            value= {title}
-           onChange = {(e)=>{setTitle(e.target.value)}}
+            value= {userInFocus && (userInFocus.accountBalance)}
+           onChange = {(e)=>{setUserInFocus({...userInFocus,accountBalance:Number(e.target.value)})
+          
+            console.log("USER IN FOCUS IS NOW---->",userInFocus)
+          }}
            
             
             />
@@ -480,8 +577,8 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
        </RespGrid>
 
-       <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
-              DEPOSIT
+       <Button onClick={()=>{updateThisUserBalance(userInFocus,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto",width:"30%" }}>
+              DEPOSIT 
             </Button>
     
 
@@ -525,17 +622,20 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
          <Divider/>
 
           <TableBody style={{ paddingBottom:"1rem" }}>
-            {standingsList.map((row,index) => (
+            {allUsersInOneLeague.map((row,index) => (
                   <TableRow key={index}>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
-                      {row.date}
+                      {row.teamName && row.teamName}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                       {row.amount}
+                       {row.accountBalance && row.accountBalance}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                     {row.action}
-                    
+                   
+                    <Button onClick={()=>{setUserInFocus(row)}}  style={{backgroundColor: '#260952',height:"2.2rem" ,fontSize:"0.75rem",color:'white',paddingRight:"20px",paddingLeft:"20px",margin:"0 auto",width:"4.5rem" }}>
+                    {"MANAGE"}
+                   </Button>
+                   
                     </TableCell>
                     </TableRow>  
                   ))

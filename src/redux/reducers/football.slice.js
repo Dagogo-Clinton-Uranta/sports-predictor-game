@@ -13,15 +13,17 @@ const initialState = {
        goalScorerResultsPerLeague:[],
        assistResultsPerLeague:[],
        cleanSheetResultsPerLeague:[],
+       allCompetitionsInOneLeague:[],
+       allUsersInOneLeague:[],
        teamWinResultsPerLeague:[],
        goalScorerPickFour:{},
        teamWinPickFour:{},
        assistPickFour:{},
        cleanSheetPickFour:{},
-       teamWincompetitionInFocus:{},
+       teamWinCompetitionInFocus:{},
        cleanSheetcompetitionInFocus:{},
-       assistcompetitionInFocus:{},
-       goalScorercompetitionInFocus:{},
+       assistCompetitionInFocus:{},
+       goalScorerCompetitionInFocus:{},
       isLoading: false,
 };
 
@@ -89,7 +91,12 @@ saveGoalScorerResultsPerLeague: (state, action) => {
 saveTeamWinResultsPerLeague: (state, action) => {
   state.teamWinResultsPerLeague = action.payload;
 },
- 
+saveAllCompetitionsInOneLeague: (state, action) => {
+  state.allCompetitionsInOneLeague = action.payload; 
+},
+saveAllUsersInOneLeague: (state, action) => {
+  state.allUsersInOneLeague = action.payload; 
+},
  
     savePublicGroup: (state, action) => {
         state.publicGroups = action.payload;
@@ -127,6 +134,10 @@ export const {
  saveAssistCompetitionInFocus,
  saveCleanSheetCompetitionInFocus,
  saveTeamWinCompetitionInFocus,
+
+ saveAllCompetitionsInOneLeague,
+ saveAllUsersInOneLeague,
+
  savePublicGroup,
  savePrivateGroup,
  saveTeamPlayersInFocus,

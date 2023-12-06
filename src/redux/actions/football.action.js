@@ -16,6 +16,8 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveCleanSheetCompetitionInFocus,
     saveGoalScorerCompetitionInFocus,
     saveAssistCompetitionInFocus,
+    saveAllCompetitionsInOneLeague,
+    saveAllUsersInOneLeague,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -987,3 +989,112 @@ export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) =>
 
 
 }
+
+export const startCompetition = (addObject) => async (dispatch) => {
+
+ 
+  db.collection("competitions").add(
+    {
+      compName:addObject.compName,
+      entryFee:addObject.entryFee,
+      isOpen:true,
+      leagueId:addObject.leagueId,
+      
+      sportId:1,
+      sportName:addObject.sportName,
+      dateCreated:new Date(),
+      finalResults:[],
+      userSelections:[]
+    }
+  ).then((doc) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     db.collection("competitions").doc(doc.id).update({
+    id:doc.id
+     })
+
+    console.log("the documents id is",doc.id)
+     notifySuccessFxn(` the new competition has been added!`)
+   
+
+ }).catch((error) => {
+   console.log("Error adding/starting the new competition:", error);
+   notifyErrorFxn(error)
+
+
+ });
+
+}
+
+
+export const fetchAllCompetitionsInOneLeague = (leagueCode) => async (dispatch) => {
+
+  //dispatch(isItLoading(true));
+  db.collection("competitions")
+  .where('leagueId', '==', leagueCode)
+   .get()
+   .then((snapshot) => {
+     const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+   if (allGroups.length > 0) {
+    // dispatch(isItLoading(false));
+     console.log("All Groups Data:", allGroups);
+     dispatch(saveAllCompetitionsInOneLeague(allGroups));
+   } else {
+       //dispatch(isItLoading(false));
+       dispatch(saveAllCompetitionsInOneLeague([]));
+       console.log("No COMPETITONS IN THIS LEAGUE -- THIS IS FROM JOB ACTIONS FILE!");
+   }
+ }).catch((error) => {
+   console.log("Error getting document:", error);
+   //dispatch(isItLoading(false));
+ });
+
+
+}
+
+
+
+export const fetchAllUsersInOneLeague = (leagueCode,leagueName) => async (dispatch) => {
+
+  const leagueObject = {
+      leagueCode:leagueCode,
+      leagueId:Number(leagueCode),   //<---- update this logic later, when the codes nad id's become clearer
+      leagueName:leagueName
+  }
+
+//dispatch(isItLoading(true));
+db.collection("users")
+.where('Leagues', 'array-contains', leagueObject)
+ .get()
+ .then((snapshot) => {
+   const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+ if (allGroups.length > 0) {
+  // dispatch(isItLoading(false));
+   console.log("ALL USERS IN THIS LEAGUE Data--->:", allGroups);
+   dispatch(saveAllUsersInOneLeague(allGroups));
+ } else {
+     //dispatch(isItLoading(false));
+      dispatch(saveAllUsersInOneLeague([]));
+     console.log("No USERS IN THIS LEAGUE -- THIS IS FROM JOB ACTIONS FILE!");
+ }
+}).catch((error) => {
+ console.log("Error getting document:", error);
+ //dispatch(isItLoading(false));
+});
+
+
+
+}
+
+export const updateUserBalance = (userId,newBalance,leagueCode,leagueName) => async (dispatch) => {
+
+  db.collection("users").doc(userId).update({
+    accountBalance:Number(newBalance)
+     }).then(()=>{
+      dispatch(fetchAllUsersInOneLeague(leagueCode,leagueName))
+      notifySuccessFxn("User balance updated successfully !")
+     }).catch((error) => {
+      console.log("Error getting document:", error);
+      notifySuccessFxn("User balance updated successfully")
+     });
+    
+    }
