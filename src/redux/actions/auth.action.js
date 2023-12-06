@@ -47,6 +47,7 @@ db.collection("leagues")
 if(allGroups.length === 0){
 
  notifyErrorFxn("this league does not exist, please check league code")
+ return
 }
 
 else{
@@ -58,7 +59,7 @@ else{
   return db.collection('users').doc(res.user.uid).set({
     uid: res.user.uid,
     userName: user.fname,
-    leagueCode:user.leagueCode,
+    leagueCode:user.leagueCode, //<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
     teamName:user.teamName,
     password: user.password,
     accountBalance:0,

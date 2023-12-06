@@ -66,6 +66,16 @@ const RespGrid = styled('div')(({ theme }) => ({
 }));
 
 
+const RespJoin = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    height:"25rem"
+  },
+
+  [theme.breakpoints.up('md')]: {
+    height:"81%"
+  },
+}));
+
 
 
 export default function PickFourAssistsPage() {
@@ -114,6 +124,8 @@ const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeag
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
 const [chosenTeam,setChosenTeam] = useState('')
+
+const [joined,setJoined] =  useState(false)
 
 useEffect(()=>{
 
@@ -229,6 +241,8 @@ const  saveThisAssistPickFour= (prediction,navigate)=>{
       </Divider> */}
     </StyledContent>
   </Container>
+
+
 
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
@@ -364,6 +378,13 @@ const  saveThisAssistPickFour= (prediction,navigate)=>{
 
    
   </Container>
+  
+
+
+
+
+
+
 
 
 </RespContent>
