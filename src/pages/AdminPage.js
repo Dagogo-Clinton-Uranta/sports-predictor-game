@@ -202,6 +202,7 @@ const RespInp2 = styled('Input')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     width:"46%",
     fontSize:"1.5rem ",
+    height:"4rem",
    
  }
 
@@ -220,6 +221,7 @@ const RespSelect2 = styled('select')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     width:"46%",
     fontSize:"1.5rem ",
+    height:"4rem",
    
  }
 
