@@ -540,8 +540,10 @@ export const getPremierLeagueTeamPlayers = (teamId)  => async (dispatch) => {
 
 
 
-export const submitAssistPrediction = (assistPick,compName,leagueId) => async (dispatch) => {
+export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekStarted,CompIsOpen) => async (dispatch) => {
   let compId;
+  let compUserSelections;
+  let compUserSelectionIds;
 
   db.collection("competitions")
   .where("compName", "==", compName)
@@ -552,14 +554,165 @@ export const submitAssistPrediction = (assistPick,compName,leagueId) => async (d
       
   if (goalScorers && goalScorers[0]) {
     compId = goalScorers[0].id
+    compUserSelections = goalScorers[0].userSelections
+    compUserSelectionIds = goalScorers[0].userSelections.map((item)=>(item.userId))
   }
 })
 
  
+if(gameWeekStarted){
 
+  if(CompIsOpen){
+
+
+ /*======================== UPDATING THE USERS COLLECTION FOR WHAT THEY PICKED   ===================*/
+
+
+ if(compName === "Goal Scorer"){
+  db.collection("users").doc(assistPick.userId).update({
+    chosenPredictionGoalScorer:assistPick
+  })
+ }
+
+ if(compName === "Assist"){
+  db.collection("users").doc(assistPick.userId).update({
+    chosenPredictionAssist:assistPick
+  })
+ }
+
+ if(compName === "Clean Sheet"){
+  db.collection("users").doc(assistPick.userId).update({
+    chosenPredictionCleanSheet:assistPick
+  })
+  }
+
+
+  if(compName === "Team Win"){
+    db.collection("users").doc(assistPick.userId).update({
+      chosenPredictionTeamWin:assistPick
+    })
+  }
+  
+
+
+
+
+ /*======================== UPDATING THE USERS COLLECTION FOR WHAT THEY PICKED  --- END  ===================*/
+
+
+
+    const indexOfInterest = compUserSelectionIds.indexOf(assistPick.userId)
+
+    if(indexOfInterest === -1){
+  
+      db.collection("competitions").doc(compId.trim()).update({
+        userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
+      }).then((docRef) => {
+        console.log(" course Document updated is: ", docRef);
+        notifySuccessFxn("Submitted  Prediction Successfully!")
+    
+        db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
+        if(doc.exists){
+          console.log("COMPETITIONS PACK-->",doc.data())
+         
+    
+        if(compName === "Goal Scorer"){
+         dispatch(fetchGoalScorerResultsPerLeague(leagueId))
+        }
+    
+        if(compName === "Assist"){
+         dispatch(fetchAssistResultsPerLeague(leagueId))
+        }
+    
+        if(compName === "Clean Sheet"){
+         dispatch(fetchCleanSheetResultsPerLeague(leagueId))
+         }
+    
+    
+         if(compName === "Team Win"){
+         dispatch(fetchTeamWinResultsPerLeague(leagueId))
+         }
+         
+        }else{
+          notifyErrorFxn("problem updating assist competition?")
+        }
+        })
+       
+      })
+      .catch((error) => {
+        console.error("Error adding this subject to the pack, please view--> : ", error);
+        notifyErrorFxn("Error submitting your assist pick, please try again. ")
+        
+      });
+    }else{
+
+
+      compUserSelections[indexOfInterest] = assistPick
+
+      db.collection("competitions").doc(compId.trim()).update({
+    
+        userSelections: compUserSelections
+      }).then((docRef) => {
+        console.log(" course Document updated is: ", docRef);
+        notifySuccessFxn("Submitted  Prediction Successfully!")
+    
+        db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
+        if(doc.exists){
+          console.log("COMPETITIONS PACK-->",doc.data())
+         
+    
+        if(compName === "Goal Scorer"){
+         dispatch(fetchGoalScorerResultsPerLeague(leagueId))
+        }
+    
+        if(compName === "Assist"){
+         dispatch(fetchAssistResultsPerLeague(leagueId))
+        }
+    
+        if(compName === "Clean Sheet"){
+         dispatch(fetchCleanSheetResultsPerLeague(leagueId))
+         }
+    
+    
+         if(compName === "Team Win"){
+         dispatch(fetchTeamWinResultsPerLeague(leagueId))
+         }
+         
+        }else{
+          notifyErrorFxn("problem updating assist competition?")
+        }
+        })
+       
+      })
+      .catch((error) => {
+        console.error("Error adding this subject to the pack, please view--> : ", error);
+        notifyErrorFxn("Error submitting your assist pick, please try again. ")
+        
+      });
+
+    }
+
+
+
+
+
+} else{
+  /** DO SOMETHING THAT INVOLVES  ONLY UPDATING THE EXISTING SELECTION beloW */
+  
+ const indexOfInterest = compUserSelectionIds.indexOf(assistPick.userId)
+
+  if(indexOfInterest === -1){
+
+     notifyErrorFxn("a user selection is to be updated , but the user has not selected before, for this competition!")
+    return
+  }
+
+
+  compUserSelections[indexOfInterest] = assistPick
 
   db.collection("competitions").doc(compId.trim()).update({
-    userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
+
+    userSelections: compUserSelections
   }).then((docRef) => {
     console.log(" course Document updated is: ", docRef);
     notifySuccessFxn("Submitted  Prediction Successfully!")
@@ -568,11 +721,6 @@ export const submitAssistPrediction = (assistPick,compName,leagueId) => async (d
     if(doc.exists){
       console.log("COMPETITIONS PACK-->",doc.data())
      
-    
-      const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
-      const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
-      const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
-      const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
     if(compName === "Goal Scorer"){
      dispatch(fetchGoalScorerResultsPerLeague(leagueId))
@@ -596,14 +744,20 @@ export const submitAssistPrediction = (assistPick,compName,leagueId) => async (d
     }
     })
    
-    //dispatch(fetchWatchListData)
-    //dispatch(playlistUpdate(true));
   })
   .catch((error) => {
     console.error("Error adding this subject to the pack, please view--> : ", error);
     notifyErrorFxn("Error submitting your assist pick, please try again. ")
     
   });
+
+ 
+} 
+
+}else{
+  notifyErrorFxn("The Gameweek is in progress, we can't update your selection at this time!")
+}
+
 
 
 }

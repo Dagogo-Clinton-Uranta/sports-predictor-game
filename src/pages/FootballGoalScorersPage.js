@@ -123,6 +123,8 @@ const [chosenTeam,setChosenTeam] = useState('')
  const [goalScorerCompId,setGoalScorerCompId] = useState("umhhXlB1kcrXLcu6hYIQ")
 
 
+
+
 useEffect(()=>{
 
   if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
@@ -164,6 +166,28 @@ if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
 
 
 
+ console.log("WHAT AM I GETTING FROM THE GOAL SCORER COMP--->",goalScorerCompetitionInFocus)
+
+
+console.log("WHAT AM I GETTING FROM THE USER ?--->",user)
+
+
+
+
+useEffect(()=>{
+                                                                /*consider if you really need this isOpen logic, just to clear a chosen selection -- i will do the past selections upon  UNLOCK, IN THE ADMIN NOW */
+  if(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.gameWeekStarted === false && user ){
+  
+   console.log("YOU HAVENT FINISHED LOGIC FOR PUTTING CURRENT PREDICTION INTO PAST SELECTIONS")
+  
+  }
+   
+   },[])
+
+
+
+
+
 
 
 
@@ -178,7 +202,7 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
 if(!chosenPlayer){
 notifyErrorFxn("Please select a player before submitting!")
 }else{
- dispatch(submitAssistPrediction(prediction,compId,leagueId))
+ dispatch(submitAssistPrediction(prediction,compId,leagueId,goalScorerCompetitionInFocus.gameWeekStarted,goalScorerCompetitionInFocus.isOpen))
 }
 }
 
@@ -362,7 +386,8 @@ const joinLeague = (compId,userId,accountBalance) => {
             setChosenPlayer({teamId:teamPlayersInFocus[IdofInterest].id,
                              name:teamPlayersInFocus[IdofInterest].name,
                              userId:user.id,
-                             teamName:user.teamName
+                             teamName:user.teamName,
+                             gameWeek:goalScorerCompetitionInFocus.currentGameWeek
                          })
             console.log("CHOSEN PLAYER IS--->",event.target.value)
          }}
@@ -438,7 +463,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
          <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
-             <div>ENTRY FEE - {goalScorerCompetitionInFocus && (goalScorerCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+             <div>ENTRY FEE - {goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.entryFee && (goalScorerCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
             <Button onClick={()=>{joinLeague(goalScorerCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>
