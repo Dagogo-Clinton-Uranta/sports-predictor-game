@@ -388,7 +388,7 @@ useEffect(()=>{
 
         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
-<div>ENTRY FEE - {teamWinCompetitionInFocus && (teamWinCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+<div>ENTRY FEE - {teamWinCompetitionInFocus && teamWinCompetitionInFocus.entryFee &&  (teamWinCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
 <Button onClick={()=>{joinLeague(teamWinCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
  JOIN
 </Button>

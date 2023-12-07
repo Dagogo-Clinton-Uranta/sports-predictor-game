@@ -431,7 +431,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
         
          <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
-         <div>ENTRY FEE - {assistCompetitionInFocus && (assistCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+         <div>ENTRY FEE - {assistCompetitionInFocus && assistCompetitionInFocus.entryFee && (assistCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
             <Button onClick={()=>{joinLeague(assistCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>

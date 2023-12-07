@@ -397,7 +397,7 @@ notifyErrorFxn("Please select a player before submitting!")
 
          <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
-            {/* <div>ENTRY FEE - {competitionInFocus && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>*/}
+            {/* <div>ENTRY FEE - {competitionInFocus &&  competitionInFocus.entryFee && (competitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>*/}
             <Button onClick={()=>{/*joinLeague(goalScorerCompId,user.id,user.accountBalance)*/}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>
