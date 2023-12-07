@@ -677,7 +677,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
          <Divider/>
 
           <TableBody style={{ paddingBottom:"1rem" }}>
-            {allUsersInOneLeague.map((row,index) => (
+            {allUsersInOneLeague && allUsersInOneLeague.map((row,index) => (
                   <TableRow key={index}>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
                       {row.teamName && row.teamName}
