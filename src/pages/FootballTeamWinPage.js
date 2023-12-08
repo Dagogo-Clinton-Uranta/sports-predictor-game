@@ -180,7 +180,12 @@ useEffect(()=>{
   if(!chosenPlayer){
     notifyErrorFxn("Please select a player before submitting!")
   }else{
-     dispatch(submitAssistPrediction(prediction,compId,leagueId))
+    dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
+
+    setTimeout(()=>{ 
+      dispatch(submitAssistPrediction(prediction,compId,leagueId,teamWinCompetitionInFocus.gameWeekStarted,teamWinCompetitionInFocus.isOpen))
+     }
+      ,1000)
   }
  }
 

@@ -74,7 +74,7 @@ export default function RegisterPage() {
   return (
     <>
       <Helmet>
-        <title>FUTA SPORTS  </title>
+        <title>FUTA SCORE  </title>
       </Helmet>
 
       <StyledRoot style={{  flexDirection: 'row' }}>
@@ -109,7 +109,7 @@ export default function RegisterPage() {
             </div>
           
             <Typography variant="h4" gutterBottom style={{textAlign: 'center' }} >
-            FUTA SPORTS
+            FUTA SCORE
           </Typography>
 
           </StyledContent>

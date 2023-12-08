@@ -202,7 +202,14 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
 if(!chosenPlayer){
 notifyErrorFxn("Please select a player before submitting!")
 }else{
- dispatch(submitAssistPrediction(prediction,compId,leagueId,goalScorerCompetitionInFocus.gameWeekStarted,goalScorerCompetitionInFocus.isOpen))
+
+  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
+
+setTimeout(()=>{ 
+  dispatch(submitAssistPrediction(prediction,compId,leagueId,goalScorerCompetitionInFocus.gameWeekStarted,goalScorerCompetitionInFocus.isOpen))
+ }
+  ,1000)
+
 }
 }
 

@@ -56,15 +56,18 @@ else{
     user.fname,
     user.password
 ).then((res)=>{
-  return db.collection('users').doc(res.user.uid).set({
+   db.collection('users').doc(res.user.uid).set({
     uid: res.user.uid,
-    userName: user.fname,
+    email: user.fname,
     leagueCode:user.leagueCode, //<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
     teamName:user.teamName,
     password: user.password,
     accountBalance:0,
     accountCreated: today.toLocaleDateString("en-US", options),
   })
+
+  fb.auth().sendPasswordResetEmail(user.fname)
+    
 }).then(() => {
   notifySuccessFxn('Registered Successfully✔');
   navigate('/login', { replace: true });

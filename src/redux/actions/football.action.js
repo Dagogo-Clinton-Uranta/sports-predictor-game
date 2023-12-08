@@ -551,9 +551,12 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekStar
   .get()
   .then((snapshot) => {
     const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
-      
+    console.log("THIS IS THE MISSING COMP ID---->",goalScorers)
+/*THE PROBLEM IS HERE...THERE IS NO SUCH COMPETITIONS POPPING UP !! */
+
   if (goalScorers && goalScorers[0]) {
     compId = goalScorers[0].id
+    console.log("THIS IS THE MISSING COMP ID--->",goalScorers[0].id)
     compUserSelections = goalScorers[0].userSelections
     compUserSelectionIds = goalScorers[0].userSelections.map((item)=>(item.userId))
   }
@@ -570,26 +573,26 @@ if(gameWeekStarted){
 
  if(compName === "Goal Scorer"){
   db.collection("users").doc(assistPick.userId).update({
-    chosenPredictionGoalScorer:assistPick
+    chosenGoalScorerPrediction:assistPick
   })
  }
 
  if(compName === "Assist"){
   db.collection("users").doc(assistPick.userId).update({
-    chosenPredictionAssist:assistPick
+    chosenAssistPrediction:assistPick
   })
  }
 
  if(compName === "Clean Sheet"){
   db.collection("users").doc(assistPick.userId).update({
-    chosenPredictionCleanSheet:assistPick
+    chosenCleanSheetPrediction:assistPick
   })
   }
 
 
   if(compName === "Team Win"){
     db.collection("users").doc(assistPick.userId).update({
-      chosenPredictionTeamWin:assistPick
+      chosenTeamWinPrediction:assistPick
     })
   }
   
@@ -649,7 +652,7 @@ if(gameWeekStarted){
 
       compUserSelections[indexOfInterest] = assistPick
 
-      db.collection("competitions").doc(compId.trim()).update({
+      db.collection("competitions").doc(compId).update({
     
         userSelections: compUserSelections
       }).then((docRef) => {
@@ -710,7 +713,7 @@ if(gameWeekStarted){
 
   compUserSelections[indexOfInterest] = assistPick
 
-  db.collection("competitions").doc(compId.trim()).update({
+  db.collection("competitions").doc(compId).update({
 
     userSelections: compUserSelections
   }).then((docRef) => {

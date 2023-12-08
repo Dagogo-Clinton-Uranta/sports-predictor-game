@@ -172,8 +172,13 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
  if(!chosenPlayer){
    notifyErrorFxn("Please select a player before submitting!")
  }else{
-    dispatch(submitAssistPrediction(prediction,compId,leagueId))
- }
+  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
+
+  setTimeout(()=>{ 
+    dispatch(submitAssistPrediction(prediction,compId,leagueId,assistCompetitionInFocus.gameWeekStarted,assistCompetitionInFocus.isOpen))
+   }
+    ,1000)
+} 
 }
 
 
