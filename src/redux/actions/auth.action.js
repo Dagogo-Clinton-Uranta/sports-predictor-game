@@ -64,6 +64,18 @@ else{
     password: user.password,
     accountBalance:0,
     accountCreated: today.toLocaleDateString("en-US", options),
+    chosenPredictionGoalScorer:{ },
+    chosenPredictionAssist:{ },
+    chosenPredictionTeamWin:{ },
+    chosenPredictioncleanSheet:{ },
+    pastGoalScorerSelections: [ ],
+    pastAssistSelections: [ ],
+    pastTeamWinSelections: [ ],
+    pastCleanSheetSelections: [ ],
+    userType:"user"
+
+   
+
   })
 
   fb.auth().sendPasswordResetEmail(user.fname)
