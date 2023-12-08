@@ -2,11 +2,11 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React,{useEffect} from 'react';
-import {  reset } from 'src/redux/actions/patient.action';
+import {  logout } from 'src/redux/actions/auth.action';
 
-import LOGO from '../assets/images/ibara_logo.png';
+import LOGO from '../assets/images/fLogo.png';
 import BACKGROUND_IMG from '../assets/images/background.png';
-import BACKGROUND_IMG2 from '../assets/images/background2.jpeg';
+import BACKGROUND_IMG2 from '../assets/images/background2.jpg';
 
 
 const EntryPage = () => {
@@ -14,9 +14,15 @@ const EntryPage = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-   dispatch(reset(user?.uid))
-  }, []);
+ 
+
+
+
+ useEffect(()=>{
+if(user && user.Leagues && user.Leagues.length > 0){
+  navigate('/dashboard/football-goalscorers')
+}
+ },[user])
 
 
   return (
@@ -43,7 +49,7 @@ const EntryPage = () => {
           left: 0,
         }}
       >
-        <img src={LOGO} alt="Logo" style={{ margin: '20px' }} />
+        <img src={LOGO} alt="Logo" style={{height:"100px", margin: '20px' }} />
       </div>
 
       <div
@@ -65,7 +71,7 @@ const EntryPage = () => {
             zIndex: 1,
           }}
         >
-          Royal College of Emergency Physicians Part 3 Exams
+          You are currently not in any league
         </h1>
         <h3
           style={{
@@ -78,7 +84,7 @@ const EntryPage = () => {
             zIndex:1,
           }}
         >
-          5th Sept, 2023
+          Please Pick a League
         </h3>
         <h3
           style={{
@@ -88,7 +94,7 @@ const EntryPage = () => {
             color: 'white',
           }}
         >
-          08:00 GMT +1
+          and join
         </h3>
       <Button
         type="submit"
@@ -97,7 +103,7 @@ const EntryPage = () => {
         
         style={{
           maxWidth: '20%',
-          backgroundColor: 'black',
+          backgroundColor: '#260952',
           color: 'white',
           fontSize: '15px',
           padding: '14px',
@@ -105,10 +111,33 @@ const EntryPage = () => {
           zIndex:6,
         }}
         onClick={() => {
-            navigate('/dashboard/home');
+            navigate('/entry');
         }}
       >
-       Begin Exam
+       Join 
+      </Button>
+
+
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        
+        style={{
+          maxWidth: '20%',
+          marginTop:"1rem",
+          backgroundColor: '#260952',
+          color: 'white',
+          fontSize: '15px',
+          padding: '14px',
+          height: '60px',
+          zIndex:6,
+        }}
+        onClick={() => {
+           dispatch(logout(navigate))
+        }}
+      >
+       Log Out 
       </Button>
       </div>
     </div>

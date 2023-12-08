@@ -60,8 +60,8 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/login" />, index: true },
-        { path: 'entry', element:  <EntryPage /> },
-        { path: 'home', element:  <FootballGoalScorersPage  /> },
+       
+        { path: 'home', element:  <EntryPage  /> },
 
 
         { path: 'pick-four-teamwin', element:  <PickFourTeamWinPage /> },
@@ -126,6 +126,10 @@ export default function Router() {
         { path: 'patient', element: <PatientPage /> },
       ],
     },
+    
+      { path: 'entry',
+       element:  <EntryPage /> },
+    
     {
       path: 'login',
       element: <LoginPage />,

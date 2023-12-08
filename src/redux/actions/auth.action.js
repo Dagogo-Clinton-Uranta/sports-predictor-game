@@ -158,7 +158,7 @@ export const fetchCandidateData = (id, type, navigate, setLoading) => async (dis
     dispatch(storeUserData(doc.data()));
     if(type === "sigin"){
       // notifySuccessFxn("Logged In😊");
-      navigate('/dashboard/home', { replace: true });
+      navigate('/entry', { replace: true });
     }
   } else {
       setLoading(false);
@@ -244,7 +244,7 @@ export const logout = (navigate) => async (dispatch) => {
     dispatch(clearUser());
     dispatch(clearGroup());
     navigate('/login', { replace: true });
-    console.log('logout successful!');
+    console.log('logout was successful!');
   }).catch((error) => {
     // An error happened.
     console.log('logout failed response: ', error.message);
