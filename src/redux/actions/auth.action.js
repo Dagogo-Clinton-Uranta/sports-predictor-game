@@ -78,7 +78,8 @@ else{
 
   })
 
-  fb.auth().sendPasswordResetEmail(user.fname)
+  //fb.auth().sendPasswordResetEmail(user.fname)
+  fb.auth().currentUser.sendEmailVerification()
     
 }).then(() => {
   notifySuccessFxn('Registered Successfully✔');

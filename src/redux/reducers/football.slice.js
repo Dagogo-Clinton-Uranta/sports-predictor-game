@@ -14,6 +14,7 @@ const initialState = {
        assistResultsPerLeague:[],
        cleanSheetResultsPerLeague:[],
        allCompetitionsInOneLeague:[],
+       userInFocusForDeposits:[],
        allUsersInOneLeague:[],
        teamWinResultsPerLeague:[],
        goalScorerPickFour:{},
@@ -24,7 +25,9 @@ const initialState = {
        cleanSheetcompetitionInFocus:{},
        assistCompetitionInFocus:{},
        goalScorerCompetitionInFocus:{},
+       depositCanChangeNow:false,
       isLoading: false,
+
 };
 
 const footballSlice = createSlice({
@@ -98,6 +101,14 @@ saveAllUsersInOneLeague: (state, action) => {
   state.allUsersInOneLeague = action.payload; 
 },
  
+saveUserInFocusForDeposits: (state, action) => {
+  state.userInFocusForDeposits = action.payload; 
+},
+
+saveDepositCanChangeNow: (state, action) => {
+  state.depositCanChangeNow = action.payload; 
+},
+
     savePublicGroup: (state, action) => {
         state.publicGroups = action.payload;
     },
@@ -137,6 +148,9 @@ export const {
 
  saveAllCompetitionsInOneLeague,
  saveAllUsersInOneLeague,
+
+ saveUserInFocusForDeposits,
+ saveDepositCanChangeNow,
 
  savePublicGroup,
  savePrivateGroup,

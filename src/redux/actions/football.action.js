@@ -18,6 +18,8 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveAssistCompetitionInFocus,
     saveAllCompetitionsInOneLeague,
     saveAllUsersInOneLeague,
+    saveUserInFocusForDeposits,
+    saveDepositCanChangeNow
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -1251,7 +1253,67 @@ export const updateUserBalance = (userId,newBalance,leagueCode,leagueName) => as
       notifySuccessFxn("User balance updated successfully !")
      }).catch((error) => {
       console.log("Error getting document:", error);
-      notifySuccessFxn("User balance updated successfully")
+      notifyErrorFxn("Problem updating user balance,please try again.")
      });
     
     }
+
+
+    export const  setUserInFocusForDeposits =  (userObject) => async (dispatch) => {
+
+      dispatch(saveUserInFocusForDeposits(userObject))
+    }
+
+
+
+    export const  setDepositCanChangeNow =  (confirm) => async (dispatch) => {
+
+      dispatch(saveDepositCanChangeNow(confirm))
+    }
+
+
+    export const  removeLeagueFromUser =  (userObject,leagueCodeInFocus,leagueNameInFocus) => async (dispatch) => {
+
+      //db.collection("users").doc(userObject.id)
+
+      console.log("THE USER OBJECT  I RECIEVE IS -->",userObject)
+    
+      db.collection("users").doc(userObject.id).get(
+       
+         ).then((doc)=>{
+         
+         const userInFocus = doc.data()
+
+         let usersLeagues = userInFocus.Leagues
+
+         const usersLeagueCodes = userInFocus.Leagues.map((item)=>(item.leagueCode))
+       
+      const indexOfInterest = usersLeagueCodes.indexOf(leagueCodeInFocus)
+     
+
+       if(indexOfInterest === -1){
+        notifyErrorFxn("couldn't remove user from this league, please try again")
+       }else{
+
+     
+       usersLeagues.splice(indexOfInterest,1)
+
+       db.collection("users").doc(userObject.id).update({
+           Leagues:usersLeagues
+       }).then(()=>{
+
+        dispatch(fetchAllUsersInOneLeague(leagueCodeInFocus,leagueNameInFocus))
+         
+       
+        }).then(()=>{
+          notifySuccessFxn("Successfully removed User from this league")
+        })
+
+       }
+       
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+          notifyErrorFxn("Problem removing user from this league")
+         });
+    }
+

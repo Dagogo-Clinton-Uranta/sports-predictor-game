@@ -2,6 +2,8 @@ import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, 
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import {SlideDown} from 'react-slidedown'
+import 'react-slidedown/lib/slidedown.css'
 //import { fetchCandidateData } from 'src/redux/actions/auth.action';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
@@ -37,6 +39,7 @@ import HALAAND from '../assets/images/HAALAND.jpeg'
 import './points.css'
 import { Input, InputLabel } from '@material-ui/core';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
+import ManageButtonComponent from './ManageButtonComponent';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -259,7 +262,12 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.auth);
-  const { allCompetitionsInOneLeague,allUsersInOneLeague } = useSelector((state) => state.football);
+  console.log("OUR ADMIN USER--->",user.Leagues[0].leagueName)
+  const { allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow } = useSelector((state) => state.football);
+
+
+  const [dropDown,setDropDown] = useState(false)
+
 
   const [title,setTitle] = useState( "")
 
@@ -270,7 +278,7 @@ export default function ProfilePage() {
   const [entryFee, setEntryFee] = useState('')
   const [leagueId,setLeagueId] = useState(user && user.Leagues[0].leagueCode)
   const [compName, setCompName] = useState('')
-  const  [userInFocus,setUserInFocus] = useState({accountBalance:0,id:"random",teamName:""})
+  const  [userInFocus,setUserInFocus] = useState(userInFocusForDeposits)
 
   const addObject = {
     sportName,
@@ -292,6 +300,12 @@ useEffect(()=>{
 
 },[])
 
+
+useEffect(()=>{
+
+setUserInFocus(userInFocusForDeposits)
+
+},[userInFocusForDeposits])
 
 const premTeams = [
 "Arsenal",
@@ -581,7 +595,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          DEPOSIT &nbsp; {userInFocus && '-'} {userInFocus &&  userInFocus.teamName}{userInFocus && '-'}  {userInFocus && <RespVisible>(PTS)</RespVisible>}
+          DEPOSIT &nbsp; {userInFocus &&  depositCanChangeNow &&'-'} {userInFocus && depositCanChangeNow && userInFocus.teamName}{userInFocus &&  depositCanChangeNow &&'-'}  {userInFocus && depositCanChangeNow && <RespVisible>(PTS)</RespVisible>}
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -615,8 +629,8 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
             style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
             
             
-            value= {userInFocus && (userInFocus.accountBalance)}
-           onChange = {(e)=>{setUserInFocus({...userInFocus,accountBalance:e.target.value})}}
+            value= {userInFocus && depositCanChangeNow ===true? (userInFocus.accountBalance):''}
+           onChange = {(e)=>{if(depositCanChangeNow){setUserInFocus({...userInFocus,accountBalance:e.target.value})}}}
           
             
             
@@ -634,7 +648,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
        </RespGrid>
 
-          <RespDeposit onClick={()=>{updateThisUserBalance(userInFocus,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
+          <RespDeposit onClick={()=>{if(depositCanChangeNow){updateThisUserBalance(userInFocus,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
               DEPOSIT 
             </RespDeposit>
     
@@ -688,11 +702,12 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
                        {row.accountBalance && row.accountBalance}
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
-                   
-                    <Button onClick={()=>{setUserInFocus(row)}}  style={{backgroundColor: '#260952',height:"2.2rem" ,fontSize:"0.75rem",color:'white',paddingRight:"20px",paddingLeft:"20px",margin:"0 auto",width:"4.5rem" }}>
-                    {"MANAGE"}
-                   </Button>
-                   
+                     
+                     
+                   <ManageButtonComponent user={row} leagueCodeInFocus={user.Leagues[0].leagueCode} leagueNameInFocus={ user.Leagues[0].leagueName} dropdownControl={dropDown}/>
+                     {/*DO NOT DELETE THIS COMMENT UNTIL ITS TIME FOR MULTIPLE LEAGUES ---> EVENTUALLY,FOR THE USER TO BE  DELETED, WE WONT GET THE LEAGUE FROM THE ADMIN (user.Leagues[0]) info, but from a list or sth  */}
+                     
+
                     </TableCell>
                     </TableRow>  
                   ))
