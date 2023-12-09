@@ -119,6 +119,7 @@ const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
+const [loading,setLoading] = useState(false)
 
 const [joined,setJoined] =  useState(false)
 
@@ -177,11 +178,14 @@ useEffect(()=>{
     notifyErrorFxn("Please select a team before submitting!")
   }else{
     dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    setLoading(true)
+
 
     setTimeout(()=>{ 
-      dispatch(submitAssistPrediction(prediction,compId,leagueId,cleanSheetCompetitionInFocus.gameWeekStarted,cleanSheetCompetitionInFocus.isOpen))
-     }
-      ,1000)
+      dispatch(submitAssistPrediction(prediction,compId,leagueId,cleanSheetCompetitionInFocus.gameWeekStarted,cleanSheetCompetitionInFocus.isOpen,user.pastCleanSheetSelections))
+      setLoading(false)
+    }
+      ,1300)
   }
  }
 
@@ -359,7 +363,7 @@ useEffect(()=>{
 
 
             <Button  onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Clean Sheet",user.Leagues[0].leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
-              Submit
+            { loading?"Loading":"Submit"}
             </Button>
 
    

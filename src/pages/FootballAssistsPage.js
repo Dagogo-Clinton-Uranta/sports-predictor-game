@@ -118,6 +118,7 @@ const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeag
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
 const [chosenTeam,setChosenTeam] = useState('')
+const [loading,setLoading] = useState(false)
 
 const [joined,setJoined] =  useState(false)
 
@@ -173,11 +174,14 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
    notifyErrorFxn("Please select a player before submitting!")
  }else{
   dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
-
+  setLoading(true)
+ 
   setTimeout(()=>{ 
-    dispatch(submitAssistPrediction(prediction,compId,leagueId,assistCompetitionInFocus.gameWeekStarted,assistCompetitionInFocus.isOpen))
-   }
-    ,1000)
+    dispatch(submitAssistPrediction(prediction,compId,leagueId,assistCompetitionInFocus.gameWeekStarted,assistCompetitionInFocus.isOpen,user.pastAssistSelections))
+
+    setLoading(false)
+  }
+    ,1300)
 } 
 }
 
@@ -403,7 +407,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
 
             <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Assist",user.Leagues[0].leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
-              Submit
+             { loading?"Loading":"Submit"}
             </Button>
 
    

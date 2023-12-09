@@ -542,14 +542,18 @@ export const getPremierLeagueTeamPlayers = (teamId)  => async (dispatch) => {
 
 
 
-export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekStarted,CompIsOpen) => async (dispatch) => {
+export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasStarted,compIsOpen,pastPredictions) => async (dispatch) => {
   let compId;
   let compUserSelections;
   let compUserSelectionIds;
+  let gameWeekStarted =gameWeekHasStarted ;
+  let CompIsOpen = compIsOpen;
+
+  console.log(" COMP NAME IS--->",compName,leagueId)
 
   db.collection("competitions")
   .where("compName", "==", compName)
-  .where("leagueId", "==", leagueId)
+ /* .where("leagueId", "==", leagueId)*/
   .get()
   .then((snapshot) => {
     const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
@@ -561,41 +565,85 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekStar
     console.log("THIS IS THE MISSING COMP ID--->",goalScorers[0].id)
     compUserSelections = goalScorers[0].userSelections
     compUserSelectionIds = goalScorers[0].userSelections.map((item)=>(item.userId))
+   // gameWeekStarted = goalScorers[0].gameWeekStarted
+   // CompIsOpen = goalScorers[0] && goalScorers[0].isOpen
   }
+  console.log(" GMAE WEEK 4 THIS PARTICULAR COMPETITION IS--->",gameWeekStarted)
 })
 
- 
-if(gameWeekStarted){
 
-  if(CompIsOpen){
+ 
+if(gameWeekStarted === false){
+
+  if(CompIsOpen === true){
 
 
  /*======================== UPDATING THE USERS COLLECTION FOR WHAT THEY PICKED   ===================*/
 
 
  if(compName === "Goal Scorer"){
+
+const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+
+if(pastPredictionsNames.includes(assistPick.name)){
+  notifyErrorFxn("You can't select a player you have picked before,please pick again")
+  return
+}else{
+
   db.collection("users").doc(assistPick.userId).update({
     chosenGoalScorerPrediction:assistPick
   })
+}
+
+
  }
 
  if(compName === "Assist"){
+  const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+
+  if(pastPredictionsNames.includes(assistPick.name)){
+    notifyErrorFxn("You can't select a player you have picked before,please pick again")
+    return
+  }else{ 
   db.collection("users").doc(assistPick.userId).update({
     chosenAssistPrediction:assistPick
   })
+}
+
  }
 
  if(compName === "Clean Sheet"){
+
+  const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+  if(pastPredictionsNames.includes(assistPick.name)){
+    notifyErrorFxn("You can't select a team you have picked before,please pick again")
+    return
+  }else{
+
   db.collection("users").doc(assistPick.userId).update({
     chosenCleanSheetPrediction:assistPick
   })
   }
 
+  }
+
 
   if(compName === "Team Win"){
+
+
+  const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+  if(pastPredictionsNames.includes(assistPick.name)){
+    notifyErrorFxn("You can't select a team you have picked before,please pick again")
+    return
+  }else{
+   
     db.collection("users").doc(assistPick.userId).update({
       chosenTeamWinPrediction:assistPick
     })
+  
+  }
+
+    
   }
   
 
@@ -701,7 +749,7 @@ if(gameWeekStarted){
 
 
 
-} else{
+} else if(CompIsOpen === false){
   /** DO SOMETHING THAT INVOLVES  ONLY UPDATING THE EXISTING SELECTION beloW */
   
  const indexOfInterest = compUserSelectionIds.indexOf(assistPick.userId)
@@ -759,7 +807,7 @@ if(gameWeekStarted){
  
 } 
 
-}else{
+}else if(gameWeekStarted === true){
   notifyErrorFxn("The Gameweek is in progress, we can't update your selection at this time!")
 }
 
@@ -1286,9 +1334,28 @@ export const updateUserBalance = (userId,newBalance,leagueCode,leagueName) => as
 
          let usersLeagues = userInFocus.Leagues
 
+         let userCompetitions =  userInFocus.competitions //<--- we will filter out comps from here based on the comps in the league we want to delete
+
          const usersLeagueCodes = userInFocus.Leagues.map((item)=>(item.leagueCode))
        
       const indexOfInterest = usersLeagueCodes.indexOf(leagueCodeInFocus)
+
+
+/* THIS LOGIC WILL FETCH ALL COMPS IN THAT LEAGUE, THEN WE WILL USE IT TO REMOVE FROM  - dEC 8TH 2023 */
+     
+  db.collection("competitions")
+  .where('leagueId', '==', leagueCodeInFocus)
+   .get()
+   .then((snapshot) => {
+     const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+   if (allGroups.length > 0) {
+   
+    /*DO SOMETHING HERE TO FILTER OUT ALL COMPS HERE FROM THE USERS COMPS */
+   }
+ })
+
+
+  /* THIS LOGIC WILL FETCH ALL COMPS IN THAT LEAGUE, THEN WE WILL USE IT TO REMOVE FROM  - dEC 8TH 2023  END*/
      
 
        if(indexOfInterest === -1){

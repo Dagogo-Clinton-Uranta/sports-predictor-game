@@ -126,6 +126,7 @@ const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
+const [loading,setLoading] = useState('false')
 
 const [joined,setJoined] =  useState(false)
 
@@ -178,14 +179,17 @@ useEffect(()=>{
  
  const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
   if(!chosenPlayer){
-    notifyErrorFxn("Please select a player before submitting!")
+    notifyErrorFxn("Please select a team before submitting!")
   }else{
     dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    setLoading(true)
+
 
     setTimeout(()=>{ 
-      dispatch(submitAssistPrediction(prediction,compId,leagueId,teamWinCompetitionInFocus.gameWeekStarted,teamWinCompetitionInFocus.isOpen))
-     }
-      ,1000)
+      dispatch(submitAssistPrediction(prediction,compId,leagueId,teamWinCompetitionInFocus.gameWeekStarted,teamWinCompetitionInFocus.isOpen,user.pastTeamWinSelections))
+      setLoading(false)
+    }
+      ,1300)
   }
  }
 
