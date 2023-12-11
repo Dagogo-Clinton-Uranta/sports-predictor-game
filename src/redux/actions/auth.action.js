@@ -59,7 +59,12 @@ else{
    db.collection('users').doc(res.user.uid).set({
     id: res.user.uid,
     email: user.fname,
-    leagueCode:user.leagueCode, //<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
+    Leagues:{
+      leagueCode:user.leagueCode,
+      leagueName:"919 DEFENDERS",
+      leagueId:user.leagueCode
+    },
+    //leagueCode:user.leagueCode,<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
     teamName:user.teamName,
     password: user.password,
     accountBalance:0,
@@ -80,8 +85,8 @@ else{
 
   })
 
-  //fb.auth().sendPasswordResetEmail(user.fname)
-  fb.auth().currentUser.sendEmailVerification()
+  fb.auth().sendPasswordResetEmail(user.fname)
+  //fb.auth().currentUser.sendEmailVerification()
     
 }).then(() => {
   notifySuccessFxn('Registered Successfully✔');
