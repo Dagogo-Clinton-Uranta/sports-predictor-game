@@ -144,7 +144,7 @@ export default function Header({ onOpenNav }) {
         
         <Typography variant="h4" sx={{color: '#392751', fontSize: '20px',marginRight:"1rem",marginTop:"0rem" }}>
        
-       {user.accountBalance && 
+       {user.accountBalance >= 0 && 
         <RespHidden>
        
         {(user.accountBalance).toLocaleString()} &nbsp; PTS

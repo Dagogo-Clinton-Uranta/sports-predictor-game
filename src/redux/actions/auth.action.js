@@ -25,7 +25,7 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     setLoading(false);
     var errorCode = error.code;
     var errorMessage = error.message;
-    alert(errorMessage);
+    notifyErrorFxn(errorMessage);
     // notifyErrorFxn(errorMessage);
     console.log('Error Code is: ', errorCode, + ' Msg is: ', errorMessage);
     dispatch(loginFailed(errorMessage));
@@ -165,7 +165,7 @@ export const fetchCandidateData = (id, type, navigate, setLoading) => async (dis
     dispatch(storeUserData(doc.data()));
     if(type === "sigin"){
       // notifySuccessFxn("Logged In😊");
-      navigate('/entry', { replace: true });
+      navigate('/dashboard/football-goalscorers', { replace: true });
     }
   } else {
       setLoading(false);

@@ -16,19 +16,15 @@ const EntryPage = () => {
 
  
 
-  console.log("USER IS --->",user)
-  console.log("USER LEAGUES IS --->",user.Leagues)
+  
 
 
- useEffect(()=>{
-
-  console.log("USER IS --->",user)
-  console.log("USER LEAGUES IS ---->",user.Leagues)
+/* useEffect(()=>{
 
 if(user && user.Leagues && user.Leagues.length > 0){
   navigate('/dashboard/football-goalscorers')
 }
- },[user])
+ },[]) */
 
 
 

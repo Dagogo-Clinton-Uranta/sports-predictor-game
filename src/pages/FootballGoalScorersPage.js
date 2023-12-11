@@ -123,6 +123,12 @@ const [loading,setLoading] = useState(false)
  const [joined,setJoined] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState("umhhXlB1kcrXLcu6hYIQ")
 
+ useEffect(()=>{
+
+  if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
+    navigate('/entry')
+  }
+   },[user])
 
 
 
