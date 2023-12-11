@@ -57,7 +57,7 @@ else{
     user.password
 ).then((res)=>{
    db.collection('users').doc(res.user.uid).set({
-    uid: res.user.uid,
+    id: res.user.uid,
     email: user.fname,
     leagueCode:user.leagueCode, //<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
     teamName:user.teamName,
