@@ -110,10 +110,24 @@ const premTeams = [
 "Wolverhampton Wanderers",
 ]
 
-  const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
+ // const cleanSheetCompId = 'DDm7B5AXVHsLDrpe4LCy'
+
 
   
   const { premierLeagueTeams,teamPlayersInFocus,isLoading,cleanSheetCompetitionInFocus} = useSelector((state) => state.football);
+
+
+  //const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
+
+const [cleanSheetCompId,setCleanSheetCompId] = useState(cleanSheetCompetitionInFocus?cleanSheetCompetitionInFocus.id:"DDm7B5AXVHsLDrpe4LCy")
+
+useEffect(()=>{
+
+setCleanSheetCompId(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id)
+
+},cleanSheetCompetitionInFocus)
+
+
 
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
@@ -164,7 +178,7 @@ useEffect(()=>{
   
   }
 
-  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
+  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(cleanSheetCompId)){
 
     setEliminated(true)
   

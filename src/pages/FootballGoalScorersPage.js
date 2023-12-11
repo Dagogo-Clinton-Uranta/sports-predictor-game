@@ -122,7 +122,14 @@ const [loading,setLoading] = useState(false)
 
  const [joined,setJoined] =  useState(false)
  const [eliminated,setEliminated] =  useState(false)
- const [goalScorerCompId,setGoalScorerCompId] = useState("umhhXlB1kcrXLcu6hYIQ")
+ const [goalScorerCompId,setGoalScorerCompId] = useState(goalScorerCompetitionInFocus?goalScorerCompetitionInFocus.id:"umhhXlB1kcrXLcu6hYIQ")
+
+ useEffect(()=>{
+
+setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)
+
+ },goalScorerCompetitionInFocus)
+
 
  useEffect(()=>{
 

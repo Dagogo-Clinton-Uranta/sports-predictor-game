@@ -110,9 +110,25 @@ const userPrediction = {
   userName:"Farmers"
 }
 
-const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
+
+
 
 const { premierLeagueTeams,teamPlayersInFocus,isLoading,assistCompetitionInFocus} = useSelector((state) => state.football);
+
+
+
+//const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
+
+const [assistCompId,setAssistCompId] = useState(assistCompetitionInFocus?assistCompetitionInFocus.id:"9DSs5TpMhPtMK7sNT4Jn")
+
+ useEffect(()=>{
+
+setAssistCompId(assistCompetitionInFocus && assistCompetitionInFocus.id)
+
+ },assistCompetitionInFocus)
+
+
+
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
@@ -154,7 +170,7 @@ useEffect(()=>{
   
   }
 
-  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
+  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(assistCompId)){
 
     setEliminated(true)
   

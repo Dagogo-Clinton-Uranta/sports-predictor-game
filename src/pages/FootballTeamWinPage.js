@@ -117,10 +117,20 @@ const premTeams = [
 
   
 
-const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
+//const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
 
 
 const { premierLeagueTeams,teamPlayersInFocus,isLoading,teamWinCompetitionInFocus} = useSelector((state) => state.football);
+
+
+const [teamWinCompId,setTeamWinCompId] = useState(teamWinCompetitionInFocus?teamWinCompetitionInFocus.id:"hASebzJ1pBHiUt8ug3V2")
+
+useEffect(()=>{
+
+setTeamWinCompId(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id)
+
+},teamWinCompetitionInFocus)
+
 
 const {user} = useSelector((state) => state.auth);
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
@@ -169,7 +179,7 @@ useEffect(()=>{
     
     }
 
-    if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
+    if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(teamWinCompId)){
 
       setEliminated(true)
     
