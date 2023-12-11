@@ -19,12 +19,12 @@ const EntryPage = () => {
   
 
 
-/* useEffect(()=>{
+useEffect(()=>{
 
 if(user && user.Leagues && user.Leagues.length > 0){
   navigate('/dashboard/football-goalscorers')
 }
- },[]) */
+ },[])
 
 
 
