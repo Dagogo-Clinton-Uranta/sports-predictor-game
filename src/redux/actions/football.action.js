@@ -1013,6 +1013,8 @@ export const joinCompetition = (compId, userId,accountBalance) => async (dispatc
     const data = doc.data();
     console.log("account balance ---->",accountBalance)
       
+   if(data.isOpen === true){
+
     if (data.entryFee && data.entryFee > accountBalance){
      notifyErrorFxn("Account Balance too low for this transaction, please fund your account.")
      return
@@ -1031,9 +1033,15 @@ export const joinCompetition = (compId, userId,accountBalance) => async (dispatc
       else{
         notifySuccessFxn("Issue with competition entry fee")  
       }
+  
 
     }
 
+  }else if(data.isOpen === false){
+
+    notifyErrorFxn("This competition has started, you cannot join now")
+
+  }
    
 
 
