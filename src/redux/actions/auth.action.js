@@ -45,7 +45,7 @@ db.collection("leagues")
   const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
 
 if(allGroups.length === 0){
-
+ 
  notifyErrorFxn("this league does not exist, please check league code")
  return
 }
@@ -61,7 +61,7 @@ else{
     email: user.fname,
     Leagues:[{
       leagueCode:user.leagueCode,
-      leagueName:user.teamName,
+      leagueName:allGroups[0] && allGroups[0].name,
       leagueId:user.leagueCode
     }],
     //leagueCode:user.leagueCode,<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
