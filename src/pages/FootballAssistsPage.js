@@ -188,7 +188,14 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
 
 const joinLeague = (compId,userId,accountBalance) => {
 
-  dispatch(joinCompetition(compId,userId,accountBalance))
+  
+
+
+  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(assistCompId) ){
+    notifyErrorFxn("you have been eliminated from this competition, you cannot join")
+     }else{
+     dispatch(joinCompetition(compId,userId,accountBalance))
+     }
 
 }
 

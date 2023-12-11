@@ -72,7 +72,9 @@ else{
     pastAssistSelections: [ ],
     pastTeamWinSelections: [ ],
     pastCleanSheetSelections: [ ],
-    userType:"user"
+    userType:"user",
+    competitions:[],
+    eliminatedCompetitions:[]
 
    
 
