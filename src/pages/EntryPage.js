@@ -16,13 +16,21 @@ const EntryPage = () => {
 
  
 
+  console.log("USER IS --->",user)
+  console.log("USER LEAGUES IS --->",user.Leagues)
 
 
  useEffect(()=>{
+
+  console.log("USER IS --->",user)
+  console.log("USER LEAGUES IS ---->",user.Leagues)
+
 if(user && user.Leagues && user.Leagues.length > 0){
   navigate('/dashboard/football-goalscorers')
 }
  },[user])
+
+
 
 
   return (
@@ -71,7 +79,7 @@ if(user && user.Leagues && user.Leagues.length > 0){
             zIndex: 1,
           }}
         >
-          You are currently not in any league
+          You are currently not in any leagues
         </h1>
         <h3
           style={{

@@ -59,11 +59,11 @@ else{
    db.collection('users').doc(res.user.uid).set({
     id: res.user.uid,
     email: user.fname,
-    Leagues:{
+    Leagues:[{
       leagueCode:user.leagueCode,
-      leagueName:"919 DEFENDERS",
+      leagueName:user.teamName,
       leagueId:user.leagueCode
-    },
+    }],
     //leagueCode:user.leagueCode,<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
     teamName:user.teamName,
     password: user.password,
