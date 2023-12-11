@@ -129,6 +129,8 @@ const [chosenPlayer,setChosenPlayer] = useState({})
 const [loading,setLoading] = useState('false')
 
 const [joined,setJoined] =  useState(false)
+const [eliminated,setEliminated] =  useState(false)
+
 
 useEffect(()=>{
 
@@ -164,6 +166,12 @@ useEffect(()=>{
     if(user && user.competitions && user.competitions.includes(teamWinCompId)){
     
        setJoined(true)
+    
+    }
+
+    if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
+
+      setEliminated(true)
     
     }
      
@@ -410,7 +418,17 @@ useEffect(()=>{
             </>
             : 
 
-            <div>NO COMPETITION YET </div>
+            (
+              !eliminated ?
+    
+    
+                <div>NO COMPETITION YET</div>
+             :  
+             
+             <div>ELIMINATED FROM THIS COMPETITION</div>
+              
+    
+             )
       }  
        </RespJoin>
 

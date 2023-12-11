@@ -121,6 +121,7 @@ const [chosenTeam,setChosenTeam] = useState('')
 const [loading,setLoading] = useState(false)
 
  const [joined,setJoined] =  useState(false)
+ const [eliminated,setEliminated] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState("umhhXlB1kcrXLcu6hYIQ")
 
  useEffect(()=>{
@@ -168,6 +169,12 @@ useEffect(()=>{
 if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
 
    setJoined(true)
+
+}
+
+if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
+
+  setEliminated(true)
 
 }
  
@@ -464,7 +471,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
 
 
-{!joined  &&  
+{!joined   &&
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 
@@ -492,16 +499,25 @@ const joinLeague = (compId,userId,accountBalance) => {
             </Button>
           </>
 
-         ):
+         ):(
+          !eliminated ?
 
-         <div>NO COMPETITION YET</div>
-    
+
+            <div>NO COMPETITION YET</div>
+         :  
+         
+         <div>ELIMINATED FROM THIS COMPETITION</div>
+          
+
+         )
            }
 
         </RespJoin>
 
      </Container>
     }
+
+  
    
   </>
 
