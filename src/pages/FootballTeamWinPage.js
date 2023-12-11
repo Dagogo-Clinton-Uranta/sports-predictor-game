@@ -400,12 +400,19 @@ useEffect(()=>{
 
 
         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
+        
+        {teamWinCompetitionInFocus && teamWinCompetitionInFocus.hasOwnProperty("compame")?
+           <>
+            <div>ENTRY FEE - {teamWinCompetitionInFocus && teamWinCompetitionInFocus.entryFee &&  (teamWinCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
+            <Button onClick={()=>{joinLeague(teamWinCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
+             JOIN
+            </Button>
+            </>
+            : 
 
-<div>ENTRY FEE - {teamWinCompetitionInFocus && teamWinCompetitionInFocus.entryFee &&  (teamWinCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
-<Button onClick={()=>{joinLeague(teamWinCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
- JOIN
-</Button>
-</RespJoin>
+            <div>NO COMPETITION YET </div>
+      }  
+       </RespJoin>
 
      </Container>
     }

@@ -169,7 +169,7 @@ export default function Header({ onOpenNav }) {
       <RespHidden>
       <center>
          <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-            WELCOME TO {user && user.leagues && user.leagues.length >0  ?user.leagues[0].leagueName :"919 DEFENDERS"}&nbsp; 
+             {user && user.Leagues && user.Leagues.length >0  ?` WELCOME TO ${user.Leagues[0].leagueName}` :" "}&nbsp; 
             </Typography>
     </center>
     </RespHidden>

@@ -1066,14 +1066,14 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
    dispatch(saveTeamWinCompetitionInFocus(data))
     }
     else{
-      notifyErrorFxn("Error fetching this leagues team win comp")
+     // notifyErrorFxn("Error fetching this leagues team win comp")
     }
 
 
   })
 .catch((error)=>{
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("This competition does not exist. ")
+    notifyErrorFxn("ERROR WHILE TRYING TO FETCH TEAM WIN COMP. ")
     
   });
 
@@ -1083,7 +1083,7 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
 
 
 export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) => {
-
+   console.log("comp id is--->", compId)
 
   db.collection("competitions")
   .where("compName",  "==", "Goal Scorer")
@@ -1099,21 +1099,14 @@ export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) =>
    dispatch(saveGoalScorerCompetitionInFocus(data))
     }
     else{
-      notifyErrorFxn("Error fetching this leagues goal scorer comp")
+     // notifyErrorFxn("Error fetching this leagues goal scorer comp")
     }
-
-
-  
-   
- 
-   
-
 
 
   })
 .catch((error)=>{
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("This competition does not exist. ")
+    notifyErrorFxn("ERROR WHILE TRYING TO FETCH GOAL SCORER COMP ")
     
   });
 
@@ -1139,7 +1132,7 @@ export const fetchAssistCompetitionInFocus = (compId) => async (dispatch) => {
    dispatch(saveAssistCompetitionInFocus(data))
     }
     else{
-      notifyErrorFxn("Error fetching this leagues assist comp")
+     // notifyErrorFxn("Error fetching this leagues assist comp")
     }
 
 
@@ -1153,7 +1146,7 @@ export const fetchAssistCompetitionInFocus = (compId) => async (dispatch) => {
   })
 .catch((error)=>{
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("This competition does not exist. ")
+    notifyErrorFxn("ERROR WHILE TRYING TO FETCH ASSIST COMPETITION ")
     
   });
 
@@ -1181,7 +1174,7 @@ export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) =>
    dispatch(saveCleanSheetCompetitionInFocus(data))
     }
     else{
-      notifyErrorFxn("Error fetching this leagues clean sheet comp")
+      //notifyErrorFxn("Error fetching this leagues clean sheet comp")
     }
 
 
@@ -1189,7 +1182,7 @@ export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) =>
   })
 .catch((error)=>{
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("This competition does not exist. ")
+    notifyErrorFxn("ERROR WHILE TRYING TO FETCH CLEAN SHEET COMP. ")
     
   });
 

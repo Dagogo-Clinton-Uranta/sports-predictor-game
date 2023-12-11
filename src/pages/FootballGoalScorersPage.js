@@ -148,6 +148,8 @@ useEffect(()=>{
   dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
  },[user])
 
+ console.log("fetch goal scorer competition in focus",goalScorerCompetitionInFocus)
+
  useEffect(()=>{
  
   if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
@@ -482,10 +484,20 @@ const joinLeague = (compId,userId,accountBalance) => {
 
          <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
 
+        {  goalScorerCompetitionInFocus.hasOwnProperty("compName")?(
+           <>
              <div>ENTRY FEE - {goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.entryFee && (goalScorerCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
             <Button onClick={()=>{joinLeague(goalScorerCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
               JOIN
             </Button>
+          </>
+
+         ):
+
+         <div>NO COMPETITION YET</div>
+    
+           }
+
         </RespJoin>
 
      </Container>
