@@ -118,12 +118,16 @@ export default function Header({ onOpenNav }) {
           value={"Select a Team"}
           label="icon"
           onChange={(event) => {
-          
+         
           }}
         >   
-  <MenuItem style={{color:"black"}} value={1}>{1}</MenuItem>
-  <MenuItem style={{color:"black"}}  value={2}>{2}</MenuItem>
-     
+        {user && user.Leagues && 
+        user.Leagues.map((item)=>(
+  <MenuItem style={{color:"black"}} value={item.leagueName}>{item.leagueName}</MenuItem>
+  
+        )  
+    )
+       }
         </Select>
         
            
