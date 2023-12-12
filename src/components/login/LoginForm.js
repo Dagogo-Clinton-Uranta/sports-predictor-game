@@ -19,6 +19,8 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch(); 
 
+  const { isLoading } = useSelector((state) => state.auth);
+
   const userSignin = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,7 +76,7 @@ export default function LoginForm() {
 
 
       <LoadingButton fullWidth size="large" type="submit" disabled={loading} style={{backgroundColor: '#260952', color: 'white'}}>
-        {loading ? "Loading..." : "Login"}
+        {isLoading ? "Loading..." : "Login"}
       </LoadingButton>
 
       <Typography variant="body2" sx={{ mt: 2, mb: 2, color: '#260952', textAlign: 'left' }}>

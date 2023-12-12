@@ -1,5 +1,5 @@
 import { db, fb, auth, storage } from '../../config/firebase';
-import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
+import { clearUser, isItLoading, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/football.slice';
@@ -7,6 +7,8 @@ import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatient
 
 
 export const signin = (user, navigate, setLoading) => async (dispatch) => {
+  dispatch(isItLoading(true))
+  
   fb.auth().signInWithEmailAndPassword(user.email, user.password)
   .then((userCredential) => {
     // Signed in
@@ -20,14 +22,17 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
        // dispatch(fetchAllTreatmentCategories());
        // dispatch(fetchAllTreatmentTests());
         dispatch(fetchCandidateData(user.uid, "sigin", navigate, setLoading));
+        dispatch(isItLoading(false))
   })
   .catch((error) => {
     setLoading(false);
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    notifyErrorFxn(errorMessage);
-    // notifyErrorFxn(errorMessage);
-    console.log('Error Code is: ', errorCode, + ' Msg is: ', errorMessage);
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    let JSONmessage = JSON.parse(error.message)
+   
+     notifyErrorFxn(JSONmessage.error.message);
+    console.log('Error Code is: ', errorCode, ' Error - Msg is: ',JSONmessage);
+    dispatch(isItLoading(false))
     dispatch(loginFailed(errorMessage));
   });
 
@@ -37,6 +42,7 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
 export const signup = (user, navigate, setLoading) => async (dispatch) => {
 var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 var today  = new Date();
+dispatch(isItLoading(true))
 
 db.collection("leagues")
 
@@ -47,6 +53,7 @@ db.collection("leagues")
 if(allGroups.length === 0){
  
  notifyErrorFxn("this league does not exist, please check league code")
+ dispatch(isItLoading(false))
  return
 }
 
@@ -85,6 +92,8 @@ else{
 
   })
 
+  dispatch(isItLoading(false))
+
   fb.auth().sendPasswordResetEmail(user.fname)
   //fb.auth().currentUser.sendEmailVerification()
     
@@ -96,6 +105,7 @@ else{
   var errorMessage = err.message;
   notifyErrorFxn(errorMessage);
   dispatch(signupFailed({ errorMessage }));
+  dispatch(isItLoading(false))
   setLoading(false);
 })
 

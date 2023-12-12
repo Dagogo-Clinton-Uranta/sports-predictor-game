@@ -27,6 +27,9 @@ const loginSlice = createSlice({
       storeUserData: (state, action) => {
         state.user = action.payload;
       },
+      isItLoading: (state, action) => {
+        state.isLoading = action.payload;
+    },
     clearUser: (state) => {
       return {
         ...initialState,
@@ -47,6 +50,7 @@ export const {
  storeUserData,
  clearUser,
  logoutFxn,
+ isItLoading,
 } = actions;
 
 export default reducer;

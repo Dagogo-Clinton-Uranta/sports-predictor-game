@@ -33,6 +33,10 @@ import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
 
+
+
+import {fetchAllCompetitionsInOneLeague,fetchAllCompetitionsForOneUser, fetchAllUsersInOneLeague, startCompetition,updateUserBalance } from 'src/redux/actions/football.action';
+
 import HOWTO from '../assets/images/HOW-TO-PLAY.pdf'
 import './points.css'
 
@@ -138,6 +142,20 @@ export default function ProfilePage() {
   const dispatch = useDispatch();
  const [title,setTitle] = useState( "")
 
+ const { user } = useSelector((state) => state.auth);
+ console.log("OUR ADMIN USER--->",user.Leagues[0].leagueName)
+ const { allCompetitionsForOneUser,allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow } = useSelector((state) => state.football);
+ console.log("ALL COMPETITIONS FOR ONE USER--->",allCompetitionsForOneUser)
+    
+useEffect(()=>{
+
+  dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues[0].leagueCode))
+
+   dispatch(fetchAllCompetitionsForOneUser(user && user.competitions))
+
+
+},[])
+
 const premTeams = [
 "Arsenal",
 "Aston Villa",
@@ -162,12 +180,12 @@ const premTeams = [
 ]
 const standingsList = [
 
-  {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
+ /* {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
   {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},
   {date:"11/11/23",action:"TEAM WIN",amount:"-10,000"},
   {date:"11/11/23",action:"ASSIST WIN",amount:"+100,000"},
   {date:"11/11/23",action:"DEPOSIT",amount:"+50,000"},
-  {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},
+  {date:"11/11/23",action:"GOAL SCORER",amount:"20,000"},*/
 
  
  
@@ -295,41 +313,38 @@ const standingsList = [
       gridColumnGap: "15px",
       gridRowGap: "15px"}}> 
 
+{allCompetitionsForOneUser && allCompetitionsForOneUser.map((item)=>(
 
-<div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
-style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', 
+
+
+<div 
+style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', marginLeft:"-1rem",
     
-   backgroundSize: 'cover', height:"90px" ,display:"flex",justifyContent:"flex-start",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
-    backgroundRepeat: 'no-repeat' }}>
+   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
+    backgroundRepeat: 'no-repeat', }}>
       
      
-      <div >
+      <RespHidden>
        11/11/2023
+      </RespHidden>
+
+
+      <div>
+      {item.compName}
       </div>
 
 
       <div>
-      GOALSCORER
+      {/*+10,000 PTS*/}
       </div>
     
-    </div>
-
-
-<div /*onClick={()=>{navigate('/dashboard/football-cleansheet')}}*/
-style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'center',  border: '1px solid #0000001A', 
-    
-   backgroundSize: 'cover', height:"90px", width:"100%",display:"flex",justifyContent:"flex-start",alignItems:"center",color:"black",fontWeight:"bold",fontSize:"1.1rem",gap:"10%",padding:"1rem",
-    backgroundRepeat: 'no-repeat' }}>
-
-     <div >
-       11/11/2023
-      </div>
-
-
-      <div >
-      TEAM WIN
-      </div>
   </div>
+    )
+
+      )}  
+
+
+
 
 
 

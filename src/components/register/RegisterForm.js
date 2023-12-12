@@ -32,6 +32,8 @@ export default function RegisterForm() {
   const [leagueCode,setLeagueCode] =  useState('');
   const [teamName,setTeamName] =  useState('');
 
+  const { isLoading } = useSelector((state) => state.auth);
+
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -127,7 +129,7 @@ export default function RegisterForm() {
       </Stack>
 
       <LoadingButton fullWidth size="large" type="submit" variant="contained" disabled={loading} style={{backgroundColor:'#260952', color: 'white'}}>
-        {loading ? "Loading..." : "Register"}
+        {isLoading ? "Loading..." : "Register"}
       </LoadingButton>
 
 

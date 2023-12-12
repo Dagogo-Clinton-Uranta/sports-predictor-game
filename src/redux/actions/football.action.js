@@ -19,7 +19,8 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveAllCompetitionsInOneLeague,
     saveAllUsersInOneLeague,
     saveUserInFocusForDeposits,
-    saveDepositCanChangeNow
+    saveDepositCanChangeNow,
+    saveAllCompetitionsForOneUser,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -557,23 +558,29 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasS
   .get()
   .then((snapshot) => {
     const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
-    console.log("THIS IS THE COMPETITION WE FACED BASED ON DATA GIVEN--->",goalScorers)
+    console.log("THIS IS THE COMPETITION WE FACED BASED ON DATA GIVEN----->",goalScorers)
 /*THE PROBLEM IS HERE...THERE IS NO SUCH COMPETITIONS POPPING UP !! */
 
   if (goalScorers && goalScorers[0]) {
     compId = goalScorers[0].id
+    console.log("GOAL SCORERS 0 ID  IS --->>",goalScorers[0].id)
+
     console.log("THIS IS THE MISSING COMP ID---->",goalScorers[0].id,compId)
-    compUserSelections = goalScorers[0].userSelections
-    compUserSelectionIds = goalScorers[0].userSelections.map((item)=>(item.userId))
+    compUserSelections = goalScorers[0].userSelections?goalScorers[0].userSelections:[]
+
+    compUserSelectionIds =goalScorers[0].userSelections && goalScorers[0].userSelections.length ? goalScorers[0].userSelections.map((item)=>(item.userId)):[]
+
+    console.log("THIS IS THE MISSING COMP ID--->",goalScorers[0].id,compId)
    // gameWeekStarted = goalScorers[0].gameWeekStarted
    // CompIsOpen = goalScorers[0] && goalScorers[0].isOpen
   }
   console.log(" GAME WEEK 4 THIS PARTICULAR COMPETITION IS--->",gameWeekStarted)
   console.log("COMP IS OPEN 4 THIS PARTICULAR COMPETITION IS--->",compIsOpen)
 })
+.then(async()=>{
 
 if(gameWeekStarted !== false && gameWeekStarted !== true ){
-  notifyErrorFxn("We do not know the state of the gameweek for this competition, please check this competition has a game week field")
+  notifyErrorFxn("We do not know the state of the gameweek for this competition, please check this competition has a game week field.")
   return
 }
 
@@ -644,7 +651,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
   const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
   if(pastPredictionsNames.includes(assistPick.name)){
-    notifyErrorFxn("You can't select a team you have picked before,please pick again")
+    notifyErrorFxn("You can't select a team you have picked before,please pick again!")
     return
   }else{
    
@@ -665,19 +672,22 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
 
 
-    const indexOfInterest = compUserSelectionIds.indexOf(assistPick.userId)
+    const indexOfInterest =compUserSelectionIds ? compUserSelectionIds.indexOf(assistPick.userId):-1
 
     if(indexOfInterest === -1){
-  
-      db.collection("competitions").doc(compId.trim()).update({
+     
+     
+      console.log("JUST BEFORE UPDATING, COMP ID IS --->",compId)
+      
+      db.collection("competitions").doc(compId).update({
         userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
       }).then((docRef) => {
-        console.log(" course Document updated is: ", docRef);
+        //console.log(" course Document updated is: ", docRef);
         notifySuccessFxn("Submitted  Prediction Successfully!")
     
         db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
         if(doc.exists){
-          console.log("COMPETITIONS PACK-->",doc.data())
+          //console.log("COMPETITIONS PACK-->",doc.data())
          
     
         if(compName === "Goal Scorer"){
@@ -708,21 +718,26 @@ if(pastPredictionsNames.includes(assistPick.name)){
         notifyErrorFxn("Error submitting your assist pick, please try again. ")
         
       });
+
+   
+
+      
     }else{
 
 
       compUserSelections[indexOfInterest] = assistPick
+      //console.log("COMP USER SELECTIONS HERE --->",compUserSelections)
 
       db.collection("competitions").doc(compId).update({
     
         userSelections: compUserSelections
       }).then((docRef) => {
-        console.log(" course Document updated is: ", docRef);
+        //console.log(" course Document updated is: ", docRef);
         notifySuccessFxn("Submitted  Prediction Successfully!")
     
         db.collection("competitions").doc(compId.trim()).get().then((doc)=>{
         if(doc.exists){
-          console.log("COMPETITIONS PACK-->",doc.data())
+          //console.log("COMPETITIONS PACK-->",doc.data())
          
     
         if(compName === "Goal Scorer"){
@@ -821,6 +836,8 @@ if(pastPredictionsNames.includes(assistPick.name)){
 }else if(gameWeekStarted === true){
   notifyErrorFxn("The Gameweek is in progress, we can't update your selection at this time!")
 }
+
+})   //<--- end of huge .then statement , right after comp id is assigned
 
 
 
@@ -1260,6 +1277,32 @@ export const fetchAllCompetitionsInOneLeague = (leagueCode) => async (dispatch) 
    } else {
        //dispatch(isItLoading(false));
        dispatch(saveAllCompetitionsInOneLeague([]));
+       console.log("No COMPETITONS IN THIS LEAGUE -- THIS IS FROM JOB ACTIONS FILE!");
+   }
+ }).catch((error) => {
+   console.log("Error getting document:", error);
+   //dispatch(isItLoading(false));
+ });
+
+
+}
+
+
+export const fetchAllCompetitionsForOneUser = (competitionIdArray) => async (dispatch) => {
+  console.log("competitionIdArray",competitionIdArray)
+  //dispatch(isItLoading(true));
+  db.collection("competitions")
+  .where('id', 'in', competitionIdArray)
+   .get()
+   .then((snapshot) => {
+     const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+   if (allGroups.length > 0) {
+    // dispatch(isItLoading(false));
+     console.log("All Groups Data:", allGroups);
+     dispatch(saveAllCompetitionsForOneUser(allGroups));
+   } else {
+       //dispatch(isItLoading(false));
+       dispatch(saveAllCompetitionsForOneUser([]));
        console.log("No COMPETITONS IN THIS LEAGUE -- THIS IS FROM JOB ACTIONS FILE!");
    }
  }).catch((error) => {

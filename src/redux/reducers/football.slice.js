@@ -15,6 +15,7 @@ const initialState = {
        cleanSheetResultsPerLeague:[],
        allCompetitionsInOneLeague:[],
        userInFocusForDeposits:[],
+       allCompetitionsForOneUser:[],
        allUsersInOneLeague:[],
        teamWinResultsPerLeague:[],
        goalScorerPickFour:{},
@@ -97,6 +98,9 @@ saveTeamWinResultsPerLeague: (state, action) => {
 saveAllCompetitionsInOneLeague: (state, action) => {
   state.allCompetitionsInOneLeague = action.payload; 
 },
+saveAllCompetitionsForOneUser: (state, action) => {
+  state.allCompetitionsForOneUser = action.payload; 
+},
 saveAllUsersInOneLeague: (state, action) => {
   state.allUsersInOneLeague = action.payload; 
 },
@@ -147,6 +151,7 @@ export const {
  saveTeamWinCompetitionInFocus,
 
  saveAllCompetitionsInOneLeague,
+ saveAllCompetitionsForOneUser,
  saveAllUsersInOneLeague,
 
  saveUserInFocusForDeposits,
