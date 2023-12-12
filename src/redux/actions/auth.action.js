@@ -103,7 +103,9 @@ else{
 }).catch((err) => {
   console.error("Error signing up: ", err);
   var errorMessage = err.message;
-  notifyErrorFxn(errorMessage);
+  let JSONmessage = JSON.parse(err.message)
+   
+  notifyErrorFxn(JSONmessage.error.message);
   dispatch(signupFailed({ errorMessage }));
   dispatch(isItLoading(false))
   setLoading(false);

@@ -184,7 +184,7 @@ const standingsList = [
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
-<TableContainer component={Paper} style={{marginTop:"0rem"}}>
+<TableContainer component={Paper} style={{marginTop:"0rem",backgroundColor:"#FAFAFA"}}>
       
  
 <h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>

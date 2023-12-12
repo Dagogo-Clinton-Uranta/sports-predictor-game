@@ -214,7 +214,7 @@ const standingsList = [
     
     
    
-<TableContainer component={Paper} style={{marginTop:"0rem"}}>
+<TableContainer component={Paper} style={{marginTop:"0rem",backgroundColor:"#FAFAFA"}}>
       
 <h4>FOOTBALL &nbsp; - &nbsp; Team Win</h4>
 

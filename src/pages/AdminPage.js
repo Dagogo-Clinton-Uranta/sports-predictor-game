@@ -419,7 +419,7 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
         
        
       <RespSelect
-          style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem",width:"100%"}}
+          style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem"}}
        
         
           labelId="demo-simple-select-label"

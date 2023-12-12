@@ -167,7 +167,7 @@ const standingsList = [
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
    
-<TableContainer component={Paper} style={{marginTop:"4rem"}}>
+<TableContainer component={Paper} style={{marginTop:"4rem",backgroundColor:"#FAFAFA"}}>
       
  
         <Typography variant="h6" sx={{ textAlign: 'center', backgroundColor:"#FAFAFA",mb: 2}}>

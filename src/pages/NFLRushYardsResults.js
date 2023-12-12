@@ -185,7 +185,7 @@ const premTeams = [
     
     
    
-    <TableContainer component={Paper} style={{marginTop:"0rem"}}>
+    <TableContainer component={Paper} style={{marginTop:"0rem",backgroundColor:"#FAFAFA"}}>
           
     <h4>NFL &nbsp; - &nbsp; Rushing Yards</h4>
     
