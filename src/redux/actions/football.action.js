@@ -563,7 +563,7 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasS
 
   if (goalScorers && goalScorers[0]) {
     compId = goalScorers[0].id
-    console.log("GOAL SCORERS 0 ID  IS --->>",goalScorers[0].id)
+    console.log("GOAL SCORERS 0 ID  IS -->>",goalScorers[0].id)
 
     console.log("THIS IS THE MISSING COMP ID---->",goalScorers[0].id,compId)
     compUserSelections = goalScorers[0].userSelections?goalScorers[0].userSelections:[]
@@ -578,7 +578,7 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasS
   console.log("COMP IS OPEN 4 THIS PARTICULAR COMPETITION IS--->",compIsOpen)
 })
 .then(async()=>{
-
+setTimeout(()=>{
 if(gameWeekStarted !== false && gameWeekStarted !== true ){
   notifyErrorFxn("We do not know the state of the gameweek for this competition, please check this competition has a game week field.")
   return
@@ -837,7 +837,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
   notifyErrorFxn("The Gameweek is in progress, we can't update your selection at this time!")
 }
 
-})   //<--- end of huge .then statement , right after comp id is assigned
+},1000)})   //<--- end of huge .then statement , right after comp id is assigned
 
 
 

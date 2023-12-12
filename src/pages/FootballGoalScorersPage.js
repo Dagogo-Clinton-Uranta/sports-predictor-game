@@ -184,6 +184,7 @@ if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
 if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
 
   setEliminated(true)
+  console.log("USER HAS BEEN ELIMINATED FROM THIS COMP",user.eliminatedCompetitions)
 
 }
  
