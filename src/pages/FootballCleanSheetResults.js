@@ -80,20 +80,20 @@ export default function FootballCleanSheetResultsPage() {
   const [goalScorerResults,setGoalScorerResults] = useState(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
 
   useEffect(()=>{
-    dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueId))
+   dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueCode))
     setGoalScorerResults(cleanSheetResultsPerLeague)
    
    
     //setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
-    console.log("CLEAN SHEET SELECTIONS--->",goalScorerResults)
+    console.log("CLEAN SHEET SELECTIONS--->",cleanSheetResultsPerLeague)
 
   },[])
 
   useEffect(()=>{
    
     setGoalScorerResults(cleanSheetResultsPerLeague)
-    //setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
-    console.log("CLEAN SHEET SELECTIONS--->",goalScorerResults)
+    
+    console.log("CLEAN SHEET SELECTIONS--->",cleanSheetResultsPerLeague)
 
   },[])
 
@@ -236,7 +236,7 @@ const standingsList = [
          <Divider/>
 
           <TableBody>
-            {goalScorerResults.map((row,index) => (
+            {goalScorerResults && goalScorerResults.map((row,index) => (
                   <TableRow key={index}>
                   <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
                     {index+1}

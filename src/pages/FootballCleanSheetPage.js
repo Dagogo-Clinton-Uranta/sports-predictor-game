@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCleanSheetCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCleanSheetCompetitionInFocus,fetchCleanSheetResultsPerLeague} from 'src/redux/actions/football.action';
 
 
 
@@ -125,7 +125,7 @@ useEffect(()=>{
 
 setCleanSheetCompId(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id)
 
-},cleanSheetCompetitionInFocus)
+},[])
 
 
 
@@ -137,6 +137,7 @@ const [loading,setLoading] = useState(false)
 
 const [joined,setJoined] =  useState(false)
 const [eliminated,setEliminated] =  useState(false)
+const [waiting,setWaiting] =  useState(false)
 
 
 useEffect(()=>{
@@ -154,7 +155,8 @@ useEffect(()=>{
 
  useEffect(()=>{
   dispatch(fetchCleanSheetCompetitionInFocus(user.Leagues[0].leagueCode))
- })
+  console.log("user leagues-->",user.Leagues)
+ },[])
 
 
  
@@ -207,6 +209,19 @@ useEffect(()=>{
       setLoading(false)
     }
       ,1300)
+  }
+ }
+
+ const loadAndNavigate = ()=>{
+
+  if(joined){
+    
+    dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueCode))
+    setWaiting(true)
+
+   setTimeout( ()=>(navigate('/dashboard/football-cleansheet-results')),1800)
+  
+   
   }
  }
 
@@ -315,8 +330,8 @@ useEffect(()=>{
           SELECT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{if(joined){navigate('/dashboard/football-cleansheet-results')}}}>
-          RESULTS
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{loadAndNavigate()}}>
+         { waiting?"loading..":'RESULTS' }
         </Typography>
     </div>
     

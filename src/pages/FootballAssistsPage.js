@@ -18,7 +18,7 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchAssistCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchAssistCompetitionInFocus, fetchAssistResultsPerLeague} from 'src/redux/actions/football.action';
 
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
@@ -125,7 +125,7 @@ const [assistCompId,setAssistCompId] = useState(assistCompetitionInFocus?assistC
 
 setAssistCompId(assistCompetitionInFocus && assistCompetitionInFocus.id)
 
- },assistCompetitionInFocus)
+ },[])
 
 
 
@@ -135,6 +135,7 @@ const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
 const [chosenTeam,setChosenTeam] = useState('')
 const [loading,setLoading] = useState(false)
+const [waiting,setWaiting] = useState(false)
 
 const [joined,setJoined] =  useState(false)
 const [eliminated,setEliminated] =  useState(false)
@@ -207,6 +208,21 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
     ,1300)
 } 
 }
+
+
+const loadAndNavigate = ()=>{
+
+  if(joined){
+    
+    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueCode))
+    setWaiting(true)
+
+   setTimeout( ()=>(navigate('/dashboard/football-assists-results')),1800)
+  
+   
+  }
+ }
+
 
 
 const joinLeague = (compId,userId,accountBalance) => {
@@ -320,8 +336,8 @@ const joinLeague = (compId,userId,accountBalance) => {
           SELECT
         </Typography>
 
-        <Typography onClick={()=>{navigate('/dashboard/football-assists-results')}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} >
-          RESULTS
+        <Typography onClick={()=>{loadAndNavigate()}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} >
+        { waiting?"loading..":'RESULTS' }
         </Typography>
     </div>
     <Divider/>

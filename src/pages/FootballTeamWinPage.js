@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchTeamWinCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchTeamWinCompetitionInFocus, fetchTeamWinResultsPerLeague} from 'src/redux/actions/football.action';
 
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -129,7 +129,7 @@ useEffect(()=>{
 
 setTeamWinCompId(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id)
 
-},teamWinCompetitionInFocus)
+},[])
 
 
 const {user} = useSelector((state) => state.auth);
@@ -140,6 +140,9 @@ const [loading,setLoading] = useState('false')
 
 const [joined,setJoined] =  useState(false)
 const [eliminated,setEliminated] =  useState(false)
+
+const [waiting,setWaiting] =  useState(false)
+
 
 
 useEffect(()=>{
@@ -221,6 +224,20 @@ useEffect(()=>{
 
 }
 
+
+
+const loadAndNavigate = ()=>{
+
+  if(joined){
+    
+    dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueCode))
+    setWaiting(true)
+
+   setTimeout( ()=>(navigate('/dashboard/football-teamwin-results')),1800)
+  
+   
+  }
+ }
 
   return (
     <>
@@ -313,8 +330,8 @@ useEffect(()=>{
           SELECT
         </Typography>
 
-        <Typography onClick={()=>{navigate('/dashboard/football-teamwin-results')}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} >
-          RESULTS
+        <Typography onClick={()=>{loadAndNavigate()}} variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} >
+        { waiting?"loading..":'RESULTS' }
         </Typography>
     </div>
         <Divider/>

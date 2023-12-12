@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus, fetchGoalScorerResultsPerLeague} from 'src/redux/actions/football.action';
 
 
 
@@ -120,6 +120,8 @@ const [chosenPlayer,setChosenPlayer] = useState({})
 const [chosenTeam,setChosenTeam] = useState('')
 const [loading,setLoading] = useState(false)
 
+const [waiting,setWaiting] =  useState(false)
+
  const [joined,setJoined] =  useState(false)
  const [eliminated,setEliminated] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState(goalScorerCompetitionInFocus?goalScorerCompetitionInFocus.id:"umhhXlB1kcrXLcu6hYIQ")
@@ -128,7 +130,7 @@ const [loading,setLoading] = useState(false)
 
 setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)
 
- },goalScorerCompetitionInFocus)
+ },[])
 
 
  useEffect(()=>{
@@ -249,6 +251,21 @@ const joinLeague = (compId,userId,accountBalance) => {
 
 
 
+const loadAndNavigate = ()=>{
+
+  if(joined){
+    
+    dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueCode))
+    setWaiting(true)
+
+   setTimeout( ()=>(navigate('/dashboard/football-goalscorer-results')),1800)
+  
+   
+  }
+ }
+
+
+
   return (
     <>
       <Container maxWidth="xl" sx={{ marginTop:"5%" }}>
@@ -347,8 +364,8 @@ const joinLeague = (compId,userId,accountBalance) => {
           SELECT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{ if(joined){ navigate('/dashboard/football-goalscorers-results')} } }>
-          RESULTS
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{ loadAndNavigate() } }>
+        { waiting?"loading..":'RESULTS' }
         </Typography>
     </div>
         <Divider/>

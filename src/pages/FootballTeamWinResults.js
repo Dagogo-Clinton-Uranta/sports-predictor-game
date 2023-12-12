@@ -82,7 +82,7 @@ export default function FootballTeamWinResultsPage() {
 
   useEffect(()=>{
 
-    dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueId))
+    dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueCode))
     setGoalScorerResults(teamWinResultsPerLeague)
 
 

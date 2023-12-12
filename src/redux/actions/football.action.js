@@ -940,7 +940,7 @@ export const fetchCleanSheetResultsPerLeague = (leagueId) => async (dispatch) =>
     const  userSelections = CleanSheets[0].userSelections
   if (CleanSheets && CleanSheets[0]) {
     dispatch(isItLoading(false));
-    console.log("clean sheet Data--->:", CleanSheets[0].userSelections);
+    console.log("clean sheet Data FOR THIS LEAGUE IS---->:", CleanSheets[0].userSelections);
     dispatch(saveCleanSheetResultsPerLeague(userSelections));
   } else {
       dispatch(isItLoading(false));

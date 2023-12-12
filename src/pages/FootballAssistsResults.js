@@ -82,7 +82,7 @@ export default function FootballAssistsResultsPage() {
 
   useEffect(()=>{
     
-    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueId))
+    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueCode))
     setGoalScorerResults(assistResultsPerLeague)
      
 
