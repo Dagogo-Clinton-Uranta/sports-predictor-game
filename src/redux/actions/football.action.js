@@ -549,27 +549,38 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasS
   let gameWeekStarted =gameWeekHasStarted ;
   let CompIsOpen = compIsOpen;
 
-  console.log(" COMP NAME IS--->",compName,leagueId)
+  console.log(" COMP NAME  AND LEAGUE ID IS--->",compName,leagueId)
 
   db.collection("competitions")
   .where("compName", "==", compName)
- /* .where("leagueId", "==", leagueId)*/
+ .where("leagueId", "==", leagueId)
   .get()
   .then((snapshot) => {
     const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
-    console.log("THIS IS THE MISSING COMP ID---->",goalScorers)
+    console.log("THIS IS THE COMPETITION WE FACED BASED ON DATA GIVEN--->",goalScorers)
 /*THE PROBLEM IS HERE...THERE IS NO SUCH COMPETITIONS POPPING UP !! */
 
   if (goalScorers && goalScorers[0]) {
     compId = goalScorers[0].id
-    console.log("THIS IS THE MISSING COMP ID--->",goalScorers[0].id)
+    console.log("THIS IS THE MISSING COMP ID---->",goalScorers[0].id,compId)
     compUserSelections = goalScorers[0].userSelections
     compUserSelectionIds = goalScorers[0].userSelections.map((item)=>(item.userId))
    // gameWeekStarted = goalScorers[0].gameWeekStarted
    // CompIsOpen = goalScorers[0] && goalScorers[0].isOpen
   }
-  console.log(" GMAE WEEK 4 THIS PARTICULAR COMPETITION IS--->",gameWeekStarted)
+  console.log(" GAME WEEK 4 THIS PARTICULAR COMPETITION IS--->",gameWeekStarted)
+  console.log("COMP IS OPEN 4 THIS PARTICULAR COMPETITION IS--->",compIsOpen)
 })
+
+if(gameWeekStarted !== false && gameWeekStarted !== true ){
+  notifyErrorFxn("We do not know the state of the gameweek for this competition, please check this competition has a game week field")
+  return
+}
+
+if(compIsOpen !== false && compIsOpen !== true ){
+  notifyErrorFxn("We do not know thae state of isOpen  for this competition, please check this competition has an is Open field")
+  return
+}
 
 
  

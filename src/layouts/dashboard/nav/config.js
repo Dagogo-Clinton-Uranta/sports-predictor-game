@@ -15,7 +15,7 @@ const icon = (name) => <img src={`/assets/icons2/${name}.png`} sx={{ width: 1, h
 const navConfig = [
   {
     title: 'HOME',
-    path: '/dashboard/football-goalscorers',
+    path: '/dashboard/home',
     icon: icon('dashboard'),
   },
   {
