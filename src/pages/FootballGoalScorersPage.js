@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus, fetchGoalScorerResultsPerLeague} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus, fetchGoalScorerResultsPerLeague, fetchCleanSheetCompetitionInFocus, fetchTeamWinCompetitionInFocus, fetchAssistCompetitionInFocus} from 'src/redux/actions/football.action';
 
 
 
@@ -122,7 +122,7 @@ const [loading,setLoading] = useState(false)
 
 const [waiting,setWaiting] =  useState(false)
 
- const [joined,setJoined] =  useState(false)
+ const [joined,setJoined] =  useState(true)
  const [eliminated,setEliminated] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState(goalScorerCompetitionInFocus?goalScorerCompetitionInFocus.id:"umhhXlB1kcrXLcu6hYIQ")
 
@@ -156,6 +156,9 @@ useEffect(()=>{
 
  useEffect(()=>{
   dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
+  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
+  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
+  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues[0].leagueCode))
  },[user])
 
  console.log("user LOOK HERE--->",user)
@@ -179,14 +182,11 @@ if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
 
    setJoined(true)
 
+}else{
+  setJoined(false)
 }
 
-if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId)){
 
-  setEliminated(true)
-  console.log("USER HAS BEEN ELIMINATED FROM THIS COMP",user.eliminatedCompetitions)
-
-}
  
  },[user])
 
@@ -353,7 +353,7 @@ const loadAndNavigate = ()=>{
    
 
    
-      {joined  &&  
+      {user && user.competitions && user.competitions.includes(goalScorerCompId)  &&  
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
      
@@ -496,7 +496,7 @@ const loadAndNavigate = ()=>{
 
 
 
-{!joined   &&
+{!(user && user.competitions && user.competitions.includes(goalScorerCompId))   &&
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 

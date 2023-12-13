@@ -17,7 +17,7 @@ import IMG5 from '../assets/images/referrals.png';
 import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
-import {fetchGoalScorerResultsPerLeague} from 'src/redux/actions/football.action'
+import {fetchGoalScorerCompetitionInFocus, fetchGoalScorerResultsPerLeague} from 'src/redux/actions/football.action'
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -72,7 +72,7 @@ export default function FootballGoalScorersResultsPage() {
   const theme = useTheme();
  // const classes = useStyles()
  const { user } = useSelector((state) => state.auth);
- const {goalScorerResultsPerLeague} = useSelector((state) => state.football);
+ const {goalScorerResultsPerLeague,goalScorerCompetitionInFocus} = useSelector((state) => state.football);
 
  console.log("USER LEAGUES",user.Leagues[0].leagueId)
 
@@ -83,6 +83,7 @@ export default function FootballGoalScorersResultsPage() {
   useEffect(()=>{
     
     dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
     setGoalScorerResults(goalScorerResultsPerLeague )
 
     //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
@@ -254,7 +255,15 @@ const standingsList = [
                     </TableCell>
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                   
-                    {row && row.playerName?row.playerName:row && row.name}
+                    {row && row.playerName?
+                    
+                    (goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.gameWeekStarted? row.playerName:"submitted" ) 
+                    
+                    :
+
+                    (goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.gameWeekStarted?row && row.name:"submitted" ) 
+                    
+                    }
                     </TableCell>
                     </TableRow>  
                   ))

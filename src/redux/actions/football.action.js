@@ -793,7 +793,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
   if(indexOfInterest === -1){
 
-     notifyErrorFxn("a user selection is to be updated , but the user has not selected before, for this competition!")
+     notifyErrorFxn("You have been eliminated from this competition, you cannot submit a new selection!")
     return
   }
 

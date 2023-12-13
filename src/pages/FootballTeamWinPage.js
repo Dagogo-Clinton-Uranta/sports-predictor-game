@@ -138,7 +138,7 @@ const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({})
 const [loading,setLoading] = useState('false')
 
-const [joined,setJoined] =  useState(false)
+const [joined,setJoined] =  useState(true)
 const [eliminated,setEliminated] =  useState(false)
 
 const [waiting,setWaiting] =  useState(false)
@@ -180,13 +180,11 @@ useEffect(()=>{
     
        setJoined(true)
     
+    }else{
+      setJoined(false)
     }
 
-    if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(teamWinCompId)){
-
-      setEliminated(true)
-    
-    }
+   
      
      },[user])
  
@@ -315,7 +313,7 @@ const loadAndNavigate = ()=>{
     </StyledContent>
   </Container>
 
-  {joined  && 
+  {user && user.competitions && user.competitions.includes(teamWinCompId)  && 
 
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
@@ -416,7 +414,7 @@ const loadAndNavigate = ()=>{
 {/*========================================================================== IF THEY ARE NOT PART OF THIS LEAGUE \/ =========================================================== */}
 
 
-{!joined  &&  
+{!(user && user.competitions && user.competitions.includes(teamWinCompId))  &&  
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 

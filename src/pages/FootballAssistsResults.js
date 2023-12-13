@@ -32,7 +32,7 @@ import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
-import { fetchAssistResultsPerLeague, fetchGoalScorerResultsPerLeague } from 'src/redux/actions/football.action';
+import { fetchAssistCompetitionInFocus, fetchAssistResultsPerLeague, fetchGoalScorerResultsPerLeague } from 'src/redux/actions/football.action';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -71,9 +71,9 @@ export default function FootballAssistsResultsPage() {
  // const classes = useStyles()
 
  const { user } = useSelector((state) => state.auth);
- const {assistResultsPerLeague} = useSelector((state) => state.football);
+ const {assistResultsPerLeague,assistCompetitionInFocus} = useSelector((state) => state.football);
 
- console.log("USER LEAGUES",user.Leagues[0].leagueId)
+ console.log("ASSIST COMP FOR LEAGUE--->",assistCompetitionInFocus)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -83,12 +83,12 @@ export default function FootballAssistsResultsPage() {
   useEffect(()=>{
     
     dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
     setGoalScorerResults(assistResultsPerLeague)
      
 
     //setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
-    console.log("ASSIST SELECTIONS---->",goalScorerResults)
-
+    
   },[])
 
 
@@ -96,7 +96,7 @@ export default function FootballAssistsResultsPage() {
     
     dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueId))
     //setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
-    console.log("ASSIST SELECTIONS---->",goalScorerResults)
+    
 
   },[])
 
@@ -254,7 +254,17 @@ const standingsList = [
                    </TableCell>
                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                  
-                   {row && row.playerName?row.playerName:row && row.name}
+                   {row && row.playerName?
+                    
+                    (assistCompetitionInFocus && assistCompetitionInFocus.gameWeekStarted === true? row.playerName:"submitted" ) 
+                    
+                    :
+
+                    (assistCompetitionInFocus && assistCompetitionInFocus.gameWeekStarted === true?row && row.name:"submitted" ) 
+                    
+                    }
+                   
+                   
                    </TableCell>
                    </TableRow>  
                   ))

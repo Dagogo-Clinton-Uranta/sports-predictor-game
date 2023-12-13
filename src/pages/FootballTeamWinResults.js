@@ -32,7 +32,7 @@ import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
-import { fetchGoalScorerResultsPerLeague, fetchTeamWinResultsPerLeague } from 'src/redux/actions/football.action';
+import { fetchGoalScorerResultsPerLeague, fetchTeamWinCompetitionInFocus, fetchTeamWinResultsPerLeague } from 'src/redux/actions/football.action';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -72,7 +72,7 @@ export default function FootballTeamWinResultsPage() {
  // const classes = useStyles()
 
  const { user } = useSelector((state) => state.auth);
- const {teamWinResultsPerLeague} = useSelector((state) => state.football);
+ const {teamWinResultsPerLeague,teamWinCompetitionInFocus} = useSelector((state) => state.football);
 
  console.log("USER LEAGUES",user.Leagues[0].leagueId)
 
@@ -83,6 +83,7 @@ export default function FootballTeamWinResultsPage() {
   useEffect(()=>{
 
     dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
     setGoalScorerResults(teamWinResultsPerLeague)
 
 
@@ -245,6 +246,7 @@ const standingsList = [
          <Divider/>
 
           <TableBody>
+
             {goalScorerResults.map((row,index) => (
                 <TableRow key={index}>
                 <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
@@ -255,7 +257,17 @@ const standingsList = [
                 </TableCell>
                 <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
               
-                {row && row.playerName?row.playerName:row && row.name}
+                {row && row.playerName?
+                    
+                    (teamWinCompetitionInFocus && teamWinCompetitionInFocus.gameWeekStarted? row.playerName:"submitted" ) 
+                    
+                    :
+
+                    (teamWinCompetitionInFocus && teamWinCompetitionInFocus.gameWeekStarted?row && row.name:"submitted" ) 
+                    
+                    }
+               
+               
                 </TableCell>
                 </TableRow> 
                   ))

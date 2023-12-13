@@ -32,7 +32,7 @@ import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
 import ALISSON from '../assets/images/ALISSON.jpeg'
 import HALAAND from '../assets/images/HAALAND.jpeg'
-import { fetchCleanSheetResultsPerLeague, fetchGoalScorerResultsPerLeague } from 'src/redux/actions/football.action';
+import { fetchCleanSheetCompetitionInFocus, fetchCleanSheetResultsPerLeague, fetchGoalScorerResultsPerLeague } from 'src/redux/actions/football.action';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -71,7 +71,7 @@ export default function FootballCleanSheetResultsPage() {
  // const classes = useStyles()
 
  const { user } = useSelector((state) => state.auth);
- const {cleanSheetResultsPerLeague} = useSelector((state) => state.football);
+ const {cleanSheetResultsPerLeague,cleanSheetCompetitionInFocus} = useSelector((state) => state.football);
 
  console.log("USER LEAGUES-->",user.Leagues[0].leagueId)
 
@@ -81,7 +81,8 @@ export default function FootballCleanSheetResultsPage() {
 
   useEffect(()=>{
    dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueCode))
-    setGoalScorerResults(cleanSheetResultsPerLeague)
+   dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues[0].leagueCode))
+   setGoalScorerResults(cleanSheetResultsPerLeague)
    
    
     //setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
@@ -246,7 +247,17 @@ const standingsList = [
                   </TableCell>
                   <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                 
-                  {row && row.playerName?row.playerName:row && row.name}
+                
+                  {row && row.playerName?
+                    
+                    (cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.gameWeekStarted? row.playerName:"submitted" ) 
+                    
+                    :
+
+                    (cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.gameWeekStarted?row && row.name:"submitted" ) 
+                    
+                    }
+                 
                   </TableCell>
                   </TableRow> 
                   ))
