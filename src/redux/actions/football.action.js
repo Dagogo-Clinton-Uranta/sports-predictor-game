@@ -550,7 +550,7 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasS
   let gameWeekStarted =gameWeekHasStarted ;
   let CompIsOpen = compIsOpen;
 
-  console.log(" COMP NAME  AND LEAGUE ID IS--->",compName,leagueId)
+  
 
   db.collection("competitions")
   .where("compName", "==", compName)
@@ -603,6 +603,8 @@ if(gameWeekStarted === false){
 
 const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
 
+console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+
 if(pastPredictionsNames.includes(assistPick.name)){
   notifyErrorFxn("You can't select a player you have picked before,please pick again")
   return
@@ -619,6 +621,10 @@ if(pastPredictionsNames.includes(assistPick.name)){
  if(compName === "Assist"){
   const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
 
+  console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+
+ 
+
   if(pastPredictionsNames.includes(assistPick.name)){
     notifyErrorFxn("You can't select a player you have picked before,please pick again")
     return
@@ -633,6 +639,9 @@ if(pastPredictionsNames.includes(assistPick.name)){
  if(compName === "Clean Sheet"){
 
   const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+
+  console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+
   if(pastPredictionsNames.includes(assistPick.name)){
     notifyErrorFxn("You can't select a team you have picked before,please pick again")
     return
@@ -647,6 +656,8 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
 
   if(compName === "Team Win"){
+
+    console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
 
 
   const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
@@ -789,6 +800,17 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
   compUserSelections[indexOfInterest] = assistPick
 
+
+  const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+
+  console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+
+  if(pastPredictionsNames.includes(assistPick.name)){
+    notifyErrorFxn("You can't select this option, you have picked it before,please pick again")
+    return
+  }else{
+
+ 
   db.collection("competitions").doc(compId).update({
 
     userSelections: compUserSelections
@@ -802,19 +824,42 @@ if(pastPredictionsNames.includes(assistPick.name)){
      
 
     if(compName === "Goal Scorer"){
+ 
+      db.collection("users").doc(assistPick.userId).update({
+        chosenGoalScorerPrediction:assistPick
+      })
+
      dispatch(fetchGoalScorerResultsPerLeague(leagueId))
+
+
     }
 
     if(compName === "Assist"){
+
+      db.collection("users").doc(assistPick.userId).update({
+        chosenAssistPrediction:assistPick
+      })
+
      dispatch(fetchAssistResultsPerLeague(leagueId))
     }
 
     if(compName === "Clean Sheet"){
+
+      db.collection("users").doc(assistPick.userId).update({
+        chosenCleanSheetPrediction:assistPick
+      })
+
      dispatch(fetchCleanSheetResultsPerLeague(leagueId))
      }
 
 
      if(compName === "Team Win"){
+
+      db.collection("users").doc(assistPick.userId).update({
+        chosenTeamWinPrediction:assistPick
+      })
+
+
      dispatch(fetchTeamWinResultsPerLeague(leagueId))
      }
      
@@ -830,7 +875,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
     
   });
 
- 
+  } // <-- end of else statement for if the user has picked a certain player b4
 } 
 
 }else if(gameWeekStarted === true){
@@ -1119,7 +1164,7 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
 
 
 export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) => {
-   console.log("comp id is--->", compId)
+  
 
   db.collection("competitions")
   .where("compName",  "==", "Goal Scorer")
@@ -1128,6 +1173,9 @@ export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) =>
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
     
+      console.log("WHERE IS THIS COMPETITION COMING FROM--->", compId)
+
+
     if(allGroups.length > 0){
     
       const data = allGroups[0];

@@ -180,9 +180,11 @@ useEffect(()=>{
    },[user])
 
 
+   console.log("THIS IS OUR PAST PREDICTIONS---->",user.pastAssistSelections)
+
    useEffect(()=>{
     dispatch(fetchAssistCompetitionInFocus(user.Leagues[0].leagueCode))
-   })
+   },[])
   
 
 

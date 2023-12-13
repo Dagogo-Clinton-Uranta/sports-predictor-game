@@ -158,7 +158,7 @@ useEffect(()=>{
   dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
  },[user])
 
- console.log("fetch goal scorer competition in focus",goalScorerCompetitionInFocus)
+ console.log("user LOOK HERE--->",user)
 
  useEffect(()=>{
  
