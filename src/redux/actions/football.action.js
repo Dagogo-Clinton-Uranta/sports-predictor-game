@@ -1274,8 +1274,25 @@ export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) =>
 
 }
 
-export const startCompetition = (addObject) => async (dispatch) => {
+export const startCompetition = (addObject,leagueCode,leagueName) => async (dispatch) => {
 
+  let leagueId
+  let newCompId
+
+  db.collection("leagues")
+  .where('leagueCode', '==', leagueCode)
+   .get()
+   .then((snapshot) => {
+
+   let leaguesInFocus = snapshot.docs.map((doc) => ({ ...doc.data() }));
+
+   if(leaguesInFocus.length > 0){
+   leagueId  = leaguesInFocus[0].id 
+   }
+  
+  })
+
+  
  
   db.collection("competitions").add(
     {
@@ -1283,7 +1300,8 @@ export const startCompetition = (addObject) => async (dispatch) => {
       entryFee:addObject.entryFee,
       isOpen:true,
       leagueId:addObject.leagueId,
-      
+      leagueName:addObject.leagueName,
+      gameWeekStarted:false,
       sportId:1,
       sportName:addObject.sportName,
       dateCreated:new Date(),
@@ -1292,15 +1310,29 @@ export const startCompetition = (addObject) => async (dispatch) => {
     }
   ).then((doc) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     newCompId = doc.id
      db.collection("competitions").doc(doc.id).update({
-    id:doc.id
+     id:doc.id
      })
 
     console.log("the documents id is",doc.id)
      notifySuccessFxn(` the new competition has been added!`)
    
 
- }).catch((error) => {
+ }).then(()=>{
+
+
+
+
+ 
+  db.collection("leagues").doc(leagueId).update({
+    competitions:firebase.firestore.FieldValue.arrayUnion({compName:leagueName,compId:newCompId})
+     })
+
+     
+
+
+     }).catch((error) => {
    console.log("Error adding/starting the new competition:", error);
    notifyErrorFxn(error)
 

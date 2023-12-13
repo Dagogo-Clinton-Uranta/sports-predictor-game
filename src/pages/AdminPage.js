@@ -351,7 +351,7 @@ const startThisCompetition = async(addObject,navigate) => {
   else{
  
   setLoading(true)
-  dispatch(startCompetition(addObject,navigate))
+  dispatch(startCompetition(addObject,user && user.Leagues[0].leagueCode,user && user.Leagues[0].leagueName,navigate))
  
   // console.log("identity is",identity)
   // console.log("update this subject is updating.........")
