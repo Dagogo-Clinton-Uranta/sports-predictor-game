@@ -148,12 +148,13 @@ const RespSelect = styled('select')(({ theme }) => ({
     flexDirection:"column",
     gap:"0.5rem",
     height:"2rem",
+    borderRadius:"20px"
   },
 
   [theme.breakpoints.up('md')]: {
-    width:"42rem",
+    width:"52rem",
     fontSize:"1.5rem ",
-  
+    borderRadius:"20px"
  },
 
 }));
@@ -256,7 +257,7 @@ const RespDeposit = styled('button')(({ theme }) => ({
 
 
 
-export default function EntryPage() {
+export default function CreateLeaguePage() {
   const theme = useTheme();
  // const classes = useStyles()
 
@@ -397,7 +398,7 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-         ENTER LEAGUE CODE
+         CREATE LEAGUE
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -445,9 +446,30 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
         
         
       <div style={{fontSize:"1rem",marginBottom:"20px"}}>
-      CODE
+      NAME
       </div>
         </RespVar>
+     
+
+
+        <RespSelect
+          style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem"}}
+       
+        
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={compName}
+          label="icon"
+          onChange={(event) => {
+           setCompName(event.target.value)
+          }}
+        >   
+  <option style={{color:"black"}} value={"United Kingdom"}>{"United Kingdom"}</option>
+  <option style={{color:"black"}}  value={"United States"}>{"United States"}</option>
+  <option style={{color:"black"}}  value={"Nigeria"}>{"Nigeria"}</option>
+  <option style={{color:"black"}}  value={"Spain"}>{"Spain"}</option>
+     
+        </RespSelect>
      
 
 
@@ -460,16 +482,9 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
         
         
         
-        <RespButton2 onClick={()=>{navigate('/dashboard/create-league')}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
-              Create League
-         </RespButton2>
       
-
-
-
-     
         <RespButton2 onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
-              Join League
+              Join Waitlist
          </RespButton2>
       
 

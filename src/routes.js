@@ -52,6 +52,7 @@ import PickFourGoalScorersResultsPage from './pages/PickFourGoalScorerResults';
 import PickFourAssistsPage from './pages/PickFourAssistsPage';
 import PickFourAssistsStandingsPage from './pages/PickFourAssistsStandings';
 import PickFourAssistsResultsPage from './pages/PickFourAssistsResults';
+import CreateLeaguePage from './pages/CreateLeaguePage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -60,6 +61,12 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/login" />, index: true },
+
+        { path: 'entry',
+        element:  <EntryPage /> },
+
+        { path: 'create-league',
+        element:  <CreateLeaguePage /> },
        
         { path: 'home', element:  <FootballGoalScorersPage   /> },
 
@@ -127,8 +134,7 @@ export default function Router() {
       ],
     },
     
-      { path: 'entry',
-       element:  <EntryPage /> },
+     
     
     {
       path: 'login',

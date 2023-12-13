@@ -136,7 +136,7 @@ setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus
  useEffect(()=>{
 
   if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
-    navigate('/entry')
+    navigate('/dashboard/entry')
   }
    },[user])
 
