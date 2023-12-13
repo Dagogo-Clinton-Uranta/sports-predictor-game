@@ -1300,7 +1300,7 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
       entryFee:addObject.entryFee,
       isOpen:true,
       leagueId:addObject.leagueId,
-      leagueName:addObject.leagueName,
+      leagueName:leagueName,
       gameWeekStarted:false,
       sportId:1,
       sportName:addObject.sportName,
