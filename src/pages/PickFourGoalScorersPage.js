@@ -259,7 +259,7 @@ notifyErrorFxn("Please select a player before submitting!")
           SELECT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/football-goalscorers-results')}}>
           RESULTS
         </Typography>
     </div>

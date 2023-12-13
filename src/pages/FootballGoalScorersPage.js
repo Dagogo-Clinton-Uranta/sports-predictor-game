@@ -259,7 +259,7 @@ const loadAndNavigate = ()=>{
     dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueCode))
     setWaiting(true)
 
-   setTimeout( ()=>(navigate('/dashboard/football-goalscorer-results')),1800)
+   setTimeout( ()=>(navigate('/dashboard/football-goalscorers-results')),1800)
   
    
   }
