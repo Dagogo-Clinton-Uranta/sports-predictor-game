@@ -31,6 +31,9 @@ export default function RegisterForm() {
   const [lname, setLName] = useState('');
   const [leagueCode,setLeagueCode] =  useState('');
   const [teamName,setTeamName] =  useState('');
+  const [firstName,setFirstName] = useState('');
+  const [lastName,setLastName] = useState('');
+
 
   const { isLoading } = useSelector((state) => state.auth);
 
@@ -53,7 +56,7 @@ export default function RegisterForm() {
   const userSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    const user = {fname, password,teamName,leagueCode};
+    const user = {firstName,lastName,fname, password,teamName,leagueCode};
     dispatch(signup(user, navigate, setLoading)); 
   }
 
@@ -69,6 +72,8 @@ export default function RegisterForm() {
     <>
       <form onSubmit={userSignup}>
       <Stack spacing={3}>
+      <TextField name="First Name" required label="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+      <TextField name="Last Name" required label="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
         <TextField name="Email" required label="Email" value={fname} onChange={(e) => setFName(e.target.value)}/>
        
        

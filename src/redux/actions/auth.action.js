@@ -65,6 +65,8 @@ else{
 ).then((res)=>{
    db.collection('users').doc(res.user.uid).set({
     id: res.user.uid,
+    firstName:user.firstName,
+    lastName:user.lastName,
     email: user.fname,
     Leagues:[{
       leagueCode:user.leagueCode,

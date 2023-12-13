@@ -85,9 +85,12 @@ export default function AccountPopover() {
           </Grid>
           <Box sx={{ my: 1.5, px: 1 }}>
           <Typography variant="subtitle2" noWrap>
-            {/*user?.firstName + " " + user?.lastName*/}
+            {user.firstName && user.lastName?
+            
+            user.firstName + " " + user.lastName
+            :
 
-            {user && user.teamName ? user.teamName:' '}
+            user && user.teamName ? user.teamName:' '}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {user?.email}
