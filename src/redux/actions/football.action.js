@@ -1399,7 +1399,7 @@ export const fetchAllUsersInOneLeague = (leagueCode,leagueName) => async (dispat
 
   const leagueObject = {
       leagueCode:leagueCode,
-      leagueId:Number(leagueCode),   //<---- update this logic later, when the codes nad id's become clearer
+      leagueId:leagueCode,   //<---- update this logic later, when the codes nad id's become clearer
       leagueName:leagueName
   }
 
@@ -1411,7 +1411,7 @@ db.collection("users")
    const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
  if (allGroups.length > 0) {
   // dispatch(isItLoading(false));
-   console.log("ALL USERS IN THIS LEAGUE Data--->:", allGroups);
+   console.log("ALL USERS IN THIS LEAGUE Data---->:", allGroups);
    dispatch(saveAllUsersInOneLeague(allGroups));
  } else {
      //dispatch(isItLoading(false));
