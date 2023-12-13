@@ -657,10 +657,13 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
   if(compName === "Team Win"){
 
-    console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+    
 
 
   const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
+
+  console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+
   if(pastPredictionsNames.includes(assistPick.name)){
     notifyErrorFxn("You can't select a team you have picked before,please pick again!")
     return
@@ -688,7 +691,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
     if(indexOfInterest === -1){
      
      
-      console.log("JUST BEFORE UPDATING, COMP ID IS --->",compId)
+      console.log("JUST BEFORE UPDATING, COMP ID IS ----->",compId)
       
       db.collection("competitions").doc(compId).update({
         userSelections:firebase.firestore.FieldValue.arrayUnion(assistPick)
