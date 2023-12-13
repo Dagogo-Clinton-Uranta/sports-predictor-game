@@ -1139,6 +1139,7 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
   .get().then((snapshot)=>{
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+      console.log("WHAT DO WE GET WHEN WE SEARCH FOR TEAM WIN? ---->",allGroups)
     
     if(allGroups.length > 0){
     
@@ -1279,12 +1280,16 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
   let leagueId
   let newCompId
 
+  console.log("LEAGUE CODE FOR CREATING NEW COMP IS--->",leagueCode,typeof(leagueCode))
+
   db.collection("leagues")
-  .where('leagueCode', '==', leagueCode)
+  .where('code', '==', leagueCode)
    .get()
    .then((snapshot) => {
 
    let leaguesInFocus = snapshot.docs.map((doc) => ({ ...doc.data() }));
+ 
+   console.log("LEAGUES IN FOCUS FOR CREATING NEW COMP IS--->",leaguesInFocus)
 
    if(leaguesInFocus.length > 0){
    leagueId  = leaguesInFocus[0].id 
@@ -1309,14 +1314,13 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
       userSelections:[]
     }
   ).then((doc) => {
-     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  
      newCompId = doc.id
      db.collection("competitions").doc(doc.id).update({
      id:doc.id
      })
 
-    console.log("the documents id is",doc.id)
-     notifySuccessFxn(` the new competition has been added!`)
+    
    
 
  }).then(()=>{
@@ -1329,7 +1333,8 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
     competitions:firebase.firestore.FieldValue.arrayUnion({compName:leagueName,compId:newCompId})
      })
 
-     
+   
+     notifySuccessFxn(` the new competition has been added!`)
 
 
      }).catch((error) => {
