@@ -71,24 +71,24 @@ export default function FootballCleanSheetResultsPage() {
  // const classes = useStyles()
 
  const { user } = useSelector((state) => state.auth);
- const {cleanSheetResultsPerLeague,cleanSheetCompetitionInFocus} = useSelector((state) => state.football);
+ const {cleanSheetResultsPerLeague,cleanSheetCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
- console.log("USER LEAGUES-->",user.Leagues[0].leagueId)
+ console.log("USER LEAGUES-->",leagueInFocus.leagueId)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [goalScorerResults,setGoalScorerResults] = useState(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
 
   useEffect(()=>{
-   dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueCode))
-   dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues[0].leagueCode))
+   dispatch(fetchCleanSheetResultsPerLeague(leagueInFocus.leagueCode))
+   dispatch(fetchCleanSheetCompetitionInFocus(user && leagueInFocus.leagueCode))
    setGoalScorerResults(cleanSheetResultsPerLeague)
    
    
     //setGoalScorerResults(cleanSheetResultsPerLeague  ?cleanSheetResultsPerLeague:[])
     console.log("CLEAN SHEET SELECTIONS--->",cleanSheetResultsPerLeague)
 
-  },[])
+  },[leagueInFocus])
 
   useEffect(()=>{
    
@@ -96,7 +96,7 @@ export default function FootballCleanSheetResultsPage() {
     
     console.log("CLEAN SHEET SELECTIONS--->",cleanSheetResultsPerLeague)
 
-  },[])
+  },[leagueInFocus])
 
 const premTeams = [
 "Arsenal",

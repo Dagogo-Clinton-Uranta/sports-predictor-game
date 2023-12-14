@@ -26,6 +26,7 @@ const initialState = {
        cleanSheetcompetitionInFocus:{},
        assistCompetitionInFocus:{},
        goalScorerCompetitionInFocus:{},
+       leagueInFocus:{},
        depositCanChangeNow:false,
       isLoading: false,
 
@@ -109,6 +110,10 @@ saveUserInFocusForDeposits: (state, action) => {
   state.userInFocusForDeposits = action.payload; 
 },
 
+saveLeagueInFocus: (state, action) => {
+  state.leagueInFocus = action.payload; 
+},
+
 saveDepositCanChangeNow: (state, action) => {
   state.depositCanChangeNow = action.payload; 
 },
@@ -156,6 +161,8 @@ export const {
 
  saveUserInFocusForDeposits,
  saveDepositCanChangeNow,
+
+ saveLeagueInFocus,
 
  savePublicGroup,
  savePrivateGroup,

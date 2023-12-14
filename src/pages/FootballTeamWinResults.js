@@ -72,9 +72,9 @@ export default function FootballTeamWinResultsPage() {
  // const classes = useStyles()
 
  const { user } = useSelector((state) => state.auth);
- const {teamWinResultsPerLeague,teamWinCompetitionInFocus} = useSelector((state) => state.football);
+ const {teamWinResultsPerLeague,teamWinCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
- console.log("USER LEAGUES",user.Leagues[0].leagueId)
+ console.log("USER LEAGUES",leagueInFocus.leagueId)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -82,8 +82,8 @@ export default function FootballTeamWinResultsPage() {
 
   useEffect(()=>{
 
-    dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueCode))
-    dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    dispatch(fetchTeamWinResultsPerLeague(leagueInFocus.leagueCode))
+    dispatch(fetchTeamWinCompetitionInFocus(user && leagueInFocus.leagueCode))
     setGoalScorerResults(teamWinResultsPerLeague)
 
 
@@ -91,7 +91,7 @@ export default function FootballTeamWinResultsPage() {
     //setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
     console.log("TEAM WIN SELECTIONS--->",teamWinResultsPerLeague)
 
-  },[])
+  },[leagueInFocus])
 
   useEffect(()=>{
 
@@ -100,7 +100,7 @@ export default function FootballTeamWinResultsPage() {
     //setGoalScorerResults(teamWinResultsPerLeague  ?teamWinResultsPerLeague:[])
     console.log("TEAM WIN SELECTIONS--->",teamWinResultsPerLeague)
 
-  },[])
+  },[leagueInFocus])
 
 
 const premTeams = [

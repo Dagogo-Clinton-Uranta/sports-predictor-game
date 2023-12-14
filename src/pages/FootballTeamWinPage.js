@@ -21,7 +21,10 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchTeamWinCompetitionInFocus, fetchTeamWinResultsPerLeague} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,
+  joinCompetition,fetchTeamWinCompetitionInFocus,
+   fetchTeamWinResultsPerLeague,setLeagueInFocus,
+  } from 'src/redux/actions/football.action';
 
 
 import BloodInvestigation from 'src/components/treatment/blood-investigation';
@@ -120,7 +123,7 @@ const premTeams = [
 //const teamWinCompId = "hASebzJ1pBHiUt8ug3V2"
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,teamWinCompetitionInFocus} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,teamWinCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
 
 const [teamWinCompId,setTeamWinCompId] = useState(teamWinCompetitionInFocus?teamWinCompetitionInFocus.id:"hASebzJ1pBHiUt8ug3V2")
@@ -158,8 +161,8 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
- },[])
+  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
+ },[leagueInFocus])
 
  
  useEffect(()=>{
@@ -186,7 +189,7 @@ useEffect(()=>{
 
    
      
-     },[user])
+     },[user,leagueInFocus])
  
  
  const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
@@ -197,13 +200,13 @@ useEffect(()=>{
  }
  
  const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
-  if(!prediction||(!prediction.hasOwnProperty("name")|| (!prediction.hasOwnProperty("userId")) ||(!prediction.hasOwnProperty("teamName"))  )){
+  if(!prediction||!prediction.hasOwnProperty("name")|| (!prediction.hasOwnProperty("userId")) ||(!prediction.hasOwnProperty("teamName"))  ){
     notifyErrorFxn("Please select a team before submitting!")
     return
   }else{
 
     console.log("CHOSEN PLAYER BEING SUBMITTED IS--->",prediction)
-    dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    dispatch(fetchTeamWinCompetitionInFocus(user &&  user.Leagues && leagueInFocus.leagueCode))
     setLoading(true)
 
 
@@ -232,7 +235,7 @@ const loadAndNavigate = ()=>{
 
   if(joined){
     
-    dispatch(fetchTeamWinResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchTeamWinResultsPerLeague(leagueInFocus.leagueCode))
     setWaiting(true)
 
    setTimeout( ()=>(navigate('/dashboard/football-teamwin-results')),1800)
@@ -404,7 +407,7 @@ const loadAndNavigate = ()=>{
             />
 
 
-            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Team Win",user.Leagues[0].leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Team Win",leagueInFocus.leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
               Submit
             </Button>
 

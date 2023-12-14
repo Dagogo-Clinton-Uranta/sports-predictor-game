@@ -72,9 +72,9 @@ export default function FootballGoalScorersResultsPage() {
   const theme = useTheme();
  // const classes = useStyles()
  const { user } = useSelector((state) => state.auth);
- const {goalScorerResultsPerLeague,goalScorerCompetitionInFocus} = useSelector((state) => state.football);
+ const {goalScorerResultsPerLeague,goalScorerCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
- console.log("USER LEAGUES",user.Leagues[0].leagueId)
+ console.log("USER LEAGUES",leagueInFocus.leagueId)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -82,14 +82,14 @@ export default function FootballGoalScorersResultsPage() {
 
   useEffect(()=>{
     
-    dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueCode))
-    dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    dispatch(fetchGoalScorerResultsPerLeague(leagueInFocus.leagueCode))
+    dispatch(fetchGoalScorerCompetitionInFocus(user && leagueInFocus.leagueCode))
     setGoalScorerResults(goalScorerResultsPerLeague )
 
     //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
     console.log("GOAL SCORER SELECTIONS--->",goalScorerResultsPerLeague)
 
-  },[])
+  },[leagueInFocus])
 
   useEffect(()=>{
    
@@ -99,7 +99,7 @@ export default function FootballGoalScorersResultsPage() {
     //setGoalScorerResults(goalScorerResultsPerLeague  ?goalScorerResultsPerLeague:[])
     console.log("GOAL SCORER SELECTIONS--->",goalScorerResultsPerLeague)
 
-  },[])
+  },[leagueInFocus])
 
 
 const premTeams = [

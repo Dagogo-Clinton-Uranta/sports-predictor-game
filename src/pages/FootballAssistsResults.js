@@ -71,7 +71,7 @@ export default function FootballAssistsResultsPage() {
  // const classes = useStyles()
 
  const { user } = useSelector((state) => state.auth);
- const {assistResultsPerLeague,assistCompetitionInFocus} = useSelector((state) => state.football);
+ const {assistResultsPerLeague,assistCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
  console.log("ASSIST COMP FOR LEAGUE--->",assistCompetitionInFocus)
 
@@ -82,23 +82,23 @@ export default function FootballAssistsResultsPage() {
 
   useEffect(()=>{
     
-    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueCode))
-    dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    dispatch(fetchAssistResultsPerLeague(leagueInFocus.leagueCode))
+    dispatch(fetchAssistCompetitionInFocus(user && leagueInFocus.leagueCode))
     setGoalScorerResults(assistResultsPerLeague)
      
 
     //setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
     
-  },[])
+  },[leagueInFocus])
 
 
   useEffect(()=>{
     
-    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueId))
+    dispatch(fetchAssistResultsPerLeague(leagueInFocus.leagueId))
     //setGoalScorerResults(assistResultsPerLeague  ?assistResultsPerLeague:[])
     
 
-  },[])
+  },[leagueInFocus])
 
 
 

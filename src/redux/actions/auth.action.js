@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/football.slice';
 import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getAllPatients, getWaitingRoomPatients } from './patient.action';
+import { setLeagueInFocus } from './football.action';
 
 
 export const signin = (user, navigate, setLoading) => async (dispatch) => {
@@ -176,6 +177,12 @@ export const fetchCandidateData = (id, type, navigate, setLoading) => async (dis
   user.get().then((doc) => {
   if (doc.exists) {
     // console.log("User Data:", doc.data());
+
+
+
+  dispatch(setLeagueInFocus(doc.data() && doc.data().Leagues &&doc.data().Leagues.length && doc.data().Leagues[0] ))
+
+
     dispatch(storeUserData(doc.data()));
     if(type === "sigin"){
       // notifySuccessFxn("Logged In😊");

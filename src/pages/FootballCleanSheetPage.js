@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCleanSheetCompetitionInFocus,fetchCleanSheetResultsPerLeague} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchCleanSheetCompetitionInFocus,fetchCleanSheetResultsPerLeague, setLeagueInFocus,} from 'src/redux/actions/football.action';
 
 
 
@@ -114,7 +114,7 @@ const premTeams = [
 
 
   
-  const { premierLeagueTeams,teamPlayersInFocus,isLoading,cleanSheetCompetitionInFocus} = useSelector((state) => state.football);
+  const { premierLeagueTeams,teamPlayersInFocus,isLoading,cleanSheetCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
 
   //const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
@@ -125,7 +125,7 @@ useEffect(()=>{
 
 setCleanSheetCompId(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id)
 
-},[])
+},[leagueInFocus])
 
 
 
@@ -154,9 +154,9 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchCleanSheetCompetitionInFocus(user.Leagues[0].leagueCode))
+  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
   console.log("user leagues-->",user.Leagues)
- },[])
+ },[leagueInFocus])
 
 
  
@@ -184,7 +184,7 @@ useEffect(()=>{
 
 
    
-   },[user])
+   },[user,leagueInFocus])
  
  
  const getPremierLeagueTeamPlayersForAssists = (teamId) =>{
@@ -199,7 +199,7 @@ useEffect(()=>{
     notifyErrorFxn("Please select a team before submitting!")
     return
   }else{
-    dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues[0].leagueCode))
+    dispatch(fetchCleanSheetCompetitionInFocus(user && leagueInFocus.leagueCode))
     setLoading(true)
 
 
@@ -215,7 +215,7 @@ useEffect(()=>{
 
   if(joined){
     
-    dispatch(fetchCleanSheetResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchCleanSheetResultsPerLeague(leagueInFocus.leagueCode))
     setWaiting(true)
 
    setTimeout( ()=>(navigate('/dashboard/football-cleansheet-results')),1800)
@@ -401,7 +401,7 @@ useEffect(()=>{
             />
 
 
-            <Button  onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Clean Sheet",user.Leagues[0].leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button  onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Clean Sheet",leagueInFocus.leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
             { loading?"Loading":"Submit"}
             </Button>
 

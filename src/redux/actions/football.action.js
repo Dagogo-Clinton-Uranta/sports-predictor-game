@@ -19,6 +19,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveAllCompetitionsInOneLeague,
     saveAllUsersInOneLeague,
     saveUserInFocusForDeposits,
+    saveLeagueInFocus,
     saveDepositCanChangeNow,
     saveAllCompetitionsForOneUser,
   } from '../reducers/football.slice';
@@ -1528,3 +1529,10 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
          });
     }
 
+
+
+   export const setLeagueInFocus =  (leagueObject) => async (dispatch) => {
+
+  dispatch(saveLeagueInFocus(leagueObject))
+
+    }

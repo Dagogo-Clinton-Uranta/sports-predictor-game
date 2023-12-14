@@ -18,7 +18,7 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchAssistCompetitionInFocus, fetchAssistResultsPerLeague} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchAssistCompetitionInFocus, fetchAssistResultsPerLeague,setLeagueInFocus,} from 'src/redux/actions/football.action';
 
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
@@ -113,7 +113,7 @@ const userPrediction = {
 
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,assistCompetitionInFocus} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,assistCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
 
 
@@ -125,7 +125,7 @@ const [assistCompId,setAssistCompId] = useState(assistCompetitionInFocus?assistC
 
 setAssistCompId(assistCompetitionInFocus && assistCompetitionInFocus.id)
 
- },[])
+ },[leagueInFocus])
 
 
 
@@ -175,14 +175,14 @@ useEffect(()=>{
 
  
    
-   },[user])
+   },[user,leagueInFocus])
 
 
    console.log("THIS IS OUR PAST PREDICTIONS---->",user.pastAssistSelections)
 
    useEffect(()=>{
-    dispatch(fetchAssistCompetitionInFocus(user.Leagues[0].leagueCode))
-   },[])
+    dispatch(fetchAssistCompetitionInFocus(leagueInFocus.leagueCode))
+   },[leagueInFocus])
   
 
 
@@ -198,7 +198,7 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
    notifyErrorFxn("Please select a player before submitting!")
    return
  }else{
-  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
+  dispatch(fetchAssistCompetitionInFocus(user && leagueInFocus.leagueCode))
   setLoading(true)
  
   setTimeout(()=>{ 
@@ -215,7 +215,7 @@ const loadAndNavigate = ()=>{
 
   if(joined){
     
-    dispatch(fetchAssistResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchAssistResultsPerLeague(leagueInFocus.leagueCode))
     setWaiting(true)
 
    setTimeout( ()=>(navigate('/dashboard/football-assists-results')),1800)
@@ -453,7 +453,7 @@ const joinLeague = (compId,userId,accountBalance) => {
             />
 
 
-            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Assist",user.Leagues[0].leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Assist",leagueInFocus.leagueId)}} style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
              { loading?"Loading":"Submit"}
             </Button>
 

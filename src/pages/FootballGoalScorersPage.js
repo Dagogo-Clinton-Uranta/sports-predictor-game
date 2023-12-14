@@ -21,7 +21,12 @@ import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 
-import {submitAssistPrediction,getPremierLeagueTeamPlayers,getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus, fetchGoalScorerResultsPerLeague, fetchCleanSheetCompetitionInFocus, fetchTeamWinCompetitionInFocus, fetchAssistCompetitionInFocus} from 'src/redux/actions/football.action';
+import {submitAssistPrediction,getPremierLeagueTeamPlayers,
+  getPremierLeagueTeams,joinCompetition,fetchGoalScorerCompetitionInFocus,
+   fetchGoalScorerResultsPerLeague, fetchCleanSheetCompetitionInFocus,
+    fetchTeamWinCompetitionInFocus, fetchAssistCompetitionInFocus,
+    setLeagueInFocus,
+} from 'src/redux/actions/football.action';
 
 
 
@@ -114,7 +119,15 @@ const premTeams = [
 
 
 const {user} = useSelector((state) => state.auth);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
 
+
+
+
+
+
+
+console.log("OUR LEAGUE IN FOCUS IS-->",leagueInFocus)
 
 useEffect(()=>{
 
@@ -124,7 +137,7 @@ useEffect(()=>{
    },[user])
 
 
-   const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus} = useSelector((state) => state.football);
+  
 
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
@@ -142,10 +155,12 @@ const [waiting,setWaiting] =  useState(false)
 
 setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)
 
- },[])
+ },[leagueInFocus])
 
 
 
+ 
+  
 
 
 
@@ -162,11 +177,11 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
-  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
-  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
-  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
- },[user])
+  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
+  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
+  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
+  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
+ },[user,leagueInFocus])
 
  console.log("user LOOK HERE--->",user)
 
@@ -195,7 +210,7 @@ if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
 
 
  
- },[user])
+ },[user,leagueInFocus])
 
 
 
@@ -215,7 +230,7 @@ useEffect(()=>{
   
   }
    
-   },[])
+   },[leagueInFocus])
 
 
 
@@ -237,7 +252,7 @@ notifyErrorFxn("Please select a player before submitting!")
  return
 }else{
 
-  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
+  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
   setLoading(true)
 
 setTimeout(()=>{ 
@@ -264,7 +279,7 @@ const loadAndNavigate = ()=>{
 
   if(joined){
     
-    dispatch(fetchGoalScorerResultsPerLeague(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
+    dispatch(fetchGoalScorerResultsPerLeague(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
     setWaiting(true)
 
    setTimeout( ()=>(navigate('/dashboard/football-goalscorers-results')),1800)
@@ -487,7 +502,7 @@ const loadAndNavigate = ()=>{
             />
 
 
-            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Goal Scorer",user.Leagues[0].leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{submitThisAssistPrediction(chosenPlayer,"Goal Scorer",leagueInFocus.leagueId)}}  style={{backgroundColor: '#260952',height:"3rem" ,color:'white',marginBottom:"6rem" }}>
             { loading?"Loading":"Submit"}
             </Button>
 

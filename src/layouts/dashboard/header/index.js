@@ -12,10 +12,14 @@ import Searchbar from './Searchbar2';
 import AccountPopover from './AccountPopover';
 import NotificationsPopover from './NotificationsPopover';
 import Searchbar2 from './Searchbar2';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomSearchBar from 'src/components/global/CustomSearchBar';
 import { FaFlag } from "react-icons/fa6";
 import nigeria from "../../../assets/images/nig.png"
+import { useEffect } from 'react';
+import {
+    setLeagueInFocus,
+} from 'src/redux/actions/football.action';
 
 // ----------------------------------------------------------------------
 
@@ -80,7 +84,20 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
+
+  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth);
+  const { leagueInFocus} = useSelector((state) => state.football);
+
+  useEffect(()=>{
+
+    //setLeagueInFocus(user && user.Leagues && user.Leagues.length && user.Leagues[0])
+
+    console.log("OUR LEAGUE IN FOCUS NOW IS ACTUALLY---->",leagueInFocus)
+    
+     },[leagueInFocus])
+
+
   return (
     <>
     <StyledRoot>
@@ -118,7 +135,19 @@ export default function Header({ onOpenNav }) {
           value={"Select a Team"}
           label="icon"
           onChange={(event) => {
-         
+
+     const leagueNamesOnly = user.Leagues && user.Leagues.length && user.Leagues.map((item)=>(item.leagueName))
+
+     const indexOfInterest = leagueNamesOnly.indexOf(event.target.value)
+      console.log("OUR INDEX OF INTEREST FOR HEADERS IS!--->",indexOfInterest)
+
+          
+    dispatch(setLeagueInFocus( user.Leagues[indexOfInterest]))
+    console.log("WE HAVE SET LEAGUE IN FOCUS AS!--->",user.Leagues[indexOfInterest])
+     
+
+
+
           }}
         >   
         {user && user.Leagues && 
@@ -169,7 +198,7 @@ export default function Header({ onOpenNav }) {
       <RespHidden>
       <center>
          <Typography variant="h6" sx={{color: '#392751', fontSize: '16px' }}>
-             {user && user.Leagues && user.Leagues.length >0  ?` WELCOME TO ${user.Leagues[0].leagueName}` :" "}&nbsp; 
+             {user && user.Leagues && user.Leagues.length >0  ?` WELCOME TO ${leagueInFocus.leagueName}` :" "}&nbsp; 
             </Typography>
     </center>
     </RespHidden>
