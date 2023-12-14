@@ -265,7 +265,7 @@ export default function EntryPage() {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow } = useSelector((state) => state.football);
+ // const { allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow } = useSelector((state) => state.football);
 
 
   const [dropDown,setDropDown] = useState(false)
@@ -280,7 +280,7 @@ export default function EntryPage() {
   const [entryFee, setEntryFee] = useState('')
   const [leagueId,setLeagueId] = useState()
   const [compName, setCompName] = useState('')
-  const  [userInFocus,setUserInFocus] = useState(userInFocusForDeposits)
+  //const  [userInFocus,setUserInFocus] = useState(userInFocusForDeposits)
 
   const addObject = {
     sportName,
@@ -298,16 +298,11 @@ useEffect(()=>{
 
    // dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues[0].leagueCode))
    // dispatch(fetchAllUsersInOneLeague(user && user.Leagues[0].leagueCode,user && user.Leagues[0].leagueName))
-
+ console.log("WHATS THE ISSUE?")
 
 },[])
 
 
-useEffect(()=>{
-
-setUserInFocus(userInFocusForDeposits)
-
-},[userInFocusForDeposits])
 
 const premTeams = [
 "Arsenal",

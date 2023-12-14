@@ -114,8 +114,21 @@ const premTeams = [
 const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
 
 
+
+
+
 const { premierLeagueTeams,teamPlayersInFocus,isLoading} = useSelector((state) => state.football);
 const {user} = useSelector((state) => state.auth);
+
+
+useEffect(()=>{
+
+  if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
+    navigate('/dashboard/entry')
+  }
+   },[user])
+
+   
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({}) 

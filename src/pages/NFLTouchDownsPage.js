@@ -161,6 +161,14 @@ notifyErrorFxn("Please select a player before submitting!")
 }
 }
 
+
+useEffect(()=>{
+
+  if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
+    navigate('/dashboard/entry')
+  }
+   },[user])
+
   
 
   return (

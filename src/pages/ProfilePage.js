@@ -143,18 +143,30 @@ export default function ProfilePage() {
  const [title,setTitle] = useState( "")
 
  const { user } = useSelector((state) => state.auth);
- console.log("OUR ADMIN USER--->",user.Leagues[0].leagueName)
+
+ useEffect(()=>{
+
+  if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
+    navigate('/dashboard/entry')
+  }
+   },[user])
+
+
+ 
  const { allCompetitionsForOneUser,allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow } = useSelector((state) => state.football);
  console.log("ALL COMPETITIONS FOR ONE USER--->",allCompetitionsForOneUser)
     
 useEffect(()=>{
 
-  dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues[0].leagueCode))
+  dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
 
    dispatch(fetchAllCompetitionsForOneUser(user && user.competitions))
 
 
 },[])
+
+
+
 
 const premTeams = [
 "Arsenal",

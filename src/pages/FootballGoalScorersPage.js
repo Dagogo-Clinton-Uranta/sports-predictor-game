@@ -112,8 +112,20 @@ const premTeams = [
 //const goalScorerCompId  = "umhhXlB1kcrXLcu6hYIQ"
 
 
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus} = useSelector((state) => state.football);
+
 const {user} = useSelector((state) => state.auth);
+
+
+useEffect(()=>{
+
+  if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
+    navigate('/dashboard/entry')
+  }
+   },[user])
+
+
+   const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus} = useSelector((state) => state.football);
+
 const [leagueTeams,setLeagueTeams] =  useState(premierLeagueTeams && premierLeagueTeams.length > 0? premierLeagueTeams:[])
 const [teamPlayers,setTeamPlayers] =  useState([])
 const [chosenPlayer,setChosenPlayer] = useState({}) 
@@ -133,12 +145,7 @@ setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus
  },[])
 
 
- useEffect(()=>{
 
-  if(user && !user.Leagues ||user && user.Leagues &&  user.Leagues.length === 0){
-    navigate('/dashboard/entry')
-  }
-   },[user])
 
 
 
@@ -155,10 +162,10 @@ useEffect(()=>{
 
 
  useEffect(()=>{
-  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
-  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues[0].leagueCode))
-  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
-  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues[0].leagueCode))
+  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
+  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
+  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
+  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
  },[user])
 
  console.log("user LOOK HERE--->",user)
@@ -230,7 +237,7 @@ notifyErrorFxn("Please select a player before submitting!")
  return
 }else{
 
-  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
+  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
   setLoading(true)
 
 setTimeout(()=>{ 
@@ -257,7 +264,7 @@ const loadAndNavigate = ()=>{
 
   if(joined){
     
-    dispatch(fetchGoalScorerResultsPerLeague(user.Leagues[0].leagueCode))
+    dispatch(fetchGoalScorerResultsPerLeague(user && user.Leagues &&  user.Leagues.length && user.Leagues[0].leagueCode))
     setWaiting(true)
 
    setTimeout( ()=>(navigate('/dashboard/football-goalscorers-results')),1800)
