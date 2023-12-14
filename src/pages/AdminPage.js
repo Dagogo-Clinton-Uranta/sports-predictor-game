@@ -40,6 +40,7 @@ import './points.css'
 import { Input, InputLabel } from '@material-ui/core';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import ManageButtonComponent from './ManageButtonComponent';
+import { NumberSchema } from 'yup';
 
 
 const StyledContent = styled('div')(({ theme }) => ({
@@ -146,12 +147,13 @@ const RespSelect = styled('select')(({ theme }) => ({
     flexDirection:"column",
     gap:"0.5rem",
     height:"2rem",
+   
   },
 
   [theme.breakpoints.up('md')]: {
     width:"42rem",
     fontSize:"1.5rem ",
-  
+   
  },
 
 }));
@@ -280,6 +282,9 @@ export default function ProfilePage() {
   const [compName, setCompName] = useState('')
   const  [userInFocus,setUserInFocus] = useState(userInFocusForDeposits)
 
+  const [newTotal,setNewTotal] = useState(userInFocusForDeposits?Number(userInFocusForDeposits.accountBalance):0)
+  const [topUp,setTopUp] = useState(0)
+
   const addObject = {
     sportName,
     deadline,
@@ -300,7 +305,7 @@ useEffect(()=>{
 
 },[])
 
-console.log("LL USERS IN ONE LEAGUE ---> ",allUsersInOneLeague)
+console.log("ALL USERS IN ONE LEAGUE ---> ",allUsersInOneLeague)
 
 
 useEffect(()=>{
@@ -361,11 +366,11 @@ const startThisCompetition = async(addObject,navigate) => {
   }
 }
 
-const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
+const updateThisUserBalance = async(userInFocus,topUp,leagueCode,leagueName) =>{
 
- if (window.confirm(`are you sure you want to update the balance for team "${userInFocus && userInFocus.teamName}" ?`)){
+ if (window.confirm(` the balance for team "${userInFocus && userInFocus.teamName}" will now be ${+userInFocus.accountBalance + +topUp}, proceed ?`)){
 
-    dispatch(updateUserBalance(userInFocus.id,userInFocus.accountBalance,leagueCode,leagueName )) 
+    dispatch(updateUserBalance(userInFocus.id,userInFocus.accountBalance,topUp,leagueCode,leagueName )) 
 
  }
 
@@ -420,7 +425,7 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
       
         
        
-      <RespSelect
+      <RespSelect className= "adminBigPoints"
           style={{backgroundColor:"#FFFFFF",  boxShadow: 'none',borderRadius:"0.1rem"}}
        
         
@@ -597,7 +602,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
      <div style={{display:"flex", justifyContent:"space-between"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          DEPOSIT &nbsp; {userInFocus &&  depositCanChangeNow &&'-'} {userInFocus && depositCanChangeNow && userInFocus.teamName}{userInFocus &&  depositCanChangeNow &&'-'}  {userInFocus && depositCanChangeNow && <RespVisible>(PTS)</RespVisible>}
+          DEPOSIT &nbsp; {userInFocus &&  depositCanChangeNow &&'-'} {userInFocus && depositCanChangeNow && userInFocus.teamName}{userInFocus &&  depositCanChangeNow &&'-'} {userInFocus &&  depositCanChangeNow &&newTotal} {userInFocus && depositCanChangeNow && <RespHidden> (NEW BALANCE)</RespHidden>}
         </Typography>
 
        {/*  <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{navigate('/dashboard/nfl-touchdown')}}>
@@ -629,10 +634,10 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
       <RespInp className="bigPoints"
             style={{backgroundColor:"#FFFFFF",border:"0px solid white",width:"100%",fontWeight:"bold"}}
+            type={"number"}
             
-            
-            value= {userInFocus && depositCanChangeNow ===true? (userInFocus.accountBalance):''}
-           onChange = {(e)=>{if(depositCanChangeNow){setUserInFocus({...userInFocus,accountBalance:e.target.value})}}}
+            value= {userInFocus && depositCanChangeNow ===true? (topUp):''}
+           onChange = {(e)=>{if(depositCanChangeNow){setTopUp(e.target.value);setNewTotal(+userInFocus.accountBalance + +e.target.value)  }}}
           
             
             
@@ -650,8 +655,8 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
        </RespGrid>
 
-          <RespDeposit onClick={()=>{if(depositCanChangeNow){updateThisUserBalance(userInFocus,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
-              DEPOSIT 
+          <RespDeposit onClick={()=>{if(depositCanChangeNow){updateThisUserBalance(userInFocus,topUp,user.Leagues[0].leagueCode,user.Leagues[0].leagueName)}}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
+              TOP UP 
             </RespDeposit>
     
 

@@ -662,7 +662,8 @@ if(pastPredictionsNames.includes(assistPick.name)){
 
   const pastPredictionsNames = pastPredictions && pastPredictions.length >0 ? pastPredictions.map((item)=>(item.name)):[]
 
-  console.log(" PAST PREDICTION NAMES O--->",pastPredictionsNames)
+  console.log(" PAST PREDICTION NAMES  TEAM WIN ---->",pastPredictionsNames)
+  console.log(" TEAM WIN PICK  --->",assistPick)
 
   if(pastPredictionsNames.includes(assistPick.name)){
     notifyErrorFxn("You can't select a team you have picked before,please pick again!")
@@ -1435,16 +1436,16 @@ db.collection("users")
 
 }
 
-export const updateUserBalance = (userId,newBalance,leagueCode,leagueName) => async (dispatch) => {
+export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueName) => async (dispatch) => {
 
   db.collection("users").doc(userId).update({
-    accountBalance:Number(newBalance)
+    accountBalance:Number(+currentBalance + +topUp)
      }).then(()=>{
       dispatch(fetchAllUsersInOneLeague(leagueCode,leagueName))
       notifySuccessFxn("User balance updated successfully !")
      }).catch((error) => {
-      console.log("Error getting document:", error);
-      notifyErrorFxn("Problem updating user balance,please try again.")
+      console.log("Error topping up balance:", error);
+      notifyErrorFxn("Problem topping up user balance,please try again.")
      });
     
     }

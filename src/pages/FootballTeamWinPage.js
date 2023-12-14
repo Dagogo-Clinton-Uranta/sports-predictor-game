@@ -197,14 +197,18 @@ useEffect(()=>{
  }
  
  const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
-  if(!chosenPlayer){
+  if(!prediction||(!prediction.hasOwnProperty("name")|| (!prediction.hasOwnProperty("userId")) ||(!prediction.hasOwnProperty("teamName"))  )){
     notifyErrorFxn("Please select a team before submitting!")
+    return
   }else{
+
+    console.log("CHOSEN PLAYER BEING SUBMITTED IS--->",prediction)
     dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues[0].leagueCode))
     setLoading(true)
 
 
     setTimeout(()=>{ 
+      
       dispatch(submitAssistPrediction(prediction,compId,leagueId,teamWinCompetitionInFocus.gameWeekStarted,teamWinCompetitionInFocus.isOpen,user.pastTeamWinSelections))
       setLoading(false)
     }

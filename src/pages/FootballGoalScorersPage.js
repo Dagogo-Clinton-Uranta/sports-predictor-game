@@ -225,8 +225,9 @@ useEffect(()=>{
 }
 
 const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
-if(!chosenPlayer){
+if((!prediction||!prediction.hasOwnProperty("name")|| (!prediction.hasOwnProperty("userId")) ||(!prediction.hasOwnProperty("teamName")))){
 notifyErrorFxn("Please select a player before submitting!")
+ return
 }else{
 
   dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues[0].leagueCode))
