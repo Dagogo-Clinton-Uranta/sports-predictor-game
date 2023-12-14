@@ -22,6 +22,14 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveLeagueInFocus,
     saveDepositCanChangeNow,
     saveAllCompetitionsForOneUser,
+    clearGoalScorerCompetitionInFocus,
+    clearTeamWinCompetitionInFocus,
+    clearAssistCompetitionInFocus,
+    clearCleanSheetCompetitionInFocus,
+    clearGoalScorerResultsPerLeague,
+    clearAssistResultsPerLeague,
+    clearCleanSheetResultsPerLeague,
+    clearTeamWinResultsPerLeague,
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -944,6 +952,7 @@ export const fetchGoalScorerResultsPerLeague = (leagueId) => async (dispatch) =>
     console.log("goal scorers Data:", goalScorers[0].userSelections);
     dispatch(saveGoalScorerResultsPerLeague(userSelections));
   } else {
+    dispatch(clearGoalScorerResultsPerLeague({}));
       dispatch(isItLoading(false));
       console.log("No public groups!");
   }
@@ -968,7 +977,7 @@ export const fetchAssistResultsPerLeague = (leagueId) => async (dispatch) => {
    
     dispatch(saveAssistResultsPerLeague(userSelections));
   } else {
-    dispatch(saveAssistResultsPerLeague(userSelections));
+    dispatch(clearAssistResultsPerLeague({}));
       dispatch(isItLoading(false));
       console.log("No assists comp with this league id!");
   }
@@ -993,6 +1002,7 @@ export const fetchCleanSheetResultsPerLeague = (leagueId) => async (dispatch) =>
     console.log("clean sheet Data FOR THIS LEAGUE IS---->:", CleanSheets[0].userSelections);
     dispatch(saveCleanSheetResultsPerLeague(userSelections));
   } else {
+    dispatch(clearCleanSheetResultsPerLeague({}));
       dispatch(isItLoading(false));
       console.log("no clean sheet with this league id!");
   }
@@ -1014,9 +1024,10 @@ export const fetchTeamWinResultsPerLeague = (leagueId) => async (dispatch) => {
     const  userSelections = TeamWins[0].userSelections
   if (TeamWins && TeamWins[0]) {
     dispatch(isItLoading(false));
-    console.log("team win Data:", TeamWins[0].userSelections);
+    console.log("team win Data:FOR THIS LEAGUE IS--->", TeamWins[0].userSelections);
     dispatch(saveTeamWinResultsPerLeague(userSelections));
   } else {
+    dispatch(clearTeamWinResultsPerLeague({}));
       dispatch(isItLoading(false));
       console.log("No public groups!");
   }
@@ -1144,7 +1155,7 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
   .get().then((snapshot)=>{
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
-      console.log("WHAT DO WE GET WHEN WE SEARCH FOR TEAM WIN? ---->",allGroups)
+      console.log("WHAT DO WE GET WHEN WE SEARCH FOR TEAM WIN COMP IN FOCUS? ---->",allGroups)
     
     if(allGroups.length > 0){
     
@@ -1153,7 +1164,7 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
    dispatch(saveTeamWinCompetitionInFocus(data))
     }
     else{
-     // notifyErrorFxn("Error fetching this leagues team win comp")
+      dispatch(clearTeamWinCompetitionInFocus({}))
     }
 
 
@@ -1189,7 +1200,7 @@ export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) =>
    dispatch(saveGoalScorerCompetitionInFocus(data))
     }
     else{
-     // notifyErrorFxn("Error fetching this leagues goal scorer comp")
+      dispatch(clearGoalScorerCompetitionInFocus({}))
     }
 
 
@@ -1222,7 +1233,7 @@ export const fetchAssistCompetitionInFocus = (compId) => async (dispatch) => {
    dispatch(saveAssistCompetitionInFocus(data))
     }
     else{
-     // notifyErrorFxn("Error fetching this leagues assist comp")
+      dispatch(clearAssistCompetitionInFocus({}))
     }
 
 
@@ -1265,6 +1276,7 @@ export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) =>
     }
     else{
       //notifyErrorFxn("Error fetching this leagues clean sheet comp")
+      dispatch(clearCleanSheetCompetitionInFocus({}))
     }
 
 

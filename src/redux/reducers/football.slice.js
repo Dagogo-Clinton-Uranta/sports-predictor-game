@@ -23,7 +23,7 @@ const initialState = {
        assistPickFour:{},
        cleanSheetPickFour:{},
        teamWinCompetitionInFocus:{},
-       cleanSheetcompetitionInFocus:{},
+       cleanSheetCompetitionInFocus:{},
        assistCompetitionInFocus:{},
        goalScorerCompetitionInFocus:{},
        leagueInFocus:{},
@@ -47,17 +47,36 @@ const footballSlice = createSlice({
       state.goalScorerCompetitionInFocus = action.payload;
   },
 
+
+  clearGoalScorerCompetitionInFocus: (state, action) => {
+    state.goalScorerCompetitionInFocus = {};
+},
+
     saveAssistCompetitionInFocus: (state, action) => {
       state.assistCompetitionInFocus = action.payload;
   },
+
+  clearAssistCompetitionInFocus: (state, action) => {
+    state.assistCompetitionInFocus = {};
+},
   
   saveTeamWinCompetitionInFocus: (state, action) => {
-    state.teamWinCompetitionInFocus = action.payload;
+    state.teamWinCompetitionInFocus =action.payload;
+  },
+
+  clearTeamWinCompetitionInFocus: (state, action) => {
+    state.teamWinCompetitionInFocus = {};
   },
   
   saveCleanSheetCompetitionInFocus: (state, action) => {
     state.cleanSheetCompetitionInFocus = action.payload;
   },
+
+   
+  clearCleanSheetCompetitionInFocus: (state, action) => {
+    state.cleanSheetCompetitionInFocus = {};
+  },
+
 
     saveAssistPickFour: (state, action) => {
       state.assistPickFour = action.payload;
@@ -78,24 +97,48 @@ saveAllGroup: (state, action) => {
   saveCleanSheetResultsPerLeague: (state, action) => {
     state.cleanSheetResultsPerLeague = action.payload;
   },
+
+  clearCleanSheetResultsPerLeague: (state, action) => {
+    state.cleanSheetResultsPerLeague = {};
+  },
    
     savePremierLeagueTeams: (state, action) => {
       state.premierLeagueTeams = action.payload;
   },
-  saveAssistResultsPerLeague: (state, action) => {
-    state.assistResultsPerLeague = action.payload;
-  },
- 
+
   saveTeamPlayersInFocus: (state, action) => {
     state.teamPlayersInFocus = action.payload;
 },
+
+
+  saveAssistResultsPerLeague: (state, action) => {
+    state.assistResultsPerLeague = action.payload;
+  },
+
+  clearAssistResultsPerLeague: (state, action) => {
+    state.assistResultsPerLeague = {};
+  },
+ 
+
+
 saveGoalScorerResultsPerLeague: (state, action) => {
   state.goalScorerResultsPerLeague = action.payload;
+},
+
+clearGoalScorerResultsPerLeague: (state, action) => {
+  state.goalScorerResultsPerLeague = {};
 },
 
 saveTeamWinResultsPerLeague: (state, action) => {
   state.teamWinResultsPerLeague = action.payload;
 },
+
+clearTeamWinResultsPerLeague: (state, action) => {
+  state.teamWinResultsPerLeague = action.payload;
+},
+
+
+
 saveAllCompetitionsInOneLeague: (state, action) => {
   state.allCompetitionsInOneLeague = action.payload; 
 },
@@ -151,9 +194,18 @@ export const {
  saveGoalScorerPickFour,
 
  saveGoalScorerCompetitionInFocus,
+ clearGoalScorerCompetitionInFocus,
+
+
  saveAssistCompetitionInFocus,
+ clearAssistCompetitionInFocus,
+
  saveCleanSheetCompetitionInFocus,
+ clearCleanSheetCompetitionInFocus,
+
+
  saveTeamWinCompetitionInFocus,
+ clearTeamWinCompetitionInFocus,
 
  saveAllCompetitionsInOneLeague,
  saveAllCompetitionsForOneUser,
@@ -168,10 +220,21 @@ export const {
  savePrivateGroup,
  saveTeamPlayersInFocus,
  savePremierLeagueTeams,
+
  saveGoalScorerResultsPerLeague,
+ clearGoalScorerResultsPerLeague,
+
  saveAssistResultsPerLeague,
+ clearAssistResultsPerLeague,
+
+
  saveTeamWinResultsPerLeague,
+ clearTeamWinResultsPerLeague,
+
  saveCleanSheetResultsPerLeague,
+ clearCleanSheetResultsPerLeague,
+
+
  saveGroupMembers,
  saveEmployeer,
  isItLoading,

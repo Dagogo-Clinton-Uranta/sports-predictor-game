@@ -145,8 +145,7 @@ export default function Header({ onOpenNav }) {
     dispatch(setLeagueInFocus( user.Leagues[indexOfInterest]))
     console.log("WE HAVE SET LEAGUE IN FOCUS AS!--->",user.Leagues[indexOfInterest])
      
-
-
+   
 
           }}
         >   

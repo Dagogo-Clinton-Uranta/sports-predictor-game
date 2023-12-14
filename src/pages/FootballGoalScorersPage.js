@@ -155,7 +155,7 @@ const [waiting,setWaiting] =  useState(false)
 
 setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)
 
- },[leagueInFocus])
+ },[leagueInFocus,leagueInFocus.leagueName])
 
 
 
@@ -214,7 +214,7 @@ if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
 
 
 
- console.log("WHAT AM I GETTING FROM THE GOAL SCORER COMP--->",goalScorerCompetitionInFocus)
+ console.log("WHAT AM I GETTING FROM THE GOAL SCORER COMP NOW--->",goalScorerCompetitionInFocus)
 
 
 console.log("WHAT AM I GETTING FROM THE USER ?--->",user)
@@ -511,10 +511,10 @@ const loadAndNavigate = ()=>{
 
 
 
-{/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  /\  =========================================================== */}
+{/*========================================================================== IF THEY ARE PART OF THIS COMPETITION  /\  =========================================================== */}
 
 
-{/*========================================================================== IF THEY ARE NOT PART OF THIS LEAGUE \/ =========================================================== */}
+{/*========================================================================== IF THEY ARE NOT PART OF THIS COMPETITION \/ =========================================================== */}
 
 
 

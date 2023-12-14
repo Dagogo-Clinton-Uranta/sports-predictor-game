@@ -164,6 +164,11 @@ useEffect(()=>{
   dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
  },[leagueInFocus])
 
+
+ /*useEffect(()=>{
+  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
+ },[leagueInFocus])*/
+ 
  
  useEffect(()=>{
   

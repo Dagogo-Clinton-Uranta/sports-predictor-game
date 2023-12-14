@@ -155,7 +155,7 @@ useEffect(()=>{
 
  useEffect(()=>{
   dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
-  console.log("user leagues-->",user.Leagues)
+  console.log("FROM CLEAN SHEET PAGE,-->",leagueInFocus)
  },[leagueInFocus])
 
 
