@@ -15,8 +15,12 @@ import Searchbar2 from './Searchbar2';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomSearchBar from 'src/components/global/CustomSearchBar';
 import { FaFlag } from "react-icons/fa6";
-import nigeria from "../../../assets/images/nig.png"
-import { useEffect } from 'react';
+import nigeriaflag from "../../../assets/images/nig.png"
+import ukflag from "../../../assets/images/ukflag.png"
+import usflag from "../../../assets/images/usflag.png"
+import spainflag from  "../../../assets/images/spainflag.png"
+
+import { useEffect, useState } from 'react';
 import {
     setLeagueInFocus,
 } from 'src/redux/actions/football.action';
@@ -88,12 +92,18 @@ export default function Header({ onOpenNav }) {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth);
   const { leagueInFocus} = useSelector((state) => state.football);
+  const [flag,setFlag] = useState(nigeriaflag)
 
   useEffect(()=>{
 
     //setLeagueInFocus(user && user.Leagues && user.Leagues.length && user.Leagues[0])
 
-    console.log("OUR LEAGUE IN FOCUS NOW IS ACTUALLY---->",leagueInFocus)
+    if(leagueInFocus.location === "Nigeria"){ setFlag(nigeriaflag)}
+   if( leagueInFocus.location === "United Kingdom" ){ setFlag(ukflag)}
+   if (leagueInFocus.location === "United States" ){ setFlag(usflag)}
+   if( leagueInFocus.location === "Spain" ){ setFlag(spainflag)}
+  
+
     
      },[leagueInFocus])
 
@@ -115,7 +125,7 @@ export default function Header({ onOpenNav }) {
       
       <RespDisplay>
       <div style={{display:"flex",flexDirection:"row",gap:"1rem", alignItems:"center",justifyContent:"center"}}>
-      <img src={nigeria} alt="nigeria flag"/> 
+      <img src={flag}  style={{height:"1.5rem",width:"2.4rem"}} alt="league location flag"/> 
 
             <Typography variant="h4" sx={{color: '#392751', fontSize: '36px' }}>
         
