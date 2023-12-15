@@ -55,7 +55,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 
 const RespContent = styled('div')(({ theme }) => ({
-  [theme.breakpoints.down('lg')]: {
+  [theme.breakpoints.down('xl')]: {
     flexDirection: 'column',
   },
 }));
@@ -282,7 +282,7 @@ export default function ProfilePage() {
   const [compName, setCompName] = useState('')
   const  [userInFocus,setUserInFocus] = useState(userInFocusForDeposits)
 
-  const [newTotal,setNewTotal] = useState(userInFocusForDeposits?Number(userInFocusForDeposits.accountBalance):0)
+  const [newTotal,setNewTotal] = useState(userInFocusForDeposits?userInFocusForDeposits.accountBalance:0)
   const [topUp,setTopUp] = useState(0)
 
   const addObject = {
@@ -321,7 +321,15 @@ useEffect(()=>{
 
 setUserInFocus(userInFocusForDeposits)
 
+
 },[userInFocusForDeposits])
+
+
+useEffect(()=>{
+
+  setNewTotal(userInFocusForDeposits.accountBalance)
+
+},[depositCanChangeNow])
 
 const premTeams = [
 "Arsenal",
@@ -553,7 +561,7 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
       
      
       <RespHidden>
-       11/11/2023
+      {item.dateCreated &&typeof(item.dateCreated) !== "string"  ?(new Date(item.dateCreated.seconds*1000)).toDateString():item.dateCreated}
       </RespHidden>
 
 
