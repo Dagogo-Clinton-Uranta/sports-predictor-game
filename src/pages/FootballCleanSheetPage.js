@@ -119,7 +119,7 @@ const premTeams = [
 
   //const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
-const [cleanSheetCompId,setCleanSheetCompId] = useState(cleanSheetCompetitionInFocus?cleanSheetCompetitionInFocus.id:"DDm7B5AXVHsLDrpe4LCy")
+const [cleanSheetCompId,setCleanSheetCompId] = useState(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id)
 
 useEffect(()=>{
 
@@ -174,7 +174,7 @@ useEffect(()=>{
 
  useEffect(()=>{
  
-  if(user && user.competitions && user.competitions.includes(cleanSheetCompId)){
+  if(user && user.competitions && user.competitions.includes(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id)){
   
      setJoined(true)
   
@@ -213,7 +213,7 @@ useEffect(()=>{
 
  const loadAndNavigate = ()=>{
 
-  if(joined){
+  if(user && user.competitions && user.competitions.includes(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id)){
     
     dispatch(fetchCleanSheetResultsPerLeague(leagueInFocus.leagueCode))
     setWaiting(true)
@@ -315,7 +315,7 @@ useEffect(()=>{
 
     {/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  \/  =========================================================== */}
 
-{user && user.competitions && user.competitions.includes(cleanSheetCompId) &&
+{user && user.competitions && user.competitions.includes(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id) &&
 
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
@@ -416,7 +416,7 @@ useEffect(()=>{
 
 
 
-{!(user && user.competitions && user.competitions.includes(cleanSheetCompId))  &&  
+{!(user && user.competitions && user.competitions.includes(cleanSheetCompetitionInFocus && cleanSheetCompetitionInFocus.id))  &&  
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 

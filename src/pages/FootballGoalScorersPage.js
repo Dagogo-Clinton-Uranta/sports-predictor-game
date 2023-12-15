@@ -200,7 +200,7 @@ useEffect(()=>{
 
  useEffect(()=>{
  
-if(user && user.competitions && user.competitions.includes(goalScorerCompId)){
+if(user && user.competitions && user.competitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)){
 
    setJoined(true)
 
@@ -266,7 +266,7 @@ setTimeout(()=>{
 
 const joinLeague = (compId,userId,accountBalance) => {
 
-  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompId) ){
+  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id) ){
  notifyErrorFxn("you have been eliminated from this competition, you cannot join")
   }else{
   dispatch(joinCompetition(compId,userId,accountBalance))
@@ -277,7 +277,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
 const loadAndNavigate = ()=>{
 
-  if(joined){
+  if(user && user.competitions && user.competitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)){
     
     dispatch(fetchGoalScorerResultsPerLeague(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
     setWaiting(true)
@@ -376,7 +376,7 @@ const loadAndNavigate = ()=>{
    
 
    
-      {user && user.competitions && user.competitions.includes(goalScorerCompId)  &&  
+      {user && user.competitions && user.competitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)  &&  
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
      
@@ -519,7 +519,7 @@ const loadAndNavigate = ()=>{
 
 
 
-{!(user && user.competitions && user.competitions.includes(goalScorerCompId))   &&
+{!(user && user.competitions && user.competitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id))   &&
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 

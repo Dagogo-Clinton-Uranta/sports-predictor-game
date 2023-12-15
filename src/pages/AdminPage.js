@@ -309,7 +309,7 @@ export default function ProfilePage() {
 useEffect(()=>{
 
     dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues[0].leagueCode))
-    dispatch(fetchAllUsersInOneLeague(user && user.Leagues[0].leagueCode,user && user.Leagues[0].leagueName))
+    dispatch(fetchAllUsersInOneLeague(user && user.Leagues[0].leagueCode,user && user.Leagues[0].leagueName,user && user.Leagues[0].location))
 
 
 },[])

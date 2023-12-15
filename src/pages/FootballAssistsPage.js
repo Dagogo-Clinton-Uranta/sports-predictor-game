@@ -119,7 +119,7 @@ const { premierLeagueTeams,teamPlayersInFocus,isLoading,assistCompetitionInFocus
 
 //const assistCompId = "9DSs5TpMhPtMK7sNT4Jn"
 
-const [assistCompId,setAssistCompId] = useState(assistCompetitionInFocus?assistCompetitionInFocus.id:"9DSs5TpMhPtMK7sNT4Jn")
+const [assistCompId,setAssistCompId] = useState(assistCompetitionInFocus&& assistCompetitionInFocus.id)
 
  useEffect(()=>{
 
@@ -139,6 +139,9 @@ const [waiting,setWaiting] = useState(false)
 
 const [joined,setJoined] =  useState(true)
 const [eliminated,setEliminated] =  useState(false)
+
+console.log("assistCompId is ACTUALLY --->",assistCompId)
+
 
 useEffect(()=>{
 
@@ -165,7 +168,7 @@ useEffect(()=>{
 
  useEffect(()=>{
  
-  if(user && user.competitions && user.competitions.includes(assistCompId)){
+  if(user && user.competitions && user.competitions.includes(assistCompetitionInFocus && assistCompetitionInFocus.id)){
   
      setJoined(true)
   
@@ -213,7 +216,7 @@ const submitThisAssistPrediction = (prediction,compId,leagueId)=>{
 
 const loadAndNavigate = ()=>{
 
-  if(joined){
+  if(user.competitions && user.competitions.includes(assistCompetitionInFocus && assistCompetitionInFocus.id)){
     
     dispatch(fetchAssistResultsPerLeague(leagueInFocus.leagueCode))
     setWaiting(true)
@@ -231,7 +234,7 @@ const joinLeague = (compId,userId,accountBalance) => {
   
 
 
-  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(assistCompId) ){
+  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(assistCompetitionInFocus && assistCompetitionInFocus.id ) ){
     notifyErrorFxn("you have been eliminated from this competition, you cannot join")
      }else{
      dispatch(joinCompetition(compId,userId,accountBalance))
@@ -323,7 +326,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
 
 
-{ user && user.competitions && user.competitions.includes(assistCompId)  && 
+{ user && user.competitions && user.competitions.includes(assistCompetitionInFocus && assistCompetitionInFocus.id)  && 
 
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
@@ -468,7 +471,7 @@ const joinLeague = (compId,userId,accountBalance) => {
 
 
 
-{!(user && user.competitions && user.competitions.includes(assistCompId)) &&  
+{!(user && user.competitions && user.competitions.includes(assistCompetitionInFocus && assistCompetitionInFocus.id)) &&  
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 
@@ -479,7 +482,7 @@ const joinLeague = (compId,userId,accountBalance) => {
           SELECT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{/*navigate('/dashboard/football-goalscorers-results')*/}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{loadAndNavigate()}}>
           RESULTS
         </Typography>
     </div>

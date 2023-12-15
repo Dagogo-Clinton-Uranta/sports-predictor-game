@@ -184,7 +184,7 @@ useEffect(()=>{
 
   useEffect(()=>{
  
-    if(user && user.competitions && user.competitions.includes(teamWinCompId)){
+    if(user && user.competitions && user.competitions.includes(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id)){
     
        setJoined(true)
     
@@ -226,7 +226,7 @@ useEffect(()=>{
 
  const joinLeague = (compId,userId,accountBalance) => {
 
-  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(compId) ){
+  if(user && user.eliminatedCompetitions && user.eliminatedCompetitions.includes(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id) ){
     notifyErrorFxn("you have been eliminated from this competition, you cannot join")
      }else{
      dispatch(joinCompetition(compId,userId,accountBalance))
@@ -238,7 +238,7 @@ useEffect(()=>{
 
 const loadAndNavigate = ()=>{
 
-  if(joined){
+  if(user && user.competitions && user.competitions.includes(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id)){
     
     dispatch(fetchTeamWinResultsPerLeague(leagueInFocus.leagueCode))
     setWaiting(true)
@@ -325,7 +325,7 @@ const loadAndNavigate = ()=>{
     </StyledContent>
   </Container>
 
-  {user && user.competitions && user.competitions.includes(teamWinCompId)  && 
+  {user && user.competitions && user.competitions.includes(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id)  && 
 
 <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>
     
@@ -426,7 +426,7 @@ const loadAndNavigate = ()=>{
 {/*========================================================================== IF THEY ARE NOT PART OF THIS LEAGUE \/ =========================================================== */}
 
 
-{!(user && user.competitions && user.competitions.includes(teamWinCompId))  &&  
+{!(user && user.competitions && user.competitions.includes(teamWinCompetitionInFocus && teamWinCompetitionInFocus.id))  &&  
       
       <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
 

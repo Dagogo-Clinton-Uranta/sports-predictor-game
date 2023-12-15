@@ -563,7 +563,7 @@ export const submitAssistPrediction = (assistPick,compName,leagueId,gameWeekHasS
 
   db.collection("competitions")
   .where("compName", "==", compName)
- .where("leagueId", "==", leagueId)
+ .where("leagueId", "==", leagueId.toString())
   .get()
   .then((snapshot) => {
     const goalScorers = snapshot.docs.map((doc) => ({ ...doc.data() }));
@@ -738,8 +738,8 @@ if(pastPredictionsNames.includes(assistPick.name)){
        
       })
       .catch((error) => {
-        console.error("Error adding this subject to the pack, please view--> : ", error);
-        notifyErrorFxn("Error submitting your assist pick, please try again. ")
+        console.error("PROBLEM WITH ADDING TO COMPETITIONS PERHAPS-> : ", error);
+        notifyErrorFxn("Error submitting your assist pick 1, please try again. ")
         
       });
 
@@ -789,7 +789,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
       })
       .catch((error) => {
         console.error("Error adding this subject to the pack, please view--> : ", error);
-        notifyErrorFxn("Error submitting your assist pick, please try again. ")
+        notifyErrorFxn("Error submitting your assist pick 2, please try again. ")
         
       });
 
@@ -884,7 +884,7 @@ if(pastPredictionsNames.includes(assistPick.name)){
   })
   .catch((error) => {
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("Error submitting your assist pick, please try again. ")
+    notifyErrorFxn("Error submitting your assist pick 3, please try again. ")
     
   });
 
@@ -895,7 +895,9 @@ if(pastPredictionsNames.includes(assistPick.name)){
   notifyErrorFxn("The Gameweek is in progress, we can't update your selection at this time!")
 }
 
-},1000)})   //<--- end of huge .then statement , right after comp id is assigned
+},1000)}
+
+)   //<--- end of huge .then statement , right after comp id is assigned
 
 
 
@@ -930,7 +932,7 @@ export const submitTeamsPrediction = (assistPick,compId) => async (dispatch) => 
   })
   .catch((error) => {
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("Error submitting your assist pick, please try again. ")
+    notifyErrorFxn("Error submitting your assist pick 4, please try again. ")
     
   });
 
@@ -1077,7 +1079,7 @@ if(competitionIdArray && competitionIdArray.length === 4){
    
     .catch((error) => {
       console.error("Error adding this subject to the pack, please view--> : ", error);
-      notifyErrorFxn("Error submitting your assist pick, please try again. ")
+      notifyErrorFxn("Error submitting your assist pick 5, please try again. ")
       
     });
    
@@ -1137,7 +1139,7 @@ export const joinCompetition = (compId, userId,accountBalance) => async (dispatc
   })
 .catch((error)=>{
     console.error("Error adding this subject to the pack, please view--> : ", error);
-    notifyErrorFxn("Error submitting your assist pick, please try again. ")
+    notifyErrorFxn("Error submitting your assist pick 6, please try again. ")
     
   });
 
@@ -1417,12 +1419,13 @@ export const fetchAllCompetitionsForOneUser = (competitionIdArray) => async (dis
 
 
 
-export const fetchAllUsersInOneLeague = (leagueCode,leagueName) => async (dispatch) => {
+export const fetchAllUsersInOneLeague = (leagueCode,leagueName,leagueLocation) => async (dispatch) => {
 
   const leagueObject = {
       leagueCode:leagueCode,
       leagueId:leagueCode,   //<---- update this logic later, when the codes nad id's become clearer
-      leagueName:leagueName
+      leagueName:leagueName,
+      location:leagueLocation
   }
 
 //dispatch(isItLoading(true));
@@ -1449,12 +1452,12 @@ db.collection("users")
 
 }
 
-export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueName) => async (dispatch) => {
+export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueName,leagueLocation) => async (dispatch) => {
 
   db.collection("users").doc(userId).update({
     accountBalance:Number(+currentBalance + +topUp)
      }).then(()=>{
-      dispatch(fetchAllUsersInOneLeague(leagueCode,leagueName))
+      dispatch(fetchAllUsersInOneLeague(leagueCode,leagueName,leagueLocation))
       notifySuccessFxn("User balance updated successfully !")
      }).catch((error) => {
       console.log("Error topping up balance:", error);
@@ -1477,7 +1480,7 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
     }
 
 
-    export const  removeLeagueFromUser =  (userObject,leagueCodeInFocus,leagueNameInFocus) => async (dispatch) => {
+    export const  removeLeagueFromUser =  (userObject,leagueCodeInFocus,leagueNameInFocus,leagueLocationInFocus) => async (dispatch) => {
 
       //db.collection("users").doc(userObject.id)
 
@@ -1526,7 +1529,7 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
            Leagues:usersLeagues
        }).then(()=>{
 
-        dispatch(fetchAllUsersInOneLeague(leagueCodeInFocus,leagueNameInFocus))
+        dispatch(fetchAllUsersInOneLeague(leagueCodeInFocus,leagueNameInFocus,leagueLocationInFocus))
          
        
         }).then(()=>{
