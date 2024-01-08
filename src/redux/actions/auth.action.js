@@ -201,9 +201,9 @@ return user;
 
 
 
-export const uploadProfileImage = (profileData, file, userID, navigate, setLoading) => async (dispatch) => {
+export const uploadProfileImage = (profileData, file, userID, navigate, setLoading,setOpenImage,setOpen) => async (dispatch) => {
   const imageName = uuidv4() + '.' + file?.name?.split('.')?.pop();
-  console.log('File Name: ', imageName);
+  console.log('File Name-->: ', imageName);
   const uploadTask = storage.ref(`profile_images/${imageName}`).put(file);
   uploadTask.on(
     "state_changed",
@@ -223,16 +223,60 @@ export const uploadProfileImage = (profileData, file, userID, navigate, setLoadi
         .getDownloadURL()
         .then(url => {
           console.log('Image URL: ', url);
-          dispatch(updateProfile(profileData, userID, file, navigate, setLoading, url));
+          setLoading(false)
+          setOpenImage(false)
+          setOpen(null)
+          dispatch(updateProfileImageInUser(profileData, userID, file, navigate, setLoading, url));
         });
     }
   );
 }
 
 
+
+export const updateProfileImageInUser = (profileData, userID, file, navigate, setLoading, url) => async (dispatch) => {
+  // return  
+  db.collection('users').doc(userID).update({
+    imageUrl: url,
+  })
+  .then(()=>{
+
+    var user = db.collection("users").doc(userID);
+    user.get().then((doc) => {
+    if (doc.exists) {
+      // console.log("User Data:", doc.data());
+  
+  
+  
+    
+      dispatch(storeUserData(doc.data()));
+    
+    } else {
+        setLoading(false);
+        notifyErrorFxn("Error updating image,please try again")
+        console.log("No such document!");
+    }
+  })
+
+  })
+  
+  .then((res)=>{
+    setLoading(false);
+    notifySuccessFxn("Image updated successfully !");
+   
+  }).catch((err) => {
+    setLoading(false);
+    notifyErrorFxn("Problem updating image,please try again");
+    console.log("ERR-: ", err);
+  })
+}
+
+
+
+
 export const updateProfile = (profileData, userID, file, navigate, setLoading, url) => async (dispatch) => {
   // return  
-  db.collection('employees').doc(userID).update({
+  db.collection('users').doc(userID).update({
     paymentLink: profileData.paymentLink,
     imageUrl: url,
   }).then((res)=>{
