@@ -125,7 +125,7 @@ const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInF
 
 
 
-
+console.log("OUR USER LEAGUES IS-->",user.Leagues)
 
 console.log("OUR LEAGUE IN FOCUS IS-->",leagueInFocus)
 

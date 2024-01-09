@@ -20,6 +20,9 @@ import HospitalBed from 'src/components/patient/hospital-bed';
 import EmptyPane from 'src/components/patient/empty-pane';
 import {refreshCountdown ,getAllPatients,removePatient, refreshWaitdown, enterPatient, reset } from 'src/redux/actions/patient.action';
 import {fetchAllCompetitionsInOneLeague, fetchAllUsersInOneLeague, startCompetition,updateUserBalance } from 'src/redux/actions/football.action';
+
+import {joinLeague} from 'src/redux/actions/auth.action';
+
 import { ToastContainer } from 'react-toastify';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
@@ -356,15 +359,7 @@ const startThisCompetition = async(addObject,navigate) => {
   }
 }
 
-const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
 
- if (window.confirm(`are you sure you want to update the balance for team "${userInFocus && userInFocus.teamName}" ?`)){
-
-    dispatch(updateUserBalance(userInFocus.id,userInFocus.accountBalance,leagueCode,leagueName )) 
-
- }
-
-}
   
 
   return (
@@ -463,8 +458,8 @@ const updateThisUserBalance = async(userInFocus,leagueCode,leagueName) =>{
 
 
      
-        <RespButton2 onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
-              Join League
+        <RespButton2 onClick={()=>{dispatch(joinLeague(user.id, title,navigate,setLoading))}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white' }}>
+             {loading?'loading...': "Join League"}
          </RespButton2>
       
 

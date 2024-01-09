@@ -5,7 +5,7 @@ import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/football.slice';
 import { fetchAllTreatmentCategories, fetchAllTreatmentTests, getAdmittedPatients, getAllPatients, getWaitingRoomPatients } from './patient.action';
 import { setLeagueInFocus } from './football.action';
-
+import firebase from "firebase/app";
 
 export const signin = (user, navigate, setLoading) => async (dispatch) => {
   dispatch(isItLoading(true))
@@ -45,20 +45,21 @@ var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
 var today  = new Date();
 dispatch(isItLoading(true))
 
-db.collection("leagues")
-
+/*db.collection("leagues")
 .where('code', '==', user.leagueCode)
 .get().then((snapshot)=>{
-  const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+*/
+
+/*  const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
 
 if(allGroups.length === 0){
  
  notifyErrorFxn("this league does not exist, please check league code")
  dispatch(isItLoading(false))
  return
-}
+}*/
 
-else{
+/*else{*/
 
   fb.auth().createUserWithEmailAndPassword(
     user.fname,
@@ -69,11 +70,11 @@ else{
     firstName:user.firstName,
     lastName:user.lastName,
     email: user.fname,
-    Leagues:[{
+    Leagues:[/*{
       leagueCode:user.leagueCode,
       leagueName:allGroups[0] && allGroups[0].name,
       leagueId:user.leagueCode
-    }],
+    }*/],
     //leagueCode:user.leagueCode,<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
     teamName:user.teamName,
     password: user.password,
@@ -114,11 +115,68 @@ else{
   setLoading(false);
 })
 
+/*}*/
+
+/*})*/
+
+}
+
+export const joinLeague = (uid,leagueCode ,navigate, setLoading) => async (dispatch) => {
+ setLoading(true)
+
+  dispatch(isItLoading(true))
+
+db.collection("leagues")
+.where('code', '==', leagueCode)
+.get().then((snapshot)=>{
+  const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+
+if(allGroups.length === 0){
+ 
+ notifyErrorFxn("this league does not exist, please check league code")
+ dispatch(isItLoading(false))
+ return
+}
+
+else{
+
+
+   db.collection('users').doc(uid).update({
+
+    Leagues:firebase.firestore.FieldValue.arrayUnion({
+      leagueCode:leagueCode,
+      leagueName:allGroups[0] && allGroups[0].name,
+      leagueId:leagueCode
+    }),
+    //leagueCode:user.leagueCode,<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
+
+  })
+.then(() => {
+  dispatch(fetchCandidateData(uid,'',navigate,setLoading));
+
+ 
+}).then(()=>{
+  notifySuccessFxn('League Joined Successfully✔');
+  setTimeout(navigate('/dashboard/football-goalscorers'),1500);
+
+}).catch((err) => {
+  console.error("Error signing up: ", err);
+  var errorMessage = err.message;
+  let JSONmessage = JSON.parse(err.message)
+   
+  notifyErrorFxn(JSONmessage.error.message);
+  dispatch(signupFailed({ errorMessage }));
+  dispatch(isItLoading(false))
+  setLoading(false);
+})
+
 }
 
 })
 
+
 }
+
 
 
 export const uploadImage = (user, file, navigate, setLoading) => async (dispatch) => {
@@ -176,7 +234,7 @@ export const fetchCandidateData = (id, type, navigate, setLoading) => async (dis
   var user = db.collection("users").doc(id);
   user.get().then((doc) => {
   if (doc.exists) {
-    // console.log("User Data:", doc.data());
+     console.log("User Data for ut6 -->>:", doc.data());
 
 
 

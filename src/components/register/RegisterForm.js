@@ -95,7 +95,7 @@ export default function RegisterForm() {
         />
 
    <TextField name="Team name" required label="Team Name" value={teamName} onChange={(e) => setTeamName(e.target.value)}/>
-   <TextField name="League Code" required label="League Code" value={leagueCode} onChange={(e) => setLeagueCode(e.target.value)}/>
+   {/*<TextField name="League Code" required label="League Code" value={leagueCode} onChange={(e) => setLeagueCode(e.target.value)}/>*/}
           {/* <Grid
           container
           direction="row"
