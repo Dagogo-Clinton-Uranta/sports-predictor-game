@@ -1316,9 +1316,28 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
   
   })
 
-  
+
+  /* check if competition exists and is active*/
+
+  db.collection("competitions")
+  .where('compName', '==', addObject.compName)
+  .where('leagueId', '==', leagueCode)
+  .get()
+  .then((snapshot)=>{
+
+    let compsInFocus = snapshot.docs.map((doc) => ({ ...doc.data() }));
  
-  db.collection("competitions").add(
+    if(compsInFocus.length >0 ){
+     
+      if(compsInFocus[0].isOpen === true || compsInFocus[0].isOpen === false){ //<-- you can change is active to another field here
+      notifyErrorFxn(`A(n) ${addObject.compName} competition is currently active within this league, please wait until is finished!`)
+      return
+      }
+     /*check if competition exists and is active - END */
+    }else{
+
+
+      db.collection("competitions").add(
     {
       compName:addObject.compName,
       entryFee:addObject.entryFee,
@@ -1344,24 +1363,46 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
 
  }).then(()=>{
 
+//check if the comp name is already in the leagues
+db.collection("leagues").doc(leagueId).get().then((doc)=>{
 
-
-
+if(doc.exists){
  
+/*if(doc.data.competitions.filter()){
+ I WANTED TO UPDATE COMPETITIONS IN THE LEAGUES COLLECTION TO HAVE ONLY ACTIVE COMPETITIONS, BUT I GUESS IT'S BETTER TO HAVE ONLY ALL COMPETIITONS THAT BELONG TO ONE LEAGUE, EVEN IF SOME ARE INACTIVE AND THERE ARE REPEAT NAMES
+}
+  else{ */
   db.collection("leagues").doc(leagueId).update({
     competitions:firebase.firestore.FieldValue.arrayUnion({compName:leagueName,compId:newCompId})
      })
-
+   /* }*/
    
      notifySuccessFxn(` the new competition has been added!`)
 
+    } else{
 
+      notifyErrorFxn(` could not update the corresponding league for this competition!`)
+
+    }   
+})
+
+ 
      }).catch((error) => {
    console.log("Error adding/starting the new competition:", error);
    notifyErrorFxn(error)
 
 
  });
+
+
+
+      }
+  })
+  
+ 
+
+
+ 
 
 }
 
