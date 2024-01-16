@@ -1154,6 +1154,7 @@ export const fetchTeamWinCompetitionInFocus = (compId) => async (dispatch) => {
   db.collection("competitions")
   .where("compName",  "==", "Team Win")
   .where("leagueId",  "==", compId)
+  .where("compIsActive",  "==", true)
   .get().then((snapshot)=>{
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
@@ -1188,6 +1189,7 @@ export const fetchGoalScorerCompetitionInFocus = (compId) => async (dispatch) =>
   db.collection("competitions")
   .where("compName",  "==", "Goal Scorer")
   .where("leagueId",  "==", compId)
+  .where("compIsActive",  "==", true)
   .get().then((snapshot)=>{
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
@@ -1224,6 +1226,7 @@ export const fetchAssistCompetitionInFocus = (compId) => async (dispatch) => {
   db.collection("competitions")
   .where("compName",  "==", "Assist")
   .where("leagueId",  "==", compId)
+  .where("compIsActive",  "==", true)
   .get().then((snapshot)=>{
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
@@ -1266,6 +1269,7 @@ export const fetchCleanSheetCompetitionInFocus = (compId) => async (dispatch) =>
   db.collection("competitions")
   .where("compName",  "==", "Clean Sheet")
   .where("leagueId",  "==", compId)
+  .where("compIsActive",  "==", true)
   .get().then((snapshot)=>{
 
       const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
@@ -1322,6 +1326,7 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
   db.collection("competitions")
   .where('compName', '==', addObject.compName)
   .where('leagueId', '==', leagueCode)
+  .where('compIsActive', '==', true)
   .get()
   .then((snapshot)=>{
 
@@ -1329,7 +1334,7 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
  
     if(compsInFocus.length >0 ){
      
-      if(compsInFocus[0].isOpen === true || compsInFocus[0].isOpen === false){ //<-- you can change is active to another field here
+      if(compsInFocus[0].compIsActive === true ){ //<-- you may not need this as you have already filtered for active competitions
       notifyErrorFxn(`A(n) ${addObject.compName} competition is currently active within this league, please wait until is finished!`)
       return
       }
@@ -1342,6 +1347,7 @@ export const startCompetition = (addObject,leagueCode,leagueName) => async (disp
       compName:addObject.compName,
       entryFee:addObject.entryFee,
       isOpen:true,
+      compIsActive:true,
       leagueId:addObject.leagueId,
       leagueName:leagueName,
       gameWeekStarted:false,
