@@ -265,8 +265,7 @@ export default function ProfilePage() {
 
   const { user } = useSelector((state) => state.auth);
   console.log("OUR ADMIN USER--->",user.Leagues[0].leagueName)
-  const { allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow } = useSelector((state) => state.football);
-
+  const { allCompetitionsInOneLeague,allUsersInOneLeague,userInFocusForDeposits,depositCanChangeNow ,leagueInFocus} = useSelector((state) => state.football);
 
   const [dropDown,setDropDown] = useState(false)
 
@@ -308,11 +307,11 @@ export default function ProfilePage() {
    
 useEffect(()=>{
 
-    dispatch(fetchAllCompetitionsInOneLeague(user && user.Leagues[0].leagueCode))
-    dispatch(fetchAllUsersInOneLeague(user && user.Leagues[0].leagueCode,user && user.Leagues[0].leagueName,user && user.Leagues[0].location))
+    dispatch(fetchAllCompetitionsInOneLeague(user && leagueInFocus.leagueCode))
+    dispatch(fetchAllUsersInOneLeague(user && leagueInFocus.leagueCode,user && leagueInFocus.leagueName,user && leagueInFocus.location))
 
 
-},[])
+},[leagueInFocus])
 
 console.log("ALL USERS IN ONE LEAGUE ---> ",allUsersInOneLeague)
 
@@ -728,8 +727,8 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
                     <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
                      
                      
-                   <ManageButtonComponent user={row} leagueCodeInFocus={user.Leagues[0].leagueCode} leagueNameInFocus={ user.Leagues[0].leagueName} dropdownControl={dropDown}/>
-                     {/*DO NOT DELETE THIS COMMENT UNTIL ITS TIME FOR MULTIPLE LEAGUES ---> EVENTUALLY,FOR THE USER TO BE  DELETED, WE WONT GET THE LEAGUE FROM THE ADMIN (user.Leagues[0]) info, but from a list or sth  */}
+                   <ManageButtonComponent user={row} leagueCodeInFocus={leagueInFocus.leagueCode} leagueNameInFocus={ leagueInFocus.leagueName} dropdownControl={dropDown}/>
+                     {/*DO NOT DELETE THIS COMMENT UNTIL ITS TIME FOR MULTIPLE LEAGUES ---> EVENTUALLY,FOR THE USER TO BE  DELETED, WE WONT GET THE LEAGUE FROM THE ADMIN (leagueInFocus) info, but from a list or sth  */}
                      
 
                     </TableCell>
