@@ -31,8 +31,8 @@ const navConfig = [
    
   },
   {
-    title: 'PICK 4',
-    path: '/dashboard/pick-four-goalscorers',
+    title: 'NCAA',
+    path: '/dashboard/ncaa-south',
     icon: <PiCirclesFourDuotone />,
    
   },

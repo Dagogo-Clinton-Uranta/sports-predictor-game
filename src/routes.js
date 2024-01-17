@@ -53,6 +53,10 @@ import PickFourAssistsPage from './pages/PickFourAssistsPage';
 import PickFourAssistsStandingsPage from './pages/PickFourAssistsStandings';
 import PickFourAssistsResultsPage from './pages/PickFourAssistsResults';
 import CreateLeaguePage from './pages/CreateLeaguePage';
+import NCAASouthPage from './pages/NCAASouthPage';
+import NCAAWestPage from './pages/NCAAWestPage';
+import NCAAMidWestPage from './pages/NCAAMidWestPage';
+import NCAAEastPage from './pages/NCAAEastPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -71,6 +75,13 @@ export default function Router() {
         { path: 'home', element:  <FootballGoalScorersPage   /> },
 
 
+        { path: 'ncaa-south', element:  <NCAASouthPage /> },
+        { path: 'ncaa-west', element:  <NCAAWestPage /> },
+        { path: 'ncaa-midwest', element:  <NCAAMidWestPage /> },
+        { path: 'ncaa-east', element:  <NCAAEastPage /> },
+
+
+        /*PICK FOUR  --- */
         { path: 'pick-four-teamwin', element:  <PickFourTeamWinPage /> },
         { path: 'pick-four-teamwin-standings', element:  <PickFourTeamWinStandingsPage /> },
         { path: 'pick-four-teamwin-results', element:  <PickFourTeamWinResultsPage /> },
@@ -87,6 +98,8 @@ export default function Router() {
          {path: 'pick-four-assists', element:  <PickFourAssistsPage /> },
          {path: 'pick-four-assists-standings', element:  <PickFourAssistsStandingsPage /> },
          {path: 'pick-four-assists-results', element:  <PickFourAssistsResultsPage /> },
+
+         /*PICK FOUR  END--- */
 
 
         { path: 'football-teamwin', element:  <FootballTeamWinPage /> },
