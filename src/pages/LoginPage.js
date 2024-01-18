@@ -151,7 +151,7 @@ const [adminManage,setAdminManage] = useState(false)
   return (
     <>
       <Helmet>
-        <title> FUTA SPORTS </title>
+        <title> FUTA SCORE </title>
       </Helmet>
 
       <StyledRoot style={{  flexDirection: 'column' }}>
@@ -186,7 +186,7 @@ const [adminManage,setAdminManage] = useState(false)
             </div>
           
             <Typography variant="h4" gutterBottom style={{textAlign: 'center' }} >
-          FUTA SPORTS
+          FUTA SCORE
           </Typography>
 
           </StyledContent>
@@ -270,8 +270,17 @@ const [adminManage,setAdminManage] = useState(false)
     </>   
    }
 
-      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A', padding:"2rem" , marginTop: '2%', marginBottom: '2%',height:"100%" }}>
-           
+      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A', padding:"2rem" , marginTop: '2%', marginBottom: '2%',height:"100%",overflow:"hidden" }}>
+
+
+          <div style={{display:"flex", justifyContent:"center",marginTop:"-10px",width:"80%"}}>
+          <Typography   variant="h6" sx={{ textAlign: 'left',color:"black", cursor:"pointer"}}>
+              HOW TO PLAY
+            </Typography>
+          </div>
+
+
+
           <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
       <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminLogin(false);setAdminReg(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
           LEAGUE MEMBERS

@@ -4,6 +4,9 @@ import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 import BANNER_IMG from '../assets/images/banner-bg.png';
 import IMG from '../assets/images/img-2.png';
@@ -12,13 +15,37 @@ import FEMALE from '../assets/images/woman.png';
 import FLOGO from '../assets/images/fLogo.png';
 import RegisterForm from 'src/components/register/RegisterForm';
 
+import STARTCOMPETITION from '../assets/images/startcompetition.png';
+import REMOVEMEMBER from '../assets/images/removeMember.png';
+import LOGINPAGE from '../assets/images/loginpage.png';
+import JOINLEAGUELAPTOP  from '../assets/images/joinleaguelaptop.png';
+import CREATECOMPETITION from '../assets/images/createcompetition.png';
+import COMPETITIONRESULTS from '../assets/images/competitionResults.png';
+import JOINCOMPETITION from '../assets/images/joinCompetition.png';
+import ADDPOINTS from '../assets/images/addPoints.png';
+
+
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
   backgroundColor: 'white',
   [theme.breakpoints.up('md')]: {
     display: 'flex',
+    flexDirection: 'column',
   },
+
+  [theme.breakpoints.down('md')]: {
+    display: 'flex',
+    flexDirection: 'column',
+   
+    margin:"0 auto",
+    justifyContent:"center",
+    alignItems:"center",
+    
+   
+  }
+
+
 }));
 
 const StyledSection = styled('div')(({ theme }) => ({
@@ -61,15 +88,58 @@ const RespContent = styled('div')(({ theme }) => ({
     margin:"0 auto",
     justifyContent:"center",
     alignItems:"center",
-   
+    height:"40rem",
   },
 }));
 
+
+
+const RespContent2 = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection: 'row',
+    width:"70%",
+    margin:"0 auto",
+    justifyContent:"center",
+    alignItems:"center",
+    height:"40rem",
+   
+  },
+}));
 
 // ----------------------------------------------------------------------
 
 export default function RegisterPage() {
   const mdUp = useResponsive('up', 'md');
+
+  const [leagueMembers,setLeagueMembers] = useState(true)
+  const [leagueAdmins,setLeagueAdmins] = useState(false)
+
+ 
+  /*league member states */
+
+  const [membersReg,setMembersReg] = useState(false)
+const [membersLogin,setMembersLogin] = useState(true)
+const [membersJoinLeague,setMembersJoinLeague] = useState(false)
+const [membersJoinComp,setMembersJoinComp] = useState(false)
+const [membersAddPoints,setMembersAddPoints] = useState(false)
+const [membersOutcome,setMembersOutcome] = useState(false)
+
+
+
+ /*league admin states*/
+const [adminReg,setAdminReg] = useState(false)
+const [adminLogin,setAdminLogin] = useState(false)
+const [adminInvite,setAdminInvite] = useState(false)
+const [adminCreateComp,setAdminCreateComp] = useState(false)
+const [adminCreateLeague,setAdminCreateLeague] = useState(false)
+const [adminManage,setAdminManage] = useState(false)
+
+
 
   return (
     <>
@@ -77,7 +147,7 @@ export default function RegisterPage() {
         <title>FUTA SCORE  </title>
       </Helmet>
 
-      <StyledRoot style={{  flexDirection: 'row' }}>
+      <StyledRoot style={{  flexDirection: 'column' }}>
    
 
    <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
@@ -113,9 +183,265 @@ export default function RegisterPage() {
           </Typography>
 
           </StyledContent>
-        </Container>
+       </Container>
 
      </RespContent>
+
+
+
+     <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%'}}>
+    
+    { leagueAdmins &&
+    
+    <>
+      <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
+          
+          
+          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              REGISTRATION
+            </div>
+
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(true);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{ color:adminLogin && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              LOGIN
+            </div>
+
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(true);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminCreateLeague && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              CREATE LEAGUE
+            </div>
+
+            <div  onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(true);setAdminCreateComp(false);setAdminManage(false)}}style={{color:adminInvite && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              INVITE MEMBERS
+            </div>
+
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(true);setAdminManage(false)}} style={{color:adminCreateComp && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              CREATE COMP
+            </div>
+
+
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(true)}} style={{color:adminManage && leagueAdmins?"green":"black", flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              MANAGE MEMBERS
+            </div>
+
+         
+        </div>
+    </>   
+   }
+
+    
+{ leagueMembers && 
+
+  <>
+      <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
+          
+          
+          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              REGISTRATION
+            </div>
+
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(true);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{color:membersLogin && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              LOGIN
+            </div>
+
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(true);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{color:membersJoinLeague && leagueMembers?"green":"black" ,flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              JOIN LEAGUE
+            </div>
+
+            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(true);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersAddPoints && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              ADD POINTS
+            </div>
+
+            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(true);setMembersOutcome(false)}} style={{color:membersJoinComp && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+              JOIN COMP
+            </div>
+
+
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(true)}} style={{ color:membersOutcome && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+             OUTCOME
+            </div>
+
+         
+        </div>
+    </>   
+   }
+
+      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A', padding:"2rem" , marginTop: '2%', marginBottom: '2%',height:"100%",overflow:"hidden" }}>
+           
+      <div style={{display:"flex", justifyContent:"center",marginTop:"-1.5rem",marginBottom:"1rem",width:"80%"}}>
+      <Typography   variant="h6" sx={{ textAlign: 'left',color:"black", cursor:"pointer"}}>
+          HOW TO PLAY
+        </Typography>
+      </div>
+
+
+          <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
+      <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminLogin(false);setAdminReg(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
+          LEAGUE MEMBERS
+        </Typography>
+
+        <Typography  onClick={()=>{setLeagueAdmins(true);setLeagueMembers(false);setMembersLogin(false);setAdminLogin(true);  }} variant="h6" sx={{ textAlign: 'left',color:leagueAdmins?"black":"lightgrey",cursor:"pointer",}} >
+          LEAGUE ADMIN
+        </Typography>
+      </div>
+
+      <Divider style={{width:"100%",position:"relative",top:"0.1rem"}}/>
+
+     { /*1 */adminLogin && leagueAdmins &&
+       <>
+        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          LOGIN
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }  
+
+{   /*2 */ adminReg && leagueAdmins &&
+<>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          REGISTER
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+
+{   /*3 */ adminInvite && leagueAdmins &&
+  <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          CREATE LEAGUE
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={JOINLEAGUELAPTOP} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{    /*4 */ adminCreateComp && leagueAdmins &&
+
+  <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          CREATE COMPETITION
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={STARTCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{
+       /*4 */  adminCreateLeague && leagueAdmins &&
+  <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          START COMPETITION
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={STARTCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+
+{     /*5 */   adminManage && leagueAdmins &&
+       
+   <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          MANAGE MEMBERS
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={STARTCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{     /*NO MORE LEAGUE ADMIN, NOW  MEMBERS  */
+      /*6 */  membersReg && leagueMembers &&
+  <>
+        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          REGISTER
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{    /*7 */  membersLogin && leagueMembers &&
+   <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          LOGIN
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{     /*8 */  membersJoinLeague && leagueMembers &&
+
+   <>
+        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          JOIN LEAGUE
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={JOINLEAGUELAPTOP} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+
+{    /*10 */  membersAddPoints && leagueMembers &&
+   <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+         ADD POINTS
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={ADDPOINTS} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{    /*11 */  membersJoinComp && leagueMembers &&
+
+  <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          JOIN COMPETITION
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={JOINCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+
+{    /*12 */  membersOutcome && leagueMembers &&
+
+   <>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+          OUTCOME
+        </Typography>
+     
+         <div style={{marginBottom:"0.5rem"}}>
+         <img src={COMPETITIONRESULTS} style={{position:"relative"}} alt="start competition how to"/>
+         </div> 
+      </>
+      }
+        
+        </Container>
+
+     </RespContent2>
      
       </StyledRoot>
     </>
