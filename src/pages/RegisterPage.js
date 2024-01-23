@@ -197,28 +197,28 @@ const [adminManage,setAdminManage] = useState(false)
       <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               REGISTRATION
             </div>
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(true);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{ color:adminLogin && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(true);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{ color:adminLogin && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               LOGIN
             </div>
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(true);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminCreateLeague && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(true);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminCreateLeague && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               CREATE LEAGUE
             </div>
 
-            <div  onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(true);setAdminCreateComp(false);setAdminManage(false)}}style={{color:adminInvite && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(true);setAdminCreateComp(false);setAdminManage(false)}}style={{color:adminInvite && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               INVITE MEMBERS
             </div>
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(true);setAdminManage(false)}} style={{color:adminCreateComp && leagueAdmins?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(true);setAdminManage(false)}} style={{color:adminCreateComp && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               CREATE COMP
             </div>
 
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(true)}} style={{color:adminManage && leagueAdmins?"green":"black", flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(true)}} style={{color:adminManage && leagueAdmins?"purple":"black", flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               MANAGE MEMBERS
             </div>
 
@@ -234,28 +234,28 @@ const [adminManage,setAdminManage] = useState(false)
       <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               REGISTRATION
             </div>
 
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(true);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{color:membersLogin && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(true);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{color:membersLogin && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               LOGIN
             </div>
 
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(true);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{color:membersJoinLeague && leagueMembers?"green":"black" ,flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(true);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{color:membersJoinLeague && leagueMembers?"purple":"black" ,flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               JOIN LEAGUE
             </div>
 
-            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(true);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersAddPoints && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(true);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersAddPoints && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               ADD POINTS
             </div>
 
-            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(true);setMembersOutcome(false)}} style={{color:membersJoinComp && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(true);setMembersOutcome(false)}} style={{color:membersJoinComp && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               JOIN COMP
             </div>
 
 
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(true)}} style={{ color:membersOutcome && leagueMembers?"green":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(true)}} style={{ color:membersOutcome && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
              OUTCOME
             </div>
 
