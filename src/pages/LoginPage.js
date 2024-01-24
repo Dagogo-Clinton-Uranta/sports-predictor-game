@@ -120,7 +120,9 @@ const RespContent3 = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
     marginTop:"5rem",
-  
+   justifyContent:"center",
+    alignItems:"center",
+     width:"100%",
    
   },
 
@@ -137,6 +139,78 @@ const RespContent3 = styled('div')(({ theme }) => ({
   },
 }));
 
+
+const RespDiv = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('lg')]: {
+    display:"none"
+  
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+   
+   
+  },
+}));
+
+
+const RespImg = styled('img')(({ theme }) => ({
+  [theme.breakpoints.down('lg')]: {
+    
+ 
+  height:"300px"
+  },
+
+  [theme.breakpoints.up('lg')]: {
+   
+   left:"12%",
+   height:"300px",
+   position:"absolute",
+  },
+}));
+
+
+
+const RespPlay = styled('div')(({ theme }) => ({
+  
+
+  [theme.breakpoints.down('xl')]: {
+   
+  marginRight:"-7.5rem",
+  },
+
+
+  [theme.breakpoints.down('lg')]: {
+   
+    marginRight:"0rem",
+   
+    flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"center",
+    },
+  
+  
+  [theme.breakpoints.down('md')]: {
+   flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"inherit",
+  paddingRight:"0rem",
+  marginRight:"0rem",
+  width:"50%",
+  margin:"0 auto",
+  
+
+  },
+
+ [theme.breakpoints.up('md')]: {
+   display:"flex",
+   justifyContent:"flex-end",
+   alignItems:"inherit",
+   paddingRight:"15%",
+   
+   
+  },
+}));
 
 
 // ----------------------------------------------------------------------
@@ -207,7 +281,7 @@ const [adminManage,setAdminManage] = useState(false)
         
           <div style={{ display: 'flex', justifyContent: 'center',alignItems:"center", marginBottom: '50px' }}>
             
-            <img  src={FLOGO} width="160" height="160" />
+            <img  src={FLOGO}  style={{borderRadius:"1rem"}} width="160" height="160" />
             </div>
           
             <Typography variant="h4" gutterBottom style={{textAlign: 'center' }} >
@@ -222,15 +296,20 @@ const [adminManage,setAdminManage] = useState(false)
      <RespContent3 style={{backgroundColor:"#260952"}}>
    
    
-       <div style={{position:"relative"}}>
-        <img height="300px" style={{position:"absolute",left:"12rem", top:"-2.94rem"}} src={ABSPHONE} alt="phone sticking out"/>
+       <RespDiv style={{position:"relative"}}>
+        <RespImg style={{ top:"-2.94rem"}} src={ABSPHONE} alt="phone sticking out"/>
       
-      </div>
+      </RespDiv>
 
 
-      <div style ={{display:"flex",justifyContent:"flex-end",alignItems:"flex-end",paddingRight:"10rem"}}>
-        <img height="200px" src={appleandgoogle} alt="google play store logo"/>
-      </div>
+      <RespPlay style ={{}}>
+       
+       <center style={{display:"flex",flexDirection:"column",marginTop:"-1rem",color:"white"}}>
+        <h2>DOWNLOAD OUR MOBILE APP</h2>
+        <img height="180px" src={appleandgoogle} alt="google play store logo"/>
+      </center>
+
+      </RespPlay>
     
 
      </RespContent3>

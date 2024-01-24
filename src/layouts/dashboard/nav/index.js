@@ -57,7 +57,7 @@ export default function Nav({ openNav, onCloseNav }) {
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>{/* <Logo /> */}</Box>
       <Box sx={{ mb: 5, mx: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Link underline="none">
-          <img src={FLOGO} width="110" height="110" alt="Logo" />
+          <img src={FLOGO} style={{borderRadius:"1rem"}} width="110" height="110" alt="Logo" />
         </Link>
       </Box>
 

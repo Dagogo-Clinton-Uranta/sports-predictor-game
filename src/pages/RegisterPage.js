@@ -24,6 +24,11 @@ import COMPETITIONRESULTS from '../assets/images/competitionResults.png';
 import JOINCOMPETITION from '../assets/images/joinCompetition.png';
 import ADDPOINTS from '../assets/images/addPoints.png';
 
+import PLAYSTORE from '../assets/images/play-store-icon.png'
+import APPSTORE from '../assets/images/app-store-icon.png'
+import appleandgoogle  from '../assets/images/appleandgoogle.png'
+import ABSPHONE from '../assets/images/absolutephone.png'
+
 
 // ----------------------------------------------------------------------
 
@@ -111,6 +116,104 @@ const RespContent2 = styled('div')(({ theme }) => ({
   },
 }));
 
+
+const RespContent3 = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+    marginTop:"5rem",
+   justifyContent:"center",
+    alignItems:"center",
+     width:"100%",
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection:'row',
+    width:"70%",
+    margin:"0 auto",
+    marginTop:"5rem",
+    
+    justifyContent:"center",
+    alignItems:"center",
+    height:"15.8rem",
+   
+  },
+}));
+
+
+const RespDiv = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('lg')]: {
+    display:"none"
+  
+   
+  },
+
+  [theme.breakpoints.up('md')]: {
+   
+   
+  },
+}));
+
+
+const RespImg = styled('img')(({ theme }) => ({
+  [theme.breakpoints.down('lg')]: {
+    
+ 
+  height:"300px"
+  },
+
+  [theme.breakpoints.up('lg')]: {
+   
+   left:"12%",
+   height:"300px",
+   position:"absolute",
+  },
+}));
+
+
+
+const RespPlay = styled('div')(({ theme }) => ({
+  
+
+  [theme.breakpoints.down('xl')]: {
+   
+  marginRight:"-7.5rem",
+  },
+
+
+  [theme.breakpoints.down('lg')]: {
+   
+    marginRight:"0rem",
+   
+    flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"center",
+    },
+  
+  
+  [theme.breakpoints.down('md')]: {
+   flexDirection:"column",
+    justifyContent:"center",
+    alignItems:"inherit",
+  paddingRight:"0rem",
+  marginRight:"0rem",
+  width:"50%",
+  margin:"0 auto",
+  
+
+  },
+
+ [theme.breakpoints.up('md')]: {
+   display:"flex",
+   justifyContent:"flex-end",
+   alignItems:"inherit",
+   paddingRight:"15%",
+   
+   
+  },
+}));
+
+
 // ----------------------------------------------------------------------
 
 export default function RegisterPage() {
@@ -175,7 +278,7 @@ const [adminManage,setAdminManage] = useState(false)
         
           <div style={{ display: 'flex', justifyContent: 'center',alignItems:"center", marginBottom: '50px' }}>
             
-            <img src={FLOGO} width="160" height="160" />
+            <img src={FLOGO} style={{borderRadius:"1rem"}} width="160" height="160" />
             </div>
           
             <Typography variant="h4" gutterBottom style={{textAlign: 'center' }} >
@@ -189,15 +292,42 @@ const [adminManage,setAdminManage] = useState(false)
 
 
 
+
+     <RespContent3 style={{backgroundColor:"#260952"}}>
+   
+   
+   <RespDiv style={{position:"relative"}}>
+    <RespImg style={{ top:"-2.94rem"}} src={ABSPHONE} alt="phone sticking out"/>
+  
+  </RespDiv>
+
+
+  <RespPlay style ={{}}>
+   
+   <center style={{display:"flex",flexDirection:"column",marginTop:"-1rem",color:"white"}}>
+    <h2>DOWNLOAD OUR MOBILE APP</h2>
+    <img height="180px" src={appleandgoogle} alt="google play store logo"/>
+  </center>
+
+  </RespPlay>
+
+
+ </RespContent3>
+
+
+
+
+
+
      <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%'}}>
     
     { leagueAdmins &&
     
     <>
-      <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
+      <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A', borderRight:"0px", marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem",marginTop:"5rem"}}>
               REGISTRATION
             </div>
 
@@ -231,10 +361,10 @@ const [adminManage,setAdminManage] = useState(false)
 { leagueMembers && 
 
   <>
-      <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
+      <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',borderRight:"0px",  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem",marginTop:"5rem"}}>
               REGISTRATION
             </div>
 
@@ -264,15 +394,18 @@ const [adminManage,setAdminManage] = useState(false)
     </>   
    }
 
-      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A', padding:"2rem" , marginTop: '2%', marginBottom: '2%',height:"100%",overflow:"hidden" }}>
-           
-      <div style={{display:"flex", justifyContent:"center",marginTop:"-1.5rem",marginBottom:"1rem",width:"80%"}}>
-      <Typography   variant="h6" sx={{ textAlign: 'left',color:"black", cursor:"pointer"}}>
-          HOW TO PLAY
-        </Typography>
-      </div>
+      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A',borderLeft:"0px", padding:"2rem" , marginTop: '2%', marginBottom: '2%',height:"100%",overflow:"hidden" }}>
+
+   <div style={{ borderTop: '0px solid #0000001A',marginTop:"3rem"}}>
+        
+          <div style={{display:"flex", justifyContent:"center",marginBottom:"1rem",width:"80%",}}>
+          <Typography   variant="h6" sx={{ textAlign: 'left',color:"black", cursor:"pointer"}}>
+              HOW TO PLAY
+            </Typography>
+          </div>
 
 
+          <Divider style={{width:"120%",marginLeft:"-2rem",position:"relative",top:"-2.84rem"}}/>
           <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
       <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminLogin(false);setAdminReg(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
           LEAGUE MEMBERS
@@ -438,10 +571,11 @@ const [adminManage,setAdminManage] = useState(false)
          </div> 
       </>
       }
-        
+</div>   
         </Container>
 
      </RespContent2>
+     
      
       </StyledRoot>
     </>
