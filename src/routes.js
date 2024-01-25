@@ -153,6 +153,15 @@ export default function Router() {
       path: 'login',
       element: <LoginPage />,
     },
+
+    {
+      path: 'howtoplay',
+      element: <LoginPage />,
+    },
+    {
+      path: 'login/:section',
+      element: <LoginPage />,
+    },
     {
       path: 'register',
       element: <RegisterPage />,

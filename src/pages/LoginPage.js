@@ -21,9 +21,9 @@ import ADDPOINTS from '../assets/images/addPoints.png';
 
 
 import LoginForm from 'src/components/login/LoginForm';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import PLAYSTORE from '../assets/images/play-store-icon.png'
 import APPSTORE from '../assets/images/app-store-icon.png'
@@ -313,9 +313,21 @@ export default function LoginPage() {
   const mdUp = useResponsive('up', 'md');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const myRef = useRef(null)
+  let { section } = useParams();
+
+  const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"}) 
 
   const [leagueMembers,setLeagueMembers] = useState(true)
   const [leagueAdmins,setLeagueAdmins] = useState(false)
+
+  useEffect(()=>{
+   
+    if(section === "howtoplay" || location && location.pathname === '/howtoplay'){
+      executeScroll()
+    }
+  },[section])
 
  
   /*league member states */
@@ -413,7 +425,28 @@ const [adminManage,setAdminManage] = useState(false)
      </RespContent3>
 
 
-     <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%'}}>
+  <div style={{width:"50%", margin:"0 auto",marginTop:"4rem"}}>
+     <div style={{display:"flex", justifyContent:"center",marginBottom:"2.5rem",width:"80%",}}>
+          <Typography ref={myRef}  variant="h2" sx={{ textAlign: 'left',color:"#260952", cursor:"pointer"}}>
+              HOW TO PLAY
+            </Typography>
+          </div>
+
+     
+          <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
+      <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminLogin(false);setAdminReg(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
+          LEAGUE MEMBERS
+        </Typography>
+
+        <Typography  onClick={()=>{setLeagueAdmins(true);setLeagueMembers(false);setMembersLogin(false);setAdminLogin(true);  }} variant="h6" sx={{ textAlign: 'left',color:leagueAdmins?"black":"lightgrey",cursor:"pointer",}} >
+          LEAGUE ADMIN
+        </Typography>
+      </div>
+      <Divider style={{width:"100%",position:"relative",top:"0.1rem"}}/>
+    </div>
+
+
+     <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%', marginTop: '5%',border:"1px solid #0000001A"}}>
     
     { leagueAdmins &&
     
@@ -421,7 +454,7 @@ const [adminManage,setAdminManage] = useState(false)
       <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A', borderRight:"0px", marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem",marginTop:"5rem"}}>
+          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               REGISTRATION
             </div>
 
@@ -458,7 +491,7 @@ const [adminManage,setAdminManage] = useState(false)
       <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',borderRight:"0px",  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem",marginTop:"5rem"}}>
+          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               REGISTRATION
             </div>
 
@@ -488,29 +521,12 @@ const [adminManage,setAdminManage] = useState(false)
     </>   
    }
 
-      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4, border: '1px solid #0000001A',borderLeft:"0px", padding:"2rem" , marginTop: '2%', marginBottom: '2%',height:"100%",overflow:"hidden" }}>
+      <Container  style={{display: 'flex', flexDirection:"column",justifyContent: 'flex-start',alignItems:"flex-start",flex:4,padding:"2rem" , marginBottom: '2%',height:"100%",overflow:"hidden" }}>
 
-   <div style={{ borderTop: '0px solid #0000001A',marginTop:"3rem"}}>
-        
-          <div style={{display:"flex", justifyContent:"center",marginBottom:"1rem",width:"80%",}}>
-          <Typography   variant="h6" sx={{ textAlign: 'left',color:"black", cursor:"pointer"}}>
-              HOW TO PLAY
-            </Typography>
-          </div>
-
-
-          <Divider style={{width:"120%",marginLeft:"-2rem",position:"relative",top:"-2.84rem"}}/>
-          <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
-      <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminLogin(false);setAdminReg(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
-          LEAGUE MEMBERS
-        </Typography>
-
-        <Typography  onClick={()=>{setLeagueAdmins(true);setLeagueMembers(false);setMembersLogin(false);setAdminLogin(true);  }} variant="h6" sx={{ textAlign: 'left',color:leagueAdmins?"black":"lightgrey",cursor:"pointer",}} >
-          LEAGUE ADMIN
-        </Typography>
-      </div>
-
-      <Divider style={{width:"100%",position:"relative",top:"0.1rem"}}/>
+  
+   <div style={{ borderTop: '0px solid #0000001A'}}>
+           
+     
 
      { /*1 */adminLogin && leagueAdmins &&
        <>

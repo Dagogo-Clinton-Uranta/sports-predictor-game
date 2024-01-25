@@ -4,17 +4,12 @@ import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 import BANNER_IMG from '../assets/images/banner-bg.png';
 import IMG from '../assets/images/img-2.png';
 import MALE from '../assets/images/man.png';
 import FEMALE from '../assets/images/woman.png';
 import FLOGO from '../assets/images/fLogo.png';
-import RegisterForm from 'src/components/register/RegisterForm';
-
 import STARTCOMPETITION from '../assets/images/startcompetition.png';
 import REMOVEMEMBER from '../assets/images/removeMember.png';
 import LOGINPAGE from '../assets/images/loginpage.png';
@@ -24,12 +19,17 @@ import COMPETITIONRESULTS from '../assets/images/competitionResults.png';
 import JOINCOMPETITION from '../assets/images/joinCompetition.png';
 import ADDPOINTS from '../assets/images/addPoints.png';
 
+
+import LoginForm from 'src/components/login/LoginForm';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+
 import PLAYSTORE from '../assets/images/play-store-icon.png'
 import APPSTORE from '../assets/images/app-store-icon.png'
+
 import appleandgoogle  from '../assets/images/appleandgoogle.png'
 import ABSPHONE from '../assets/images/absolutephone.png'
-
-
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -37,7 +37,9 @@ const StyledRoot = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
     flexDirection: 'column',
+     
   },
+
 
   [theme.breakpoints.down('md')]: {
     display: 'flex',
@@ -48,10 +50,11 @@ const StyledRoot = styled('div')(({ theme }) => ({
     alignItems:"center",
     
    
-  }
-
+  },
 
 }));
+
+
 
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
@@ -80,7 +83,6 @@ const StyledContent = styled('div')(({ theme }) => ({
 }));
 
 
-
 const RespContent = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
@@ -94,9 +96,9 @@ const RespContent = styled('div')(({ theme }) => ({
     justifyContent:"center",
     alignItems:"center",
     height:"40rem",
+   
   },
 }));
-
 
 
 const RespContent2 = styled('div')(({ theme }) => ({
@@ -115,7 +117,6 @@ const RespContent2 = styled('div')(({ theme }) => ({
    
   },
 }));
-
 
 const RespContent3 = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -149,7 +150,6 @@ const RespContent3 = styled('div')(({ theme }) => ({
 
 
 }));
-
 
 
 const RespDiv = styled('div')(({ theme }) => ({
@@ -208,7 +208,6 @@ const Resph1 = styled('h1')(({ theme }) => ({
 
 }));
 
-
 const RespLogo = styled('div')(({ theme }) => ({
   
 
@@ -241,8 +240,6 @@ const RespLogo = styled('div')(({ theme }) => ({
 
 
 }));
-
-
 
 const RespPlay = styled('div')(({ theme }) => ({
   
@@ -312,11 +309,23 @@ const RespPlay = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function RegisterPage() {
+export default function HowToPlayPage() {
   const mdUp = useResponsive('up', 'md');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const myRef = useRef(null)
+  let { section } = useParams();
+
+  const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"}) 
 
   const [leagueMembers,setLeagueMembers] = useState(true)
   const [leagueAdmins,setLeagueAdmins] = useState(false)
+
+  useEffect(()=>{
+    if(section === "howtoplay"){
+      executeScroll()
+    }
+  },[section])
 
  
   /*league member states */
@@ -340,24 +349,26 @@ const [adminManage,setAdminManage] = useState(false)
 
 
 
+
+
   return (
     <>
       <Helmet>
-        <title>FUTA SCORE  </title>
+        <title> FUTA SCORE </title>
       </Helmet>
 
       <StyledRoot style={{  flexDirection: 'column' }}>
    
 
-   <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '5%'}}>
+   <RespContent  style={{ display:'flex',  marginTop: '5%',gap:"1rem", marginBottom: '1%'}}>
 
       <Container  style={{display: 'flex', justifyContent: 'center',alignItems:"center",flex:3, border: '1px solid #0000001A',  marginTop: '2%', marginBottom: '2%', borderRadius: '15px',height:"100%" }}>
           <StyledContent>
           
             <Typography variant="h6" sx={{ textAlign: 'left', mb: 2}}>
-                Register
+                Login
               </Typography>
-            <RegisterForm />
+            <LoginForm />
           
 
             {/* <Divider sx={{ my: 3 }}>
@@ -374,49 +385,47 @@ const [adminManage,setAdminManage] = useState(false)
         
           <div style={{ display: 'flex', justifyContent: 'center',alignItems:"center", marginBottom: '50px' }}>
             
-            <img src={FLOGO} style={{borderRadius:"1rem"}} width="160" height="160" />
+            <img  src={FLOGO}  style={{borderRadius:"1rem"}} width="160" height="160" />
             </div>
           
             <Typography variant="h4" gutterBottom style={{textAlign: 'center' }} >
-            FUTA SCORE
+          FUTA SCORE
           </Typography>
 
           </StyledContent>
-       </Container>
+        </Container>
 
      </RespContent>
-
-
-
 
      <RespContent3 style={{backgroundColor:"#260952"}}>
    
    
-   <RespDiv style={{position:"relative"}}>
-    <RespImg style={{ top:"-2.94rem"}} src={ABSPHONE} alt="phone sticking out"/>
-  
-  </RespDiv>
-
-
-  <RespPlay >
-
-  <Resph1 >DOWNLOAD MOBILE APP</Resph1>
-   
-  <RespLogo >
+       <RespDiv style={{position:"relative"}}>
+        <RespImg style={{ top:"-2.94rem"}} src={ABSPHONE} alt="phone sticking out"/>
       
-      <img height="90px" style={{borderRadius:"1rem"}} src={PLAYSTORE} alt="google play store logo"/>
-      <img height="90px" style={{borderRadius:"1rem"}} src={APPSTORE} alt="apple app store logo"/>
-    </RespLogo>
+      </RespDiv>
 
-  </RespPlay>
+      <RespPlay  >
+      
+      
+      <Resph1 >DOWNLOAD MOBILE APP</Resph1>
+     
+
+       <RespLogo >
+      
+        <img height="90px" style={{borderRadius:"1rem"}} src={PLAYSTORE} alt="google play store logo"/>
+        <img height="90px" style={{borderRadius:"1rem"}} src={APPSTORE} alt="apple app store logo"/>
+      </RespLogo>
+
+      </RespPlay>
+    
+
+     </RespContent3>
 
 
- </RespContent3>
-
-
- <div style={{width:"50%", margin:"0 auto",marginTop:"4rem"}}>
+  <div style={{width:"50%", margin:"0 auto",marginTop:"4rem"}}>
      <div style={{display:"flex", justifyContent:"center",marginBottom:"2.5rem",width:"80%",}}>
-          <Typography   variant="h2" sx={{ textAlign: 'left',color:"#260952", cursor:"pointer"}}>
+          <Typography ref={myRef}  variant="h2" sx={{ textAlign: 'left',color:"#260952", cursor:"pointer"}}>
               HOW TO PLAY
             </Typography>
           </div>
@@ -435,8 +444,7 @@ const [adminManage,setAdminManage] = useState(false)
     </div>
 
 
-
- <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%', marginTop: '5%',border:"1px solid #0000001A"}}>
+     <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%', marginTop: '5%',border:"1px solid #0000001A"}}>
     
     { leagueAdmins &&
     
@@ -675,8 +683,6 @@ const [adminManage,setAdminManage] = useState(false)
         </Container>
 
      </RespContent2>
-
-     
      
       </StyledRoot>
     </>
