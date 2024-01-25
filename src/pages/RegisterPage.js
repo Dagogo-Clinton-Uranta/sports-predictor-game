@@ -129,7 +129,7 @@ const RespContent3 = styled('div')(({ theme }) => ({
 
   [theme.breakpoints.up('md')]: {
     flexDirection:'row',
-    width:"70%",
+    width:"100%",
     margin:"0 auto",
     marginTop:"5rem",
     

@@ -24,8 +24,10 @@ import LoginForm from 'src/components/login/LoginForm';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+
 import PLAYSTORE from '../assets/images/play-store-icon.png'
 import APPSTORE from '../assets/images/app-store-icon.png'
+
 import appleandgoogle  from '../assets/images/appleandgoogle.png'
 import ABSPHONE from '../assets/images/absolutephone.png'
 // ----------------------------------------------------------------------
@@ -123,12 +125,13 @@ const RespContent3 = styled('div')(({ theme }) => ({
    justifyContent:"center",
     alignItems:"center",
      width:"100%",
+     height:"15.8rem",
    
   },
 
   [theme.breakpoints.up('md')]: {
     flexDirection:'row',
-    width:"70%",
+    width:"100%",
     margin:"0 auto",
     marginTop:"5rem",
     
@@ -137,6 +140,15 @@ const RespContent3 = styled('div')(({ theme }) => ({
     height:"15.8rem",
    
   },
+
+
+  [theme.breakpoints.down('sm')]: {
+   
+    height:"23rem",
+   
+  },
+
+
 }));
 
 
@@ -170,26 +182,102 @@ const RespImg = styled('img')(({ theme }) => ({
 }));
 
 
+const Resph1 = styled('h1')(({ theme }) => ({
+  
+
+ 
+
+  [theme.breakpoints.up('sm')]: {
+    color:"white",
+    marginRight:"6rem"
+   
+    
+     
+   },
+
+
+
+  [theme.breakpoints.down('sm')]: {
+                          
+    color:"white",
+      textAlign:"center"      
+                        },
+
+
+
+
+}));
+
+const RespLogo = styled('div')(({ theme }) => ({
+  
+
+
+
+  [theme.breakpoints.up('sm')]: {
+                          
+    flexDirection:"row",
+    display:"flex",
+    gap:"0.5rem",
+    justifyContent:"center",
+   
+    
+     
+   },
+
+
+
+  [theme.breakpoints.down('sm')]: {
+                          
+                         flexDirection:"column",
+                         display:"flex",
+                         justifyContent:"center",
+                         alignItems:"flex-end",
+                         gap:"0.5rem",
+                          
+                        },
+
+
+
+
+}));
 
 const RespPlay = styled('div')(({ theme }) => ({
   
 
+  [theme.breakpoints.up('xl')]: {
+                          
+                         flexDirection:"column",
+                         display:"flex",
+                         justifyContent:"center",
+                         alignItems:"flex-end",
+                         paddingRight:"15%",
+                         paddingTop:"2%"
+                          
+                        },
+
   [theme.breakpoints.down('xl')]: {
-   
-  marginRight:"-7.5rem",
+    flexDirection:"column",
+    paddingRight:"7%",
+    display:"flex",
+    /*justifyContent:"flex-end",
+    alignItems:"center"*/
+    justifyContent:"center",
+    alignItems:"flex-end",
+    paddingTop:"2%"
   },
 
 
+  
   [theme.breakpoints.down('lg')]: {
-   
-    marginRight:"0rem",
-   
-    flexDirection:"column",
-    justifyContent:"center",
+    
     alignItems:"center",
+    paddingRight:"0%",
+   // marginRight:"7rem",
+   
+
     },
   
-  
+  /*
   [theme.breakpoints.down('md')]: {
    flexDirection:"column",
     justifyContent:"center",
@@ -198,6 +286,8 @@ const RespPlay = styled('div')(({ theme }) => ({
   marginRight:"0rem",
   width:"50%",
   margin:"0 auto",
+ 
+
   
 
   },
@@ -210,6 +300,10 @@ const RespPlay = styled('div')(({ theme }) => ({
    
    
   },
+ */
+
+
+
 }));
 
 
@@ -301,13 +395,17 @@ const [adminManage,setAdminManage] = useState(false)
       
       </RespDiv>
 
+      <RespPlay  >
+      
+      
+      <Resph1 >DOWNLOAD MOBILE APP</Resph1>
+     
 
-      <RespPlay style ={{}}>
-       
-       <center style={{display:"flex",flexDirection:"column",marginTop:"-1rem",color:"white"}}>
-        <h2>DOWNLOAD OUR MOBILE APP</h2>
-        <img height="180px" src={appleandgoogle} alt="google play store logo"/>
-      </center>
+       <RespLogo >
+      
+        <img height="90px" style={{borderRadius:"1rem"}} src={PLAYSTORE} alt="google play store logo"/>
+        <img height="90px" style={{borderRadius:"1rem"}} src={APPSTORE} alt="apple app store logo"/>
+      </RespLogo>
 
       </RespPlay>
     

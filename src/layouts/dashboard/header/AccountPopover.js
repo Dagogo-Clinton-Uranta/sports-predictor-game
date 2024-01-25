@@ -188,7 +188,7 @@ export default function AccountPopover() {
          <Button component="label"
          onClick={(e)=>{settingsUpdate(e)}}
          variant="contained" style={{ minHeight: '45px', minWidth: '145px', backgroundColor: '#348AED', marginTop: '15px' }}>
-            <b>{loading?"loading...":"UPDATE IMAGE"}</b>
+            <b>{loading?"loading...":"UPDATE PROFILE PIC"}</b>
             <input
               type="file"
               style={{ display: 'none' }}
