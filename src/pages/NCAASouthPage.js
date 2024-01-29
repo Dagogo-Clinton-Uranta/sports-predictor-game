@@ -26,6 +26,7 @@ import {submitAssistPrediction,getPremierLeagueTeamPlayers,
    fetchGoalScorerResultsPerLeague, fetchCleanSheetCompetitionInFocus,
     fetchTeamWinCompetitionInFocus, fetchAssistCompetitionInFocus,
     setLeagueInFocus,
+    fetchRangeOfCompetitors,
 } from 'src/redux/actions/football.action';
 
 
@@ -131,13 +132,13 @@ export default function NCAASouthPage() {
 
 
 const {user} = useSelector((state) => state.auth);
-const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus,leagueInFocus} = useSelector((state) => state.football);
+const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus,leagueInFocus,competitorRangeInFocus} = useSelector((state) => state.football);
 
 
 
 
 
-console.log("OUR USER LEAGUES IS--->",user.Leagues)
+console.log("OUR COMPETITOR RANGE IS--->",competitorRangeInFocus)
 
 console.log("OUR LEAGUE IN FOCUS IS-->",leagueInFocus)
 
@@ -163,88 +164,15 @@ const [waiting,setWaiting] =  useState(false)
  const [eliminated,setEliminated] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState(goalScorerCompetitionInFocus?goalScorerCompetitionInFocus.id:"umhhXlB1kcrXLcu6hYIQ")
 
- useEffect(()=>{
 
-setGoalScorerCompId(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)
-
- },[leagueInFocus,leagueInFocus.leagueName])
-
-
-
- 
-  
-
-
-
-useEffect(()=>{
-
-  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
- 
- 
-  if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
-  setTeamPlayers(teamPlayersInFocus)
- 
- },[premierLeagueTeams,teamPlayersInFocus])
-
-
-
- useEffect(()=>{
-  dispatch(fetchGoalScorerCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
-  dispatch(fetchAssistCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
-  dispatch(fetchTeamWinCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
-  dispatch(fetchCleanSheetCompetitionInFocus(user && user.Leagues &&  user.Leagues.length && leagueInFocus.leagueCode))
- },[user,leagueInFocus])
-
- console.log("user LOOK HERE--->",user)
-
- useEffect(()=>{
- 
-  if(!leagueTeams.length){dispatch(getPremierLeagueTeams())}
- 
- 
-  if(leagueTeams.length < 1 && premierLeagueTeams && premierLeagueTeams.length > 0){setLeagueTeams(premierLeagueTeams)}
-  setTeamPlayers(teamPlayersInFocus)
-
- 
- },[premierLeagueTeams,teamPlayersInFocus])
 
 
 
  useEffect(()=>{
  
-if(user && user.competitions && user.competitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id)){
-
-   setJoined(true)
-
-}else{
-  setJoined(false)
-}
-
-
+  dispatch(fetchRangeOfCompetitors(0,16,"west"))
  
- },[user,leagueInFocus])
-
-
-
- console.log("WHAT AM I GETTING FROM THE GOAL SCORER COMP NOW--->",goalScorerCompetitionInFocus)
-
-
-console.log("WHAT AM I GETTING FROM THE USER ?--->",user)
-
-
-
-
-useEffect(()=>{
-                                                                /*consider if you really need this isOpen logic, just to clear a chosen selection -- i will do the past selections upon  UNLOCK, IN THE ADMIN NOW */
-  if(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.gameWeekStarted === false && user ){
-  
-   console.log("YOU HAVENT FINISHED LOGIC FOR PUTTING CURRENT PREDICTION INTO PAST SELECTIONS")
-  
-  }
-   
-   },[leagueInFocus])
-
-
+},[user,leagueInFocus])
 
 
 
@@ -561,13 +489,37 @@ let { width, height } = size
     </div>
        
         
-       
+    <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",gap:"0.5rem",alignItems:"center",width:"100%"}}>
+              <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%",marginLeft:"1rem"}} >
+              ROUND 1
+              
+               </div>
+
+
+               <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
+               ROUND 2
+               </div>
+
+
+               <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
+               S16
+               </div>
+
+               <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
+               E8
+               </div>
+
+               <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%",marginRight:"2rem"}} >
+                Q4
+               </div>
+             </div>
 
         
-    
-        <SingleEliminationBracket
+       <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%",height:"100%",overflow:"hidden"}}>
+        {/*<SingleEliminationBracket
           theme={WhiteTheme}
            matches={matches}
+           
            matchComponent={Match}
            svgWrapper={({ children, ...props }) => (
             <SVGViewer 
@@ -577,8 +529,194 @@ let { width, height } = size
               {children}
             </SVGViewer>
           )}
-         />
 
+          
+           />*/}
+
+             
+
+           <div style={{display:"flex",flexDirection:"column",flex:"1",justifyContent:"space-around",alignItems:"center",height:"100%"}}>  
+
+    
+     
+             <div style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                 {competitorRangeInFocus[0].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[1].name}
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[2].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[3].name}
+                </div>
+             </div>
+ 
+              <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[4].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[5].name}
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[6].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[7].name}
+               </div>
+            </div>
+ 
+
+            <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[8].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[9].name}
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[10].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[11].name}
+                </div>
+             </div>
+ 
+            <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[12].name}
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[13].name}
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[14].name}
+                </div>
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
+                {competitorRangeInFocus[15].name}
+                </div>
+              </div>
+
+           
+           </div>
+
+            <div style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%"}}> 
+            
+               <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"-1rem"}} >
+              
+               </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"-1.5rem"}} >
+                
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%"}} >
+                
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"-1rem"}} >
+                
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%"}} >
+                
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"1.5rem"}} >
+                
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                
+                </div>
+
+
+            </div>
+
+           <div style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%"}}> 
+
+               <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
+               
+               </div>
+ 
+ 
+               <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"-1rem"}} >
+                
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"1rem"}} >
+               
+               </div>
+ 
+ 
+               <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
+                
+                </div>
+           
+          </div>
+
+           <div style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%"}}>  
+   
+              <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
+               
+              </div>
+
+
+              <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
+               
+               </div>
+
+
+
+
+           </div>
+
+           <div style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%"}}>  
+           
+              <div style={{color:"white",backgroundColor:"#260448", height:"4rem",width:"6rem",borderRadius:"5%"}} >
+               
+              </div>
+           </div>
+
+      </div >
       
     
 

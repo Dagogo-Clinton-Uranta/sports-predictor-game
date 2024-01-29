@@ -77,6 +77,13 @@ const footballSlice = createSlice({
     state.cleanSheetCompetitionInFocus = {};
   },
 
+  clearCompetitorRangeInFocus: (state, action) => {
+    state.competitorRangeInFocus = {};
+  },
+
+  saveCompetitorRangeInFocus: (state, action) => {
+    state.competitorRangeInFocus = action.payload;
+  },
 
     saveAssistPickFour: (state, action) => {
       state.assistPickFour = action.payload;
@@ -195,6 +202,9 @@ export const {
 
  saveGoalScorerCompetitionInFocus,
  clearGoalScorerCompetitionInFocus,
+
+ saveCompetitorRangeInFocus,
+ clearCompetitorRangeInFocus,
 
 
  saveAssistCompetitionInFocus,

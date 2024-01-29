@@ -19,6 +19,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     saveAllCompetitionsInOneLeague,
     saveAllUsersInOneLeague,
     saveUserInFocusForDeposits,
+    saveCompetitorRangeInFocus,
     saveLeagueInFocus,
     saveDepositCanChangeNow,
     saveAllCompetitionsForOneUser,
@@ -30,6 +31,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
     clearAssistResultsPerLeague,
     clearCleanSheetResultsPerLeague,
     clearTeamWinResultsPerLeague,
+    clearCompetitorRangeInFocus
   } from '../reducers/football.slice';
 
 import firebase from "firebase/app";
@@ -1597,4 +1599,43 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
 
   dispatch(saveLeagueInFocus(leagueObject))
 
+    }
+
+
+    export const fetchRangeOfCompetitors = (startRange,endRange,region) => async (dispatch) => {
+
+
+ 
+      db.collection("challengeTeams")
+      .where("region",  "==", region)
+      .where("seed",  ">", startRange)
+      .where("seed",  "<=", endRange)
+     
+      .get().then((snapshot)=>{
+    
+          const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        
+        if(allGroups.length > 0){
+        
+          const data = allGroups[0];
+       
+       dispatch(saveCompetitorRangeInFocus(allGroups))
+       console.log("competitors for this region ---> ",allGroups)
+        }
+        else{
+          //notifyErrorFxn("Error fetching this leagues clean sheet comp")
+          dispatch(clearCompetitorRangeInFocus({}))
+        }
+    
+    
+    
+      })
+    .catch((error)=>{
+        console.error("ERROR WHILE TRYING TO FETCH THIS COMPETITION BRACKET, PLEASE TRY AGAIN.--> : ", error);
+        notifyErrorFxn("ERROR WHILE TRYING TO FETCH THIS COMPETITION BRACKET, PLEASE TRY AGAIN. ")
+        
+      });
+    
+    
+    
     }
