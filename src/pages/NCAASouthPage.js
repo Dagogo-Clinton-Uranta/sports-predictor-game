@@ -519,7 +519,7 @@ let { width, height } = size
              </div>
 
         
-       <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%",height:"100%",overflow:"hidden"}}>
+       <div style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center",width:"100%",height:"100%",overflow:"hidden"}}>
         {/*<SingleEliminationBracket
           theme={WhiteTheme}
            matches={matches}
