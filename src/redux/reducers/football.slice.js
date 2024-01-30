@@ -26,6 +26,7 @@ const initialState = {
        cleanSheetCompetitionInFocus:{},
        assistCompetitionInFocus:{},
        goalScorerCompetitionInFocus:{},
+       competitorRangeInFocus:[],
        leagueInFocus:{},
        depositCanChangeNow:false,
       isLoading: false,
@@ -78,7 +79,7 @@ const footballSlice = createSlice({
   },
 
   clearCompetitorRangeInFocus: (state, action) => {
-    state.competitorRangeInFocus = {};
+    state.competitorRangeInFocus = [];
   },
 
   saveCompetitorRangeInFocus: (state, action) => {

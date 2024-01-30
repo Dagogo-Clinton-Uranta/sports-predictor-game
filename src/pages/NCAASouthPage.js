@@ -140,7 +140,7 @@ const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInF
 
 console.log("OUR COMPETITOR RANGE IS--->",competitorRangeInFocus)
 
-console.log("OUR LEAGUE IN FOCUS IS-->",leagueInFocus)
+/*console.log("OUR LEAGUE IN FOCUS IS-->",leagueInFocus)*/
 
 useEffect(()=>{
 
@@ -170,12 +170,16 @@ const [waiting,setWaiting] =  useState(false)
 
  useEffect(()=>{
  
-  dispatch(fetchRangeOfCompetitors(0,16,"west"))
+  dispatch(fetchRangeOfCompetitors(16,32,"south"))
  
 },[user,leagueInFocus])
 
 
-
+ useEffect(()=>{
+ 
+  dispatch(fetchRangeOfCompetitors(16,32,"south"))
+ 
+},[user,leagueInFocus])
 
 
 
@@ -541,85 +545,85 @@ let { width, height } = size
      
              <div style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                 {competitorRangeInFocus[0].name}
+                 {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[1].name}
+                {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].name}
                 </div>
  
  
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[2].name}
+                {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[3].name}
+                {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].name}
                 </div>
              </div>
  
               <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[4].name}
+                {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[5].name}
+                {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].name}
                 </div>
  
  
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[6].name}
+                {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[7].name}
+                {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].name}
                </div>
             </div>
  
 
             <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[8].name}
+                {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[9].name}
+                {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].name}
                 </div>
  
  
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[10].name}
+                {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[11].name}
+                {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].name}
                 </div>
              </div>
  
             <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[12].name}
+                {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].name}
                 </div>
 
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[13].name}
+                {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].name}
                 </div>
  
  
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[14].name}
+                {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].name}
                 </div>
 
                 <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus[15].name}
+                {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].name}
                 </div>
               </div>
 

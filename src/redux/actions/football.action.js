@@ -1603,13 +1603,13 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
 
 
     export const fetchRangeOfCompetitors = (startRange,endRange,region) => async (dispatch) => {
-
+      console.log("competitors no issues just yet---> ")
 
  
       db.collection("challengeTeams")
       .where("region",  "==", region)
-      .where("seed",  ">", startRange)
-      .where("seed",  "<=", endRange)
+      /*.where("seed",  ">", startRange)
+      .where("seed",  "<=", endRange)*/
      
       .get().then((snapshot)=>{
     
@@ -1624,6 +1624,7 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
         }
         else{
           //notifyErrorFxn("Error fetching this leagues clean sheet comp")
+          console.log("competitors for this region ---> ",allGroups)
           dispatch(clearCompetitorRangeInFocus({}))
         }
     
