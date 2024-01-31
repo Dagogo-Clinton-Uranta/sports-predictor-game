@@ -115,9 +115,9 @@ export default function RegisterForm() {
         >
        
       
-  <MenuItem  value={"NG"}>NG</MenuItem>
-  <MenuItem   value={"US"}>US</MenuItem>
-  <MenuItem   value={"UK"}>UK</MenuItem>
+  <MenuItem  value={"Nigeria"}>NG</MenuItem>
+  <MenuItem   value={"United States of America"}>US</MenuItem>
+  <MenuItem   value={"United Kingdom"}>UK</MenuItem>
 
        
         </Select>}

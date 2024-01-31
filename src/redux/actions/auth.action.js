@@ -46,34 +46,37 @@ var today  = new Date();
 dispatch(isItLoading(true))
 let initialLeague = []
 
-if(user.userLocation === "NG"){
+if(user.userLocation === "Nigeria"){
  
   initialLeague =[
     {
       leagueCode:"290ABC",
       leagueName:"GLOBAL LEAGUE NG",
-      leagueId:"290ABC"
+      leagueId:"290ABC",
+      location:"Nigeria"
     }
   ]
 
-}else if(user.userLocation === "UK"){
+}else if(user.userLocation === "United Kingdom"){
 
   initialLeague =[
     {
       leagueCode:"123D09",
       leagueName:"GLOBAL LEAGUE UK",
-      leagueId:"123D09"
+      leagueId:"123D09",
+      location:"United Kingdom"
     }
   ]
 
 
-}else if(user.userLocation === "US"){
+}else if(user.userLocation === "United States of America"){
 
   initialLeague =[
     {
       leagueCode:"415ABD",
       leagueName:"GLOBAL LEAGUE US",
-      leagueId:"415ABD"
+      leagueId:"415ABD",
+      location:"United States of America"
     }
   ]
 
