@@ -70,6 +70,24 @@ const RespGrid = styled('div')(({ theme }) => ({
 }));
 
 
+const RespFlex = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    display:"flex",
+    flexDirection:"column",
+    gap:"1.5rem",
+    justifyContent:"space-between",
+    width:"100%"
+  },
+
+  [theme.breakpoints.up('md')]: {
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-between",
+    width:"100%"
+  },
+}));
+
+
 const RespHidden = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
      display:"none",
@@ -432,9 +450,17 @@ style={{backgroundColor:`#FFFFFF`,borderRadius:"0.5rem",backgroundPosition: 'cen
 
        </RespGrid>
 
-       <RespButton onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
+
+       <RespFlex>
+            <RespButton onClick={()=>{navigate('/dashboard/entry')}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
               JOIN
             </RespButton>
+
+            <RespButton onClick={()=>{navigate('/dashboard/create-league')}}  style={{backgroundColor: '#260952',height:"4.2rem" ,color:'white',margin:"0 auto" }}>
+              CREATE LEAGUE
+            </RespButton>
+         </RespFlex>
+
     
 
    </StyledContent>

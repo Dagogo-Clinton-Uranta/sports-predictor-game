@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import {Typography, Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar } from '@mui/material';
+import {Typography, Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar, MenuItem, Select } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../iconify';
@@ -33,6 +33,7 @@ export default function RegisterForm() {
   const [teamName,setTeamName] =  useState('');
   const [firstName,setFirstName] = useState('');
   const [lastName,setLastName] = useState('');
+  const [userLocation,setUserLocation] = useState('');
 
 
   const { isLoading } = useSelector((state) => state.auth);
@@ -56,7 +57,7 @@ export default function RegisterForm() {
   const userSignup = (e) => {
     e.preventDefault();
     setLoading(true);
-    const user = {firstName,lastName,fname, password,teamName,leagueCode};
+    const user = {firstName,lastName,fname, password,teamName,leagueCode,userLocation};
     dispatch(signup(user, navigate, setLoading)); 
   }
 
@@ -95,6 +96,31 @@ export default function RegisterForm() {
         />
 
    <TextField name="Team name" required label="Team Name" value={teamName} onChange={(e) => setTeamName(e.target.value)}/>
+
+   {<Select
+          style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
+         inputProps={{
+          classes: {
+            
+          },
+      }}
+           required
+          labelId="hi-label"
+          id="hi"
+          value={userLocation}
+          label="Location"
+          onChange={(event) => {
+            setUserLocation(event.target.value);
+          }}
+        >
+       
+      
+  <MenuItem  value={"NG"}>NG</MenuItem>
+  <MenuItem   value={"US"}>US</MenuItem>
+  <MenuItem   value={"UK"}>UK</MenuItem>
+
+       
+        </Select>}
    {/*<TextField name="League Code" required label="League Code" value={leagueCode} onChange={(e) => setLeagueCode(e.target.value)}/>*/}
           {/* <Grid
           container

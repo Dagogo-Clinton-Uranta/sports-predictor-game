@@ -44,6 +44,41 @@ export const signup = (user, navigate, setLoading) => async (dispatch) => {
 var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 var today  = new Date();
 dispatch(isItLoading(true))
+let initialLeague = []
+
+if(user.userLocation === "NG"){
+ 
+  initialLeague =[
+    {
+      leagueCode:"290ABC",
+      leagueName:"GLOBAL LEAGUE NG",
+      leagueId:"290ABC"
+    }
+  ]
+
+}else if(user.userLocation === "UK"){
+
+  initialLeague =[
+    {
+      leagueCode:"123D09",
+      leagueName:"GLOBAL LEAGUE UK",
+      leagueId:"123D09"
+    }
+  ]
+
+
+}else if(user.userLocation === "US"){
+
+  initialLeague =[
+    {
+      leagueCode:"415ABD",
+      leagueName:"GLOBAL LEAGUE US",
+      leagueId:"415ABD"
+    }
+  ]
+
+
+}
 
 /*db.collection("leagues")
 .where('code', '==', user.leagueCode)
@@ -70,12 +105,13 @@ if(allGroups.length === 0){
     firstName:user.firstName,
     lastName:user.lastName,
     email: user.fname,
-    Leagues:[/*{
+    Leagues:[...initialLeague/*{
       leagueCode:user.leagueCode,
       leagueName:allGroups[0] && allGroups[0].name,
       leagueId:user.leagueCode
     }*/],
     //leagueCode:user.leagueCode,<---- make an array of leagues and put in league code and team name as the 1st value 06/12/2023
+    location:user.userLocation,
     teamName:user.teamName,
     password: user.password,
     accountBalance:0,
