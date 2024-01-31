@@ -1617,9 +1617,22 @@ export const updateUserBalance = (userId,currentBalance,topUp,leagueCode,leagueN
         
         if(allGroups.length > 0){
         
-          const data = allGroups[0];
-       
-       dispatch(saveCompetitorRangeInFocus(allGroups))
+         
+
+          const sortFunction = (array)=>{
+            if (array.length){
+              return  array.sort((a,b)=>(a.seed - b.seed))
+             }else{
+              return []
+             }
+           }
+
+           const sortedTeams = sortFunction(allGroups);
+
+
+       /*SORT BY IS HERE */
+       dispatch(saveCompetitorRangeInFocus(sortedTeams))
+       console.log("competitors for this region SORTED ---> ",sortedTeams)
        console.log("competitors for this region ---> ",allGroups)
         }
         else{

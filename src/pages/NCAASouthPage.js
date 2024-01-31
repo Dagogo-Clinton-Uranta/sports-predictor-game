@@ -493,8 +493,8 @@ let { width, height } = size
     </div>
        
         
-    <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",gap:"0.5rem",alignItems:"center",width:"100%"}}>
-              <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%",marginLeft:"1rem"}} >
+    <div style={{display:"flex",flexDirection:"row-reverse",justifyContent:"space-between",gap:"0.5rem",alignItems:"center",width:"100%"}}>
+              <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%",marginRight:"2rem"}} >
               ROUND 1
               
                </div>
@@ -513,7 +513,7 @@ let { width, height } = size
                E8
                </div>
 
-               <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%",marginRight:"2rem"}} >
+               <div style={{textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
                 Q4
                </div>
              </div>
@@ -539,136 +539,138 @@ let { width, height } = size
 
              
 
-           <div style={{display:"flex",flexDirection:"column",flex:"1",justifyContent:"space-around",alignItems:"center",height:"100%"}}>  
-
-    
-     
-             <div style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                 {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name}
+        
+<div style={{display:"flex",flexDirection:"column",flex:"1",justifyContent:"space-around",alignItems:"center",height:"100%"}}>  
+                
+                    
+                     
+                <div style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                    {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].name}
+                   </div>
                 </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].name}
+                
+                 <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].name}
+                  </div>
                 </div>
- 
- 
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].name}
+                
+                
+                <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].name}
+                   </div>
                 </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].name}
+                
+                <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].name}
+                   </div>
+                
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].name}
+                   </div>
+                
+                   <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",display:"flex",width:"6.5rem",borderRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].name}
+                   </div>
+                 </div>
+                
+                
                 </div>
-             </div>
- 
-              <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].name}
-                </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].name}
-                </div>
- 
- 
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].name}
-                </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].name}
-               </div>
-            </div>
- 
-
-            <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].name}
-                </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].name}
-                </div>
- 
- 
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].name}
-                </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].name}
-                </div>
-             </div>
- 
-            <div  style={{display:"flex",flexDirection:"column",gap:"1rem"}}>
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].name}
-                </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].name}
-                </div>
- 
- 
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].name}
-                </div>
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"1.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].name}
-                </div>
-              </div>
-
-           
-           </div>
 
             <div style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%"}}> 
             
-               <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"-1rem"}} >
-              
+               <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",borderRadius:"5%",position:"relative",top:"-1rem",display:"flex",alignItems:"center",justifyContent:"center"}} >
+             
+               {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0].name }
                </div>
  
  
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"-1.5rem"}} >
-                
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1.5rem"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1].name }
                 </div>
 
 
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%"}} >
-                
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2].name }
                 </div>
  
  
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"-1rem"}} >
-                
-                </div>
-
-
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"1rem"}} >
-                
-                </div>
- 
- 
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%"}} >
-                
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1rem"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3].name }
                 </div>
 
 
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"1.5rem"}} >
-                
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4].name }
                 </div>
  
  
-                <div style={{color:"white",backgroundColor:"#260448", height:"2rem",width:"4rem",borderRadius:"5%",position:"relative",top:"1rem"}} >
-                
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5].name }
+                </div>
+
+
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1.5rem"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6].name }
+                </div>
+ 
+ 
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7].name }
                 </div>
 
 
@@ -676,36 +678,36 @@ let { width, height } = size
 
            <div style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%"}}> 
 
-               <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
-               
+               <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-3rem"}} >
+               {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[0].name }
                </div>
  
  
-               <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"-1rem"}} >
-                
+               <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1rem"}} >
+               {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[1].name }
                 </div>
 
 
-                <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"1rem"}} >
-               
+                <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[2].name }
                </div>
  
  
-               <div style={{color:"white",backgroundColor:"#260448", height:"2.5rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
-                
+               <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
+               {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[3].name }
                 </div>
            
           </div>
 
            <div style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%"}}>  
    
-              <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
-               
+              <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
+              {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].name }
               </div>
 
 
-              <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"4.5rem",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
-               
+              <div style={{color:"white",backgroundColor:"#260448", height:"3rem",width:"5.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
+              {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].name }
                </div>
 
 
@@ -715,8 +717,8 @@ let { width, height } = size
 
            <div style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%"}}>  
            
-              <div style={{color:"white",backgroundColor:"#260448", height:"4rem",width:"6rem",borderRadius:"5%"}} >
-               
+              <div style={{color:"white",backgroundColor:"#260448", height:"4rem",width:"6rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+              {competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name }
               </div>
            </div>
 
