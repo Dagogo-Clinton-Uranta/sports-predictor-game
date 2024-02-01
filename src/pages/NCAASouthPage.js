@@ -795,6 +795,13 @@ let { width, height } = size
             { "WEST"}
             </Button>
       </div>
+
+
+      <div style={{marginTop:"0rem",width:"100%"}}>
+      <Button onClick={()=>{}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
+            { "RESET"}
+            </Button>
+      </div>
   </div>
 
      
