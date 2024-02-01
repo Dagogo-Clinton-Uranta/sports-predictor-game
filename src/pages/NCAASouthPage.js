@@ -757,7 +757,7 @@ let { width, height } = size
           PREDICT
         </Typography>
 
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{ loadAndNavigate() } }>
+        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{ /*loadAndNavigate()*/ } }>
         { waiting?"loading..":'RESULTS' }
         </Typography>
     </div>
