@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import {Typography, Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar, MenuItem, Select } from '@mui/material';
+import {Typography, Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar, MenuItem, Select, InputLabel } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../iconify';
@@ -97,7 +97,9 @@ export default function RegisterForm() {
 
    <TextField name="Team name" required label="Team Name" value={teamName} onChange={(e) => setTeamName(e.target.value)}/>
 
-   {<Select
+   {<>
+   
+    <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
          inputProps={{
           classes: {
@@ -108,19 +110,29 @@ export default function RegisterForm() {
           labelId="hi-label"
           id="hi"
           value={userLocation}
-          label="Location"
+          label={"Location"}
+          placeholder={"Location"}
+          displayEmpty
+          renderValue={(selected) => {
+            if (selected.length === 0) {
+              return <em style={{color:"lightgray"}}>Location</em>;
+            }
+
+            return selected;
+          }}
           onChange={(event) => {
             setUserLocation(event.target.value);
           }}
         >
        
-      
+  <MenuItem disabled value=""> Location</MenuItem> 
   <MenuItem  value={"Nigeria"}>NG</MenuItem>
   <MenuItem   value={"United States of America"}>US</MenuItem>
   <MenuItem   value={"United Kingdom"}>UK</MenuItem>
 
        
-        </Select>}
+        </Select>
+        </>}
    {/*<TextField name="League Code" required label="League Code" value={leagueCode} onChange={(e) => setLeagueCode(e.target.value)}/>*/}
           {/* <Grid
           container
