@@ -18,6 +18,8 @@ import CREATECOMPETITION from '../assets/images/createcompetition.png';
 import COMPETITIONRESULTS from '../assets/images/competitionResults.png';
 import JOINCOMPETITION from '../assets/images/joinCompetition.png';
 import ADDPOINTS from '../assets/images/addPoints.png';
+import NCAAPIC from '../assets/images/ncaahowto.png';
+import OUTCOMERESULTS from '../assets/images/OUTCOMERESULTS.png';
 
 
 import LoginForm from 'src/components/login/LoginForm';
@@ -336,8 +338,11 @@ export default function LoginPage() {
 const [membersLogin,setMembersLogin] = useState(true)
 const [membersJoinLeague,setMembersJoinLeague] = useState(false)
 const [membersJoinComp,setMembersJoinComp] = useState(false)
+const [membersMakeSelect,setMembersMakeSelect] = useState(false)
+
 const [membersAddPoints,setMembersAddPoints] = useState(false)
 const [membersOutcome,setMembersOutcome] = useState(false)
+const [membersNCAA,setMembersNCAA] = useState(false)
 
 
 
@@ -348,6 +353,9 @@ const [adminInvite,setAdminInvite] = useState(false)
 const [adminCreateComp,setAdminCreateComp] = useState(false)
 const [adminCreateLeague,setAdminCreateLeague] = useState(false)
 const [adminManage,setAdminManage] = useState(false)
+const [adminNCAA,setAdminNCAA] = useState(false)
+
+
 
 
 
@@ -425,20 +433,20 @@ const [adminManage,setAdminManage] = useState(false)
      </RespContent3>
 
 
-  <div style={{width:"50%", margin:"0 auto",marginTop:"4rem"}}>
+     <div style={{width:"50%", margin:"0 auto",marginTop:"4rem"}}>
      <div style={{display:"flex", justifyContent:"center",marginBottom:"2.5rem",width:"80%",}}>
-          <Typography ref={myRef}  variant="h2" sx={{ textAlign: 'left',color:"#260952", cursor:"pointer"}}>
+          <Typography   variant="h2" sx={{ textAlign: 'left',color:"#260952", cursor:"pointer"}}>
               HOW TO PLAY
             </Typography>
           </div>
 
      
           <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
-      <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminLogin(false);setAdminReg(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
+      <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
           LEAGUE MEMBERS
         </Typography>
 
-        <Typography  onClick={()=>{setLeagueAdmins(true);setLeagueMembers(false);setMembersLogin(false);setAdminLogin(true);  }} variant="h6" sx={{ textAlign: 'left',color:leagueAdmins?"black":"lightgrey",cursor:"pointer",}} >
+        <Typography  onClick={()=>{setLeagueAdmins(true);setLeagueMembers(false);setMembersLogin(false);setAdminLogin(true); setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false);setMembersNCAA(false);setMembersMakeSelect(false) }} variant="h6" sx={{ textAlign: 'left',color:leagueAdmins?"black":"lightgrey",cursor:"pointer",}} >
           LEAGUE ADMIN
         </Typography>
       </div>
@@ -446,7 +454,8 @@ const [adminManage,setAdminManage] = useState(false)
     </div>
 
 
-     <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%', marginTop: '5%',border:"1px solid #0000001A"}}>
+
+ <RespContent2  style={{ display:'flex',gap:"0rem", marginBottom: '5%', marginTop: '5%',border:"1px solid #0000001A"}}>
     
     { leagueAdmins &&
     
@@ -454,34 +463,34 @@ const [adminManage,setAdminManage] = useState(false)
       <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A', borderRight:"0px", marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{cursor:"pointer",color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+          <div onClick={()=>{setAdminReg(true);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(false)}} style={{cursor:"pointer",color:adminReg && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               REGISTRATION
             </div>
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(true);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{ cursor:"pointer",color:adminLogin && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(true);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(false)}} style={{cursor:"pointer", color:adminLogin && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               LOGIN
             </div>
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(true);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false)}} style={{cursor:"pointer",color:adminCreateLeague && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(true);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(false)}} style={{cursor:"pointer",color:adminCreateLeague && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               CREATE LEAGUE
             </div>
 
-            <div  onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(true);setAdminCreateComp(false);setAdminManage(false)}}style={{cursor:"pointer",color:adminInvite && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+           {/* <div  onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(true);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(false)}}style={{cursor:"pointer",color:adminInvite && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               INVITE MEMBERS
-            </div>
+            </div> */}
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(true);setAdminManage(false)}} style={{cursor:"pointer",color:adminCreateComp && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(true);setAdminManage(false);setAdminNCAA(false)}} style={{cursor:"pointer",color:adminCreateComp && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               CREATE COMP
             </div>
 
 
-            <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(true)}} style={{cursor:"pointer",color:adminManage && leagueAdmins?"purple":"black", flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+           {/* <div onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(true);setAdminNCAA(false)}} style={{cursor:"pointer",color:adminManage && leagueAdmins?"purple":"black", flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               MANAGE MEMBERS
-            </div>
+            </div> */}
 
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(true)}} style={{ cursor:"pointer",color:membersOutcome && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+           {/* <div  onClick={()=>{setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(true)}} style={{ cursor:"pointer",color:adminNCAA && leagueAdmins?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
              NCAA
-            </div>
+            </div>*/}
 
          
         </div>
@@ -495,33 +504,35 @@ const [adminManage,setAdminManage] = useState(false)
       <div  style={{display: 'flex', justifyContent: 'space-between',flexDirection:"column",alignItems:"center",flex:1, border: '1px solid #0000001A',borderRight:"0px",  marginTop: '2%', marginBottom: '2%',height:"100%" }}>
           
           
-          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}} style={{cursor:"pointer",color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+          <div onClick={()=>{setMembersReg(true);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersMakeSelect(false);setMembersOutcome(false);setMembersNCAA(false)}} style={{cursor:"pointer",color:membersReg && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               REGISTRATION
             </div>
 
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(true);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{cursor:"pointer",color:membersLogin && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(true);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersMakeSelect(false);setMembersOutcome(false);setMembersNCAA(false)}}style={{cursor:"pointer",color:membersLogin && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               LOGIN
             </div>
 
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(true);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false)}}style={{cursor:"pointer",color:membersJoinLeague && leagueMembers?"purple":"black" ,flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(true);setMembersAddPoints(false);setMembersJoinComp(false);setMembersMakeSelect(false);setMembersOutcome(false);setMembersNCAA(false)}}style={{cursor:"pointer",color:membersJoinLeague && leagueMembers?"purple":"black" ,flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               JOIN LEAGUE
             </div>
 
-            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(true);setMembersJoinComp(false);setMembersOutcome(false)}} style={{cursor:"pointer",color:membersAddPoints && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(true);setMembersJoinComp(false);setMembersMakeSelect(false);setMembersOutcome(false);setMembersNCAA(false)}} style={{cursor:"pointer",color:membersAddPoints && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               ADD POINTS
             </div>
 
-            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(true);setMembersOutcome(false)}} style={{cursor:"pointer",color:membersJoinComp && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(true);setMembersMakeSelect(false);setMembersOutcome(false);setMembersNCAA(false)}} style={{cursor:"pointer",color:membersJoinComp && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
               JOIN COMP
             </div>
+ 
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersMakeSelect(true);setMembersOutcome(false);setMembersNCAA(false)}} style={{ cursor:"pointer",color:membersOutcome && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+             MAKE SELECTION
+            </div>
 
-
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(true)}} style={{ cursor:"pointer",color:membersOutcome && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersMakeSelect(false);setMembersOutcome(true);setMembersNCAA(false)}} style={{ cursor:"pointer",color:membersOutcome && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
              OUTCOME
             </div>
 
-          
-            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(true)}} style={{ cursor:"pointer",color:membersOutcome && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
+            <div  onClick={()=>{setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersMakeSelect(false);setMembersOutcome(false);setMembersNCAA(true)}} style={{ cursor:"pointer",color:membersNCAA && leagueMembers?"purple":"black",flex:"1",width:"100%",border:"1px solid #0000001A",textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",padding:"1rem"}}>
              NCAA
             </div>
 
@@ -539,10 +550,12 @@ const [adminManage,setAdminManage] = useState(false)
 
      { /*1 */adminLogin && leagueAdmins &&
        <>
-        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           LOGIN
         </Typography>
-     
+          <p   to ={'/login'}>Navigate to www.futascore.com/login</p>
+
+
          <div style={{marginBottom:"0.5rem"}}>
          <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
@@ -551,10 +564,13 @@ const [adminManage,setAdminManage] = useState(false)
 
 {   /*2 */ adminReg && leagueAdmins &&
 <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           REGISTER
         </Typography>
      
+   
+         <p    to ={'/register'}> Navigate to www.futascore.com/register </p>
+
          <div style={{marginBottom:"0.5rem"}}>
          <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
@@ -562,9 +578,9 @@ const [adminManage,setAdminManage] = useState(false)
       }
 
 
-{   /*3 */ adminInvite && leagueAdmins &&
+{   /*3  adminInvite && leagueAdmins &&
   <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           CREATE LEAGUE
         </Typography>
      
@@ -572,14 +588,17 @@ const [adminManage,setAdminManage] = useState(false)
          <img src={JOINLEAGUELAPTOP} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
       </>
-      }
+     */ }
 
 {    /*4 */ adminCreateComp && leagueAdmins &&
 
   <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           CREATE COMPETITION
         </Typography>
+
+
+        <p>Navigate to League Admin page. Select Competition name, Entry Fee and Game Week.</p>
      
          <div style={{marginBottom:"0.5rem"}}>
          <img src={STARTCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
@@ -590,21 +609,23 @@ const [adminManage,setAdminManage] = useState(false)
 {
        /*4 */  adminCreateLeague && leagueAdmins &&
   <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           START COMPETITION
         </Typography>
+
+        <p>Navigate to Profile. Click Create League. Enter League Name. Click Submit</p>
      
          <div style={{marginBottom:"0.5rem"}}>
-         <img src={STARTCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
+         <img src={JOINCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
       </>
       }
 
 
-{     /*5 */   adminManage && leagueAdmins &&
+{     /*5   adminManage && leagueAdmins &&
        
    <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           MANAGE MEMBERS
         </Typography>
      
@@ -612,14 +633,34 @@ const [adminManage,setAdminManage] = useState(false)
          <img src={STARTCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
       </>
+      */ 
       }
+
+
+{     /*5.5   adminNCAA && leagueAdmins &&
+       
+       <>
+            <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
+              NCAA
+            </Typography>
+         
+             <div style={{marginBottom:"0.5rem"}}>
+             <img src={NCAAPIC} style={{position:"relative"}} alt="start competition how to"/>
+             </div> 
+          </>
+         */ 
+         }
+
+
 
 {     /*NO MORE LEAGUE ADMIN, NOW  MEMBERS  */
       /*6 */  membersReg && leagueMembers &&
   <>
-        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           REGISTER
         </Typography>
+
+        <p  to ={'/register'}> Navigate to www.futascore.com/register </p>
      
          <div style={{marginBottom:"0.5rem"}}>
          <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
@@ -629,9 +670,11 @@ const [adminManage,setAdminManage] = useState(false)
 
 {    /*7 */  membersLogin && leagueMembers &&
    <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           LOGIN
         </Typography>
+
+        <p   to ={'/login'}>Navigate to www.futascore.com/login</p>
      
          <div style={{marginBottom:"0.5rem"}}>
          <img src={LOGINPAGE} style={{position:"relative"}} alt="start competition how to"/>
@@ -642,10 +685,12 @@ const [adminManage,setAdminManage] = useState(false)
 {     /*8 */  membersJoinLeague && leagueMembers &&
 
    <>
-        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           JOIN LEAGUE
         </Typography>
      
+        <p>Navigate to Profile. Enter League Code. Click Join League.</p>
+
          <div style={{marginBottom:"0.5rem"}}>
          <img src={JOINLEAGUELAPTOP} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
@@ -655,9 +700,11 @@ const [adminManage,setAdminManage] = useState(false)
 
 {    /*10 */  membersAddPoints && leagueMembers &&
    <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
          ADD POINTS
         </Typography>
+
+        <p>Navigate to Profile. Enter Deposit Amount. Click Deposit.</p>
      
          <div style={{marginBottom:"0.5rem"}}>
          <img src={ADDPOINTS} style={{position:"relative"}} alt="start competition how to"/>
@@ -668,9 +715,11 @@ const [adminManage,setAdminManage] = useState(false)
 {    /*11 */  membersJoinComp && leagueMembers &&
 
   <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           JOIN COMPETITION
         </Typography>
+
+       <p>Select Competition. Click Join. Entry Fee will be deducted from Account Balance.</p>
      
          <div style={{marginBottom:"0.5rem"}}>
          <img src={JOINCOMPETITION} style={{position:"relative"}} alt="start competition how to"/>
@@ -678,18 +727,56 @@ const [adminManage,setAdminManage] = useState(false)
       </>
       }
 
+
+{    /*11.5 */  membersMakeSelect && leagueMembers &&
+
+<>
+     <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
+       MAKE SELECTION
+     </Typography>
+  
+     <p>Choose the player/team from the dropdown. If successful make another prediction for the next Game Week. You can only choose one player/team per competition.</p>
+
+
+      <div style={{marginBottom:"0.5rem"}}>
+      <img src={COMPETITIONRESULTS} style={{position:"relative"}} alt="start competition how to"/>
+      </div> 
+   </>
+   }
+
+
+
 {    /*12 */  membersOutcome && leagueMembers &&
 
    <>
-        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"2rem"}}>
+        <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
           OUTCOME
         </Typography>
      
+        <p>After the Game Week, the predictions that were not successful are removed from the competition. The last player in the competitions wins.</p>
+
+
          <div style={{marginBottom:"0.5rem"}}>
-         <img src={COMPETITIONRESULTS} style={{position:"relative"}} alt="start competition how to"/>
+         <img src={OUTCOMERESULTS} style={{position:"relative"}} alt="start competition how to"/>
          </div> 
       </>
       }
+
+
+{    /*13 */  membersNCAA && leagueMembers &&
+
+<>
+     <Typography variant="h6" sx={{ textAlign: 'left', mt: 3,mb:1,cursor:"pointer",paddingLeft:"0rem"}}>
+       NCAA
+     </Typography>
+
+     <p>Select a team in each round of the competition include the Final. The prediction with the successful team wins. If no player chose the winner, then the player with the last correct prediction wins.</p>
+  
+      <div style={{marginBottom:"0.5rem"}}>
+      <img src={NCAAPIC} style={{position:"relative"}} alt="start competition how to"/>
+      </div> 
+   </>
+   }
 </div>   
         </Container>
 
