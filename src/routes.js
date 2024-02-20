@@ -57,6 +57,7 @@ import NCAASouthPage from './pages/NCAASouthPage';
 import NCAAWestPage from './pages/NCAAWestPage';
 import NCAAMidWestPage from './pages/NCAAMidWestPage';
 import NCAAEastPage from './pages/NCAAEastPage';
+import NCAAFinalsPage from './pages/NCAAFinalsPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -79,6 +80,7 @@ export default function Router() {
         { path: 'ncaa-west', element:  <NCAAWestPage /> },
         { path: 'ncaa-midwest', element:  <NCAAMidWestPage /> },
         { path: 'ncaa-east', element:  <NCAAEastPage /> },
+        { path: 'ncaa-finals', element:  <NCAAFinalsPage /> },
 
 
         /*PICK FOUR  --- */

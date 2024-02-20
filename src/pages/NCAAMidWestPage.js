@@ -198,6 +198,19 @@ const {
 } = useSelector((state) => state.tournamentMidWest);
 
 
+const {fourEast1}= useSelector((state) => state.tournamentEast);
+const {fourWest1}= useSelector((state) => state.tournamentWest);
+const {fourSouth1}= useSelector((state) => state.tournamentSouth);
+
+const moveToFinal  =() =>{
+  if(!(fourEast1.length &&fourMidWest1.length && fourSouth1.length && fourWest1.length)){
+    notifyErrorFxn("Please make finals predictions for all regions first!")
+  }else{
+    navigate('/dashboard/ncaa-finals')
+  }
+}
+
+
 
 const callThirtyTwoMidWest1 = (entry)=>{ dispatch(setThirtyTwoMidWest1(entry))}
 const callThirtyTwoMidWest2 = (entry)=>{ dispatch(setThirtyTwoMidWest2(entry))}
@@ -934,42 +947,29 @@ let { width, height } = size
 
 
       <TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"2.5rem"}}
+            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
+            disabled
             placeholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {chosenPlayer && chosenPlayer.name}
-           
+            value= {fourSouth1}
+            
            
             
             />
 
 
 <TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"2.5rem"}}
+            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
+            disabled
             placeholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {chosenPlayer && chosenPlayer.name}
-           
-           
-            
-            />
-
-
-
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"2.5rem"}}
-            fullWidth
-            placeholder= "select a team or player"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {chosenPlayer && chosenPlayer.name}
+            value= {fourMidWest1}
            
            
             
@@ -978,20 +978,37 @@ let { width, height } = size
 
 
 <TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"2.5rem"}}
+            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
+            disabled
             placeholder= "select a team or player"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {chosenPlayer && chosenPlayer.name}
-           
+            value= {fourEast1}
+            
            
             
             />
 
 
-            <Button onClick={()=>{}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
+
+<TextField
+            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
+            fullWidth
+            disabled
+            placeholder= "select a team or player"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {fourWest1}
+            
+           
+            
+            />
+
+
+            <Button onClick={()=>{moveToFinal()}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
             { loading?"Loading":"PROCEED TO FINAL"}
             </Button>
 

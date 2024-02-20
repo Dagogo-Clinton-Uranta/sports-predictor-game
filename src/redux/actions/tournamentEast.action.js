@@ -13,6 +13,7 @@ import { saveEightEast1,
       saveThirtyTwoEast2,
        saveThirtyTwoEast3, 
        saveThirtyTwoEast4, 
+       saveThirtyTwoEast5, 
        saveThirtyTwoEast6,
         saveThirtyTwoEast7,
          saveThirtyTwoEast8,
@@ -52,7 +53,7 @@ export const setThirtyTwoEast2 =  (teamName) => async (dispatch) => {
 
             export const setThirtyTwoEast5 =  (teamName) => async (dispatch) => {
 
-                dispatch(saveThirtyTwoEast6(teamName))
+                dispatch(saveThirtyTwoEast5(teamName))
                 
                 }
 

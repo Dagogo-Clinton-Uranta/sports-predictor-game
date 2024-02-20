@@ -160,7 +160,7 @@ const WhiteTheme = createTheme({
 
 
 
-export default function NCAASouthPage() {
+export default function NCAAFinalsPage() {
   const theme = useTheme();
  // const classes = useStyles()
 
@@ -605,7 +605,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 
      <div style={{display:"flex", justifyContent:"flex-start",flexDirection:"column"}}>
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer"}}>
-          SOUTH
+          FINALS
         </Typography>
 
       
@@ -614,27 +614,21 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
        
     <RespScale style={{display:"flex",flexDirection:"row",justifyContent:"space-between",gap:"0.5rem",alignItems:"center",width:"100%"}}>
               <div style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
-              R64
+              SEMIFINAL
               
                </div>
 
 
                <div style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
-               R32
+               FINAL
                </div>
 
 
                <div style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
-               S16
+               SEMIFINAL
                </div>
 
-               <div style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
-               E8
-               </div>
-
-               <div style={{display:"flex",justifyContent:"center",alignItems:"center",textAlign:"center",color:"white",backgroundColor:"#260448", height:"2.5rem",width:"6.5rem",borderRadius:"5%"}} >
-                Q4
-               </div>
+             
       </RespScale>
 
   
@@ -659,262 +653,81 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
              
 
                    
-<RespScale style={{display:"flex",flexDirection:"column",flex:"1",justifyContent:"space-around",alignItems:"center",height:"100%",fontSize:"12px"}}>  
-                
-                    
-                     
-                <div style={{display:"flex",flexDirection:"column",gap:"2.5rem"}}>
-                  
-                  <div>
-                   <div onClick={()=>{callThirtyTwoSouth1(competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor: competitorRangeInFocus[0] &&  competitorRangeInFocus[0].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                    {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name}
-                   </div>
-                
-                
-                   <div onClick={()=>{callThirtyTwoSouth1(competitorRangeInFocus && competitorRangeInFocus[1] &&  competitorRangeInFocus[1].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[1] &&  competitorRangeInFocus[1].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].name}
-                   </div>
-                 </div>
-                
-
-                 <div>
-                   <div  onClick={()=>{callThirtyTwoSouth2(competitorRangeInFocus && competitorRangeInFocus[2] &&  competitorRangeInFocus[2].name)}}
-                   style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[2] &&  competitorRangeInFocus[2].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].name}
-                   </div>
-                
-                
-                   <div onClick={()=>{callThirtyTwoSouth2(competitorRangeInFocus && competitorRangeInFocus[3] &&  competitorRangeInFocus[3].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[3] &&  competitorRangeInFocus[3].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].name}
-                   </div>
-                </div>
 
 
-                </div>
-                
-                 <div  style={{display:"flex",flexDirection:"column",gap:"2.5rem"}}>
-                   
-                 <div> 
-                    <div onClick={()=>{callThirtyTwoSouth3(competitorRangeInFocus && competitorRangeInFocus[4] &&  competitorRangeInFocus[4].name)}}
-                     style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[4] &&  competitorRangeInFocus[4].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                    {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].name}
-                    </div>
-                 
-                 
-                    <div onClick={()=>{callThirtyTwoSouth3(competitorRangeInFocus && competitorRangeInFocus[5] &&  competitorRangeInFocus[5].name)}}
-                     style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[5] &&  competitorRangeInFocus[5].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                    {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].name}
-                    </div>
-                 </div>
-                
-                 <div>
-                     <div onClick={()=>{callThirtyTwoSouth4(competitorRangeInFocus && competitorRangeInFocus[6] &&  competitorRangeInFocus[6].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[6] &&  competitorRangeInFocus[6].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].name}
-                     </div>
-                  
-                  
-                     <div onClick={()=>{callThirtyTwoSouth4(competitorRangeInFocus && competitorRangeInFocus[7] &&  competitorRangeInFocus[7].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[7] &&  competitorRangeInFocus[7].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].name}
-                  </div>
-                </div>
 
-                </div>
-                
-                
-                <div  style={{display:"flex",flexDirection:"column",gap:"2.5rem"}}>
-                  
-                 <div>
-                     <div onClick={()=>{callThirtyTwoSouth5(competitorRangeInFocus && competitorRangeInFocus[8] &&  competitorRangeInFocus[8].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[8] &&  competitorRangeInFocus[8].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].name}
-                     </div>
-                  
-                  
-                     <div onClick={()=>{callThirtyTwoSouth5(competitorRangeInFocus && competitorRangeInFocus[9] &&  competitorRangeInFocus[9].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[9] &&  competitorRangeInFocus[9].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].name}
-                     </div>
-                 </div>
-                 
-                 <div>
-                   <div onClick={()=>{callThirtyTwoSouth6(competitorRangeInFocus && competitorRangeInFocus[10] &&  competitorRangeInFocus[10].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[10] &&  competitorRangeInFocus[10].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].name}
-                   </div>
-                
-                
-                   <div onClick={()=>{callThirtyTwoSouth6(competitorRangeInFocus && competitorRangeInFocus[11] &&  competitorRangeInFocus[11].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[11] &&  competitorRangeInFocus[11].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].name}
-                   </div>
-                </div>
-               
-                </div>
-                
-                <div  style={{display:"flex",flexDirection:"column",gap:"2.5rem"}}>
-                  
-                <div>
-                   <div onClick={()=>{callThirtyTwoSouth7(competitorRangeInFocus && competitorRangeInFocus[12] &&  competitorRangeInFocus[12].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[12] &&  competitorRangeInFocus[12].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].name}
-                   </div>
-                
-                
-                   <div onClick={()=>{callThirtyTwoSouth7(competitorRangeInFocus && competitorRangeInFocus[13] &&  competitorRangeInFocus[13].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[13] &&  competitorRangeInFocus[13].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].name}
-                   </div>
-                </div>
-
-                
-                <div>
-                   <div onClick={()=>{callThirtyTwoSouth8(competitorRangeInFocus && competitorRangeInFocus[14] &&  competitorRangeInFocus[14].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[14] &&  competitorRangeInFocus[14].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].name}
-                   </div>
-                
-                   <div onClick={()=>{callThirtyTwoSouth8(competitorRangeInFocus && competitorRangeInFocus[15] &&  competitorRangeInFocus[15].name)}}
-                   style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[15] &&  competitorRangeInFocus[15].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].name}
-                   </div>
-              </div>
-                
-                 </div>
-                
-                
-    </RespScale>
-
-      <RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}> 
-            
-               <div onClick={()=>{callSixteenSouth1(thirtyTwoSouth1)}}
-               
-               style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",borderRadius:"5%",position:"relative",top:"-1rem",display:"flex",alignItems:"center",justifyContent:"center"}} >
-             
-               {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0].name */}
-               {thirtyTwoSouth1}
-               </div>
- 
- 
-                <div onClick={()=>{callSixteenSouth1(thirtyTwoSouth2)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1.5rem"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1].name */}
-                {thirtyTwoSouth2}
-                </div>
-
-
-                <div  onClick={()=>{callSixteenSouth2(thirtyTwoSouth3)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2].name */}
-                {thirtyTwoSouth3}
-                </div>
- 
- 
-                <div onClick={()=>{callSixteenSouth2(thirtyTwoSouth4)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1rem"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3].name*/ }
-                {thirtyTwoSouth4}
-                </div>
-
-
-                <div onClick={()=>{callSixteenSouth3(thirtyTwoSouth5)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4].name */}
-                {thirtyTwoSouth5}
-                </div>
- 
- 
-                <div  onClick={()=>{callSixteenSouth3(thirtyTwoSouth6)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5].name */}
-                {thirtyTwoSouth6}
-                </div>
-
-
-                <div  onClick={()=>{callSixteenSouth4(thirtyTwoSouth7)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1.5rem"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6].name */}
-                {thirtyTwoSouth7}
-                </div>
- 
- 
-                <div  onClick={()=>{callSixteenSouth4(thirtyTwoSouth8)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7].name */}
-                {thirtyTwoSouth8}
-                </div>
-
-
-    </RespScale>
-
-    <RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}> 
-
-               <div onClick={()=>{callEightSouth1(sixteenSouth1)}}
-               
-               style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[0].sweetSixteen === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-3rem"}} >
-               {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[0].name */}
-               {sixteenSouth1}
-               </div>
- 
- 
-               <div onClick={()=>{callEightSouth1(sixteenSouth2)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[1].sweetSixteen === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1rem"}} >
-               {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[1].name */}
-               {sixteenSouth2}
-                </div>
-
-
-                <div onClick={()=>{callEightSouth2(sixteenSouth3)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[2].sweetSixteen === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
-                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[2].name */}
-                {sixteenSouth3}
-               </div>
- 
- 
-               <div onClick={()=>{callEightSouth2(sixteenSouth4)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[3].sweetSixteen === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
-               {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundTwo && item.roundTwo === 'won'))[3].name */}
-               {sixteenSouth4}
-                </div>
-           
-          </RespScale>
-
-           <RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}>  
+  
+<RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}>  
    
-              <div onClick={()=>{callFourSouth1(eightSouth1)}}
-               style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
-              {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].name */}
-              {eightSouth1}
-              </div>
+   <div onClick={()=>{callFourSouth1(eightSouth1)}}
+    style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
+   {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].name */}
+   {eightSouth1}
+   </div>
 
 
-              <div onClick={()=>{callFourSouth1(eightSouth2)}}
-              style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
-              {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].name */}
-              {eightSouth2}
-               </div>
+   <div onClick={()=>{callFourSouth1(eightSouth2)}}
+   style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
+   {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].name */}
+   {eightSouth2}
+    </div>
 
 
 
 
-           </RespScale>
+</RespScale>
 
-           <RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
+
+<RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
            
-              <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
-              {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
-              {fourSouth1}
-              </div>
-           </RespScale>
+           <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+           {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
+           {fourSouth1}
+           </div>
+        </RespScale>
+
+
+<RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
+           
+           <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"7rem",width:"9rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+           {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
+           {fourSouth1}
+           </div>
+        </RespScale>
+
+
+        <RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
+           
+           <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+           {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
+           {fourSouth1}
+           </div>
+        </RespScale>
+
+          
+<RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}>  
+   
+   <div onClick={()=>{callFourSouth1(eightSouth1)}}
+    style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
+   {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].name */}
+   {eightSouth1}
+   </div>
+
+
+   <div onClick={()=>{callFourSouth1(eightSouth2)}}
+   style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
+   {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].name */}
+   {eightSouth2}
+    </div>
 
 
 
-      
 
+</RespScale>
+
+
+
+         
   </div >
  
     
