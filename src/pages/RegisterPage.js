@@ -245,6 +245,34 @@ const RespLogo = styled('div')(({ theme }) => ({
 }));
 
 
+const RespTitle = styled('h1')(({ theme }) => ({
+  
+
+ 
+
+  [theme.breakpoints.up('md')]: {
+   
+    display:"flex", 
+    justifyContent:"space-around",
+    marginLeft:"40px",
+    width:"100%" 
+     
+   },
+
+
+
+  [theme.breakpoints.down('md')]: {
+    display:"flex",
+     justifyContent:"center",  
+     gap:"3rem",  
+     marginLeft:"20px",                 
+    width:"100%"    
+                        },
+
+
+
+}));
+
 
 const RespPlay = styled('div')(({ theme }) => ({
   
@@ -422,13 +450,13 @@ const [adminNCAA,setAdminNCAA] = useState(false)
 
  <div style={{width:"50%", margin:"0 auto",marginTop:"4rem"}}>
      <div style={{display:"flex", justifyContent:"center",marginBottom:"2.5rem",width:"80%",}}>
-          <Typography   variant="h2" sx={{ textAlign: 'left',color:"#260952", cursor:"pointer"}}>
+          <Typography   variant="h2" sx={{ textAlign: 'center',color:"#260952", cursor:"pointer"}}>
               HOW TO PLAY
             </Typography>
           </div>
 
      
-          <div style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
+          <RespTitle style={{display:"flex", justifyContent:"space-between",width:"80%"}}>
       <Typography  onClick={()=>{setLeagueAdmins(false);setLeagueMembers(true);setMembersLogin(true);setAdminReg(false);setAdminLogin(false);setAdminCreateLeague(false);setAdminInvite(false);setAdminCreateComp(false);setAdminManage(false);setAdminNCAA(false)}} variant="h6" sx={{ textAlign: 'left',color:leagueMembers?"black":"lightgrey", cursor:"pointer"}}>
           LEAGUE MEMBERS
         </Typography>
@@ -436,7 +464,7 @@ const [adminNCAA,setAdminNCAA] = useState(false)
         <Typography  onClick={()=>{setLeagueAdmins(true);setLeagueMembers(false);setMembersLogin(false);setAdminLogin(true); setMembersReg(false);setMembersLogin(false);setMembersJoinLeague(false);setMembersAddPoints(false);setMembersJoinComp(false);setMembersOutcome(false);setMembersNCAA(false);setMembersMakeSelect(false) }} variant="h6" sx={{ textAlign: 'left',color:leagueAdmins?"black":"lightgrey",cursor:"pointer",}} >
           LEAGUE ADMIN
         </Typography>
-      </div>
+      </RespTitle>
       <Divider style={{width:"100%",position:"relative",top:"0.1rem"}}/>
     </div>
 
