@@ -21,6 +21,10 @@ const initialState = {
 
       fourSouth1:'',
 
+      final1:'',
+      final2:'',
+      winner:'',
+
 };
 
 const tournamentSouthSlice = createSlice({
@@ -92,6 +96,20 @@ const tournamentSouthSlice = createSlice({
     },
 
 
+    saveFinal1: (state, action) => {
+      state.final1 = action.payload; 
+    },
+
+    saveFinal2: (state, action) => {
+      state.final2 = action.payload; 
+    },
+
+
+    saveWinner: (state, action) => {
+      state.winner = action.payload; 
+    },
+
+
     
    
 
@@ -126,6 +144,10 @@ export const {
   saveEightSouth2,
 
   saveFourSouth1,
+
+  saveFinal1,
+  saveFinal2,
+  saveWinner,
 
  clearGroup
 } = actions;

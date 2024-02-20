@@ -45,7 +45,13 @@ import {
   setSixteenSouth4,
   setEightSouth1,
   setEightSouth2,
-  setFourSouth1
+  setFourSouth1,
+  
+  setFinal1,
+  setFinal2,
+  setWinner,
+
+  setNCAAPredictionsForUser
   
 } from 'src/redux/actions/tournamentSouth.action';
 
@@ -140,6 +146,18 @@ const RespJoin = styled('div')(({ theme }) => ({
 }));
 
 
+const RespTourney = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('md')]: {
+    marginTop:"0rem"
+  },
+
+  [theme.breakpoints.up('md')]: {
+    marginTop:"-10rem"
+  },
+}));
+
+
+
 const WhiteTheme = createTheme({
   textColor: { main: 'white', highlighted: 'black', dark: 'white' },
   matchBackground: { wonColor: '#FAFAFA', lostColor: '#260952' },
@@ -195,7 +213,10 @@ const {
   eightSouth1,
   eightSouth2,
 
-  fourSouth1
+  fourSouth1,
+  final1,
+  final2,
+  winner
  
 } = useSelector((state) => state.tournamentSouth);
 
@@ -537,48 +558,32 @@ let ref = useRef(null)
 let size = useComponentSize(ref)
 let { width, height } = size
 
-/*
-// R32
-const [thirtyTwo1,setThirtyTwo1] = useState('')
-const [thirtyTwo2,setThirtyTwo2] = useState('')
-const [thirtyTwo3,setThirtyTwo3] = useState('')
-const [thirtyTwo4,setThirtyTwo4] = useState('')
-const [thirtyTwo5,setThirtyTwo5] = useState('')
-const [thirtyTwo6,setThirtyTwo6] = useState('')
-const [thirtyTwo7,setThirtyTwo7] = useState('')
-const [thirtyTwo8,setThirtyTwo8] = useState('')
 
-//S16
-const [sixteen1,setSixteen1] = useState('')
-const [sixteen2,setSixteen2] = useState('')
-const [sixteen3,setSixteen3] = useState('')
-const [sixteen4,setSixteen4] = useState('')
+const predictionObject = {
+  eastWinner:fourEast1,
+  southWinner:fourSouth1,
+  midWestWinner:fourMidWest1,
+  westWinner:fourWest1,
+  finalist1:final1,
+  finalist2:final2,
+  overallWinner:winner
+}
 
-//E8
-const [eight1,setEight1] = useState('')
-const [eight2,setEight2] = useState('')
-//Q4
-const [four1,setFour1] = useState('')
-*/
 
-const callThirtyTwoSouth1 = (entry)=>{ dispatch(setThirtyTwoSouth1(entry))}
-const callThirtyTwoSouth2 = (entry)=>{ dispatch(setThirtyTwoSouth2(entry))}
-const callThirtyTwoSouth3 = (entry)=>{ dispatch(setThirtyTwoSouth3(entry))}
-const callThirtyTwoSouth4 = (entry)=>{ dispatch(setThirtyTwoSouth4(entry))}
-const callThirtyTwoSouth5 = (entry)=>{ dispatch(setThirtyTwoSouth5(entry))}
-const callThirtyTwoSouth6 = (entry)=>{ dispatch(setThirtyTwoSouth6(entry))}
-const callThirtyTwoSouth7 = (entry)=>{ dispatch(setThirtyTwoSouth7(entry))}
-const callThirtyTwoSouth8 = (entry)=>{ dispatch(setThirtyTwoSouth8(entry))}
+const sendNCAAPredictions = (userId,predictionObject,navigate) => {
+  if( !final1 || !final2 || !winner || !fourEast1 || !fourWest1 || !fourMidWest1 || !fourSouth1  ){ 
+    notifyErrorFxn("Please make sure all predicitions have been selected before submitting!")
+    return
+  }
+  else{
+    dispatch(setNCAAPredictionsForUser(userId,predictionObject,navigate))
+  }
+  }
 
-const callSixteenSouth1 = (entry)=>{ dispatch(setSixteenSouth1(entry))}
-const callSixteenSouth2 = (entry)=>{ dispatch(setSixteenSouth2(entry))}
-const callSixteenSouth3 = (entry)=>{ dispatch(setSixteenSouth3(entry))}
-const callSixteenSouth4 = (entry)=>{ dispatch(setSixteenSouth4(entry))}
 
-const callEightSouth1 = (entry)=>{ dispatch(setEightSouth1(entry))}
-const callEightSouth2 = (entry)=>{ dispatch(setEightSouth2(entry))}
-
-const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
+const callFinal1 =  (entry)=>{ dispatch(setFinal1(entry))}
+const callFinal2 =  (entry)=>{ dispatch(setFinal2(entry))}
+const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
 
 
   return (
@@ -632,7 +637,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
       </RespScale>
 
   
-       <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%",height:"100%",overflow:"hidden",marginTop:"-10px"}}>
+       <RespTourney style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100%",height:"100%",overflow:"hidden",}}>
         {/*<SingleEliminationBracket
           theme={WhiteTheme}
            matches={matches}
@@ -659,17 +664,17 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
   
 <RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}>  
    
-   <div onClick={()=>{callFourSouth1(eightSouth1)}}
+   <div onClick={()=>{callFinal1(fourSouth1)}}
     style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
    {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].name */}
-   {eightSouth1}
+   {fourSouth1}
    </div>
 
 
-   <div onClick={()=>{callFourSouth1(eightSouth2)}}
+   <div onClick={()=>{callFinal1(fourEast1)}}
    style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
    {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].name */}
-   {eightSouth2}
+   {fourEast1}
     </div>
 
 
@@ -680,9 +685,10 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 
 <RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
            
-           <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+           <div onClick={()=>{callWinner(final1)}}
+           style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
            {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
-           {fourSouth1}
+           {final1}
            </div>
         </RespScale>
 
@@ -691,33 +697,34 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
            
            <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"7rem",width:"9rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
            {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
-           {fourSouth1}
+           {winner}
            </div>
         </RespScale>
 
 
         <RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
            
-           <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+           <div onClick={()=>{callWinner(final2)}}
+            style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"4rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
            {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}
-           {fourSouth1}
+           {final2}
            </div>
         </RespScale>
 
           
 <RespScale style={{display:"flex",flex:"1",justifyContent:"space-evenly",flexDirection:"column",alignItems:"center",height:"100%",fontSize:"12px",}}>  
    
-   <div onClick={()=>{callFourSouth1(eightSouth1)}}
+   <div onClick={()=>{callFinal2(fourWest1)}}
     style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-2.5rem"}} >
    {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[0].name */}
-   {eightSouth1}
+   {fourWest1}
    </div>
 
 
-   <div onClick={()=>{callFourSouth1(eightSouth2)}}
+   <div onClick={()=>{callFinal2(fourMidWest1)}}
    style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].eliteEight === "lost" ?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"2.5rem"}} >
    {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.sweetSixteen && item.sweetSixteen === 'won'))[1].name */}
-   {eightSouth2}
+   {fourMidWest1}
     </div>
 
 
@@ -728,7 +735,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 
 
          
-  </div >
+  </RespTourney>
  
     
 
@@ -828,52 +835,9 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
             />
 
 
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "select a team or player"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourMidWest1}
-            disabled
-           
-            
-            />
 
-
-
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "select a team or player"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourEast1}
-            disabled
-           
-            
-            />
-
-
-
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "select a team or player"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourWest1}
-            disabled
-           
-            
-            />
-
-
-            <Button onClick={()=>{movetoFinal()}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
-            { loading?"Loading":"PROCEED TO FINAL"}
+            <Button onClick={()=>{sendNCAAPredictions(user.id,predictionObject,navigate)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
+            { loading?"Loading":"SUBMIT"}
             </Button>
 
      </Container>

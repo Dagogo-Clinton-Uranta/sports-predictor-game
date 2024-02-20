@@ -17,11 +17,26 @@ import { saveEightSouth1,
        saveThirtyTwoSouth6,
         saveThirtyTwoSouth7,
          saveThirtyTwoSouth8,
-        
-        
-        
+         saveFinal1,
+         saveFinal2,
+         saveWinner
+
+
         } from '../reducers/tournamentSouth.slice';
 import firebase from "firebase/app";
+
+export const setNCAAPredictionsForUser = (userId,predictionObject,navigate) => {
+
+    db.collection('users').doc(userId).update({
+        ncaaPredictions: predictionObject
+      }).then(() => {
+
+       notifySuccessFxn('NCAA prediction successfully updated')
+       navigate('/dashboard/home')
+      })
+}
+
+
 
 export const setThirtyTwoSouth1 =  (teamName) => async (dispatch) => {
 
@@ -118,3 +133,24 @@ export const setSixteenSouth1  =  (teamName) => async (dispatch) =>{
                         dispatch(saveFourSouth1 (teamName))
                                
                         }
+
+
+
+
+                    export const setFinal1  =  (teamName) => async (dispatch) =>{
+                        dispatch(saveFinal1 (teamName))
+                               
+                        }
+
+
+
+                        export const setFinal2  =  (teamName) => async (dispatch) =>{
+                            dispatch(saveFinal2 (teamName))
+                                   
+                            }
+
+
+                            export const setWinner  =  (teamName) => async (dispatch) =>{
+                                dispatch(saveWinner (teamName))
+                                       
+                                }
