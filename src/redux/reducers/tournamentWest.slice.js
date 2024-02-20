@@ -93,11 +93,7 @@ const tournamentWestSlice = createSlice({
 
 
     
-   
-
-
-    
-    clearGroup: (state) => {
+    clearGroupWest: (state) => {
       return {
         ...initialState,
       };
@@ -127,7 +123,7 @@ export const {
 
   saveFourWest1,
 
- clearGroup
+ clearGroupWest
 } = actions;
 
 export default reducer;

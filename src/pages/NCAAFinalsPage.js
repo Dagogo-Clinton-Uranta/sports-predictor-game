@@ -57,6 +57,13 @@ import {
 
 
 
+import {clearGroupSouth} from 'src/redux/reducers/tournamentSouth.slice';
+import {clearGroupMidWest} from 'src/redux/reducers/tournamentMidWest.slice';
+import {clearGroupEast} from 'src/redux/reducers/tournamentEast.slice';
+import {clearGroupWest} from 'src/redux/reducers/tournamentWest.slice';
+
+
+
 import FLOGO from '../assets/images/fLogo.png';
 import SALAH from '../assets/images/salah.jpeg';
 import BRUNO from '../assets/images/BRUNO.jpeg';
@@ -585,6 +592,17 @@ const callFinal1 =  (entry)=>{ dispatch(setFinal1(entry))}
 const callFinal2 =  (entry)=>{ dispatch(setFinal2(entry))}
 const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
 
+const resetAllRoundsPrediction = ()=> {
+  if(window.confirm("are you sure you want to get rid of ALL your predictions, including this stage?")){
+
+    dispatch(clearGroupEast())
+    dispatch(clearGroupMidWest())
+    dispatch(clearGroupSouth())
+    dispatch(clearGroupWest())
+
+  }
+}
+
 
   return (
     <>
@@ -809,7 +827,7 @@ const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
 
 
       <div style={{marginTop:"0rem",width:"100%"}}>
-      <Button onClick={()=>{}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
+      <Button onClick={()=>{resetAllRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
             { "RESET"}
             </Button>
       </div>
@@ -821,7 +839,7 @@ const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
   
 
 
-      <TextField
+      {/*<TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
             placeholder= "select a team or player"
@@ -832,7 +850,7 @@ const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
             disabled
            
             
-            />
+      />*/}
 
 
 

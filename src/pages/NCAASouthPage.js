@@ -61,6 +61,10 @@ import { indexOf } from 'lodash';
 
 import { SingleEliminationBracket, DoubleEliminationBracket, Match, MATCH_STATES, SVGViewer,createTheme } from '@g-loot/react-tournament-brackets';
 import useComponentSize from '@rehooks/component-size'
+import { clearGroupEast } from 'src/redux/reducers/tournamentEast.slice';
+import { clearGroupMidWest } from 'src/redux/reducers/tournamentMidWest.slice';
+import { clearGroupSouth } from 'src/redux/reducers/tournamentSouth.slice';
+import { clearGroupWest } from 'src/redux/reducers/tournamentWest.slice';
 
 const StyledContent = styled('div')(({ theme }) => ({
   maxWidth: 480,
@@ -239,6 +243,16 @@ const [waiting,setWaiting] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState(goalScorerCompetitionInFocus?goalScorerCompetitionInFocus.id:"umhhXlB1kcrXLcu6hYIQ")
 
 
+ const resetAllRoundsPrediction = ()=> {
+  if(window.confirm("are you sure you want to get rid of ALL your predictions, including this stage?")){
+
+    dispatch(clearGroupEast())
+    dispatch(clearGroupMidWest())
+    dispatch(clearGroupSouth())
+    dispatch(clearGroupWest())
+
+  }
+}
 
 
 
@@ -989,7 +1003,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 
 
       <div style={{marginTop:"0rem",width:"100%"}}>
-      <Button onClick={()=>{}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
+      <Button onClick={()=>{resetAllRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
             { "RESET"}
             </Button>
       </div>
@@ -1004,7 +1018,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
       <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
-            placeholder= "select a team or player"
+            placeholder= "SOUTH"
             variant="outlined"
             multiline
             maxRows={2}
@@ -1018,7 +1032,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
-            placeholder= "select a team or player"
+            placeholder= "MID WEST"
             variant="outlined"
             multiline
             maxRows={2}
@@ -1033,7 +1047,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
-            placeholder= "select a team or player"
+            placeholder= "EAST"
             variant="outlined"
             multiline
             maxRows={2}
@@ -1048,7 +1062,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 <TextField
             style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
             fullWidth
-            placeholder= "select a team or player"
+            placeholder= "WEST"
             variant="outlined"
             multiline
             maxRows={2}
