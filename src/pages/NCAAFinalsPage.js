@@ -227,9 +227,83 @@ const {
  
 } = useSelector((state) => state.tournamentSouth);
 
-const {fourEast1}= useSelector((state) => state.tournamentEast);
-const {fourWest1}= useSelector((state) => state.tournamentWest);
-const {fourMidWest1}= useSelector((state) => state.tournamentMidWest);
+const {
+  
+
+    thirtyTwoEast1,
+    thirtyTwoEast2,
+    thirtyTwoEast3,
+    thirtyTwoEast4,
+    thirtyTwoEast5,
+    thirtyTwoEast6,
+    thirtyTwoEast7,
+    thirtyTwoEast8,
+  
+    sixteenEast1,
+    sixteenEast2,
+    sixteenEast3,
+    sixteenEast4,
+  
+    eightEast1,
+    eightEast2,
+  
+    
+     fourEast1
+
+}= useSelector((state) => state.tournamentEast);
+
+
+
+const {
+  
+  
+    thirtyTwoWest1,
+    thirtyTwoWest2,
+    thirtyTwoWest3,
+    thirtyTwoWest4,
+    thirtyTwoWest5,
+    thirtyTwoWest6,
+    thirtyTwoWest7,
+    thirtyTwoWest8,
+  
+    sixteenWest1,
+    sixteenWest2,
+    sixteenWest3,
+    sixteenWest4,
+  
+    eightWest1,
+    eightWest2,
+  
+    
+     fourWest1
+
+
+    }= useSelector((state) => state.tournamentWest);
+
+
+const {
+  
+  thirtyTwoMidWest1,
+  thirtyTwoMidWest2,
+  thirtyTwoMidWest3,
+  thirtyTwoMidWest4,
+  thirtyTwoMidWest5,
+  thirtyTwoMidWest6,
+  thirtyTwoMidWest7,
+  thirtyTwoMidWest8,
+
+  sixteenMidWest1,
+  sixteenMidWest2,
+  sixteenMidWest3,
+  sixteenMidWest4,
+
+  eightMidWest1,
+  eightMidWest2,
+
+  
+   fourMidWest1
+
+}= useSelector((state) => state.tournamentMidWest);
 
 const movetoFinal  =() =>{
   if(!(fourEast1.length &&fourMidWest1.length && fourSouth1.length && fourWest1.length)){
@@ -567,12 +641,90 @@ let { width, height } = size
 
 
 const predictionObject = {
+ 
+ roundof32Predictions:[ thirtyTwoSouth1,
+  thirtyTwoSouth2,
+  thirtyTwoSouth3,
+  thirtyTwoSouth4,
+  thirtyTwoSouth5,
+  thirtyTwoSouth6,
+  thirtyTwoSouth7,
+  thirtyTwoSouth8,
+  
+  thirtyTwoMidWest1,
+  thirtyTwoMidWest2,
+  thirtyTwoMidWest3,
+  thirtyTwoMidWest4,
+  thirtyTwoMidWest5,
+  thirtyTwoMidWest6,
+  thirtyTwoMidWest7,
+  thirtyTwoMidWest8,
+
+  thirtyTwoWest1,
+  thirtyTwoWest2,
+  thirtyTwoWest3,
+  thirtyTwoWest4,
+  thirtyTwoWest5,
+  thirtyTwoWest6,
+  thirtyTwoWest7,
+  thirtyTwoWest8,
+
+  thirtyTwoEast1,
+  thirtyTwoEast2,
+  thirtyTwoEast3,
+  thirtyTwoEast4,
+  thirtyTwoEast5,
+  thirtyTwoEast6,
+  thirtyTwoEast7,
+  thirtyTwoEast8,
+],
+
+ roundOf16Predictions:[
+  
+  sixteenMidWest1,
+  sixteenMidWest2,
+  sixteenMidWest3,
+  sixteenMidWest4,
+
+  sixteenEast1,
+  sixteenEast2,
+  sixteenEast3,
+  sixteenEast4,
+
+  sixteenWest1,
+  sixteenWest2,
+  sixteenWest3,
+  sixteenWest4,
+
+  sixteenSouth1,
+  sixteenSouth2,
+  sixteenSouth3,
+  sixteenSouth4,
+
+ ],
+ eliteEightPredictions:[
+
+  eightMidWest1,
+  eightMidWest2,
+
+  eightWest1,
+  eightWest2,
+
+  eightEast1,
+  eightEast2,
+
+  eightSouth1,
+  eightSouth2,
+
+ ],
   eastWinner:fourEast1,
   southWinner:fourSouth1,
   midWestWinner:fourMidWest1,
   westWinner:fourWest1,
+  
   finalist1:final1,
   finalist2:final2,
+ 
   overallWinner:winner
 }
 
@@ -593,7 +745,7 @@ const callFinal2 =  (entry)=>{ dispatch(setFinal2(entry))}
 const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
 
 const resetAllRoundsPrediction = ()=> {
-  if(window.confirm("are you sure you want to get rid of ALL your predictions, including this stage?")){
+  if(window.confirm("are you sure you want to get rid of ALL your predictions, including the latest round?")){
 
     dispatch(clearGroupEast())
     dispatch(clearGroupMidWest())

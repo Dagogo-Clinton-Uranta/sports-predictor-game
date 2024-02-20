@@ -301,7 +301,7 @@ const loadAndNavigate = ()=>{
 
 
  const resetAllRoundsPrediction = ()=> {
-  if(window.confirm("are you sure you want to get rid of ALL your predictions, including this stage?")){
+  if(window.confirm("are you sure you want to get rid of ALL your predictions, including the latest round?")){
 
     dispatch(clearGroupEast())
     dispatch(clearGroupMidWest())
