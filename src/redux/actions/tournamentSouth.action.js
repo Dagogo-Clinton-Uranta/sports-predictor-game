@@ -25,11 +25,21 @@ import { saveEightSouth1,
         } from '../reducers/tournamentSouth.slice';
 import firebase from "firebase/app";
 
-export const setNCAAPredictionsForUser = (userId,predictionObject,navigate) => {
-
+export const setNCAAPredictionsForUser = (userId,compId,predictionObject,navigate) => {
+  //update the user that he is this competition now, then 
     db.collection('users').doc(userId).update({
-        ncaaPredictions: predictionObject
-      }).then(() => {
+        ncaaPredictions: predictionObject,
+        competitions:firebase.firestore.FieldValue.arrayUnion(compId)
+      }).then(()=>{
+
+ 
+        db.collection("competitions").doc(compId.trim()).update({
+            userSelections:firebase.firestore.FieldValue.arrayUnion(predictionObject)
+          })
+      
+
+      })
+      .then(() => {
 
        notifySuccessFxn('NCAA prediction successfully updated')
        navigate('/dashboard/home')

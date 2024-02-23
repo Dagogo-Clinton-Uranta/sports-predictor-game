@@ -641,7 +641,7 @@ let { width, height } = size
 
 
 const predictionObject = {
- 
+ userId:user && user.id,
  roundof32Predictions:[ thirtyTwoSouth1,
   thirtyTwoSouth2,
   thirtyTwoSouth3,
@@ -728,14 +728,18 @@ const predictionObject = {
   overallWinner:winner
 }
 
+const NCAAcompId = "QHzOAVhAtGN3SmqnBwVX"
+
 
 const sendNCAAPredictions = (userId,predictionObject,navigate) => {
+ let compId  = NCAAcompId
+
   if( !final1 || !final2 || !winner || !fourEast1 || !fourWest1 || !fourMidWest1 || !fourSouth1  ){ 
     notifyErrorFxn("Please make sure all predicitions have been selected before submitting!")
     return
   }
   else{
-    dispatch(setNCAAPredictionsForUser(userId,predictionObject,navigate))
+    dispatch(setNCAAPredictionsForUser(userId,compId,predictionObject,navigate))
   }
   }
 
