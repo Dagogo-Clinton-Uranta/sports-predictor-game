@@ -262,13 +262,11 @@ const [waiting,setWaiting] =  useState(false)
  const [goalScorerCompId,setGoalScorerCompId] = useState(goalScorerCompetitionInFocus?goalScorerCompetitionInFocus.id:"umhhXlB1kcrXLcu6hYIQ")
 
 
- const resetAllRoundsPrediction = ()=> {
-  if(window.confirm("are you sure you want to get rid of ALL your predictions, including the latest round?")){
+ const resetEastRoundsPrediction = ()=> {
+  if(window.confirm("are you sure you want to get rid of all your predictions for the EAST, including the latest round?")){
 
     dispatch(clearGroupEast())
-    dispatch(clearGroupMidWest())
-    dispatch(clearGroupSouth())
-    dispatch(clearGroupWest())
+    
 
   }
 }
@@ -977,7 +975,7 @@ let { width, height } = size
 
 
       <div style={{marginTop:"0rem",width:"100%"}}>
-      <Button onClick={()=>{resetAllRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
+      <Button onClick={()=>{resetEastRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
             { "RESET"}
             </Button>
       </div>

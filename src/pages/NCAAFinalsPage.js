@@ -728,6 +728,16 @@ const predictionObject = {
   overallWinner:winner
 }
 
+useEffect(()=>{
+
+  if( !fourEast1 || !fourWest1 || !fourMidWest1 || !fourSouth1  ){ 
+  navigate("/dashboard/ncaa-south")
+  }
+
+
+},[])
+
+
 const NCAAcompId = "QHzOAVhAtGN3SmqnBwVX"
 
 

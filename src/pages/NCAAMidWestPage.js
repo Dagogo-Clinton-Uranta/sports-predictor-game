@@ -300,13 +300,12 @@ const loadAndNavigate = ()=>{
  }
 
 
- const resetAllRoundsPrediction = ()=> {
-  if(window.confirm("are you sure you want to get rid of ALL your predictions, including the latest round?")){
+ const resetMidWestRoundsPrediction = ()=> {
+  if(window.confirm("are you sure you want to get rid of all your predictions for the MIDWEST, including the latest round?")){
 
-    dispatch(clearGroupEast())
+    
     dispatch(clearGroupMidWest())
-    dispatch(clearGroupSouth())
-    dispatch(clearGroupWest())
+   
 
   }
 }
@@ -952,7 +951,7 @@ let { width, height } = size
 
 
       <div style={{marginTop:"0rem",width:"100%"}}>
-      <Button onClick={()=>{resetAllRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
+      <Button onClick={()=>{resetMidWestRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
             { "RESET"}
             </Button>
       </div>
