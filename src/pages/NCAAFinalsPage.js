@@ -759,7 +759,7 @@ const callFinal2 =  (entry)=>{ dispatch(setFinal2(entry))}
 const callWinner =  (entry)=>{ dispatch(setWinner(entry))}
 
 const resetAllRoundsPrediction = ()=> {
-  if(window.confirm("are you sure you want to get rid of ALL your predictions, including the latest round?")){
+  if(window.confirm("Confirm Selection Reset?")){
 
     dispatch(clearGroupEast())
     dispatch(clearGroupMidWest())

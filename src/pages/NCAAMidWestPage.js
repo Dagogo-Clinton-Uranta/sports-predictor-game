@@ -301,7 +301,7 @@ const loadAndNavigate = ()=>{
 
 
  const resetMidWestRoundsPrediction = ()=> {
-  if(window.confirm("are you sure you want to get rid of all your predictions for the MIDWEST, including the latest round?")){
+  if(window.confirm("Confirm Selection Reset?")){
 
     
     dispatch(clearGroupMidWest())
@@ -619,6 +619,7 @@ let { width, height } = size
              
 
                    
+                   
 <RespScale style={{display:"flex",flexDirection:"column",flex:"1",justifyContent:"space-around",alignItems:"center",height:"100%",fontSize:"12px"}}>  
                 
                     
@@ -627,28 +628,28 @@ let { width, height } = size
                   
                   <div>
                    <div onClick={()=>{callThirtyTwoMidWest1(competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor: competitorRangeInFocus[0] &&  competitorRangeInFocus[0].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                    {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor: competitorRangeInFocus[0] &&  competitorRangeInFocus[0].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                    {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].seed}. {competitorRangeInFocus && competitorRangeInFocus[0] &&  competitorRangeInFocus[0].name}
                    </div>
                 
                 
-                   <div onClick={()=>{callThirtyTwoMidWest1(competitorRangeInFocus && competitorRangeInFocus[1] &&  competitorRangeInFocus[1].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[1] &&  competitorRangeInFocus[1].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].name}
+                   <div onClick={()=>{callThirtyTwoMidWest1(competitorRangeInFocus && competitorRangeInFocus[15] &&  competitorRangeInFocus[15].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[15] &&  competitorRangeInFocus[15].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].seed}. {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].name}
                    </div>
                  </div>
                 
 
                  <div>
-                   <div  onClick={()=>{callThirtyTwoMidWest2(competitorRangeInFocus && competitorRangeInFocus[2] &&  competitorRangeInFocus[2].name)}}
-                   style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[2] &&  competitorRangeInFocus[2].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].name}
+                   <div  onClick={()=>{callThirtyTwoMidWest2(competitorRangeInFocus && competitorRangeInFocus[7] &&  competitorRangeInFocus[7].name)}}
+                   style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[7] &&  competitorRangeInFocus[7].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].seed}. {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].name}
                    </div>
                 
                 
-                   <div onClick={()=>{callThirtyTwoMidWest2(competitorRangeInFocus && competitorRangeInFocus[3] &&  competitorRangeInFocus[3].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[3] &&  competitorRangeInFocus[3].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].name}
+                   <div onClick={()=>{callThirtyTwoMidWest2(competitorRangeInFocus && competitorRangeInFocus[8] &&  competitorRangeInFocus[8].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[8] &&  competitorRangeInFocus[8].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].seed}. {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].name}
                    </div>
                 </div>
 
@@ -659,27 +660,27 @@ let { width, height } = size
                    
                  <div> 
                     <div onClick={()=>{callThirtyTwoMidWest3(competitorRangeInFocus && competitorRangeInFocus[4] &&  competitorRangeInFocus[4].name)}}
-                     style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[4] &&  competitorRangeInFocus[4].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                    {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].name}
+                     style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[4] &&  competitorRangeInFocus[4].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                    {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].seed}. {competitorRangeInFocus && competitorRangeInFocus[4] && competitorRangeInFocus[4].name}
                     </div>
                  
                  
-                    <div onClick={()=>{callThirtyTwoMidWest3(competitorRangeInFocus && competitorRangeInFocus[5] &&  competitorRangeInFocus[5].name)}}
-                     style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[5] &&  competitorRangeInFocus[5].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                    {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].name}
+                    <div onClick={()=>{callThirtyTwoMidWest3(competitorRangeInFocus && competitorRangeInFocus[11] &&  competitorRangeInFocus[11].name)}}
+                     style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[11] &&  competitorRangeInFocus[11].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                    {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].seed}. {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].name}
                     </div>
                  </div>
                 
                  <div>
-                     <div onClick={()=>{callThirtyTwoMidWest4(competitorRangeInFocus && competitorRangeInFocus[6] &&  competitorRangeInFocus[6].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[6] &&  competitorRangeInFocus[6].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].name}
+                     <div onClick={()=>{callThirtyTwoMidWest4(competitorRangeInFocus && competitorRangeInFocus[3] &&  competitorRangeInFocus[3].name)}}
+                      style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[3] &&  competitorRangeInFocus[3].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                     {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].seed}. {competitorRangeInFocus && competitorRangeInFocus[3] && competitorRangeInFocus[3].name}
                      </div>
                   
                   
-                     <div onClick={()=>{callThirtyTwoMidWest4(competitorRangeInFocus && competitorRangeInFocus[7] &&  competitorRangeInFocus[7].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[7] &&  competitorRangeInFocus[7].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[7] && competitorRangeInFocus[7].name}
+                     <div onClick={()=>{callThirtyTwoMidWest4(competitorRangeInFocus && competitorRangeInFocus[12] &&  competitorRangeInFocus[12].name)}}
+                      style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[12] &&  competitorRangeInFocus[12].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                     {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].seed}. {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].name}
                   </div>
                 </div>
 
@@ -689,28 +690,28 @@ let { width, height } = size
                 <div  style={{display:"flex",flexDirection:"column",gap:"2.5rem"}}>
                   
                  <div>
-                     <div onClick={()=>{callThirtyTwoMidWest5(competitorRangeInFocus && competitorRangeInFocus[8] &&  competitorRangeInFocus[8].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[8] &&  competitorRangeInFocus[8].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[8] && competitorRangeInFocus[8].name}
+                     <div onClick={()=>{callThirtyTwoMidWest5(competitorRangeInFocus && competitorRangeInFocus[5] &&  competitorRangeInFocus[5].name)}}
+                      style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[5] &&  competitorRangeInFocus[5].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                     {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].seed}. {competitorRangeInFocus && competitorRangeInFocus[5] && competitorRangeInFocus[5].name}
                      </div>
                   
                   
-                     <div onClick={()=>{callThirtyTwoMidWest5(competitorRangeInFocus && competitorRangeInFocus[9] &&  competitorRangeInFocus[9].name)}}
-                      style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[9] &&  competitorRangeInFocus[9].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                     {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].name}
+                     <div onClick={()=>{callThirtyTwoMidWest5(competitorRangeInFocus && competitorRangeInFocus[10] &&  competitorRangeInFocus[10].name)}}
+                      style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[10] &&  competitorRangeInFocus[10].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                     {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].seed}. {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].name}
                      </div>
                  </div>
                  
                  <div>
-                   <div onClick={()=>{callThirtyTwoMidWest6(competitorRangeInFocus && competitorRangeInFocus[10] &&  competitorRangeInFocus[10].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[10] &&  competitorRangeInFocus[10].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[10] && competitorRangeInFocus[10].name}
+                   <div onClick={()=>{callThirtyTwoMidWest6(competitorRangeInFocus && competitorRangeInFocus[2] &&  competitorRangeInFocus[2].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[2] &&  competitorRangeInFocus[2].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].seed}. {competitorRangeInFocus && competitorRangeInFocus[2] && competitorRangeInFocus[2].name}
                    </div>
                 
                 
-                   <div onClick={()=>{callThirtyTwoMidWest6(competitorRangeInFocus && competitorRangeInFocus[11] &&  competitorRangeInFocus[11].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[11] &&  competitorRangeInFocus[11].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[11] && competitorRangeInFocus[11].name}
+                   <div onClick={()=>{callThirtyTwoMidWest6(competitorRangeInFocus && competitorRangeInFocus[13] &&  competitorRangeInFocus[13].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[13] &&  competitorRangeInFocus[13].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].seed}. {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].name}
                    </div>
                 </div>
                
@@ -719,28 +720,28 @@ let { width, height } = size
                 <div  style={{display:"flex",flexDirection:"column",gap:"2.5rem"}}>
                   
                 <div>
-                   <div onClick={()=>{callThirtyTwoMidWest7(competitorRangeInFocus && competitorRangeInFocus[12] &&  competitorRangeInFocus[12].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[12] &&  competitorRangeInFocus[12].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[12] && competitorRangeInFocus[12].name}
+                   <div onClick={()=>{callThirtyTwoMidWest7(competitorRangeInFocus && competitorRangeInFocus[6] &&  competitorRangeInFocus[6].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[6] &&  competitorRangeInFocus[6].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].seed}. {competitorRangeInFocus && competitorRangeInFocus[6] && competitorRangeInFocus[6].name}
                    </div>
                 
                 
-                   <div onClick={()=>{callThirtyTwoMidWest7(competitorRangeInFocus && competitorRangeInFocus[13] &&  competitorRangeInFocus[13].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[13] &&  competitorRangeInFocus[13].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[13] && competitorRangeInFocus[13].name}
+                   <div onClick={()=>{callThirtyTwoMidWest7(competitorRangeInFocus && competitorRangeInFocus[9] &&  competitorRangeInFocus[9].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[9] &&  competitorRangeInFocus[9].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].seed}. {competitorRangeInFocus && competitorRangeInFocus[9] && competitorRangeInFocus[9].name}
                    </div>
                 </div>
 
                 
                 <div>
-                   <div onClick={()=>{callThirtyTwoMidWest8(competitorRangeInFocus && competitorRangeInFocus[14] &&  competitorRangeInFocus[14].name)}}
-                    style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[14] &&  competitorRangeInFocus[14].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].name}
+                   <div onClick={()=>{callThirtyTwoMidWest8(competitorRangeInFocus && competitorRangeInFocus[1] &&  competitorRangeInFocus[1].name)}}
+                    style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[1] &&  competitorRangeInFocus[1].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderTopLeftRadius:"5%",borderTopRightRadius:"5%"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].seed}. {competitorRangeInFocus && competitorRangeInFocus[1] && competitorRangeInFocus[1].name}
                    </div>
                 
-                   <div onClick={()=>{callThirtyTwoMidWest8(competitorRangeInFocus && competitorRangeInFocus[15] &&  competitorRangeInFocus[15].name)}}
-                   style={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[15] &&  competitorRangeInFocus[15].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
-                   {competitorRangeInFocus && competitorRangeInFocus[15] && competitorRangeInFocus[15].name}
+                   <div onClick={()=>{callThirtyTwoMidWest8(competitorRangeInFocus && competitorRangeInFocus[14] &&  competitorRangeInFocus[14].name)}}
+                   style={{cursor:"pointer",display:"flex",justifyContent:"flex-start",gap:"0.5rem",paddingLeft:"0.3rem",alignItems:"center",color:"white",backgroundColor:competitorRangeInFocus[14] &&  competitorRangeInFocus[14].roundOne==="lost"?"grey" :"#260448", height:"1.5rem",display:"flex",width:"7rem",borderBottomLeftRadius:"5%",borderBottomRightRadius:"5%",borderTop:"1px solid white"}} >
+                   {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].seed}. {competitorRangeInFocus && competitorRangeInFocus[14] && competitorRangeInFocus[14].name}
                    </div>
               </div>
                 
