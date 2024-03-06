@@ -1,4 +1,4 @@
-import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField } from '@mui/material';
+import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField ,TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -164,6 +164,40 @@ const RespTourney = styled('div')(({ theme }) => ({
 }));
 
 
+const RespShow = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:"block"
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    display:"none"
+  },
+}));
+
+
+const RespHide = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:"none"
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    display:"block"
+  },
+}));
+
+
+const RespTitleHide = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:"none"
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    display:"flex",
+    justifyContent:"space-between"
+  },
+}));
+
+
 
 const WhiteTheme = createTheme({
   textColor: { main: 'white', highlighted: 'black', dark: 'white' },
@@ -200,6 +234,15 @@ export default function NCAAFinalsPage() {
 
 const {user} = useSelector((state) => state.auth);
 const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus,leagueInFocus,competitorRangeInFocus} = useSelector((state) => state.football);
+
+
+const dummyData =[
+  {userName:"Boomers",playerName:"Furman"},
+  {userName:"Kingsmen",playerName:"Alabama"},
+  {userName:"Globe Trotters",playerName:"Princeton"},
+  {userName:"Marksmen",playerName:"Maryland"},
+  
+]
 
 
 const { 
@@ -877,7 +920,7 @@ const resetAllRoundsPrediction = ()=> {
         </RespScale>
 
 
-<RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"12px",}}>  
+<RespScale style={{display:"flex",flexDirection:"column",flex:"1",display:"flex",justifyContent:"space-evenly",alignItems:"center",height:"100%",fontSize:"16px",}}>  
            
            <div style={{cursor:"pointer",color:"white",backgroundColor:"#260448", height:"7rem",width:"9rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
            {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.eliteEight && item.eliteEight === 'won'))[0].name */}

@@ -1,4 +1,4 @@
-import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField } from '@mui/material';
+import { Grid, Container, Typography, Button, Paper, CircularProgress, Divider, Select, MenuItem, makeStyles, TextField, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -144,6 +144,41 @@ const RespJoin = styled('div')(({ theme }) => ({
 }));
 
 
+const RespShow = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:"block"
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    display:"none"
+  },
+}));
+
+
+const RespHide = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:"none"
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    display:"block"
+  },
+}));
+
+
+const RespTitleHide = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    display:"none"
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    display:"flex",
+    justifyContent:"space-between"
+  },
+}));
+
+
+
 const WhiteTheme = createTheme({
   textColor: { main: 'white', highlighted: 'black', dark: 'white' },
   matchBackground: { wonColor: '#FAFAFA', lostColor: '#260952' },
@@ -180,6 +215,13 @@ export default function NCAASouthPage() {
 const {user} = useSelector((state) => state.auth);
 const { premierLeagueTeams,teamPlayersInFocus,isLoading,goalScorerCompetitionInFocus,leagueInFocus,competitorRangeInFocus} = useSelector((state) => state.football);
 
+const dummyData =[
+  {userName:"Boomers",playerName:"Furman"},
+  {userName:"Kingsmen",playerName:"Alabama"},
+  {userName:"Globe Trotters",playerName:"Princeton"},
+  {userName:"Marksmen",playerName:"Maryland"},
+  
+]
 
 const { 
   thirtyTwoSouth1,
@@ -612,7 +654,7 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
 
 <Container  ref={ref} style={{display: 'flex', justifyContent: 'flex-start',alignItems:"flex-start",flexDirection:"column",flex:4, border: '1px solid #0000001A', paddingTop: '2%', paddingBottom: '2%',marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:/*"#f4f0ec"*/'#FAFAFA' }}>
     
-
+<RespHide style={{width:"100%"}}>
 
 <Divider style={{width:"100%",position:"relative",top:"2rem"}}/>
 
@@ -937,7 +979,81 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
           OR
         </Typography>
       </Divider> */}
+ </RespHide>
+
+ <RespShow>
  
+
+<div style={{display:"flex", justifyContent:"flex-start",flexDirection:"column"}}>
+<RespShow>
+<h4 style={{marginTop:"0rem"}}>March Madness</h4>
+</RespShow>
+
+ <Typography variant="h6" sx={{ textAlign: 'left',cursor:"pointer"}}>
+     SOUTH
+   </Typography>
+
+
+   <Divider style={{width:"100%",position:"relative"}}/>
+</div>
+
+  <center style={{marginTop:"4rem",marginBottom:"4rem"}}>
+  <h4>Please Make Predictions on the web</h4>
+  </center>
+
+
+
+   
+  <div style={{backgroundColor:'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SOUTH PREDICTIONS</div>
+     <TableContainer component={Paper} style={{marginTop:"0rem",backgroundColor:"#FAFAFA"}}>
+      
+ 
+       {/*<h4> &nbsp; - &nbsp; Finalist</h4>*/}
+       
+        
+           <Divider/>
+       
+       
+               <Table sx={{ tableLayout:"fixed",backgroundColor:"#FAFAFA" }} aria-label="custom pagination table">
+                 <TableHead  sx={{backgroundColor:"#FAFAFA  !important" }} >
+                   <TableRow>
+                     <TableCell></TableCell>
+                     <TableCell align="left">Username</TableCell>
+                     <TableCell align="left">Pick</TableCell>
+                   
+                    
+            </TableRow>
+          </TableHead>
+
+         <Divider/>
+
+          <TableBody>
+            {dummyData.map((row,index) => (
+                  <TableRow key={index}>
+                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} component="th" scope="row">
+                      {index+1}
+                    </TableCell>
+                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
+                      {row && row.userName?row.userName:row && row.teamName}
+                    </TableCell>
+                    <TableCell style={{ width: 140,borderBottom:"1px solid lightgrey" }} align="left">
+                  
+                    {row && row.playerName}
+                    
+                    </TableCell>
+                    </TableRow>  
+                  ))
+    
+                  
+                  }
+    
+                
+           </TableBody>
+         </Table>
+       </TableContainer> 
+    
+ 
+ </RespShow>
   </Container>
 
   {/*========================================================================== IF THEY ARE PART OF THIS LEAGUE  \/  =========================================================== */}
@@ -956,7 +1072,8 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
       
      <h4>March Madness</h4>
      
-     <div style={{display:"flex", justifyContent:"space-between"}}>
+     <RespTitleHide style={{ justifyContent:"space-between"}}>
+     
       <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
           PREDICT
         </Typography>
@@ -964,7 +1081,9 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
         <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{ /*loadAndNavigate()*/ } }>
         { waiting?"loading..":'RESULTS' }
         </Typography>
-    </div>
+   
+    </RespTitleHide>
+    
         <Divider/>
 
    <div style={{marginTop:"3rem",marginBottom:"5rem",width:"100%",display: 'flex',flexDirection:"column", justifyContent: 'flex-start',gap:"2rem"}}>
@@ -1001,139 +1120,91 @@ const callFourSouth1 = (entry)=>{ dispatch(setFourSouth1(entry))}
       </div>
 
 
-      <div style={{marginTop:"0rem",width:"100%"}}>
+      <RespHide style={{marginTop:"0rem",width:"100%"}}>
       <Button onClick={()=>{resetSouthRoundsPrediction()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white'}}>
             { "RESET"}
             </Button>
-      </div>
+      </RespHide>
   </div>
 
      
    
-  <div style={{backgroundColor:'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SELECTIONS</div>
-  
+<RespHide>
+      <div style={{backgroundColor:'#F4F4F4', height:"2rem",color:"#260448",fontWeight:"bolder",display:"flex",justifyContent:"center",alignItems:"center"}}>SELECTIONS</div>
+      
+    
+    
+          <TextField
+                style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
+                fullWidth
+                placeholder= "SOUTH"
+                variant="outlined"
+                multiline
+                maxRows={2}
+                value= {fourSouth1}
+                disabled
+               
+                
+                />
 
 
-      <TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "SOUTH"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourSouth1}
-            disabled
-           
-            
-            />
+     <TextField
+                 style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
+                 fullWidth
+                 placeholder= "MID WEST"
+                 variant="outlined"
+                 multiline
+                 maxRows={2}
+                 value= {fourMidWest1}
+                 disabled
+                
+                 
+                 />
+     
+     
+     
+     <TextField
+                 style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
+                 fullWidth
+                 placeholder= "EAST"
+                 variant="outlined"
+                 multiline
+                 maxRows={2}
+                 value= {fourEast1}
+                 disabled
+                
+                 
+                 />
+     
+     
+     
+     <TextField
+                 style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
+                 fullWidth
+                 placeholder= "WEST"
+                 variant="outlined"
+                 multiline
+                 maxRows={2}
+                 value= {fourWest1}
+                 disabled
+                
+                 
+                 />
+     
+     
+                 <Button onClick={()=>{movetoFinal()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
+                 { loading?"Loading":"PROCEED TO FINAL"}
+                 </Button>
+  </RespHide>      
 
 
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "MID WEST"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourMidWest1}
-            disabled
-           
-            
-            />
+ 
 
-
-
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "EAST"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourEast1}
-            disabled
-           
-            
-            />
-
-
-
-<TextField
-            style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%",marginBottom:"1rem"}}
-            fullWidth
-            placeholder= "WEST"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {fourWest1}
-            disabled
-           
-            
-            />
-
-
-            <Button onClick={()=>{movetoFinal()}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
-            { loading?"Loading":"PROCEED TO FINAL"}
-            </Button>
 
      </Container>
     }
 
 
-
-{/*========================================================================== IF THEY ARE PART OF THIS COMPETITION  /\  =========================================================== */}
-
-
-{/*========================================================================== IF THEY ARE NOT PART OF THIS COMPETITION \/ =========================================================== */}
-
-
-
-
-{/*(user && user.competitions && user.competitions.includes(goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.id))   &&
-      
-      <Container   style={{display: 'flex',flexDirection:"column", justifyContent: 'space-between',flex:2, border: '1px solid #0000001A',   marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:"#FAFAFA" }}>    
-
-   <h4>FOOTBALL &nbsp; - &nbsp; Goal Scorer</h4>
-
-     <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,cursor:"pointer",}}>
-          SELECT
-        </Typography>
-
-        <Typography variant="h6" sx={{ textAlign: 'left', mb: 2,color:"lightgrey",cursor:"pointer",}} onClick={()=>{}}>
-          RESULTS
-        </Typography>
-    </div>
-        <Divider/>
-
-
-         <RespJoin style={{display:"flex", justifyContent:"center",alignItems:"center",flexDirection:"column",gap:"0.5rem"}}>
-
-        {  goalScorerCompetitionInFocus.hasOwnProperty("compName")?(
-           <>
-             <div>ENTRY FEE - {goalScorerCompetitionInFocus && goalScorerCompetitionInFocus.entryFee && (goalScorerCompetitionInFocus.entryFee).toLocaleString()} &nbsp; PTS</div>
-            <Button onClick={()=>{joinLeague(goalScorerCompId,user.id,user.accountBalance)}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',width:"75%"}}>
-              JOIN
-            </Button>
-          </>
-
-         ):(
-          !eliminated ?
-
-
-            <div>NO COMPETITION YET</div>
-         :  
-         
-         <div>ELIMINATED FROM THIS COMPETITION</div>
-          
-
-         )
-           }
-
-        </RespJoin>
-
-     </Container>
-    */}
 
   
    
