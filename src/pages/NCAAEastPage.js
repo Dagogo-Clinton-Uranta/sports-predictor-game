@@ -631,7 +631,7 @@ let { width, height } = size
 
 <Container  ref={ref} style={{display: 'flex', justifyContent: 'flex-start',alignItems:"flex-start",flexDirection:"column",flex:4, border: '1px solid #0000001A', paddingTop: '2%', paddingBottom: '2%',marginTop: '2%', marginBottom: '2%', borderRadius: '15px',backgroundColor:/*"#f4f0ec"*/'#FAFAFA' }}>
 
-<RespHide>   
+<RespHide style={{width:"100%"}}>   
 <Divider style={{width:"100%",position:"relative",top:"2rem"}}/>
 
      <div style={{display:"flex", justifyContent:"flex-start",flexDirection:"column"}}>
@@ -825,7 +825,7 @@ let { width, height } = size
             
                <div onClick={()=>{callSixteenEast1(thirtyTwoEast1)}}
                
-               style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",borderRadius:"5%",position:"relative",top:"-1rem",display:"flex",alignItems:"center",justifyContent:"center"}} >
+               style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",borderRadius:"5%",position:"relative",top:"-1rem",display:"flex",alignItems:"center",justifyContent:"center"}} >
              
                {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[0].name */}
                {thirtyTwoEast1}
@@ -833,49 +833,49 @@ let { width, height } = size
  
  
                 <div onClick={()=>{callSixteenEast1(thirtyTwoEast2)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1.5rem"}} >
+                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1.5rem"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[1].name */}
                 {thirtyTwoEast2}
                 </div>
 
 
                 <div  onClick={()=>{callSixteenEast2(thirtyTwoEast3)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[2].name */}
                 {thirtyTwoEast3}
                 </div>
  
  
                 <div onClick={()=>{callSixteenEast2(thirtyTwoEast4)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1rem"}} >
+                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"-1rem"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[3].name*/ }
                 {thirtyTwoEast4}
                 </div>
 
 
                 <div onClick={()=>{callSixteenEast3(thirtyTwoEast5)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[4].name */}
                 {thirtyTwoEast5}
                 </div>
  
  
                 <div  onClick={()=>{callSixteenEast3(thirtyTwoEast6)}}
-                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
+                 style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[5].name */}
                 {thirtyTwoEast6}
                 </div>
 
 
                 <div  onClick={()=>{callSixteenEast4(thirtyTwoEast7)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1.5rem"}} >
+                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1.5rem"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[6].name */}
                 {thirtyTwoEast7}
                 </div>
  
  
                 <div  onClick={()=>{callSixteenEast4(thirtyTwoEast8)}}
-                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
+                style={{cursor:"pointer",color:"white",backgroundColor:competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7].roundTwo === "lost"?"grey":"#260448", height:"3rem",width:"7rem",marginBottom:"0.5rem",marginTop:"0.5rem",display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"5%",position:"relative",top:"1rem"}} >
                 {/*competitorRangeInFocus && competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7] &&competitorRangeInFocus.filter((item)=>(item.roundOne && item.roundOne === 'won'))[7].name */}
                 {thirtyTwoEast8}
                 </div>
@@ -1172,7 +1172,7 @@ let { width, height } = size
         />
 
 
-            <Button onClick={()=>{moveToFinal()}}  style={{backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
+            <Button onClick={()=>{moveToFinal()}}  style={{width:"100%",backgroundColor: '#260952',height:"4rem" ,color:'white',marginBottom:"6rem" }}>
             { loading?"Loading":"PROCEED TO FINAL"}
             </Button>
  </RespHide>
